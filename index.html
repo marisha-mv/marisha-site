@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARISHA | Your Funnel Is Bleeding Millions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+        h1, h2, h3 { font-family: 'Bodoni Moda', serif; font-weight: 700; line-height: 1.1; }
+        .bg-cream { background: linear-gradient(135deg, #f8f6f3 0%, #f3f0eb 100%); }
+        .bg-bordeaux { background: linear-gradient(135deg, #6b1f3d 0%, #4a1529 100%); }
+        .text-bordeaux { color: #6b1f3d; }
+        .text-gold { color: #d4a574; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 700; letter-spacing: 0.15em; font-size: 1.75rem; }
+        .fade-in { opacity: 0; transform: translateY(50px); transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-in.reveal { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .hover-lift { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .hover-lift:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(107, 31, 61, 0.2); }
+        .animated-gradient { background: linear-gradient(270deg, #6b1f3d, #4a1529, #8b2f4f); background-size: 400% 400%; animation: gradient 15s ease infinite; }
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .7; } }
+    </style>
+</head>
+<body class="bg-cream">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-8 lg:px-16 py-6 transition-all duration-500">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="#" class="logo-name text-bordeaux hover:opacity-70 transition-opacity duration-300">MARISHA</a>
+            <a href="https://calendly.com/marisha-hl" target="_blank" class="bg-bordeaux text-white px-6 py-3 rounded-full font-semibold hover:shadow-xl transition-all duration-300 hover:scale-105">Book a Call</a>
+        </div>
+    </nav>
+
+    <section class="min-h-screen flex items-center px-8 lg:px-16 py-32 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-bordeaux opacity-5 blur-3xl" id="blob1"></div>
+        <div class="max-w-screen-2xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div class="space-y-8 fade-in">
+                <div class="inline-block bg-bordeaux text-white px-4 py-2 rounded-full text-sm font-bold pulse">⚡ ONLY 3 SPOTS LEFT THIS QUARTER</div>
+                <h1 class="text-6xl lg:text-7xl xl:text-8xl leading-[0.95]">
+                    Your Funnel Is Bleeding <span class="text-bordeaux italic">$5M a Year.</span> I'll Show You Where.
+                </h1>
+                <p class="text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-xl font-semibold">
+                    Most entrepreneurs think they need more traffic. They're wrong. Your messaging is broken, your funnel leaks, and you're leaving millions on the table. I fix this in 90 days.
+                </p>
+                <div class="bg-gray-50 p-8 rounded-2xl border-l-4 border-bordeaux">
+                    <p class="text-lg mb-4"><strong>Here's the truth nobody's telling you:</strong></p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li>✗ 40% of your traffic bounces because your messaging is confusing</li>
+                        <li>✗ Your checkout flow loses 60% of buyers (I've seen this 100x)</li>
+                        <li>✗ You're spending $50K/month on ads when you should fix retention first</li>
+                        <li>✗ Your competitors are scaling faster because they know what you don't</li>
+                    </ul>
+                </div>
+                <a href="https://calendly.com/marisha-hl" target="_blank" class="inline-block bg-bordeaux text-white px-12 py-6 rounded-full text-xl font-bold hover:shadow-2xl transition-all duration-300 hover:scale-105">Show Me What's Broken →</a>
+                <p class="text-sm text-gray-500">15-min strategy call · No pitch, just value</p>
+            </div>
+            <div class="relative fade-in delay-2">
+                <div class="absolute -inset-4 bg-gradient-to-br from-bordeaux to-gold opacity-20 rounded-3xl blur-2xl"></div>
+                <div class="relative">
+                    <div class="absolute -top-6 -left-6 w-full h-full border-2 border-bordeaux rounded-3xl opacity-30"></div>
+                    <img src="HERO-IMAGE.jpg" alt="Marisha Lakhiani" class="relative w-full h-[600px] lg:h-[700px] object-cover object-center rounded-3xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-8 lg:px-16 bg-black text-white">
+        <div class="max-w-screen-2xl mx-auto">
+            <p class="text-sm tracking-[0.2em] uppercase text-gray-400 font-semibold mb-8 text-center fade-in">Trusted by</p>
+            <div class="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-10 gap-8 items-center opacity-40 hover:opacity-60 transition-opacity duration-300 fade-in delay-1">
+                <img src="https://static.showit.co/200/FeBvzYtjTBSdBbnziLL2qg/shared/mindvalley_white.png" alt="Mindvalley" class="w-full h-10 object-contain">
+                <img src="https://static.showit.co/200/a07WWJUpSF2gTRQ-aiWBLA/shared/google_white.png" alt="Google" class="w-full h-10 object-contain">
+                <img src="https://static.showit.co/200/N6t-BQYqRhmzXW2g8I-sBg/shared/meta_white.png" alt="Meta" class="w-full h-10 object-contain">
+                <img src="https://static.showit.co/200/C0jqL1TGT023K2IgZwZSvQ/shared/aw_white.png" alt="Affiliate World" class="w-full h-10 object-contain">
+                <img src="https://static.showit.co/200/yu96TeIgRfqTGFW9zPiaKQ/shared/tatler_white.png" alt="Tatler" class="w-full h-10 object-contain">
+                <img src="https://static.showit.co/200/4-kpFRFVQ0euiwWZU-uFvA/shared/clipart4506520.png" alt="Forbes" class="w-full h-10 object-contain">
+                <img src="https://static.showit.co/200/qYNLW-gVRuSMmpZ9PIGOtw/shared/nbc_white.png" alt="NBC" class="w-full h-10 object-contain">
+                <img src="https://static.showit.co/200/vMduBVVzR8aji8w2E_VNkA/shared/fox_white.png" alt="FOX" class="w-full h-10 object-contain">
+                <img src="https://static.showit.co/200/MEeppK-fRW6IbkYLCaDD1w/shared/adworld_white.png" alt="Adworld" class="w-full h-10 object-contain">
+                <img src="https://static.showit.co/200/NZMrnsFqTp6Vw4gHF7N_FQ/shared/global_marketing_day_white.png" alt="Global Marketing Day" class="w-full h-10 object-contain">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-8 lg:px-16 bg-bordeaux text-white">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="fade-in">
+                <p class="text-gold text-sm tracking-[0.3em] uppercase font-semibold mb-6">The Hard Truth</p>
+                <h2 class="text-5xl lg:text-6xl mb-12">I Don't Work With Companies Under $1M. Here's Why.</h2>
+                <p class="text-2xl mb-8 opacity-95 leading-relaxed">
+                    If you're doing under $1M/year, you don't have a growth problem. You have a product-market fit problem. Go figure that out first.
+                </p>
+                <p class="text-xl opacity-90 leading-relaxed mb-12">
+                    I work with companies already doing $1M-$50M who want to hit $100M+ in 18-24 months. Because at that level, it's not about "trying harder"—it's about fixing the 3-5 things that are costing you millions.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8 text-left">
+                    <div class="bg-white bg-opacity-10 p-8 rounded-xl backdrop-blur-sm">
+                        <h3 class="text-3xl font-bold mb-4">$1M-$10M</h3>
+                        <p class="opacity-90">Your funnel is broken. 60-70% of visitors bounce. Your checkout loses half your buyers. I'll show you exactly where.</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 p-8 rounded-xl backdrop-blur-sm">
+                        <h3 class="text-3xl font-bold mb-4">$10M-$50M</h3>
+                        <p class="opacity-90">Retention is killing you. You're hemorrhaging customers and don't even know it. We build AI systems that keep them longer.</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 p-8 rounded-xl backdrop-blur-sm">
+                        <h3 class="text-3xl font-bold mb-4">$50M-$150M+</h3>
+                        <p class="opacity-90">Scale infrastructure. Your team can't keep up. I implement automation that does the work of 50 people at 1/10th the cost.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHOTO COLLAGE -->
+    <section class="py-20 px-8 lg:px-16 bg-white">
+        <div class="max-w-screen-2xl mx-auto fade-in">
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+                <img src="https://static.showit.co/800/AMdt2gs1TkmlmaQ2mE8-WQ/shared/2e597037-edbe-4a11-8dfe-87b3da4684a8.jpg" alt="Marisha Speaking" class="w-full h-80 object-cover rounded-2xl shadow-lg">
+                <img src="https://static.showit.co/400/efKDHLASSHa41FhiJQYtKw/shared/img_8370_1.jpg" alt="Marisha with Vishen" class="w-full h-80 object-cover object-top rounded-2xl shadow-lg">
+                <img src="https://static.showit.co/400/_aLaKMbfRTa3jyGy8-QyPQ/shared/img-278.jpg" alt="Marisha" class="w-full h-80 object-cover rounded-2xl shadow-lg">
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <img src="https://static.showit.co/1200/mS5gk6P0R7yLCIya15Z42A/shared/background_1.jpg" alt="Marisha on Stage" class="w-full h-80 object-cover rounded-2xl shadow-lg">
+                <img src="https://static.showit.co/800/hEWqGmkNRbSVX4W5orbNUg/shared/mindvalley_university_2022_-_0c2a5153_-_photo_by_kersti_niglas.jpg" alt="Marisha at Mindvalley" class="w-full h-80 object-cover rounded-2xl shadow-lg">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-8 lg:px-16">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="max-w-3xl mb-20 fade-in">
+                <p class="text-bordeaux text-sm tracking-[0.3em] uppercase font-semibold mb-6">Case Study</p>
+                <h2 class="text-5xl lg:text-6xl mb-8">How I Took Mindvalley from $30M to $150M</h2>
+                <p class="text-2xl text-gray-700 leading-relaxed mb-8">Everyone asks: "What's the secret?" There is no secret. Just ruthless execution on 3 things most companies ignore.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="fade-in delay-1 bg-gray-50 p-10 rounded-2xl border-l-4 border-bordeaux">
+                    <div class="text-5xl font-bold text-bordeaux mb-4">01</div>
+                    <h3 class="text-2xl font-serif font-bold mb-4">Fixed the Funnel First</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Everyone wanted to spend more on ads. I said no. We had a 67% bounce rate. Fixed messaging, rebuilt the entire flow. Conversion jumped 3x in 60 days.</p>
+                    <p class="font-bold text-bordeaux">Result: $4M saved in wasted ad spend</p>
+                </div>
+
+                <div class="fade-in delay-2 bg-gray-50 p-10 rounded-2xl border-l-4 border-bordeaux">
+                    <div class="text-5xl font-bold text-bordeaux mb-4">02</div>
+                    <h3 class="text-2xl font-serif font-bold mb-4">Built Retention Systems</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Most companies chase new customers. Dumb. We focused on keeping the ones we had. AI-powered engagement, personalized journeys, automated winback.</p>
+                    <p class="font-bold text-bordeaux">Result: LTV increased 4.2x</p>
+                </div>
+
+                <div class="fade-in delay-3 bg-gray-50 p-10 rounded-2xl border-l-4 border-bordeaux">
+                    <div class="text-5xl font-bold text-bordeaux mb-4">03</div>
+                    <h3 class="text-2xl font-serif font-bold mb-4">Automated Everything</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Hired AI before hiring people. Email sequences, customer support, upsell flows—all automated. Scaled to $150M with half the headcount of competitors.</p>
+                    <p class="font-bold text-bordeaux">Result: 60% lower CAC</p>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center fade-in">
+                <p class="text-2xl text-gray-700 mb-8">This isn't rocket science. It's just knowing what to fix first.</p>
+                <a href="https://calendly.com/marisha-hl" target="_blank" class="inline-block bg-bordeaux text-white px-12 py-6 rounded-full text-xl font-bold hover:shadow-2xl transition-all duration-300 hover:scale-105">Let Me Audit Your Business →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="py-32 px-8 lg:px-16 bg-black text-white">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="max-w-3xl mb-20 fade-in">
+                <p class="text-gold text-sm tracking-[0.3em] uppercase font-semibold mb-6">What You Get</p>
+                <h2 class="text-5xl lg:text-6xl mb-8">I'll Tell You Exactly What's Broken. Then We Fix It.</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="fade-in delay-1 bg-white bg-opacity-5 p-12 rounded-2xl border border-white border-opacity-10">
+                    <h3 class="text-4xl font-serif mb-6">The Audit</h3>
+                    <p class="text-xl mb-6 opacity-90">I spend 8-10 hours tearing apart your entire business. Funnel, messaging, offers, retention, operations. Then I show you the 5-7 things costing you millions.</p>
+                    <ul class="space-y-4 mb-8 text-lg opacity-90">
+                        <li>→ Where 40-60% of your revenue is leaking</li>
+                        <li>→ Why your competitors are scaling faster</li>
+                        <li>→ The exact automation gaps killing your margins</li>
+                        <li>→ What to fix first for maximum ROI</li>
+                    </ul>
+                    <p class="text-3xl font-bold text-gold">Investment: $10K-$25K</p>
+                    <p class="text-sm opacity-75 mt-2">Most clients make this back in 30 days</p>
+                </div>
+
+                <div class="fade-in delay-2 bg-white bg-opacity-5 p-12 rounded-2xl border border-white border-opacity-10">
+                    <h3 class="text-4xl font-serif mb-6">The Fix</h3>
+                    <p class="text-xl mb-6 opacity-90">We work together monthly to implement everything. I bring the frameworks, you bring the team. We move fast and we fix what's broken.</p>
+                    <ul class="space-y-4 mb-8 text-lg opacity-90">
+                        <li>→ Monthly strategy calls (not more meetings, actual decisions)</li>
+                        <li>→ AI implementation that does the work of 50 people</li>
+                        <li>→ Direct access when you need it (Slack/Voxer)</li>
+                        <li>→ We don't stop until you hit your revenue goal</li>
+                    </ul>
+                    <p class="text-3xl font-bold text-gold">Investment: Starting at $15K/month</p>
+                    <p class="text-sm opacity-75 mt-2">12-month minimum commitment</p>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-bordeaux p-12 rounded-2xl text-center fade-in">
+                <h3 class="text-3xl font-serif mb-4">Not Sure Which One You Need?</h3>
+                <p class="text-xl mb-8 opacity-90">Book a 15-minute call. I'll tell you if we're even a fit.</p>
+                <a href="https://calendly.com/marisha-hl" target="_blank" class="inline-block bg-white text-bordeaux px-12 py-6 rounded-full text-xl font-bold hover:shadow-2xl transition-all duration-300 hover:scale-105">Book Strategy Call →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-8 lg:px-16">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="max-w-3xl mb-20 fade-in text-center mx-auto">
+                <p class="text-bordeaux text-sm tracking-[0.3em] uppercase font-semibold mb-6">Proof</p>
+                <h2 class="text-5xl lg:text-6xl mb-8">These Companies Bet Millions on My Advice</h2>
+                <p class="text-xl text-gray-700">And it paid off.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="fade-in delay-1 bg-gray-50 p-12 rounded-2xl border-l-4 border-bordeaux">
+                    <div class="flex items-start gap-6 mb-6">
+                        <img src="https://static.showit.co/400/ra_xCYkiR2m0DQyuITBBaw/shared/ben_croft.png" alt="Ben Croft" class="w-20 h-20 rounded-full shadow-lg flex-shrink-0">
+                        <div>
+                            <p class="font-bold text-xl">Ben Croft</p>
+                            <p class="text-gray-600">Founder, The WBECS Group</p>
+                        </div>
+                    </div>
+                    <p class="text-2xl font-bold text-bordeaux mb-4">+30% Revenue in 90 Days</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">"Marisha showed us exactly where we were losing money. We fixed 3 things in our funnel and grew leads, sales and profit by over 30% in 3 months. ROI was immediate."</p>
+                </div>
+
+                <div class="fade-in delay-2 bg-gray-50 p-12 rounded-2xl border-l-4 border-bordeaux">
+                    <div class="flex items-start gap-6 mb-6">
+                        <img src="https://static.showit.co/400/hsy2A3L5S6CN8C9U_VFW3Q/shared/alex_pascal.png" alt="Alex Pascal" class="w-20 h-20 rounded-full shadow-lg flex-shrink-0">
+                        <div>
+                            <p class="font-bold text-xl">Alex Pascal</p>
+                            <p class="text-gray-600">CEO, Coaching.com</p>
+                        </div>
+                    </div>
+                    <p class="text-2xl font-bold text-bordeaux mb-4">Phenomenal Results, Fast</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">"She rebuilt our emails, sales pages, and assets in weeks. The results were phenomenal. She doesn't waste time—she just gets it done."</p>
+                </div>
+
+                <div class="fade-in delay-3 bg-gray-50 p-12 rounded-2xl border-l-4 border-bordeaux">
+                    <div class="flex items-start gap-6 mb-6">
+                        <img src="https://static.showit.co/400/PnMpuTDoRY6gKTR8OeuLAQ/shared/rajiv_talreja.png" alt="Rajiv Talreja" class="w-20 h-20 rounded-full shadow-lg flex-shrink-0">
+                        <div>
+                            <p class="font-bold text-xl">Rajiv Talreja</p>
+                            <p class="text-gray-600">Founder, Quantum Leap</p>
+                        </div>
+                    </div>
+                    <p class="text-2xl font-bold text-bordeaux mb-4">Results From Session 1</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">"We started seeing results from our first session. Within 3 months our marketing completely transformed. She doesn't just advise—she gets in the trenches."</p>
+                </div>
+
+                <div class="fade-in delay-1 bg-gray-50 p-12 rounded-2xl border-l-4 border-bordeaux">
+                    <div class="flex items-start gap-6 mb-6">
+                        <img src="https://static.showit.co/400/UAvzVYATQDy-du3WuwIYNg/shared/max_gotzler.jpg" alt="Max Gotzler" class="w-20 h-20 rounded-full shadow-lg flex-shrink-0">
+                        <div>
+                            <p class="font-bold text-xl">Max Gotzler</p>
+                            <p class="text-gray-600">Founder, Flowgrade</p>
+                        </div>
+                    </div>
+                    <p class="text-2xl font-bold text-bordeaux mb-4">Streamlined Everything</p>
+                    <p class="text-gray-700 text-lg leading-relaxed">"She automated our entire launch process and helped us deliver 10x more value to customers. We're now scaling without burning out the team."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-8 lg:px-16 animated-gradient text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="fade-in">
+                <h2 class="text-5xl lg:text-6xl mb-8">Fair Warning: I'm Brutally Honest</h2>
+                <p class="text-2xl mb-8 opacity-95 leading-relaxed">
+                    On our first call, I'm going to tell you things you don't want to hear. Your messaging probably sucks. Your funnel definitely leaks. Your team is likely focused on the wrong metrics.
+                </p>
+                <p class="text-xl mb-12 opacity-90">
+                    If you want someone to pat you on the back and tell you everything's great, hire a consultant. If you want someone to show you exactly what's costing you millions and how to fix it—book a call.
+                </p>
+                <a href="https://calendly.com/marisha-hl" target="_blank" class="inline-block bg-white text-bordeaux px-12 py-6 rounded-full text-xl font-bold hover:shadow-2xl transition-all duration-300 hover:scale-105">I Can Handle the Truth →</a>
+                <p class="text-sm opacity-75 mt-6">15-minute strategy call · Zero fluff</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PODCAST/MEDIA BANNER COLLAGE -->
+    <section class="py-20 px-8 lg:px-16 bg-gray-50">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="text-center mb-12 fade-in">
+                <p class="text-bordeaux text-sm tracking-[0.3em] uppercase font-semibold mb-4">You Might Have Seen Me On</p>
+                <h2 class="text-4xl lg:text-5xl font-serif">Speaking & Media</h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6 fade-in delay-1">
+                <div class="text-center">
+                    <img src="https://static.showit.co/200/sqG-HB0ISMu_245k7W-wmw/shared/img_4157.jpg" alt="Ad World Summit" class="w-full h-64 object-cover rounded-xl shadow-lg mb-3">
+                    <p class="text-sm font-bold">MINDVALLEY SOCIAL MEDIA SUMMIT</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://static.showit.co/200/d2lP3dPyR2WeDQRq7tloDQ/shared/53c07b76-759e-4dcd-8878-4ee016a53e58.jpg" alt="Mindvalley Social Media Summit" class="w-full h-64 object-cover rounded-xl shadow-lg mb-3">
+                    <p class="text-sm font-bold">AD WORLD</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://static.showit.co/200/SVyhuWP2StmWf9aJ8uqAyA/shared/global_marketing_day.jpg" alt="Global Marketing Day" class="w-full h-64 object-cover rounded-xl shadow-lg mb-3">
+                    <p class="text-sm font-bold">GLOBAL MARKETING DAY</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://static.showit.co/200/rZmJc8_zRPexxFHp_f1DoQ/shared/goal_digger.jpg" alt="Goal Digger Podcast" class="w-full h-64 object-cover rounded-xl shadow-lg mb-3">
+                    <p class="text-sm font-bold">GOAL DIGGER</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://static.showit.co/200/E4DwAOImRxiY-rOpaQ2oCA/shared/faber-castell.jpg" alt="Ecomm Stream" class="w-full h-64 object-cover rounded-xl shadow-lg mb-3">
+                    <p class="text-sm font-bold">ECOMM STREAM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-white py-24 px-8 lg:px-16">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 mb-16">
+                <div>
+                    <h3 class="text-5xl font-serif mb-6">MARISHA</h3>
+                    <p class="text-gray-400 text-lg leading-relaxed max-w-md mb-8">I scaled Mindvalley to $150M. My clients have generated $1B+ in revenue. I don't work with companies under $1M—I work with businesses ready to 10x in 18 months.</p>
+                    <a href="https://calendly.com/marisha-hl" target="_blank" class="inline-block bg-bordeaux text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300">Book a Call →</a>
+                </div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold text-lg mb-6">Quick Links</h4>
+                        <ul class="space-y-3">
+                            <li><a href="https://calendly.com/marisha-hl" class="text-gray-400 hover:text-gold transition-colors">Book a Call</a></li>
+                            <li><a href="https://stan.store/marishalakhiani" class="text-gray-400 hover:text-gold transition-colors">Free Playbook</a></li>
+                            <li><a href="https://marishalakhiani.beehiiv.com/" class="text-gray-400 hover:text-gold transition-colors">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-6">Connect</h4>
+                        <ul class="space-y-3">
+                            <li><a href="https://www.instagram.com/marishalakhiani/" class="text-gray-400 hover:text-gold transition-colors">Instagram</a></li>
+                            <li><a href="https://www.linkedin.com/in/marishalakhiani/" class="text-gray-400 hover:text-gold transition-colors">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-white border-opacity-10 text-center text-gray-500 text-sm">© 2025 Marisha Lakhiani. All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); }); }, { threshold: 0.1, rootMargin: '-50px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) { navbar.style.background = 'rgba(248, 246, 243, 0.98)'; navbar.style.backdropFilter = 'blur(20px)'; navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)'; }
+            else { navbar.style.background = 'transparent'; navbar.style.backdropFilter = 'none'; navbar.style.boxShadow = 'none'; }
+        });
+        const blob1 = document.getElementById('blob1');
+        window.addEventListener('scroll', () => { blob1.style.transform = `translateY(${window.scrollY * 0.3}px)`; });
+    </script>
+</body>
+</html>
