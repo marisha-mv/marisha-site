@@ -38,14 +38,14 @@ Or use the provided script:
    - Folder: `/ (root)`
 5. Click **Save**
 
-## Step 4: Configure Custom Domain (Optional)
-
-If you have a custom domain:
+## Step 4: Configure Custom Domain
 
 1. Still in the **Pages** settings
-2. Under **Custom domain**, enter your domain (e.g., `marisha.com`)
+2. Under **Custom domain**, enter: `marishalakhiani.com`
 3. Check **Enforce HTTPS** (this will be available after DNS is configured)
 4. Click **Save**
+
+Note: The CNAME file has already been added to the repository.
 
 ## Step 5: Configure DNS (If using custom domain)
 
@@ -90,9 +90,9 @@ DNS changes can take anywhere from a few minutes to 48 hours to propagate. Once 
 
 ## Verification
 
-After deployment, your site will be live at:
-- https://marisha-mv.github.io/marisha-site (if using GitHub Pages default)
-- https://yourdomain.com (if using custom domain)
+After DNS propagates, your site will be live at:
+- https://marishalakhiani.com
+- https://www.marishalakhiani.com (if you also configure www subdomain)
 
 ## Troubleshooting
 
