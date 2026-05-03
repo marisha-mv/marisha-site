@@ -357,24 +357,120 @@
     </section>
 
     <!-- RESULTS IN ADVANCE -->
-    <section id="ria" class="py-20 lg:py-28 px-6 lg:px-16 bg-cream border-b border-bordeaux/10">
-        <div class="max-w-4xl mx-auto">
-            <div class="grid lg:grid-cols-5 gap-10 lg:gap-16 items-center">
-                <div class="lg:col-span-2 fade-in">
-                    <div class="border-l-2 border-gold pl-8">
-                        <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-4">Free Tool</p>
-                        <p class="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Interactive · 3 Minutes</p>
-                        <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Personalised Report</p>
+    <section id="ria" class="py-24 lg:py-36 px-6 lg:px-16 bg-cream relative overflow-hidden">
+        <!-- Decorative gold blur -->
+        <div class="absolute -top-32 -right-32 w-[500px] h-[500px] bg-gold/8 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-32 -left-32 w-[400px] h-[400px] bg-bordeaux/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto relative">
+            <div class="text-center mb-14 lg:mb-20 fade-in">
+                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Free Tool · 3 Minutes · Personalised</p>
+                <h2 class="text-4xl lg:text-6xl xl:text-7xl leading-[1.05] mb-6">Not ready to apply?<br><span class="text-bordeaux italic">See what your funnel is losing.</span></h2>
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+                    Answer a few questions. I'll show you in dollars where revenue is leaking — and which fix recovers the most first.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- MOCK PREVIEW CARD (left) -->
+                <div class="fade-in delay-1 relative">
+                    <!-- Offset gold layer behind -->
+                    <div class="absolute top-4 left-4 lg:top-6 lg:left-6 w-full h-full bg-gold/30 -z-0"></div>
+
+                    <div class="bg-bordeaux text-white p-8 lg:p-10 relative shadow-2xl">
+                        <!-- Preview header -->
+                        <div class="flex justify-between items-baseline mb-8 pb-6 border-b border-white/10">
+                            <p class="text-gold text-[10px] tracking-[0.3em] uppercase font-semibold">Your Revenue Leak Report</p>
+                            <p class="text-white/30 text-[9px] uppercase tracking-[0.2em] font-semibold">Sample</p>
+                        </div>
+
+                        <!-- Score + status -->
+                        <div class="flex items-center gap-6 mb-8">
+                            <div class="relative w-24 h-24 flex-shrink-0">
+                                <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="44" stroke="rgba(255,255,255,0.12)" stroke-width="6" fill="none"></circle>
+                                    <circle cx="50" cy="50" r="44" stroke="#c9a66b" stroke-width="6" fill="none" stroke-linecap="square" stroke-dasharray="276.5" stroke-dashoffset="154.8"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <p class="text-4xl font-bold leading-none">44</p>
+                                    <p class="text-[9px] text-white/50 uppercase tracking-[0.2em] mt-0.5">/ 100</p>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-[10px] uppercase tracking-[0.25em] text-white/50 font-semibold mb-1">Status</p>
+                                <h3 class="text-2xl lg:text-3xl text-gold italic" style="font-family: 'Bodoni Moda', serif; font-weight: 400;">Leaking.</h3>
+                                <p class="text-sm text-white/70 mt-2">Annual leak: <strong class="text-white">$187,000</strong></p>
+                            </div>
+                        </div>
+
+                        <!-- Leak bars -->
+                        <p class="text-[10px] tracking-[0.25em] uppercase text-white/40 font-semibold mb-4">Where the money is going</p>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1.5">
+                                    <span class="text-white/85 uppercase tracking-[0.05em]">Engagement Gap</span>
+                                    <span class="text-gold font-bold">$61K/yr</span>
+                                </div>
+                                <div class="h-1 bg-white/10"><div class="h-full bg-gold leak-bar" style="width: 100%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1.5">
+                                    <span class="text-white/85 uppercase tracking-[0.05em]">Close Rate Gap</span>
+                                    <span class="text-gold font-bold">$54K/yr</span>
+                                </div>
+                                <div class="h-1 bg-white/10"><div class="h-full bg-gold/85 leak-bar" style="width: 88%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1.5">
+                                    <span class="text-white/85 uppercase tracking-[0.05em]">CPL Waste</span>
+                                    <span class="text-gold font-bold">$42K/yr</span>
+                                </div>
+                                <div class="h-1 bg-white/10"><div class="h-full bg-gold/65 leak-bar" style="width: 69%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1.5">
+                                    <span class="text-white/85 uppercase tracking-[0.05em]">Sequence Gap</span>
+                                    <span class="text-gold font-bold">$30K/yr</span>
+                                </div>
+                                <div class="h-1 bg-white/10"><div class="h-full bg-gold/45 leak-bar" style="width: 49%"></div></div>
+                            </div>
+                        </div>
+
+                        <!-- Footer note -->
+                        <div class="mt-8 pt-6 border-t border-white/10 flex justify-between items-center">
+                            <p class="text-[10px] uppercase tracking-[0.25em] text-white/40">Top fix to ship first:</p>
+                            <p class="text-[11px] uppercase tracking-[0.15em] text-gold font-bold">Engagement Gap →</p>
+                        </div>
                     </div>
                 </div>
-                <div class="lg:col-span-3 fade-in delay-1">
-                    <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">Not ready to apply?<br><span class="text-bordeaux italic">See what your funnel is losing.</span></h2>
-                    <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-8">
-                        Answer a few questions about your funnel. I'll show you—in dollars—where revenue is leaking, and which fix recovers the most first.
-                    </p>
+
+                <!-- COPY + CTA (right) -->
+                <div class="fade-in delay-2">
+                    <p class="text-gold text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What you'll get</p>
+                    <ul class="space-y-5 mb-10">
+                        <li class="flex items-start gap-4 border-l-2 border-gold pl-5">
+                            <div>
+                                <p class="font-bold uppercase tracking-[0.1em] text-sm mb-1">Efficiency Score</p>
+                                <p class="text-gray-600 text-sm">Your funnel scored against $1B+ in benchmark data.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 border-l-2 border-gold pl-5">
+                            <div>
+                                <p class="font-bold uppercase tracking-[0.1em] text-sm mb-1">Dollar-Quantified Leaks</p>
+                                <p class="text-gray-600 text-sm">Every leak ranked by annual $ impact. No vague advice.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 border-l-2 border-gold pl-5">
+                            <div>
+                                <p class="font-bold uppercase tracking-[0.1em] text-sm mb-1">Top Fix To Ship First</p>
+                                <p class="text-gray-600 text-sm">The single highest-ROI move for your specific funnel.</p>
+                            </div>
+                        </li>
+                    </ul>
+
                     <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                        <a href="calculator/" class="btn-primary inline-block bg-bordeaux text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.15em]">Run the Calculator →</a>
-                        <p class="text-sm text-gray-500">Free · Instant results</p>
+                        <a href="calculator/" class="btn-primary inline-block bg-bordeaux text-white px-10 py-5 text-sm lg:text-base font-bold uppercase tracking-[0.15em]">Run the Calculator →</a>
+                        <p class="text-xs uppercase tracking-[0.2em] text-gray-500 font-semibold">Free · Instant results</p>
                     </div>
                 </div>
             </div>
@@ -410,48 +506,78 @@
     </section>
 
     <!-- CASE STUDY -->
-    <section id="case-study" class="relative overflow-hidden">
+    <section id="case-study" class="relative overflow-hidden bg-black">
         <div class="relative min-h-screen overflow-hidden">
-            <img src="https://static.showit.co/1200/mS5gk6P0R7yLCIya15Z42A/shared/background_1.jpg" alt="Marisha at Mindvalley" class="absolute inset-0 w-full h-full object-cover scale-110">
-            <div class="absolute inset-0 bg-black/85"></div>
+            <img src="https://static.showit.co/1200/mS5gk6P0R7yLCIya15Z42A/shared/background_1.jpg" alt="Marisha at Mindvalley" class="absolute inset-0 w-full h-full object-cover">
+            <!-- Layered gradient overlay for depth -->
+            <div class="absolute inset-0 bg-gradient-to-br from-black/95 via-black/85 to-bordeaux-dark/85"></div>
+            <div class="absolute inset-0 bg-black/40"></div>
 
-            <div class="absolute inset-0 flex flex-col justify-center p-8 lg:p-20">
-                <div class="max-w-6xl mx-auto w-full">
-                    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                        <div>
-                            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6 fade-in">Case Study</p>
-                            <h2 class="text-5xl lg:text-7xl xl:text-8xl text-white mb-2 fade-in">
-                                $30M → $150M
-                            </h2>
-                            <p class="text-2xl lg:text-3xl text-white/60 italic mb-10 fade-in">Mindvalley, 8 Years</p>
+            <div class="relative flex flex-col justify-center p-8 lg:p-20 min-h-screen">
+                <div class="max-w-7xl mx-auto w-full">
 
-                            <p class="text-lg lg:text-xl text-white/60 max-w-lg mb-12 fade-in">The same methodology I'll use to find what's leaking in your funnel.</p>
+                    <!-- TOP: Eyebrow + tagline -->
+                    <div class="text-center mb-12 lg:mb-16 fade-in">
+                        <p class="text-gold text-xs lg:text-sm tracking-[0.4em] uppercase font-semibold mb-3">Case Study · Mindvalley · 8 Years</p>
+                    </div>
 
-                            <div class="fade-in border-l-2 border-gold pl-6">
-                                <blockquote class="text-xl lg:text-2xl text-white italic max-w-xl mb-4">
-                                    "Marisha is the architect behind Mindvalley's growth engine."
-                                </blockquote>
-                                <p class="text-gold text-xs tracking-[0.25em] uppercase font-semibold">Vishen Lakhiani, Founder</p>
+                    <!-- HERO MOMENT: massive transformation visual -->
+                    <div class="text-center mb-16 lg:mb-24">
+                        <div class="fade-in delay-1 inline-flex items-baseline gap-4 lg:gap-8 mb-6">
+                            <div class="text-right">
+                                <p class="text-[10px] lg:text-xs uppercase tracking-[0.3em] text-white/40 font-semibold mb-2">Started</p>
+                                <p class="text-3xl lg:text-5xl xl:text-6xl text-white/50" style="font-family: 'Bodoni Moda', serif;">$30M</p>
+                            </div>
+                            <div class="text-gold text-3xl lg:text-5xl xl:text-6xl" style="font-family: 'Bodoni Moda', serif; font-style: italic;">→</div>
+                            <div class="text-left">
+                                <p class="text-[10px] lg:text-xs uppercase tracking-[0.3em] text-gold font-semibold mb-2">Reached</p>
+                                <p class="text-3xl lg:text-5xl xl:text-6xl text-white" style="font-family: 'Bodoni Moda', serif;">$150M</p>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 lg:gap-6 fade-in delay-2">
-                            <div class="glass-stat p-8 lg:p-10">
-                                <p class="text-4xl lg:text-6xl font-bold text-white mb-2">3x</p>
+                        <h2 class="text-5xl lg:text-8xl xl:text-9xl leading-none fade-in delay-2 mb-6" style="font-family: 'Bodoni Moda', serif;">
+                            <span class="text-gold italic">+$120M</span> <span class="text-white/90">unlocked.</span>
+                        </h2>
+                        <p class="text-base lg:text-xl text-white/60 max-w-2xl mx-auto fade-in delay-2">The same methodology I'll use to find what's leaking in your funnel.</p>
+                    </div>
+
+                    <!-- STATS GRID -->
+                    <div class="mb-16 lg:mb-20">
+                        <p class="text-center text-[10px] lg:text-xs tracking-[0.4em] uppercase text-white/40 font-semibold mb-8 fade-in">The numbers that got us there</p>
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-5xl mx-auto">
+                            <div class="glass-stat p-8 lg:p-10 text-center fade-in delay-1 group hover:border-gold/40 transition-all">
+                                <p class="text-5xl lg:text-7xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style="font-family: 'Bodoni Moda', serif;">3<span class="text-3xl lg:text-5xl">x</span></p>
+                                <div class="w-8 h-px bg-gold/40 mx-auto mb-3"></div>
                                 <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold">Conversion</p>
                             </div>
-                            <div class="glass-stat p-8 lg:p-10">
-                                <p class="text-4xl lg:text-6xl font-bold text-white mb-2">4.2x</p>
+                            <div class="glass-stat p-8 lg:p-10 text-center fade-in delay-2 group hover:border-gold/40 transition-all">
+                                <p class="text-5xl lg:text-7xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style="font-family: 'Bodoni Moda', serif;">4.2<span class="text-3xl lg:text-5xl">x</span></p>
+                                <div class="w-8 h-px bg-gold/40 mx-auto mb-3"></div>
                                 <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold">Lifetime Value</p>
                             </div>
-                            <div class="glass-stat p-8 lg:p-10">
-                                <p class="text-4xl lg:text-6xl font-bold text-white mb-2">-60%</p>
+                            <div class="glass-stat p-8 lg:p-10 text-center fade-in delay-3 group hover:border-gold/40 transition-all">
+                                <p class="text-5xl lg:text-7xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style="font-family: 'Bodoni Moda', serif;">−60<span class="text-3xl lg:text-5xl">%</span></p>
+                                <div class="w-8 h-px bg-gold/40 mx-auto mb-3"></div>
                                 <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold">Acquisition Cost</p>
                             </div>
-                            <div class="glass-stat p-8 lg:p-10">
-                                <p class="text-4xl lg:text-6xl font-bold text-white mb-2">5x</p>
+                            <div class="glass-stat p-8 lg:p-10 text-center fade-in delay-4 group hover:border-gold/40 transition-all">
+                                <p class="text-5xl lg:text-7xl font-bold text-white mb-3 group-hover:text-gold transition-colors" style="font-family: 'Bodoni Moda', serif;">5<span class="text-3xl lg:text-5xl">x</span></p>
+                                <div class="w-8 h-px bg-gold/40 mx-auto mb-3"></div>
                                 <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold">Revenue</p>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- TESTIMONIAL -->
+                    <div class="max-w-3xl mx-auto text-center fade-in">
+                        <p class="text-gold text-6xl leading-none mb-2 italic" style="font-family: 'Bodoni Moda', serif;">"</p>
+                        <blockquote class="text-2xl lg:text-3xl xl:text-4xl text-white italic leading-tight mb-6" style="font-family: 'Bodoni Moda', serif; font-weight: 400;">
+                            Marisha is the architect behind Mindvalley's growth engine.
+                        </blockquote>
+                        <div class="flex items-center justify-center gap-3">
+                            <div class="h-px w-8 bg-gold/40"></div>
+                            <p class="text-gold text-xs tracking-[0.3em] uppercase font-semibold">Vishen Lakhiani, Founder</p>
+                            <div class="h-px w-8 bg-gold/40"></div>
                         </div>
                     </div>
                 </div>
