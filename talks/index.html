@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How We 10× Marketing Output Without Hiring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #000;
+      --white: #fff;
+      --pink: #FF2D55;
+      --pink-soft: #FF6482;
+      --gray: #a1a1a6;
+      --gray-dark: #1c1c1e;
+      --green: #30D158;
+      --red: #FF453A;
+      --blue: #0A84FF;
+      --purple: #BF5AF2;
+      --orange: #FF9F0A;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    section {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      scroll-snap-align: start;
+      padding: 80px 60px;
+      position: relative;
+    }
+
+    .text-giant {
+      font-size: clamp(72px, 14vw, 200px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      text-align: center;
+    }
+
+    .text-huge {
+      font-size: clamp(48px, 9vw, 140px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      text-align: center;
+    }
+
+    .text-large {
+      font-size: clamp(32px, 5vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .text-medium {
+      font-size: clamp(24px, 3.5vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .text-body {
+      font-size: clamp(18px, 2vw, 28px);
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: center;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .text-small {
+      font-size: clamp(14px, 1.5vw, 20px);
+      font-weight: 500;
+      line-height: 1.4;
+      text-align: center;
+      color: var(--gray);
+    }
+
+    .pink { color: var(--pink); }
+    .white { color: var(--white); }
+    .gray { color: var(--gray); }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+
+    .bg-black { background: var(--black); }
+    .bg-pink { background: linear-gradient(135deg, var(--pink), var(--pink-soft)); }
+    .bg-dark { background: #0a0a0a; }
+    .bg-green { background: linear-gradient(135deg, #30D158, #34C759); }
+
+    .animate-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .animate-in.visible { opacity: 1; transform: translateY(0); }
+
+    .animate-scale {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .animate-scale.visible { opacity: 1; transform: scale(1); }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .stack-lg { gap: 32px; }
+    .stack-xl { gap: 48px; }
+
+    /* Part Label */
+    .part-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--pink);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 16px;
+    }
+
+    /* Crisis Stats Card */
+    .crisis-card {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: #222;
+      border-radius: 24px;
+      overflow: hidden;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .crisis-stat {
+      background: var(--black);
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .crisis-number {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 800;
+      color: var(--pink);
+      line-height: 1;
+    }
+
+    .crisis-label {
+      font-size: 14px;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 12px;
+    }
+
+    /* Tool Card */
+    .tool-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tool-info {
+      flex: 1;
+    }
+
+    .tool-number {
+      font-size: 14px;
+      color: var(--pink);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 12px;
+    }
+
+    .tool-name {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .tool-desc {
+      font-size: 18px;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .tool-result {
+      display: inline-block;
+      background: rgba(48,209,88,0.15);
+      border: 1px solid var(--green);
+      color: var(--green);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .tool-image {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .tool-image img {
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    /* Result Compare */
+    .result-compare {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .result-number {
+      font-size: clamp(56px, 10vw, 120px);
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .result-arrow {
+      font-size: 48px;
+      color: var(--green);
+    }
+
+    /* Framework Grid */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .framework-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .framework-number {
+      width: 36px;
+      height: 36px;
+      background: var(--pink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .framework-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .framework-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    /* 2026 Tools Grid */
+    .tools-2026-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .tool-2026-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .tool-2026-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .tool-2026-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .tool-2026-desc {
+      font-size: 14px;
+      color: var(--gray);
+    }
+
+    /* Claude Games */
+    .games-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 800px;
+      text-align: left;
+    }
+
+    .games-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .games-bullet {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,45,85,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pink);
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .games-text {
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.5;
+    }
+
+    /* ROI Card */
+    .roi-card {
+      background: linear-gradient(135deg, rgba(48,209,88,0.1), rgba(48,209,88,0.02));
+      border: 2px solid var(--green);
+      border-radius: 24px;
+      padding: 48px;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .roi-amount {
+      font-size: clamp(64px, 12vw, 140px);
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .roi-label {
+      font-size: 20px;
+      color: var(--gray);
+      margin-top: 16px;
+    }
+
+    /* Lesson Card */
+    .lesson-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .lesson-number {
+      font-size: 14px;
+      color: var(--pink);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 20px;
+    }
+
+    .lesson-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .lesson-explanation {
+      font-size: 20px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* Instagram CTA */
+    .cta-container {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .instagram-profile {
+      background: #000;
+      border-radius: 24px;
+      padding: 0;
+      max-width: 380px;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+
+    .instagram-profile-header {
+      background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737);
+      padding: 3px;
+    }
+
+    .instagram-profile-header-inner {
+      background: #000;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .instagram-profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737);
+      padding: 3px;
+      flex-shrink: 0;
+    }
+
+    .instagram-profile-avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .instagram-profile-avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .instagram-profile-stats {
+      display: flex;
+      gap: 20px;
+    }
+
+    .instagram-profile-stat {
+      text-align: center;
+    }
+
+    .instagram-profile-stat-number {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .instagram-profile-stat-label {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    .instagram-profile-info {
+      padding: 16px 20px;
+      border-bottom: 1px solid #222;
+    }
+
+    .instagram-profile-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .instagram-profile-bio {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+
+    .instagram-profile-dm {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .instagram-dm-btn {
+      background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 40px;
+      font-size: 16px;
+      font-weight: 700;
+      width: 100%;
+    }
+
+    .instagram-dm-text {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 20px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .instagram-dm-bubble {
+      background: var(--pink);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 20px 20px 20px 4px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .qr-code {
+      background: white;
+      padding: 16px;
+      border-radius: 16px;
+    }
+
+    .qr-code img {
+      width: 180px;
+      height: 180px;
+      display: block;
+    }
+
+    .qr-label {
+      font-size: 14px;
+      color: var(--gray);
+    }
+
+    /* Product Image */
+    .product-image {
+      max-width: 90%;
+      max-height: 60vh;
+      border-radius: 16px;
+      box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
+    }
+
+    /* Why Claude Grid */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .why-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 20px;
+      padding: 28px;
+      text-align: left;
+    }
+
+    .why-icon {
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+
+    .why-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--pink);
+    }
+
+    .why-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 50px 28px; }
+      .crisis-card { grid-template-columns: 1fr; }
+      .tool-card { flex-direction: column; }
+      .framework-grid { grid-template-columns: 1fr; }
+      .tools-2026-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .cta-container { flex-direction: column; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       PART 1: THE CRISIS (3 slides)
+  ========================================== -->
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-huge white animate-in">How We 10×</span>
+      <span class="text-huge white animate-in delay-1">Marketing Output</span>
+      <span class="text-huge pink animate-in delay-2">Without Hiring</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-large white animate-in">December 2025.</span>
+      <span class="text-large pink animate-in delay-1">70% of my team was gone.</span>
+      <span class="text-body animate-in delay-2">Everyone was on holiday leave. And I had a problem.</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <span class="text-medium white animate-in">The situation:</span>
+      <div class="crisis-card animate-in delay-1">
+        <div class="crisis-stat">
+          <div class="crisis-number">21</div>
+          <div class="crisis-label">Days Left</div>
+        </div>
+        <div class="crisis-stat">
+          <div class="crisis-number">70%</div>
+          <div class="crisis-label">Team on Leave</div>
+        </div>
+        <div class="crisis-stat">
+          <div class="crisis-number">$1M</div>
+          <div class="crisis-label">Extra Needed</div>
+        </div>
+        <div class="crisis-stat">
+          <div class="crisis-number">1</div>
+          <div class="crisis-label">Person to Help</div>
+        </div>
+      </div>
+      <span class="text-body animate-in delay-2">If we missed profitability, 2,000 people wouldn't get their bonus.</span>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 2: THE PLAN (2 slides)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="part-label" style="color: rgba(255,255,255,0.7);">Part 2</span>
+      <span class="text-huge white animate-in">The Plan</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <span class="text-medium white animate-in">I had to do two things:</span>
+      <div class="stack animate-in delay-1" style="gap: 24px;">
+        <div style="background: #111; border: 1px solid #333; border-radius: 16px; padding: 24px 32px; max-width: 600px;">
+          <span class="pink" style="font-weight: 800; font-size: 24px;">1.</span>
+          <span style="font-size: 20px; margin-left: 12px;">Stretch the existing campaign</span>
+          <div style="color: var(--gray); font-size: 16px; margin-top: 8px;">Last year it did $600K. Could I overdeliver?</div>
+        </div>
+        <div style="background: #111; border: 1px solid #333; border-radius: 16px; padding: 24px 32px; max-width: 600px;">
+          <span class="pink" style="font-weight: 800; font-size: 24px;">2.</span>
+          <span style="font-size: 20px; margin-left: 12px;">Launch a Q5 campaign from scratch</span>
+          <div style="color: var(--gray); font-size: 16px; margin-top: 8px;">After Christmas, before New Year. Didn't exist before.</div>
+        </div>
+      </div>
+      <span class="text-body animate-in delay-2">With just one person to help me execute.</span>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 3: WHY CLAUDE CODE (4 slides)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="part-label" style="color: rgba(255,255,255,0.7);">Part 3</span>
+      <span class="text-huge white animate-in">Why Claude Code</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <span class="text-medium white animate-in">The market is shifting.</span>
+      <div class="stack animate-in delay-1" style="gap: 32px;">
+        <div style="text-align: center;">
+          <span style="font-size: 18px; color: var(--gray);">ChatGPT market share</span>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 12px;">
+            <span style="font-size: 64px; font-weight: 800; color: var(--red); text-decoration: line-through; opacity: 0.6;">69%</span>
+            <span style="font-size: 32px; color: var(--gray);">→</span>
+            <span style="font-size: 64px; font-weight: 800; color: var(--red);">45%</span>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <span style="font-size: 18px; color: var(--gray);">Claude Code revenue</span>
+          <div style="font-size: 64px; font-weight: 800; color: var(--green); margin-top: 12px;">$1B+</div>
+          <span style="font-size: 16px; color: var(--gray);">in just 6 months</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <span class="text-medium white animate-in">ChatGPT is <span class="pink">chat</span> AI.</span>
+      <span class="text-body animate-in delay-1">You talk to it. It talks back. You do the work.</span>
+      <div style="height: 40px;"></div>
+      <span class="text-medium white animate-in delay-2">Claude Code is <span class="pink">action</span> AI.</span>
+      <span class="text-body animate-in delay-3">It actually does the work. On your computer.</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="why-grid animate-in">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <div class="why-title">File Access</div>
+        <div class="why-desc">Reads your files, images, PDFs, CSVs. Writes directly to your computer.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+        </div>
+        <div class="why-title">Full Context</div>
+        <div class="why-desc">Holds your entire project in memory. No copy-pasting.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+        </div>
+        <div class="why-title">Executes Commands</div>
+        <div class="why-desc">Runs code, deploys websites, publishes to GitHub.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="why-title">Non-Developer Friendly</div>
+        <div class="why-desc">I'm a marketer. I use this every day. No coding required.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 4: THE 6 TOOLS (expanded - 2-3 slides per tool)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="part-label" style="color: rgba(255,255,255,0.7);">Part 4</span>
+      <span class="text-huge white animate-in">6 Tools We Built</span>
+    </div>
+  </section>
+
+  <!-- TOOL 1: PAGE BUILDER -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label animate-in">Tool 01</span>
+      <span class="text-huge white animate-in delay-1">Page Builder</span>
+      <span class="text-body animate-in delay-2">We executed the entire launch with no developers.<br>Built every landing page ourselves using Claude Code.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="Websites.png" class="product-image animate-scale" alt="Page Builder">
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <div class="result-compare animate-in">
+        <span class="result-number white" style="font-size: clamp(40px, 8vw, 80px);">2 weeks</span>
+        <span class="result-arrow">→</span>
+        <span class="result-number green" style="font-size: clamp(40px, 8vw, 80px);">10 min</span>
+      </div>
+      <span class="text-body animate-in delay-1">deployment time</span>
+      <div style="height: 20px;"></div>
+      <span class="text-giant green animate-in delay-2">60%</span>
+      <span class="text-body animate-in delay-3">better conversion</span>
+    </div>
+  </section>
+
+  <!-- TOOL 2: TESTING AGENT -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label animate-in">Tool 02</span>
+      <span class="text-huge white animate-in delay-1">Testing Agent</span>
+      <span class="text-body animate-in delay-2">Running A/B tests on multiple funnels.<br>Simultaneously. 24/7. While we sleep.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="testing.png" class="product-image animate-scale" alt="Testing Agent">
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">Uplift from testing:</span>
+      <span class="text-giant green animate-in delay-1">59%</span>
+      <span class="text-body animate-in delay-2">conversion increase</span>
+    </div>
+  </section>
+
+  <!-- TOOL 3: AD GENERATOR -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label animate-in">Tool 03</span>
+      <span class="text-huge white animate-in delay-1">Ad Generator</span>
+      <span class="text-body animate-in delay-2">Give it one banner. It creates five variations.<br>Different headlines, CTAs, layouts - all on brand.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="ad-generator.jpg" class="product-image animate-scale" alt="Ad Generator">
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <span class="text-medium white animate-in">ROAS:</span>
+      <div class="result-compare animate-in delay-1">
+        <span class="result-number white">1.8x</span>
+        <span class="result-arrow">→</span>
+        <span class="result-number green">2.5x</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOL 4: CLIP FINDER -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label animate-in">Tool 04</span>
+      <span class="text-huge white animate-in delay-1">Clip Finder</span>
+      <span class="text-body animate-in delay-2">Thousands of hours of video content.<br>AI finds the viral moments. Scores each hook.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="clip-finder.jpg" class="product-image animate-scale" alt="Clip Finder">
+  </section>
+
+  <!-- TOOL 5: SCRIPT GENERATOR -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label animate-in">Tool 05</span>
+      <span class="text-huge white animate-in delay-1">Script Generator</span>
+      <span class="text-body animate-in delay-2">Pick any product. It pulls product info, testimonials,<br>and best-performing ad psychology. All in 10 seconds.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="script-generator.png" class="product-image animate-scale" alt="Script Generator">
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">Can't film? No problem.</span>
+      <span class="text-body animate-in delay-1">Use HeyGen. Create banner ads.</span>
+      <span class="text-medium pink animate-in delay-2">High-performing creative in minutes.</span>
+    </div>
+  </section>
+
+  <!-- TOOL 6: SALES ANALYZER -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label animate-in">Tool 06</span>
+      <span class="text-huge white animate-in delay-1">Sales Analyzer</span>
+      <span class="text-body animate-in delay-2">Watches every sales call.<br>Identifies exactly where we lose people.<br>Tells me how to fix the sales flow.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="pitch-analyzer.png" class="product-image animate-scale" alt="Sales Analyzer">
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">ROAS:</span>
+      <div class="result-compare animate-in delay-1">
+        <span class="result-number white">185%</span>
+        <span class="result-arrow">→</span>
+        <span class="result-number green">250%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 5: THE RESULTS (3 slides)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="part-label" style="color: rgba(255,255,255,0.7);">Part 5</span>
+      <span class="text-huge white animate-in">The Results</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <span class="text-medium white animate-in">Campaign 1: The $600K campaign</span>
+      <div class="result-compare animate-in delay-1">
+        <span class="result-number white">$600K</span>
+        <span class="result-arrow">→</span>
+        <span class="result-number green">$1.5M</span>
+      </div>
+      <span class="text-body animate-in delay-2">2.5× with 70% of the team on leave.</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <span class="text-medium white animate-in">Campaign 2: Built from scratch</span>
+      <span class="text-giant green animate-in delay-1">$800K</span>
+      <span class="text-body animate-in delay-2">In a campaign that didn't exist before.</span>
+    </div>
+  </section>
+
+  <section class="bg-green">
+    <div class="stack">
+      <span class="text-large white animate-in">Overshot the profitability target.</span>
+      <span class="text-large white animate-in delay-1">Everyone got their bonus.</span>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 6: THE FRAMEWORK (2 slides)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="part-label" style="color: rgba(255,255,255,0.7);">Part 6</span>
+      <span class="text-huge white animate-in">The Framework</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <span class="text-medium white animate-in">The biggest mistake:</span>
+      <span class="text-large white animate-in delay-1">People get excited. Build random things.</span>
+      <span class="text-large pink animate-in delay-2">Zero business value.</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <span class="text-medium white animate-in">4 Questions to Find What to Build</span>
+      <div class="framework-grid animate-in delay-1">
+        <div class="framework-card">
+          <div class="framework-number">1</div>
+          <div class="framework-title">What do you do repeatedly?</div>
+          <div class="framework-desc">Any task done 3+ times per week is a candidate.</div>
+        </div>
+        <div class="framework-card">
+          <div class="framework-number">2</div>
+          <div class="framework-title">What takes too long?</div>
+          <div class="framework-desc">30+ minutes manually → AI does it in seconds.</div>
+        </div>
+        <div class="framework-card">
+          <div class="framework-number">3</div>
+          <div class="framework-title">What are you paying for?</div>
+          <div class="framework-desc">Software, agencies, freelancers - can you build it?</div>
+        </div>
+        <div class="framework-card">
+          <div class="framework-number">4</div>
+          <div class="framework-title">What's blocking your team?</div>
+          <div class="framework-desc">Bottlenecks, approvals, waiting - what could AI unblock?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">Small team? <span class="pink">Even better.</span></span>
+      <span class="text-body animate-in delay-1">Less coordination. Faster execution.</span>
+      <div style="height: 32px;"></div>
+      <span class="text-medium white animate-in delay-2">Agency? <span class="pink">This is your edge.</span></span>
+      <span class="text-body animate-in delay-3">Deliver 10× more with the same team.</span>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 7: 2026 - COMPANY OPTIMIZATION (expanded)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="part-label" style="color: rgba(255,255,255,0.7);">Part 7</span>
+      <span class="text-huge white animate-in">2026: The Company</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">I thought deeper:</span>
+      <span class="text-large pink animate-in delay-1">What if we optimized the entire company?</span>
+      <span class="text-body animate-in delay-2">2026 Goal: 2× profitability</span>
+    </div>
+  </section>
+
+  <!-- AD ANALYST -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label green animate-in">Automating Analysis</span>
+      <span class="text-huge white animate-in delay-1">Ad Analyst</span>
+      <span class="text-body animate-in delay-2">Analyzes every ad automatically.<br>Performance trends. Creative insights. Real-time optimization.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="ad-analyst.png" class="product-image animate-scale" alt="Ad Analyst">
+  </section>
+
+  <!-- CEO CLONE -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label purple animate-in">Automating Decisions</span>
+      <span class="text-huge white animate-in delay-1">CEO Clone</span>
+      <span class="text-body animate-in delay-2">Decisions bottleneck at the top.<br>One CEO. Thousands of requests.</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">We trained an AI on Vishen's</span>
+      <span class="text-medium white animate-in delay-1">decision-making patterns.</span>
+      <span class="text-large pink animate-in delay-2">Her name is Eliza.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="Vishen-clone.png" class="product-image animate-scale" alt="Eliza - CEO Clone">
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">Instant feedback on creative.</span>
+      <span class="text-medium white animate-in delay-1">Consistent brand voice checks.</span>
+      <span class="text-medium pink animate-in delay-2">No more waiting weeks for approvals.</span>
+    </div>
+  </section>
+
+  <!-- OKR SYSTEM -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label green animate-in">Automating Accountability</span>
+      <span class="text-huge white animate-in delay-1">OKR System</span>
+      <span class="text-body animate-in delay-2">Automated accountability for the entire company.<br>Connects to meetings. Tracks commitments. Sends weekly reports.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="okr-system.png" class="product-image animate-scale" alt="OKR System">
+  </section>
+
+  <!-- CAMPAIGN OS -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label green animate-in">Automating Marketing</span>
+      <span class="text-huge white animate-in delay-1">Campaign OS</span>
+      <span class="text-body animate-in delay-2">Analyzes all prior campaigns. Pulls competitor data.<br>Reviews surveys. Tells me exactly what to test next.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="campaign-os.png" class="product-image animate-scale" alt="Campaign OS">
+  </section>
+
+  <!-- COMMUNITY MANAGER -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="part-label green animate-in">Automating Community</span>
+      <span class="text-huge white animate-in delay-1">Community Manager</span>
+      <span class="text-body animate-in delay-2">Runs challenges. Sends daily lessons.<br>Comments on ads for engagement.<br>24/7. No salary. No PTO.</span>
+    </div>
+  </section>
+
+  <section class="bg-dark">
+    <img src="community.png" class="product-image animate-scale" alt="Community Manager">
+  </section>
+
+  <!-- BUILT IN TWO MONTHS -->
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">All of this?</span>
+      <span class="text-large pink animate-in delay-1">Built in two months.</span>
+      <span class="text-body animate-in delay-2">And there's a lot more coming.</span>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 8: CLAUDE GAMES (2 slides)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="part-label" style="color: rgba(255,255,255,0.7);">Part 8</span>
+      <span class="text-huge white animate-in">Claude Games</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">It's not just me building anymore.</span>
+      <span class="text-medium white animate-in delay-1">My whole team is building now.</span>
+      <span class="text-body animate-in delay-2">But some are faster than others. So I needed to control what gets built.</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="games-card animate-in">
+      <div class="games-item">
+        <div class="games-bullet">1</div>
+        <div class="games-text">Every marketing manager has to automate a massive part of their work</div>
+      </div>
+      <div class="games-item">
+        <div class="games-bullet">2</div>
+        <div class="games-text">They pitch me the PRD</div>
+      </div>
+      <div class="games-item">
+        <div class="games-bullet">3</div>
+        <div class="games-text">I decide if it's the right thing to build</div>
+      </div>
+      <div class="games-item">
+        <div class="games-bullet">4</div>
+        <div class="games-text">We meet weekly to level them up</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-large white animate-in">This ensures they're building things</span>
+      <span class="text-large pink animate-in delay-1">that actually matter.</span>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 9: THE ROI (2 slides)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="part-label" style="color: rgba(255,255,255,0.7);">Part 9</span>
+      <span class="text-huge white animate-in">The ROI</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack stack-lg">
+      <div class="roi-card animate-in">
+        <div style="font-size: 18px; color: var(--gray); margin-bottom: 16px;">Marketing budget savings</div>
+        <div class="roi-amount">$2M+</div>
+      </div>
+      <div style="height: 20px;"></div>
+      <div class="roi-card animate-in delay-1">
+        <div style="font-size: 18px; color: var(--gray); margin-bottom: 16px;">Company-wide savings</div>
+        <div class="roi-amount">$4M</div>
+      </div>
+      <span class="text-large pink animate-in delay-2">And the year just started.</span>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 10: THREE LESSONS (3 slides)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="part-label" style="color: rgba(255,255,255,0.7);">Part 10</span>
+      <span class="text-huge white animate-in">Three Lessons</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="lesson-card animate-in">
+      <div class="lesson-number">Lesson 01</div>
+      <div class="lesson-title">Headcount is a tax.<br><span class="pink">Leverage is an asset.</span></div>
+      <div class="lesson-explanation">Stop throwing people at problems. Start throwing AI at problems.</div>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="lesson-card animate-in">
+      <div class="lesson-number">Lesson 02</div>
+      <div class="lesson-title">Stop task thinking.<br><span class="pink">Start systems thinking.</span></div>
+      <div class="lesson-explanation">Don't ask "How do I do this task?" Ask "What system can I build to eliminate this task forever?"</div>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="lesson-card animate-in">
+      <div class="lesson-number">Lesson 03</div>
+      <div class="lesson-title">Organize your data.<br><span class="pink">It's everyone's #1 job.</span></div>
+      <div class="lesson-explanation">If your data is messy, your AI tools won't work. Organize before you build.</div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PART 11: CTA (2 slides)
+  ========================================== -->
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="text-huge white animate-in">Build your way to better ROI.</span>
+    </div>
+  </section>
+
+  <section class="bg-black">
+    <div class="stack">
+      <span class="text-medium white animate-in">Want my Claude Code playbook?</span>
+      <div class="cta-container animate-in delay-1">
+        <div class="instagram-profile">
+          <div class="instagram-profile-header">
+            <div class="instagram-profile-header-inner">
+              <div class="instagram-profile-avatar">
+                <div class="instagram-profile-avatar-inner">
+                  <img src="profile.png" alt="Marisha Lakhiani">
+                </div>
+              </div>
+              <div class="instagram-profile-stats">
+                <div class="instagram-profile-stat">
+                  <div class="instagram-profile-stat-number">892</div>
+                  <div class="instagram-profile-stat-label">posts</div>
+                </div>
+                <div class="instagram-profile-stat">
+                  <div class="instagram-profile-stat-number">22K</div>
+                  <div class="instagram-profile-stat-label">followers</div>
+                </div>
+                <div class="instagram-profile-stat">
+                  <div class="instagram-profile-stat-number">412</div>
+                  <div class="instagram-profile-stat-label">following</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="instagram-profile-info">
+            <div class="instagram-profile-name">Marisha Lakhiani</div>
+            <div class="instagram-profile-bio">CGO @mindvalley<br>Building AI tools that actually work</div>
+          </div>
+          <div class="instagram-profile-dm">
+            <button class="instagram-dm-btn">Message</button>
+            <div class="instagram-dm-text">
+              <span style="color: var(--gray);">Send:</span>
+              <div class="instagram-dm-bubble">Playbook</div>
+            </div>
+          </div>
+        </div>
+        <div class="qr-container">
+          <div class="qr-code">
+            <img src="qr-code.png" alt="QR Code" width="180" height="180">
+          </div>
+          <div class="qr-label">Scan to go to my Instagram</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-pink">
+    <div class="stack">
+      <span class="text-huge white animate-in">Scan. Follow.</span>
+      <span class="text-huge white animate-in delay-1">DM "Playbook"</span>
+    </div>
+  </section>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.animate-in, .animate-scale').forEach(el => observer.observe(el));
+    document.querySelector('section').querySelectorAll('.animate-in, .animate-scale').forEach(el => el.classList.add('visible'));
+  </script>
+
+</body>
+</html>

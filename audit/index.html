@@ -2,13 +2,490 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Redirecting… | Marisha Lakhiani</title>
-    <meta http-equiv="refresh" content="0; url=/playbook/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 10-Leak Funnel Scorecard | Marisha Lakhiani</title>
+    <meta name="description" content="The 10 specific leaks I find in every funnel audit. Check off the ones you've already fixed and see — in 60 seconds — how much money your funnel is losing.">
     <link rel="canonical" href="https://marishalakhiani.com/playbook/">
-    <meta name="robots" content="noindex">
-    <script>window.location.replace('/playbook/');</script>
+
+    <meta property="og:title" content="The 10-Leak Funnel Scorecard | Marisha Lakhiani">
+    <meta property="og:description" content="60-second self-assessment. The 10 leaks I find in every funnel audit, with a live score.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marishalakhiani.com/playbook/">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { bordeaux: '#6b1f3d', 'bordeaux-dark': '#4a1529', gold: '#c9a66b', 'gold-light': '#d4b896', cream: '#f8f6f3', 'cream-dark': '#f3f0eb' },
+                    borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' }
+                }
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"The 10-Leak Funnel Scorecard","description":"Interactive 60-second self-assessment of 10 universal funnel leaks.","applicationCategory":"BusinessApplication","author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com"}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":"What is the 10-Leak Funnel Scorecard?","acceptedAnswer":{"@type":"Answer","text":"A 60-second self-assessment of the 10 most common revenue leaks found in funnel audits. Check off the ones you've already fixed and see your score band — Optimised, Healthy, Critical, or Hemorrhaging."}},
+        {"@type":"Question","name":"How accurate is the scorecard?","acceptedAnswer":{"@type":"Answer","text":"It's directional, not diagnostic. The scorecard tells you which leak categories you likely have. A full audit quantifies each one in dollars and prioritises by revenue impact."}},
+        {"@type":"Question","name":"What are the 10 universal funnel leaks?","acceptedAnswer":{"@type":"Answer","text":"Email deliverability, low webinar show-up rate, missing post-webinar sequence, underutilised email list, no upsells/order bumps, feature-heavy copy, slow page speed, premature price reveal, fake urgency, and single-channel dependency."}}
+    ]}
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; color: #1a1a1a; line-height: 1.7; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
+
+        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+
+        .stat-table { width: 100%; border-collapse: collapse; margin: 2rem 0; border: 1px solid #e5e5e5; background: white; }
+        .stat-table th { background: #f3f0eb; padding: 14px 20px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; color: #6b1f3d; border-bottom: 1px solid #e5e5e5; }
+        .stat-table td { padding: 14px 20px; font-size: 15px; border-bottom: 1px solid #f0f0f0; color: #333; }
+        .stat-table tr:last-child td { border-bottom: none; }
+
+        .leak-card { background: white; border-left: 2px solid rgba(107, 31, 61, 0.15); padding: 2rem 2.5rem; margin-bottom: 1rem; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+        .leak-card.checked { border-left-color: #c9a66b; background: rgba(201, 166, 107, 0.04); }
+
+        .leak-checkbox-wrapper { display: flex; align-items: center; gap: 12px; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid #f0f0f0; cursor: pointer; user-select: none; transition: opacity 0.2s; }
+        .leak-checkbox-wrapper:hover { opacity: 0.7; }
+        .leak-checkbox { appearance: none; width: 22px; height: 22px; border: 2px solid #6b1f3d; cursor: pointer; flex-shrink: 0; position: relative; transition: all 0.3s; }
+        .leak-checkbox:checked { background: #6b1f3d; }
+        .leak-checkbox:checked::after { content: ''; position: absolute; left: 6px; top: 2px; width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+        .score-pill {
+            position: fixed;
+            top: 90px;
+            right: 24px;
+            background: white;
+            border: 1px solid rgba(107, 31, 61, 0.15);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            padding: 14px 24px;
+            z-index: 50;
+            transform: translateX(calc(100% + 32px));
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .score-pill.visible { transform: translateX(0); }
+        .score-pill-num { font-family: 'Bodoni Moda', serif; font-size: 1.75rem; color: #6b1f3d; line-height: 1; }
+        .score-pill-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: #6a6a6a; font-weight: 600; }
+
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .fade-in.reveal { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.25rem !important; }
+            h2 { font-size: 1.75rem !important; }
+            .leak-card { padding: 1.5rem 1.5rem; }
+            .score-pill { top: 80px; right: 12px; padding: 10px 16px; }
+            .score-pill-num { font-size: 1.25rem; }
+        }
+    </style>
 </head>
 <body>
-    <p>This page has moved. <a href="/playbook/">Continue to the 10-Leak Scorecard →</a></p>
+
+    <!-- HEADER -->
+    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10 bg-cream sticky top-0 z-40">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
+            <a href="../apply/" class="btn-primary bg-bordeaux text-white px-5 py-2.5 font-semibold text-xs uppercase tracking-[0.15em]">Apply for Audit</a>
+        </div>
+    </header>
+
+    <!-- LIVE SCORE PILL -->
+    <div id="score-pill" class="score-pill">
+        <span id="score-pill-num" class="score-pill-num">0</span>
+        <span class="text-gray-300">/</span>
+        <span class="text-2xl text-gray-400 font-serif">10</span>
+        <span class="score-pill-label">fixed</span>
+    </div>
+
+    <!-- HERO -->
+    <section class="px-6 lg:px-16 py-20 lg:py-28">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">The 10-Leak Scorecard · 60 Seconds</p>
+            <h1 class="text-4xl lg:text-6xl xl:text-7xl leading-[1.05] mb-8">Find the millions hiding in <span class="text-bordeaux italic">your funnel.</span></h1>
+            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-4">You don't have a traffic problem. You have a leak problem.</p>
+            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10">There's $500K–$3M draining out of most $1M+ funnels before it ever converts. Here are the 10 leaks I find in every audit — check off the ones you've already fixed.</p>
+            <a href="#leaks" class="btn-primary inline-block bg-bordeaux text-white px-10 py-5 text-sm font-bold uppercase tracking-[0.15em]">Start the Scorecard ↓</a>
+        </div>
+    </section>
+
+    <!-- CASE STUDY -->
+    <section class="px-6 lg:px-16 py-16 lg:py-24 bg-white">
+        <div class="max-w-4xl mx-auto fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Quick Proof</p>
+            <h2 class="text-3xl lg:text-5xl mb-8 leading-tight">$2.5M found in <span class="text-bordeaux italic">47 minutes.</span></h2>
+
+            <div class="space-y-5 text-base lg:text-lg text-gray-700 leading-relaxed mb-10">
+                <p>A coaching business doing $3M/year. Spending $250K/month on ads to generate roughly $250K in revenue. Breakeven on paper. Bleeding in reality.</p>
+                <p>When I ran the audit, the leaks were obvious once you knew where to look:</p>
+            </div>
+
+            <table class="stat-table">
+                <thead>
+                    <tr><th>The Leak</th><th>Their Number</th><th>Benchmark</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Cost per lead</td><td>$84</td><td>$40–60</td></tr>
+                    <tr><td>Show-up rate</td><td>23%</td><td>40%+</td></tr>
+                    <tr><td>Webinar close rate</td><td>4.2%</td><td>12–15%</td></tr>
+                </tbody>
+            </table>
+
+            <div class="bg-cream-dark border-l-2 border-bordeaux p-6 lg:p-8 my-8">
+                <p class="text-lg lg:text-xl text-gray-900"><strong>Same traffic. Same offer. Same audience.</strong> Just leaks everywhere.</p>
+            </div>
+
+            <h3 class="text-2xl lg:text-3xl mb-6 mt-12">6 fixes. No extra ad spend. $2.5M unlocked.</h3>
+
+            <table class="stat-table">
+                <thead>
+                    <tr><th>Fix</th><th>Result</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Rewrote registration page</td><td>CPL → $47 (44% drop)</td></tr>
+                    <tr><td>Fixed confirmation sequence</td><td>Show-up → 48%</td></tr>
+                    <tr><td>Restructured webinar pitch</td><td>Close rate → 11.3%</td></tr>
+                    <tr><td>Added replay sequence</td><td>+38% revenue captured</td></tr>
+                    <tr><td>Implemented application calls</td><td>+2 points on close rate</td></tr>
+                    <tr><td>Built nurture sequence</td><td>+15% recovered over 90 days</td></tr>
+                </tbody>
+            </table>
+
+            <div class="grid md:grid-cols-3 gap-4 lg:gap-6 mt-10">
+                <div class="bg-bordeaux text-white p-8 text-center">
+                    <p class="text-3xl lg:text-4xl font-serif text-gold mb-2">$6,900</p>
+                    <p class="text-[10px] uppercase tracking-[0.25em] font-semibold opacity-80">Per Day</p>
+                </div>
+                <div class="bg-bordeaux text-white p-8 text-center">
+                    <p class="text-3xl lg:text-4xl font-serif text-gold mb-2">$207K</p>
+                    <p class="text-[10px] uppercase tracking-[0.25em] font-semibold opacity-80">Per Month</p>
+                </div>
+                <div class="bg-bordeaux text-white p-8 text-center">
+                    <p class="text-3xl lg:text-4xl font-serif text-gold mb-2">$2.5M</p>
+                    <p class="text-[10px] uppercase tracking-[0.25em] font-semibold opacity-80">Per Year</p>
+                </div>
+            </div>
+
+            <p class="text-center text-lg lg:text-xl text-gray-900 mt-10"><strong>84% revenue increase. Zero additional ad spend.</strong><br>The money was always there. It was just leaking out.</p>
+        </div>
+    </section>
+
+    <!-- THE PATTERN -->
+    <section class="px-6 lg:px-16 py-20 lg:py-28 bg-cream">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 fade-in">
+                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">The Pattern</p>
+                <h2 class="text-3xl lg:text-5xl mb-8 leading-tight">Why most funnel owners <span class="text-bordeaux italic">never see it.</span></h2>
+                <p class="text-base lg:text-lg text-gray-700 leading-relaxed">After 8 years scaling Mindvalley to $150M and 100+ audits since, I see the same pattern in 95% of funnels — they're leaving $500K–$5M on the table for the same reasons.</p>
+            </div>
+
+            <div class="space-y-4 fade-in">
+                <div class="grid md:grid-cols-12 gap-4 lg:gap-6 bg-white p-6 lg:p-8 items-center">
+                    <div class="md:col-span-5 text-gray-600">$1M business thinks they need more traffic</div>
+                    <div class="md:col-span-1 text-bordeaux font-bold text-center">→</div>
+                    <div class="md:col-span-6 text-gray-900 font-medium">Actually needs 30% better landing page</div>
+                </div>
+                <div class="grid md:grid-cols-12 gap-4 lg:gap-6 bg-white p-6 lg:p-8 items-center">
+                    <div class="md:col-span-5 text-gray-600">$3M business thinks they need a new offer</div>
+                    <div class="md:col-span-1 text-bordeaux font-bold text-center">→</div>
+                    <div class="md:col-span-6 text-gray-900 font-medium">Actually needs 50% better show-up rate</div>
+                </div>
+                <div class="grid md:grid-cols-12 gap-4 lg:gap-6 bg-white p-6 lg:p-8 items-center">
+                    <div class="md:col-span-5 text-gray-600">$5M business thinks they need a better sales team</div>
+                    <div class="md:col-span-1 text-bordeaux font-bold text-center">→</div>
+                    <div class="md:col-span-6 text-gray-900 font-medium">Actually needs a better webinar pitch</div>
+                </div>
+            </div>
+
+            <p class="text-lg lg:text-xl text-gray-900 mt-10 max-w-2xl fade-in"><strong>Optimisation always comes before scale.</strong> Scaling a leaky funnel just means losing money faster.</p>
+        </div>
+    </section>
+
+    <!-- 10 LEAKS -->
+    <section id="leaks" class="px-6 lg:px-16 py-20 lg:py-28 bg-cream-dark">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 lg:mb-16 fade-in">
+                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">The 10 Leaks</p>
+                <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">How many of these are in <span class="text-bordeaux italic">your funnel?</span></h2>
+                <p class="text-base lg:text-lg text-gray-700 leading-relaxed">Check the ones you've already fixed. Your live score updates in the corner. Banding at the bottom.</p>
+            </div>
+
+            <!-- Leak 01 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 01</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">Emails landing in spam</h3>
+                <p class="text-gray-600 mb-5">You're sending emails. But are they arriving? Most funnel owners have no idea their reminders, sequences, and offers are hitting spam. SPF, DKIM, and DMARC aren't configured. Your best copy goes unseen.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Every email in spam is a lead you paid for who never sees your offer.</p>
+                </div>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">My email deliverability is configured and tested (SPF, DKIM, DMARC)</span>
+                </label>
+            </div>
+
+            <!-- Leak 02 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 02</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">Webinar show-up rates below 30%</h3>
+                <p class="text-gray-600 mb-5">Industry average is 12–15%. Benchmark for live should be 40%+. If you're not using SMS/WhatsApp backup, pre-webinar value content, and a 5–7 touch reminder sequence, you're paying for registrants who never show.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Doubling show-up rate doubles revenue from the same ad spend.</p>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-2">Example: Added a 90-second video to the confirmation page. Show-up went 26% → 47%.</p>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">My webinar show-up rate is 35% or higher</span>
+                </label>
+            </div>
+
+            <!-- Leak 03 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 03</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">No post-webinar follow-up sequence</h3>
+                <p class="text-gray-600 mb-5">The webinar ends. You send one replay email. Then silence. Meanwhile, 70% of your buyers need 3–7 days to decide. You're abandoning them right when they're most ready to buy.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> $100K+ per webinar sitting in your "didn't buy yet" list.</p>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-2">Example: Added 48-hour replay sequence. Recovered $127K/month.</p>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">I have a 5+ email post-offer sequence with objection handling</span>
+                </label>
+            </div>
+
+            <!-- Leak 04 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 04</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">Underutilising your email list</h3>
+                <p class="text-gray-600 mb-5">You email when you launch. That's it. No weekly value emails. No upsell sequences. No cross-sells. No promotional campaigns. No dead-lead reactivation. Your list is an asset collecting dust.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> A properly worked email list adds 20–40% to total revenue.</p>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-2">Example: A "breakup email" to 40,000 dead registrants recovered $147K (31 deals closed).</p>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">I email my list at least weekly with a mix of value and offers</span>
+                </label>
+            </div>
+
+            <!-- Leak 05 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 05</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">No upsells or order bumps</h3>
+                <p class="text-gray-600 mb-5">Someone's at checkout, credit card in hand, and you're only offering one thing. No order bump. No one-click upsell. No backend continuity. No high-ticket ascension path.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> You're leaving 60–70% of customer lifetime value on the table.</p>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-2">Example: Added $12K continuity + $25K mastermind. LTV went from $3,100 → $11,400.</p>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">I have upsells, order bumps, and a backend offer in place</span>
+                </label>
+            </div>
+
+            <!-- Leak 06 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 06</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">Selling features instead of transformation</h3>
+                <p class="text-gray-600 mb-5">Your copy lists what's included: "10 modules, 47 videos, lifetime access." Nobody cares. They care about who they become. Features inform. Transformation sells.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> "A better course on Facebook ads" converts at 3%. "The 7-Figure Ad Account Blueprint" converts at 12%.</p>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-2">Example: Renamed offer from "Systematize" → "The Operator Blueprint." Close rate went 3.8% → 11.2%.</p>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">My headline promises a specific transformation, not information</span>
+                </label>
+            </div>
+
+            <!-- Leak 07 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 07</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">Slow page load speed</h3>
+                <p class="text-gray-600 mb-5">Your page takes 4+ seconds to load. 40% of visitors are gone before they see your headline. You're paying for traffic that bounces before the page even renders.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Every 1-second delay reduces conversions by 7%.</p>
+                </div>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">My landing pages load in under 3 seconds (tested on PageSpeed Insights)</span>
+                </label>
+            </div>
+
+            <!-- Leak 08 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 08</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">Price revealed too early</h3>
+                <p class="text-gray-600 mb-5">You show the price before stacking the value. Revealing $2K before building perceived value = 3% close rate. After a proper value stack = 12%.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> $90K vs $360K revenue per 1,000 attendees.</p>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-2">Example: Moved price reveal from minute 40 → minute 68 with a $47K value stack. Close rate went 4.1% → 13.7%.</p>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">I stack value to 10× before revealing price</span>
+                </label>
+            </div>
+
+            <!-- Leak 09 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 09</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">Fake urgency nobody believes</h3>
+                <p class="text-gray-600 mb-5">"Limited spots available" every single week. Countdown timers that reset. "Sale ends Friday" with no real reason. Your audience has been trained to ignore your deadlines.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Weak urgency loses 50% of sales to "I'll think about it."</p>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-2">Example: Changed "Sale ends Friday" → "Cohort starts Monday, 12 spots." Immediate purchases up 67%.</p>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">My scarcity is real, specific, and tied to a legitimate reason</span>
+                </label>
+            </div>
+
+            <!-- Leak 10 -->
+            <div class="leak-card fade-in" data-leak>
+                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 10</p>
+                <h3 class="text-2xl lg:text-3xl mb-4">Single-channel dependency</h3>
+                <p class="text-gray-600 mb-5">You rely 100% on email. No SMS. No WhatsApp. No retargeting. No LinkedIn DMs. When deliverability dips or attention shifts, your entire funnel breaks.</p>
+                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
+                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Multi-channel funnels see 30–50% higher engagement and show-up rates.</p>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-2">Example: Added LinkedIn DMs to webinar invites. Show-up went 31% → 68%. Close rate 9% → 14%.</p>
+                <label class="leak-checkbox-wrapper">
+                    <input type="checkbox" class="leak-checkbox" data-leak-input>
+                    <span class="text-sm font-medium text-gray-900">I use at least 2 channels (email + SMS, WhatsApp, or DMs) to reach my audience</span>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCORE RESULT -->
+    <section class="px-6 lg:px-16 py-20 lg:py-28 bg-bordeaux text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Your Score</p>
+            <h2 class="text-4xl lg:text-6xl mb-4 leading-tight"><span id="big-score">0</span><span class="text-white/40">/10</span></h2>
+            <p id="score-band-label" class="text-2xl lg:text-3xl text-gold italic font-serif mb-4">Start the scorecard above</p>
+            <p id="score-band-detail" class="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto mb-12">Check the boxes above to see your band.</p>
+
+            <div class="grid md:grid-cols-2 gap-4 lg:gap-6 max-w-3xl mx-auto text-left">
+                <div class="bg-white/10 p-6 lg:p-8 border-l-2 border-gold">
+                    <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-2">8–10 Fixed</p>
+                    <h3 class="text-xl lg:text-2xl mb-3 text-white">Optimised</h3>
+                    <p class="text-sm text-white/70">Top 5%. Minor tweaks could add $100K–$500K/year.</p>
+                </div>
+                <div class="bg-white/10 p-6 lg:p-8 border-l-2 border-gold">
+                    <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-2">5–7 Fixed</p>
+                    <h3 class="text-xl lg:text-2xl mb-3 text-white">Healthy but leaking</h3>
+                    <p class="text-sm text-white/70">Doing well, but $250K–$750K still on the table annually.</p>
+                </div>
+                <div class="bg-white/10 p-6 lg:p-8 border-l-2 border-bordeaux-dark">
+                    <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-2">3–4 Fixed</p>
+                    <h3 class="text-xl lg:text-2xl mb-3 text-white">Critical gaps</h3>
+                    <p class="text-sm text-white/70">$500K–$1.5M per year leaking through fixable cracks.</p>
+                </div>
+                <div class="bg-white/10 p-6 lg:p-8 border-l-2 border-bordeaux-dark">
+                    <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-2">0–2 Fixed</p>
+                    <h3 class="text-xl lg:text-2xl mb-3 text-white">Hemorrhaging</h3>
+                    <p class="text-sm text-white/70">$1M–$3M/year going to your competitors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="px-6 lg:px-16 py-24 lg:py-32 bg-black text-white">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Found leaks?</p>
+            <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">Knowing where the leak is and <span class="text-gold italic">fixing it</span> are two different skills.</h2>
+            <p class="text-lg lg:text-xl text-white/70 mb-10 max-w-2xl mx-auto">
+                I've spent 8 years becoming extremely good at the second part. The Revenue Recovery Audit™ doesn't just tell you "your show-up rate is low" — I give you the exact copy, frameworks, sequences, and psychology to fix it.
+            </p>
+            <p class="text-base lg:text-lg text-white/90 mb-12 max-w-xl mx-auto"><strong class="text-gold">$100K guaranteed</strong> in recoverable revenue, or you don't pay.</p>
+            <a href="../apply/" class="btn-primary inline-block bg-bordeaux text-white px-10 lg:px-14 py-5 lg:py-6 text-sm lg:text-base font-bold uppercase tracking-[0.2em]">Apply for Audit →</a>
+            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-gray-500 py-10 px-6 lg:px-16 text-center border-t border-white/10">
+        <p class="text-xs mb-3">© 2025 Marisha Lakhiani. All rights reserved.</p>
+        <p class="text-xs uppercase tracking-[0.2em]">
+            <a href="../index.html" class="hover:text-white transition-colors">Main Site</a>
+            <span class="mx-3">·</span>
+            <a href="../blog/" class="hover:text-white transition-colors">Blog</a>
+            <span class="mx-3">·</span>
+            <a href="../apply/" class="hover:text-white transition-colors">Apply for Audit</a>
+        </p>
+    </footer>
+
+    <script>
+        // Fade in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Live score
+        const checkboxes = document.querySelectorAll('[data-leak-input]');
+        const pillNum = document.getElementById('score-pill-num');
+        const pill = document.getElementById('score-pill');
+        const bigScore = document.getElementById('big-score');
+        const bandLabel = document.getElementById('score-band-label');
+        const bandDetail = document.getElementById('score-band-detail');
+
+        function updateScore() {
+            const checked = Array.from(checkboxes).filter(c => c.checked).length;
+            pillNum.textContent = checked;
+            bigScore.textContent = checked;
+
+            // Highlight checked cards
+            checkboxes.forEach(c => {
+                const card = c.closest('[data-leak]');
+                card.classList.toggle('checked', c.checked);
+            });
+
+            // Show pill once they've started
+            if (checked > 0) {
+                pill.classList.add('visible');
+            } else {
+                pill.classList.remove('visible');
+            }
+
+            // Band copy
+            if (checked === 0) {
+                bandLabel.textContent = 'Start the scorecard above';
+                bandDetail.textContent = 'Check the boxes above to see your band.';
+            } else if (checked >= 8) {
+                bandLabel.textContent = 'Optimised.';
+                bandDetail.textContent = "You're in the top 5%. Minor tweaks here could still add $100K–$500K a year — and the audit pinpoints exactly which.";
+            } else if (checked >= 5) {
+                bandLabel.textContent = 'Healthy but leaking.';
+                bandDetail.textContent = "You're doing well, but $250K–$750K is still walking out the door each year. Most of it is concentrated in the leaks you didn't check.";
+            } else if (checked >= 3) {
+                bandLabel.textContent = 'Critical gaps.';
+                bandDetail.textContent = "Your funnel has structural leaks costing $500K–$1.5M per year. The good news: this is the band where audits produce the biggest ROI multiples.";
+            } else {
+                bandLabel.textContent = 'Hemorrhaging.';
+                bandDetail.textContent = "Your funnel is losing $1M–$3M annually to fixable leaks. Don't scale yet. Fix the bucket first — every fix here compounds against everything you'll do later.";
+            }
+        }
+
+        checkboxes.forEach(cb => cb.addEventListener('change', updateScore));
+        updateScore();
+    </script>
+
 </body>
 </html>

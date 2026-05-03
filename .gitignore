@@ -7,3 +7,4 @@ marisha site/
 *.log
 .vscode/
 .idea/
+*.docx

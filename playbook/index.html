@@ -1,491 +1,1539 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The 10-Leak Funnel Scorecard | Marisha Lakhiani</title>
-    <meta name="description" content="The 10 specific leaks I find in every funnel audit. Check off the ones you've already fixed and see — in 60 seconds — how much money your funnel is losing.">
-    <link rel="canonical" href="https://marishalakhiani.com/playbook/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Claude Code Playbook | Marisha Lakhiani</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #1a1a1a;
+      --white: #fff;
+      --cream: #faf8f5;
+      --cream-dark: #f5f0e8;
+      --bordeaux: #8b2543;
+      --bordeaux-dark: #6a1c33;
+      --bordeaux-light: rgba(139, 37, 67, 0.1);
+      --gold: #c9a55c;
+      --gold-light: rgba(201, 165, 92, 0.15);
+      --gray-100: #f5f5f7;
+      --gray-200: #e8e8ed;
+      --gray-300: #d2d2d7;
+      --gray-400: #a1a1a6;
+      --gray-500: #6e6e73;
+      --gray-600: #424245;
+      --gray-700: #2d2d2d;
+      --gray-800: #1d1d1f;
+      --gray-900: #0a0a0a;
+      --green: #2d6a4f;
+      --blue: #0A84FF;
+      --purple: #BF5AF2;
+      --orange: #c9a55c;
+      --yellow: #c9a55c;
+    }
 
-    <meta property="og:title" content="The 10-Leak Funnel Scorecard | Marisha Lakhiani">
-    <meta property="og:description" content="60-second self-assessment. The 10 leaks I find in every funnel audit, with a live score.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marishalakhiani.com/playbook/">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { bordeaux: '#6b1f3d', 'bordeaux-dark': '#4a1529', gold: '#c9a66b', 'gold-light': '#d4b896', cream: '#f8f6f3', 'cream-dark': '#f3f0eb' },
-                    borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' }
-                }
-            }
-        }
-    </script>
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"WebApplication","name":"The 10-Leak Funnel Scorecard","description":"Interactive 60-second self-assessment of 10 universal funnel leaks.","applicationCategory":"BusinessApplication","author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com"}}
-    </script>
-    <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-        {"@type":"Question","name":"What is the 10-Leak Funnel Scorecard?","acceptedAnswer":{"@type":"Answer","text":"A 60-second self-assessment of the 10 most common revenue leaks found in funnel audits. Check off the ones you've already fixed and see your score band — Optimised, Healthy, Critical, or Hemorrhaging."}},
-        {"@type":"Question","name":"How accurate is the scorecard?","acceptedAnswer":{"@type":"Answer","text":"It's directional, not diagnostic. The scorecard tells you which leak categories you likely have. A full audit quantifies each one in dollars and prioritises by revenue impact."}},
-        {"@type":"Question","name":"What are the 10 universal funnel leaks?","acceptedAnswer":{"@type":"Answer","text":"Email deliverability, low webinar show-up rate, missing post-webinar sequence, underutilised email list, no upsells/order bumps, feature-heavy copy, slow page speed, premature price reveal, fake urgency, and single-channel dependency."}}
-    ]}
-    </script>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; color: #1a1a1a; line-height: 1.7; }
-        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; }
-        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%);
+      color: var(--white);
+      padding: 80px 24px 100px;
+      text-align: center;
+    }
 
-        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-        .stat-table { width: 100%; border-collapse: collapse; margin: 2rem 0; border: 1px solid #e5e5e5; background: white; }
-        .stat-table th { background: #f3f0eb; padding: 14px 20px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; color: #6b1f3d; border-bottom: 1px solid #e5e5e5; }
-        .stat-table td { padding: 14px 20px; font-size: 15px; border-bottom: 1px solid #f0f0f0; color: #333; }
-        .stat-table tr:last-child td { border-bottom: none; }
+    .header-eyebrow {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 24px;
+    }
 
-        .leak-card { background: white; border-left: 2px solid rgba(107, 31, 61, 0.15); padding: 2rem 2.5rem; margin-bottom: 1rem; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
-        .leak-card.checked { border-left-color: #c9a66b; background: rgba(201, 166, 107, 0.04); }
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 8vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
 
-        .leak-checkbox-wrapper { display: flex; align-items: center; gap: 12px; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid #f0f0f0; cursor: pointer; user-select: none; transition: opacity 0.2s; }
-        .leak-checkbox-wrapper:hover { opacity: 0.7; }
-        .leak-checkbox { appearance: none; width: 22px; height: 22px; border: 2px solid #6b1f3d; cursor: pointer; flex-shrink: 0; position: relative; transition: all 0.3s; }
-        .leak-checkbox:checked { background: #6b1f3d; }
-        .leak-checkbox:checked::after { content: ''; position: absolute; left: 6px; top: 2px; width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+    .header h1 span {
+      color: var(--gold);
+    }
 
-        .score-pill {
-            position: fixed;
-            top: 90px;
-            right: 24px;
-            background: white;
-            border: 1px solid rgba(107, 31, 61, 0.15);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-            padding: 14px 24px;
-            z-index: 50;
-            transform: translateX(calc(100% + 32px));
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .score-pill.visible { transform: translateX(0); }
-        .score-pill-num { font-family: 'Bodoni Moda', serif; font-size: 1.75rem; color: #6b1f3d; line-height: 1; }
-        .score-pill-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: #6a6a6a; font-weight: 600; }
+    .header p {
+      font-size: 20px;
+      color: var(--gray-400);
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-        .fade-in.reveal { opacity: 1; transform: translateY(0); }
+    /* Navigation */
+    .toc {
+      background: var(--cream-dark);
+      padding: 48px 24px;
+      border-bottom: 1px solid var(--gray-200);
+    }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2.25rem !important; }
-            h2 { font-size: 1.75rem !important; }
-            .leak-card { padding: 1.5rem 1.5rem; }
-            .score-pill { top: 80px; right: 12px; padding: 10px 16px; }
-            .score-pill-num { font-size: 1.25rem; }
-        }
-    </style>
+    .toc-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .toc h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .toc-item {
+      background: var(--cream);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .toc-item:hover {
+      border-color: var(--bordeaux);
+      box-shadow: 0 4px 12px var(--bordeaux-light);
+    }
+
+    .toc-number {
+      width: 32px;
+      height: 32px;
+      background: var(--cream-dark);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--bordeaux);
+    }
+
+    .toc-text {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* Main Content */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Section */
+    .section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .section-number {
+      display: inline-block;
+      background: var(--bordeaux);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: var(--black);
+    }
+
+    .section-intro {
+      font-size: 20px;
+      color: var(--gray-500);
+      margin-bottom: 48px;
+    }
+
+    /* Subsection */
+    .subsection {
+      margin-bottom: 48px;
+    }
+
+    .subsection h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--black);
+    }
+
+    .subsection h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--bordeaux);
+    }
+
+    .subsection p {
+      font-size: 17px;
+      color: var(--gray-600);
+      margin-bottom: 16px;
+    }
+
+    /* Lists */
+    ul, ol {
+      margin-bottom: 24px;
+      padding-left: 24px;
+    }
+
+    li {
+      font-size: 17px;
+      color: var(--gray-600);
+      margin-bottom: 12px;
+    }
+
+    li strong {
+      color: var(--gray-800);
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: var(--gray-900);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--gray-700);
+    }
+
+    .code-block-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .code-block-dot.red { background: #FF5F57; }
+    .code-block-dot.yellow { background: #FFBD2E; }
+    .code-block-dot.green { background: #28CA41; }
+
+    .code-block-title {
+      font-size: 13px;
+      color: var(--gray-400);
+      margin-left: 8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .code-block code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--gray-100);
+      display: block;
+    }
+
+    .code-block .comment {
+      color: var(--gray-500);
+    }
+
+    .code-block .command {
+      color: var(--green);
+    }
+
+    .code-block .string {
+      color: var(--orange);
+    }
+
+    .code-block .prompt {
+      color: var(--gold);
+    }
+
+    /* Inline Code */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      background: var(--cream-dark);
+      padding: 2px 8px;
+      border-radius: 6px;
+      color: var(--bordeaux);
+    }
+
+    /* Callout Boxes */
+    .callout {
+      background: var(--bordeaux-light);
+      border-left: 4px solid var(--bordeaux);
+      border-radius: 0 12px 12px 0;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .callout.tip {
+      border-left-color: var(--green);
+      background: rgba(45, 106, 79, 0.1);
+    }
+
+    .callout.warning {
+      border-left-color: var(--gold);
+      background: var(--gold-light);
+    }
+
+    .callout-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      color: var(--bordeaux);
+    }
+
+    .callout.tip .callout-title { color: var(--green); }
+    .callout.warning .callout-title { color: var(--gold); }
+
+    .callout p {
+      font-size: 16px;
+      color: var(--gray-600);
+      margin-bottom: 0;
+    }
+
+    /* Step Cards */
+    .step-card {
+      background: var(--cream);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 24px 0;
+    }
+
+    .step-card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: var(--bordeaux);
+      color: var(--white);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    /* Links */
+    a {
+      color: var(--bordeaux);
+    }
+
+    a:hover {
+      color: var(--bordeaux-dark);
+    }
+
+    /* Framework Cards */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    .framework-card {
+      background: var(--cream-dark);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .framework-card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bordeaux);
+      color: var(--white);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .framework-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--black);
+    }
+
+    .framework-card p {
+      font-size: 15px;
+      color: var(--gray-500);
+      margin-bottom: 0;
+    }
+
+    /* Example Cards */
+    .example-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .example-card {
+      background: var(--bordeaux);
+      color: var(--white);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .example-card-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--bordeaux-dark);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .example-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .example-card p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 0;
+    }
+
+    /* Folder Structure */
+    .folder-structure {
+      background: var(--gray-900);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 24px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--gray-100);
+    }
+
+    .folder-structure .folder {
+      color: var(--blue);
+    }
+
+    .folder-structure .file {
+      color: var(--gray-300);
+    }
+
+    .folder-structure .indent {
+      margin-left: 20px;
+    }
+
+    .folder-structure .indent-2 {
+      margin-left: 40px;
+    }
+
+    .folder-structure .indent-3 {
+      margin-left: 60px;
+    }
+
+    /* Prompt Template */
+    .prompt-template {
+      background: linear-gradient(135deg, var(--gray-900), var(--gray-800));
+      border-radius: 16px;
+      padding: 32px;
+      margin: 24px 0;
+      border: 1px solid var(--gray-700);
+    }
+
+    .prompt-template-header {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .prompt-template-content {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--gray-200);
+    }
+
+    .prompt-template-content .variable {
+      background: rgba(201, 165, 92, 0.2);
+      color: var(--gold);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Video Placeholder */
+    .video-placeholder {
+      background: var(--gray-900);
+      border-radius: 16px;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 24px 0;
+    }
+
+    .video-placeholder-text {
+      color: var(--gray-400);
+      font-size: 16px;
+    }
+
+    /* Footer CTA */
+    .footer-cta {
+      background: linear-gradient(135deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%);
+      color: var(--white);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .footer-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .footer-cta p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 32px;
+    }
+
+    .footer-cta-link {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--bordeaux-dark);
+      font-size: 18px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .footer-cta-link:hover {
+      transform: scale(1.05);
+      background: var(--white);
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .checklist li:last-child {
+      border-bottom: none;
+    }
+
+    .checklist-check {
+      width: 24px;
+      height: 24px;
+      background: var(--bordeaux);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        padding: 60px 24px 80px;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .code-block {
+        padding: 16px;
+        border-radius: 12px;
+      }
+
+      .code-block code {
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10 bg-cream sticky top-0 z-40">
-        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
-            <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
-            <a href="../apply/" class="btn-primary bg-bordeaux text-white px-5 py-2.5 font-semibold text-xs uppercase tracking-[0.15em]">Apply for Audit</a>
-        </div>
-    </header>
-
-    <!-- LIVE SCORE PILL -->
-    <div id="score-pill" class="score-pill">
-        <span id="score-pill-num" class="score-pill-num">0</span>
-        <span class="text-gray-300">/</span>
-        <span class="text-2xl text-gray-400 font-serif">10</span>
-        <span class="score-pill-label">fixed</span>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-eyebrow">The Complete Guide</div>
+      <h1>The Claude Code <span>Playbook</span></h1>
+      <p>Everything you need to know to start building AI-powered tools, websites, and automations using Claude Code.</p>
     </div>
+  </header>
 
-    <!-- HERO -->
-    <section class="px-6 lg:px-16 py-20 lg:py-28">
-        <div class="max-w-3xl mx-auto text-center fade-in">
-            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">The 10-Leak Scorecard · 60 Seconds</p>
-            <h1 class="text-4xl lg:text-6xl xl:text-7xl leading-[1.05] mb-8">Find the millions hiding in <span class="text-bordeaux italic">your funnel.</span></h1>
-            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-4">You don't have a traffic problem. You have a leak problem.</p>
-            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10">There's $500K–$3M draining out of most $1M+ funnels before it ever converts. Here are the 10 leaks I find in every audit — check off the ones you've already fixed.</p>
-            <a href="#leaks" class="btn-primary inline-block bg-bordeaux text-white px-10 py-5 text-sm font-bold uppercase tracking-[0.15em]">Start the Scorecard ↓</a>
+  <!-- Table of Contents -->
+  <nav class="toc">
+    <div class="toc-content">
+      <h2>What's Inside</h2>
+      <div class="toc-grid">
+        <a href="#installation" class="toc-item">
+          <div class="toc-number">01</div>
+          <div class="toc-text">Installation & Setup</div>
+        </a>
+        <a href="#what-is-claude" class="toc-item">
+          <div class="toc-number">02</div>
+          <div class="toc-text">What is Claude Code?</div>
+        </a>
+        <a href="#framework" class="toc-item">
+          <div class="toc-number">03</div>
+          <div class="toc-text">The Build Framework</div>
+        </a>
+        <a href="#prompting" class="toc-item">
+          <div class="toc-number">04</div>
+          <div class="toc-text">Crafting Great Prompts</div>
+        </a>
+        <a href="#data" class="toc-item">
+          <div class="toc-number">05</div>
+          <div class="toc-text">Organizing Your Data</div>
+        </a>
+        <a href="#building" class="toc-item">
+          <div class="toc-number">06</div>
+          <div class="toc-text">Building Your First Tool</div>
+        </a>
+        <a href="#publishing" class="toc-item">
+          <div class="toc-number">07</div>
+          <div class="toc-text">Publishing to the Web</div>
+        </a>
+        <a href="#examples" class="toc-item">
+          <div class="toc-number">08</div>
+          <div class="toc-text">What You Can Build</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="content">
+
+    <!-- Section 1: Installation -->
+    <section id="installation" class="section">
+      <div class="section-number">Section 01</div>
+      <h2>Installation & Setup</h2>
+      <p class="section-intro">Before you can start building with Claude Code, you need to set up your environment. This takes about 10 minutes.</p>
+
+      <div class="subsection">
+        <h3>What You'll Need</h3>
+        <ul class="checklist">
+          <li>
+            <span class="checklist-check">1</span>
+            <span><strong>A Mac or Windows computer</strong> - Claude Code runs in your terminal</span>
+          </li>
+          <li>
+            <span class="checklist-check">2</span>
+            <span><strong>An Anthropic account</strong> - Sign up at anthropic.com</span>
+          </li>
+          <li>
+            <span class="checklist-check">3</span>
+            <span><strong>Node.js installed</strong> - Required to run Claude Code</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Step 1: Open Your Terminal</h3>
+        <p>The terminal is where you'll interact with Claude Code. It's a text-based interface where you type commands.</p>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">Mac</div>
+            <div class="step-title">Opening Terminal on Mac</div>
+          </div>
+          <ol>
+            <li>Press <code>Command + Space</code> to open Spotlight</li>
+            <li>Type "Terminal" and press Enter</li>
+            <li>A black or white window will open - this is your terminal</li>
+          </ol>
         </div>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">Win</div>
+            <div class="step-title">Opening Terminal on Windows</div>
+          </div>
+          <ol>
+            <li>Press <code>Windows + R</code> to open Run</li>
+            <li>Type "cmd" or "powershell" and press Enter</li>
+            <li>Alternatively, search for "Windows Terminal" in the Start menu</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Step 2: Install Node.js</h3>
+        <p>Node.js is required to run Claude Code. Check if you have it installed:</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Terminal</span>
+          </div>
+          <code><span class="command">node --version</span></code>
+        </div>
+
+        <p>If you see a version number (like v20.0.0), you're good. If not, install Node.js:</p>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">1</div>
+            <div class="step-title">Install Node.js</div>
+          </div>
+          <ol>
+            <li>Go to <a href="https://nodejs.org" target="_blank">nodejs.org</a></li>
+            <li>Download the LTS (Long Term Support) version</li>
+            <li>Run the installer and follow the prompts</li>
+            <li>Restart your terminal after installation</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Step 3: Install Claude Code</h3>
+        <p>Now install Claude Code globally on your machine:</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Terminal</span>
+          </div>
+          <code><span class="command">npm install -g @anthropic-ai/claude-code</span></code>
+        </div>
+
+        <p>This command downloads and installs Claude Code from npm (Node Package Manager).</p>
+
+        <div class="callout tip">
+          <div class="callout-title">Tip</div>
+          <p>If you get a permission error, try running with <code>sudo</code> on Mac: <code>sudo npm install -g @anthropic-ai/claude-code</code></p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Step 4: Authenticate</h3>
+        <p>Run Claude Code for the first time to authenticate:</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Terminal</span>
+          </div>
+          <code><span class="command">claude</span></code>
+        </div>
+
+        <p>This will open a browser window where you can log in with your Anthropic account. Once authenticated, you're ready to go!</p>
+      </div>
     </section>
 
-    <!-- CASE STUDY -->
-    <section class="px-6 lg:px-16 py-16 lg:py-24 bg-white">
-        <div class="max-w-4xl mx-auto fade-in">
-            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Quick Proof</p>
-            <h2 class="text-3xl lg:text-5xl mb-8 leading-tight">$2.5M found in <span class="text-bordeaux italic">47 minutes.</span></h2>
+    <!-- Section 2: What is Claude Code -->
+    <section id="what-is-claude" class="section">
+      <div class="section-number">Section 02</div>
+      <h2>What is Claude Code?</h2>
+      <p class="section-intro">Claude Code is an AI assistant that lives in your terminal. It can read your files, write code, run commands, and build entire applications for you.</p>
 
-            <div class="space-y-5 text-base lg:text-lg text-gray-700 leading-relaxed mb-10">
-                <p>A coaching business doing $3M/year. Spending $250K/month on ads to generate roughly $250K in revenue. Breakeven on paper. Bleeding in reality.</p>
-                <p>When I ran the audit, the leaks were obvious once you knew where to look:</p>
-            </div>
+      <div class="subsection">
+        <h3>How It's Different from ChatGPT</h3>
+        <p>Unlike ChatGPT which lives in a browser window, Claude Code:</p>
+        <ul>
+          <li><strong>Has access to your files</strong> - It can read your documents, images, PDFs, and data files</li>
+          <li><strong>Can write and edit files</strong> - It creates real files on your computer</li>
+          <li><strong>Runs commands</strong> - It can execute code, run tests, and deploy applications</li>
+          <li><strong>Remembers context</strong> - It understands your entire project, not just the last message</li>
+          <li><strong>Works with real tools</strong> - Git, npm, Python, databases, APIs, and more</li>
+        </ul>
+      </div>
 
-            <table class="stat-table">
-                <thead>
-                    <tr><th>The Leak</th><th>Their Number</th><th>Benchmark</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Cost per lead</td><td>$84</td><td>$40–60</td></tr>
-                    <tr><td>Show-up rate</td><td>23%</td><td>40%+</td></tr>
-                    <tr><td>Webinar close rate</td><td>4.2%</td><td>12–15%</td></tr>
-                </tbody>
-            </table>
+      <div class="subsection">
+        <h3>The Basic Interface</h3>
+        <p>When you run <code>claude</code> in your terminal, you enter an interactive session. Here's what it looks like:</p>
 
-            <div class="bg-cream-dark border-l-2 border-bordeaux p-6 lg:p-8 my-8">
-                <p class="text-lg lg:text-xl text-gray-900"><strong>Same traffic. Same offer. Same audience.</strong> Just leaks everywhere.</p>
-            </div>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Claude Code Session</span>
+          </div>
+          <code>
+<span class="comment"># Navigate to your project folder first</span>
+<span class="command">cd ~/Desktop/my-project</span>
 
-            <h3 class="text-2xl lg:text-3xl mb-6 mt-12">6 fixes. No extra ad spend. $2.5M unlocked.</h3>
+<span class="comment"># Start Claude Code</span>
+<span class="command">claude</span>
 
-            <table class="stat-table">
-                <thead>
-                    <tr><th>Fix</th><th>Result</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Rewrote registration page</td><td>CPL → $47 (44% drop)</td></tr>
-                    <tr><td>Fixed confirmation sequence</td><td>Show-up → 48%</td></tr>
-                    <tr><td>Restructured webinar pitch</td><td>Close rate → 11.3%</td></tr>
-                    <tr><td>Added replay sequence</td><td>+38% revenue captured</td></tr>
-                    <tr><td>Implemented application calls</td><td>+2 points on close rate</td></tr>
-                    <tr><td>Built nurture sequence</td><td>+15% recovered over 90 days</td></tr>
-                </tbody>
-            </table>
+<span class="comment"># Now you're in an interactive session</span>
+<span class="prompt">></span> <span class="string">Build me a landing page for a fitness app</span>
 
-            <div class="grid md:grid-cols-3 gap-4 lg:gap-6 mt-10">
-                <div class="bg-bordeaux text-white p-8 text-center">
-                    <p class="text-3xl lg:text-4xl font-serif text-gold mb-2">$6,900</p>
-                    <p class="text-[10px] uppercase tracking-[0.25em] font-semibold opacity-80">Per Day</p>
-                </div>
-                <div class="bg-bordeaux text-white p-8 text-center">
-                    <p class="text-3xl lg:text-4xl font-serif text-gold mb-2">$207K</p>
-                    <p class="text-[10px] uppercase tracking-[0.25em] font-semibold opacity-80">Per Month</p>
-                </div>
-                <div class="bg-bordeaux text-white p-8 text-center">
-                    <p class="text-3xl lg:text-4xl font-serif text-gold mb-2">$2.5M</p>
-                    <p class="text-[10px] uppercase tracking-[0.25em] font-semibold opacity-80">Per Year</p>
-                </div>
-            </div>
-
-            <p class="text-center text-lg lg:text-xl text-gray-900 mt-10"><strong>84% revenue increase. Zero additional ad spend.</strong><br>The money was always there. It was just leaking out.</p>
+<span class="comment"># Claude will read your files, understand the context,</span>
+<span class="comment"># and start building...</span>
+          </code>
         </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Key Commands</h3>
+        <ul>
+          <li><code>claude</code> - Start an interactive session</li>
+          <li><code>/help</code> - See available commands</li>
+          <li><code>/clear</code> - Clear the conversation history</li>
+          <li><code>Ctrl + C</code> - Stop the current operation</li>
+          <li><code>exit</code> or <code>Ctrl + D</code> - Exit Claude Code</li>
+        </ul>
+      </div>
     </section>
 
-    <!-- THE PATTERN -->
-    <section class="px-6 lg:px-16 py-20 lg:py-28 bg-cream">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 fade-in">
-                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">The Pattern</p>
-                <h2 class="text-3xl lg:text-5xl mb-8 leading-tight">Why most funnel owners <span class="text-bordeaux italic">never see it.</span></h2>
-                <p class="text-base lg:text-lg text-gray-700 leading-relaxed">After 8 years scaling Mindvalley to $150M and 100+ audits since, I see the same pattern in 95% of funnels — they're leaving $500K–$5M on the table for the same reasons.</p>
-            </div>
+    <!-- Section 3: The Build Framework -->
+    <section id="framework" class="section">
+      <div class="section-number">Section 03</div>
+      <h2>The Build Framework</h2>
+      <p class="section-intro">Before you start building, you need to know WHAT to build. This framework helps you identify high-impact opportunities.</p>
 
-            <div class="space-y-4 fade-in">
-                <div class="grid md:grid-cols-12 gap-4 lg:gap-6 bg-white p-6 lg:p-8 items-center">
-                    <div class="md:col-span-5 text-gray-600">$1M business thinks they need more traffic</div>
-                    <div class="md:col-span-1 text-bordeaux font-bold text-center">→</div>
-                    <div class="md:col-span-6 text-gray-900 font-medium">Actually needs 30% better landing page</div>
-                </div>
-                <div class="grid md:grid-cols-12 gap-4 lg:gap-6 bg-white p-6 lg:p-8 items-center">
-                    <div class="md:col-span-5 text-gray-600">$3M business thinks they need a new offer</div>
-                    <div class="md:col-span-1 text-bordeaux font-bold text-center">→</div>
-                    <div class="md:col-span-6 text-gray-900 font-medium">Actually needs 50% better show-up rate</div>
-                </div>
-                <div class="grid md:grid-cols-12 gap-4 lg:gap-6 bg-white p-6 lg:p-8 items-center">
-                    <div class="md:col-span-5 text-gray-600">$5M business thinks they need a better sales team</div>
-                    <div class="md:col-span-1 text-bordeaux font-bold text-center">→</div>
-                    <div class="md:col-span-6 text-gray-900 font-medium">Actually needs a better webinar pitch</div>
-                </div>
-            </div>
+      <div class="subsection">
+        <h3>The 4-Question Framework</h3>
+        <p>Ask yourself these questions to identify what to build:</p>
 
-            <p class="text-lg lg:text-xl text-gray-900 mt-10 max-w-2xl fade-in"><strong>Optimisation always comes before scale.</strong> Scaling a leaky funnel just means losing money faster.</p>
+        <div class="framework-grid">
+          <div class="framework-card">
+            <div class="framework-card-icon">1</div>
+            <h4>What do I do repeatedly?</h4>
+            <p>Any task you do more than 3x per week is a candidate for automation.</p>
+          </div>
+          <div class="framework-card">
+            <div class="framework-card-icon">2</div>
+            <h4>What takes too long?</h4>
+            <p>If it takes more than 30 minutes manually, Claude can probably do it in seconds.</p>
+          </div>
+          <div class="framework-card">
+            <div class="framework-card-icon">3</div>
+            <h4>What am I paying for?</h4>
+            <p>Software subscriptions, agencies, freelancers - can any of these be built in-house?</p>
+          </div>
+          <div class="framework-card">
+            <div class="framework-card-icon">4</div>
+            <h4>What's blocking my team?</h4>
+            <p>Bottlenecks, approval delays, waiting for others - what could AI unblock?</p>
+          </div>
         </div>
+      </div>
+
+      <div class="subsection">
+        <h3>The Impact Matrix</h3>
+        <p>Once you have a list of ideas, prioritize them:</p>
+
+        <div class="callout">
+          <div class="callout-title">High Impact, Easy to Build (Start Here)</div>
+          <p>Landing pages, email templates, content generators, data analysis tools, simple automations</p>
+        </div>
+
+        <div class="callout tip">
+          <div class="callout-title">High Impact, Hard to Build (Plan for Later)</div>
+          <p>Full applications, complex integrations, AI agents, multi-step workflows</p>
+        </div>
+
+        <div class="callout warning">
+          <div class="callout-title">Low Impact (Skip These)</div>
+          <p>Nice-to-haves, edge cases, features no one asked for</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>The ROI Test</h3>
+        <p>Before building, calculate the potential ROI:</p>
+        <ul>
+          <li><strong>Time saved per week</strong> × 52 weeks = Annual time saved</li>
+          <li><strong>Cost of current solution</strong> × 12 months = Annual cost</li>
+          <li><strong>Time to build</strong> (usually hours, not days)</li>
+        </ul>
+        <p>If annual savings > time to build × 10, it's worth building.</p>
+      </div>
     </section>
 
-    <!-- 10 LEAKS -->
-    <section id="leaks" class="px-6 lg:px-16 py-20 lg:py-28 bg-cream-dark">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 lg:mb-16 fade-in">
-                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">The 10 Leaks</p>
-                <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">How many of these are in <span class="text-bordeaux italic">your funnel?</span></h2>
-                <p class="text-base lg:text-lg text-gray-700 leading-relaxed">Check the ones you've already fixed. Your live score updates in the corner. Banding at the bottom.</p>
-            </div>
+    <!-- Section 4: Crafting Great Prompts -->
+    <section id="prompting" class="section">
+      <div class="section-number">Section 04</div>
+      <h2>Crafting Great Prompts</h2>
+      <p class="section-intro">The quality of what Claude builds depends on the quality of your prompts. Here's how to write prompts that get results.</p>
 
-            <!-- Leak 01 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 01</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">Emails landing in spam</h3>
-                <p class="text-gray-600 mb-5">You're sending emails. But are they arriving? Most funnel owners have no idea their reminders, sequences, and offers are hitting spam. SPF, DKIM, and DMARC aren't configured. Your best copy goes unseen.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Every email in spam is a lead you paid for who never sees your offer.</p>
-                </div>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">My email deliverability is configured and tested (SPF, DKIM, DMARC)</span>
-                </label>
-            </div>
+      <div class="subsection">
+        <h3>The Anatomy of a Great Prompt</h3>
+        <p>Every great prompt has these components:</p>
 
-            <!-- Leak 02 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 02</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">Webinar show-up rates below 30%</h3>
-                <p class="text-gray-600 mb-5">Industry average is 12–15%. Benchmark for live should be 40%+. If you're not using SMS/WhatsApp backup, pre-webinar value content, and a 5–7 touch reminder sequence, you're paying for registrants who never show.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Doubling show-up rate doubles revenue from the same ad spend.</p>
-                </div>
-                <p class="text-sm text-gray-500 italic mb-2">Example: Added a 90-second video to the confirmation page. Show-up went 26% → 47%.</p>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">My webinar show-up rate is 35% or higher</span>
-                </label>
-            </div>
+        <div class="prompt-template">
+          <div class="prompt-template-header">Prompt Template</div>
+          <div class="prompt-template-content">
+<strong>CONTEXT:</strong> <span class="variable">[What is this for? Who will use it?]</span>
 
-            <!-- Leak 03 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 03</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">No post-webinar follow-up sequence</h3>
-                <p class="text-gray-600 mb-5">The webinar ends. You send one replay email. Then silence. Meanwhile, 70% of your buyers need 3–7 days to decide. You're abandoning them right when they're most ready to buy.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> $100K+ per webinar sitting in your "didn't buy yet" list.</p>
-                </div>
-                <p class="text-sm text-gray-500 italic mb-2">Example: Added 48-hour replay sequence. Recovered $127K/month.</p>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">I have a 5+ email post-offer sequence with objection handling</span>
-                </label>
-            </div>
+<strong>GOAL:</strong> <span class="variable">[What do you want to achieve?]</span>
 
-            <!-- Leak 04 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 04</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">Underutilising your email list</h3>
-                <p class="text-gray-600 mb-5">You email when you launch. That's it. No weekly value emails. No upsell sequences. No cross-sells. No promotional campaigns. No dead-lead reactivation. Your list is an asset collecting dust.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> A properly worked email list adds 20–40% to total revenue.</p>
-                </div>
-                <p class="text-sm text-gray-500 italic mb-2">Example: A "breakup email" to 40,000 dead registrants recovered $147K (31 deals closed).</p>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">I email my list at least weekly with a mix of value and offers</span>
-                </label>
-            </div>
+<strong>INPUTS:</strong> <span class="variable">[What data/files should Claude use?]</span>
 
-            <!-- Leak 05 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 05</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">No upsells or order bumps</h3>
-                <p class="text-gray-600 mb-5">Someone's at checkout, credit card in hand, and you're only offering one thing. No order bump. No one-click upsell. No backend continuity. No high-ticket ascension path.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> You're leaving 60–70% of customer lifetime value on the table.</p>
-                </div>
-                <p class="text-sm text-gray-500 italic mb-2">Example: Added $12K continuity + $25K mastermind. LTV went from $3,100 → $11,400.</p>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">I have upsells, order bumps, and a backend offer in place</span>
-                </label>
-            </div>
+<strong>OUTPUTS:</strong> <span class="variable">[What should the final result look like?]</span>
 
-            <!-- Leak 06 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 06</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">Selling features instead of transformation</h3>
-                <p class="text-gray-600 mb-5">Your copy lists what's included: "10 modules, 47 videos, lifetime access." Nobody cares. They care about who they become. Features inform. Transformation sells.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> "A better course on Facebook ads" converts at 3%. "The 7-Figure Ad Account Blueprint" converts at 12%.</p>
-                </div>
-                <p class="text-sm text-gray-500 italic mb-2">Example: Renamed offer from "Systematize" → "The Operator Blueprint." Close rate went 3.8% → 11.2%.</p>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">My headline promises a specific transformation, not information</span>
-                </label>
-            </div>
+<strong>CONSTRAINTS:</strong> <span class="variable">[Any requirements or limitations?]</span>
 
-            <!-- Leak 07 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 07</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">Slow page load speed</h3>
-                <p class="text-gray-600 mb-5">Your page takes 4+ seconds to load. 40% of visitors are gone before they see your headline. You're paying for traffic that bounces before the page even renders.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Every 1-second delay reduces conversions by 7%.</p>
-                </div>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">My landing pages load in under 3 seconds (tested on PageSpeed Insights)</span>
-                </label>
-            </div>
-
-            <!-- Leak 08 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 08</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">Price revealed too early</h3>
-                <p class="text-gray-600 mb-5">You show the price before stacking the value. Revealing $2K before building perceived value = 3% close rate. After a proper value stack = 12%.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> $90K vs $360K revenue per 1,000 attendees.</p>
-                </div>
-                <p class="text-sm text-gray-500 italic mb-2">Example: Moved price reveal from minute 40 → minute 68 with a $47K value stack. Close rate went 4.1% → 13.7%.</p>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">I stack value to 10× before revealing price</span>
-                </label>
-            </div>
-
-            <!-- Leak 09 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 09</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">Fake urgency nobody believes</h3>
-                <p class="text-gray-600 mb-5">"Limited spots available" every single week. Countdown timers that reset. "Sale ends Friday" with no real reason. Your audience has been trained to ignore your deadlines.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Weak urgency loses 50% of sales to "I'll think about it."</p>
-                </div>
-                <p class="text-sm text-gray-500 italic mb-2">Example: Changed "Sale ends Friday" → "Cohort starts Monday, 12 spots." Immediate purchases up 67%.</p>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">My scarcity is real, specific, and tied to a legitimate reason</span>
-                </label>
-            </div>
-
-            <!-- Leak 10 -->
-            <div class="leak-card fade-in" data-leak>
-                <p class="text-[10px] tracking-[0.3em] uppercase text-bordeaux font-semibold mb-3">Leak 10</p>
-                <h3 class="text-2xl lg:text-3xl mb-4">Single-channel dependency</h3>
-                <p class="text-gray-600 mb-5">You rely 100% on email. No SMS. No WhatsApp. No retargeting. No LinkedIn DMs. When deliverability dips or attention shifts, your entire funnel breaks.</p>
-                <div class="bg-cream border-l-2 border-gold p-4 mb-2">
-                    <p class="text-sm"><strong class="text-gray-900">The cost:</strong> Multi-channel funnels see 30–50% higher engagement and show-up rates.</p>
-                </div>
-                <p class="text-sm text-gray-500 italic mb-2">Example: Added LinkedIn DMs to webinar invites. Show-up went 31% → 68%. Close rate 9% → 14%.</p>
-                <label class="leak-checkbox-wrapper">
-                    <input type="checkbox" class="leak-checkbox" data-leak-input>
-                    <span class="text-sm font-medium text-gray-900">I use at least 2 channels (email + SMS, WhatsApp, or DMs) to reach my audience</span>
-                </label>
-            </div>
+<strong>EXAMPLES:</strong> <span class="variable">[Show what good looks like]</span>
+          </div>
         </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Example: Bad vs Good Prompt</h3>
+
+        <div class="callout warning">
+          <div class="callout-title">Bad Prompt</div>
+          <p>"Make me a website"</p>
+        </div>
+
+        <div class="callout tip">
+          <div class="callout-title">Good Prompt</div>
+          <p>"Build a landing page for my fitness coaching business. The page should have: a hero section with headline 'Transform Your Body in 90 Days', a section showing my 3 coaching packages ($99, $199, $499), testimonials from 3 clients, and a contact form. Use a dark theme with green accents. Make it mobile-responsive. Look at the brand-guidelines.pdf in this folder for colors and fonts."</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Prompting Patterns That Work</h3>
+
+        <h4>Pattern 1: Reference Existing Files</h4>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Prompt</span>
+          </div>
+          <code><span class="string">"Read the competitor-analysis.csv file and create a report showing which competitors have features we don't have."</span></code>
+        </div>
+
+        <h4>Pattern 2: Give Examples</h4>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Prompt</span>
+          </div>
+          <code><span class="string">"Generate 10 email subject lines for our sale. Here are examples of subject lines that worked before: '48 hours left', 'Your exclusive access', 'We saved this for you'"</span></code>
+        </div>
+
+        <h4>Pattern 3: Specify Format</h4>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Prompt</span>
+          </div>
+          <code><span class="string">"Analyze the sales data and create a summary. Format: 1) Key findings (3 bullet points), 2) Recommendations (numbered list), 3) Next steps (action items with owners)"</span></code>
+        </div>
+
+        <h4>Pattern 4: Iterate</h4>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Prompt</span>
+          </div>
+          <code><span class="string">"This is good but make the headline punchier, and the CTA button bigger and more prominent."</span></code>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>The System Prompt (CLAUDE.md)</h3>
+        <p>You can create a file called <code>CLAUDE.md</code> in your project folder. Claude reads this file automatically and uses it as context for every conversation.</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">CLAUDE.md</span>
+          </div>
+          <code>
+<span class="comment"># Project: Fitness Coaching Website</span>
+
+<span class="comment">## Brand Voice</span>
+- Motivational but not cheesy
+- Professional but approachable
+- Use "you" language, not "we"
+
+<span class="comment">## Design Guidelines</span>
+- Primary color: #1DB954 (green)
+- Secondary color: #191414 (dark)
+- Font: Inter for body, Montserrat for headings
+
+<span class="comment">## Technical Requirements</span>
+- All pages must be mobile-responsive
+- Use semantic HTML
+- Optimize images for web
+
+<span class="comment">## Files Reference</span>
+- /assets/logo.png - Company logo
+- /data/testimonials.json - Customer testimonials
+- /content/copy.md - Approved marketing copy
+          </code>
+        </div>
+      </div>
     </section>
 
-    <!-- SCORE RESULT -->
-    <section class="px-6 lg:px-16 py-20 lg:py-28 bg-bordeaux text-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Your Score</p>
-            <h2 class="text-4xl lg:text-6xl mb-4 leading-tight"><span id="big-score">0</span><span class="text-white/40">/10</span></h2>
-            <p id="score-band-label" class="text-2xl lg:text-3xl text-gold italic font-serif mb-4">Start the scorecard above</p>
-            <p id="score-band-detail" class="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto mb-12">Check the boxes above to see your band.</p>
+    <!-- Section 5: Organizing Your Data -->
+    <section id="data" class="section">
+      <div class="section-number">Section 05</div>
+      <h2>Organizing Your Data</h2>
+      <p class="section-intro">The quality of Claude's output depends on the quality of your input. Here's how to organize your data for maximum effectiveness.</p>
 
-            <div class="grid md:grid-cols-2 gap-4 lg:gap-6 max-w-3xl mx-auto text-left">
-                <div class="bg-white/10 p-6 lg:p-8 border-l-2 border-gold">
-                    <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-2">8–10 Fixed</p>
-                    <h3 class="text-xl lg:text-2xl mb-3 text-white">Optimised</h3>
-                    <p class="text-sm text-white/70">Top 5%. Minor tweaks could add $100K–$500K/year.</p>
-                </div>
-                <div class="bg-white/10 p-6 lg:p-8 border-l-2 border-gold">
-                    <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-2">5–7 Fixed</p>
-                    <h3 class="text-xl lg:text-2xl mb-3 text-white">Healthy but leaking</h3>
-                    <p class="text-sm text-white/70">Doing well, but $250K–$750K still on the table annually.</p>
-                </div>
-                <div class="bg-white/10 p-6 lg:p-8 border-l-2 border-bordeaux-dark">
-                    <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-2">3–4 Fixed</p>
-                    <h3 class="text-xl lg:text-2xl mb-3 text-white">Critical gaps</h3>
-                    <p class="text-sm text-white/70">$500K–$1.5M per year leaking through fixable cracks.</p>
-                </div>
-                <div class="bg-white/10 p-6 lg:p-8 border-l-2 border-bordeaux-dark">
-                    <p class="text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-2">0–2 Fixed</p>
-                    <h3 class="text-xl lg:text-2xl mb-3 text-white">Hemorrhaging</h3>
-                    <p class="text-sm text-white/70">$1M–$3M/year going to your competitors.</p>
-                </div>
+      <div class="subsection">
+        <h3>The Golden Rule</h3>
+        <div class="callout">
+          <div class="callout-title">Output is only as good as input</div>
+          <p>If you give Claude messy, incomplete, or outdated data, you'll get messy results. Take time to organize your data before building.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Recommended Folder Structure</h3>
+        <p>Create a dedicated project folder with this structure:</p>
+
+        <div class="folder-structure">
+          <div class="folder">my-project/</div>
+          <div class="indent"><span class="folder">data/</span></div>
+          <div class="indent-2"><span class="file">customers.csv</span> <span style="color: var(--gray-500);">← Raw data files</span></div>
+          <div class="indent-2"><span class="file">products.json</span></div>
+          <div class="indent-2"><span class="file">sales-2024.xlsx</span></div>
+          <div class="indent"><span class="folder">content/</span></div>
+          <div class="indent-2"><span class="file">brand-voice.md</span> <span style="color: var(--gray-500);">← Guidelines and copy</span></div>
+          <div class="indent-2"><span class="file">testimonials.md</span></div>
+          <div class="indent-2"><span class="file">faq.md</span></div>
+          <div class="indent"><span class="folder">assets/</span></div>
+          <div class="indent-2"><span class="file">logo.png</span> <span style="color: var(--gray-500);">← Images and media</span></div>
+          <div class="indent-2"><span class="file">hero-image.jpg</span></div>
+          <div class="indent"><span class="folder">examples/</span></div>
+          <div class="indent-2"><span class="file">competitor-page.pdf</span> <span style="color: var(--gray-500);">← Reference materials</span></div>
+          <div class="indent-2"><span class="file">design-inspo.png</span></div>
+          <div class="indent"><span class="file">CLAUDE.md</span> <span style="color: var(--gray-500);">← System prompt</span></div>
+          <div class="indent"><span class="file">README.md</span> <span style="color: var(--gray-500);">← Project overview</span></div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>What Data to Include</h3>
+
+        <h4>For Marketing Tools:</h4>
+        <ul>
+          <li>Past campaign performance data (what worked, what didn't)</li>
+          <li>Customer testimonials and reviews</li>
+          <li>Competitor analysis and examples</li>
+          <li>Brand guidelines and approved copy</li>
+          <li>Target audience personas</li>
+        </ul>
+
+        <h4>For Business Tools:</h4>
+        <ul>
+          <li>Historical data (sales, metrics, KPIs)</li>
+          <li>Process documentation (how things work currently)</li>
+          <li>Team structure and responsibilities</li>
+          <li>Integration requirements (APIs, databases)</li>
+        </ul>
+
+        <h4>For Content Tools:</h4>
+        <ul>
+          <li>Examples of content you like</li>
+          <li>Tone of voice guidelines</li>
+          <li>Keywords and topics</li>
+          <li>Formatting requirements</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Data Formats Claude Works Best With</h3>
+        <ul>
+          <li><strong>CSV/Excel</strong> - For structured data (sales, customers, inventory)</li>
+          <li><strong>JSON</strong> - For configuration and structured content</li>
+          <li><strong>Markdown (.md)</strong> - For text content and documentation</li>
+          <li><strong>PDF</strong> - For reference documents (Claude can read these)</li>
+          <li><strong>Images (PNG, JPG)</strong> - For visual references and screenshots</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-title">Pro Tip</div>
+          <p>Use Markdown files for any text-based content. They're easy to write, easy for Claude to read, and version-control friendly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Building Your First Tool -->
+    <section id="building" class="section">
+      <div class="section-number">Section 06</div>
+      <h2>Building Your First Tool</h2>
+      <p class="section-intro">Let's walk through building something real. We'll create a simple landing page from scratch.</p>
+
+      <div class="subsection">
+        <h3>Step 1: Create Your Project Folder</h3>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Terminal</span>
+          </div>
+          <code>
+<span class="comment"># Create a new folder on your Desktop</span>
+<span class="command">mkdir ~/Desktop/my-landing-page</span>
+
+<span class="comment"># Navigate into it</span>
+<span class="command">cd ~/Desktop/my-landing-page</span>
+          </code>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Step 2: Add Your Data</h3>
+        <p>Create a content file with your information:</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">content.md</span>
+          </div>
+          <code>
+<span class="comment"># My Fitness Coaching Business</span>
+
+<span class="comment">## Headline</span>
+Transform Your Body in 90 Days
+
+<span class="comment">## Subheadline</span>
+Personal coaching that fits your lifestyle
+
+<span class="comment">## Packages</span>
+- Basic: $99/month - Weekly check-ins
+- Pro: $199/month - Daily coaching + meal plans
+- Elite: $499/month - 24/7 access + custom workouts
+
+<span class="comment">## Testimonials</span>
+- "Lost 30 lbs in 3 months!" - Sarah M.
+- "Best investment I ever made" - John D.
+- "Finally found something that works" - Lisa K.
+          </code>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Step 3: Start Claude Code</h3>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Terminal</span>
+          </div>
+          <code>
+<span class="comment"># Make sure you're in the project folder</span>
+<span class="command">cd ~/Desktop/my-landing-page</span>
+
+<span class="comment"># Start Claude</span>
+<span class="command">claude</span>
+          </code>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Step 4: Give Your Prompt</h3>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Claude Code Session</span>
+          </div>
+          <code>
+<span class="prompt">></span> <span class="string">Read the content.md file and build a modern landing page.
+Use a dark theme with green accents (#1DB954).
+Make it mobile-responsive with smooth scroll animations.
+Include all three packages as pricing cards.
+Add a contact form at the bottom.
+Save it as index.html.</span>
+          </code>
+        </div>
+
+        <p>Claude will:</p>
+        <ol>
+          <li>Read your content.md file</li>
+          <li>Generate a complete HTML file with CSS</li>
+          <li>Save it as index.html in your folder</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3>Step 5: Preview Your Page</h3>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Terminal</span>
+          </div>
+          <code>
+<span class="comment"># Open the file in your browser (Mac)</span>
+<span class="command">open index.html</span>
+
+<span class="comment"># Or on Windows</span>
+<span class="command">start index.html</span>
+          </code>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Step 6: Iterate</h3>
+        <p>Don't like something? Just tell Claude:</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-dot red"></span>
+            <span class="code-block-dot yellow"></span>
+            <span class="code-block-dot green"></span>
+            <span class="code-block-title">Claude Code Session</span>
+          </div>
+          <code>
+<span class="prompt">></span> <span class="string">Make the hero section taller and add a background gradient. Also make the CTA button pulse with an animation.</span>
+          </code>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Publishing -->
+    <section id="publishing" class="section">
+      <div class="section-number">Section 07</div>
+      <h2>Publishing to the Web</h2>
+      <p class="section-intro">Once you've built something, you'll want to share it. Here are two easy ways to publish.</p>
+
+      <div class="subsection">
+        <h3>Option 1: GitHub Pages (Free)</h3>
+        <p>GitHub Pages lets you host static websites for free. Perfect for landing pages, portfolios, and documentation.</p>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">1</div>
+            <div class="step-title">Create a GitHub Account</div>
+          </div>
+          <p>Go to <a href="https://github.com" target="_blank">github.com</a> and sign up for a free account.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">2</div>
+            <div class="step-title">Initialize Git in Your Project</div>
+          </div>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="code-block-dot red"></span>
+              <span class="code-block-dot yellow"></span>
+              <span class="code-block-dot green"></span>
+              <span class="code-block-title">Terminal</span>
             </div>
+            <code>
+<span class="command">cd ~/Desktop/my-landing-page</span>
+<span class="command">git init</span>
+<span class="command">git add .</span>
+<span class="command">git commit -m "Initial commit"</span>
+            </code>
+          </div>
         </div>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">3</div>
+            <div class="step-title">Push to GitHub</div>
+          </div>
+          <p>You can ask Claude to help you push to GitHub:</p>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="code-block-dot red"></span>
+              <span class="code-block-dot yellow"></span>
+              <span class="code-block-dot green"></span>
+              <span class="code-block-title">Claude Code Session</span>
+            </div>
+            <code>
+<span class="prompt">></span> <span class="string">Help me push this project to a new GitHub repository called "my-landing-page"</span>
+            </code>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">4</div>
+            <div class="step-title">Enable GitHub Pages</div>
+          </div>
+          <ol>
+            <li>Go to your repository on GitHub</li>
+            <li>Click Settings → Pages</li>
+            <li>Under "Source", select "main" branch</li>
+            <li>Your site will be live at: <code>https://yourusername.github.io/my-landing-page</code></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Option 2: Vercel (Recommended for Apps)</h3>
+        <p>Vercel is better for dynamic applications and gives you automatic deployments.</p>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">1</div>
+            <div class="step-title">Install Vercel CLI</div>
+          </div>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="code-block-dot red"></span>
+              <span class="code-block-dot yellow"></span>
+              <span class="code-block-dot green"></span>
+              <span class="code-block-title">Terminal</span>
+            </div>
+            <code>
+<span class="command">npm install -g vercel</span>
+            </code>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">2</div>
+            <div class="step-title">Deploy</div>
+          </div>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="code-block-dot red"></span>
+              <span class="code-block-dot yellow"></span>
+              <span class="code-block-dot green"></span>
+              <span class="code-block-title">Terminal</span>
+            </div>
+            <code>
+<span class="command">cd ~/Desktop/my-landing-page</span>
+<span class="command">vercel</span>
+            </code>
+          </div>
+          <p>Follow the prompts. Vercel will give you a live URL in seconds.</p>
+        </div>
+
+        <div class="callout tip">
+          <div class="callout-title">Pro Tip</div>
+          <p>Connect Vercel to your GitHub repository for automatic deployments. Every time you push code, your site updates automatically.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- CTA -->
-    <section class="px-6 lg:px-16 py-24 lg:py-32 bg-black text-white">
-        <div class="max-w-3xl mx-auto text-center fade-in">
-            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Found leaks?</p>
-            <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">Knowing where the leak is and <span class="text-gold italic">fixing it</span> are two different skills.</h2>
-            <p class="text-lg lg:text-xl text-white/70 mb-10 max-w-2xl mx-auto">
-                I've spent 8 years becoming extremely good at the second part. The Revenue Recovery Audit™ doesn't just tell you "your show-up rate is low" — I give you the exact copy, frameworks, sequences, and psychology to fix it.
-            </p>
-            <p class="text-base lg:text-lg text-white/90 mb-12 max-w-xl mx-auto"><strong class="text-gold">$100K guaranteed</strong> in recoverable revenue, or you don't pay.</p>
-            <a href="../apply/" class="btn-primary inline-block bg-bordeaux text-white px-10 lg:px-14 py-5 lg:py-6 text-sm lg:text-base font-bold uppercase tracking-[0.2em]">Apply for Audit →</a>
-            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
+    <!-- Section 8: What You Can Build -->
+    <section id="examples" class="section">
+      <div class="section-number">Section 08</div>
+      <h2>What You Can Build</h2>
+      <p class="section-intro">Claude Code can build almost anything. Here are real examples to inspire you.</p>
+
+      <div class="example-grid">
+        <div class="example-card">
+          <div class="example-card-tag">Websites</div>
+          <h4>Landing Pages</h4>
+          <p>Sales pages, product launches, event registrations, portfolios</p>
         </div>
+        <div class="example-card">
+          <div class="example-card-tag">Websites</div>
+          <h4>Full Websites</h4>
+          <p>Multi-page sites, blogs, documentation sites, company websites</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">Apps</div>
+          <h4>Web Applications</h4>
+          <p>Dashboards, calculators, form builders, data visualizations</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">Apps</div>
+          <h4>Internal Tools</h4>
+          <p>Admin panels, reporting tools, CRM interfaces, inventory managers</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">Automation</div>
+          <h4>Data Processing</h4>
+          <p>CSV transformers, report generators, data cleaners, analysis tools</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">Automation</div>
+          <h4>Content Generators</h4>
+          <p>Email writers, ad copy generators, social media post creators</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">Design</div>
+          <h4>Presentations</h4>
+          <p>HTML slide decks, pitch decks, training materials</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">Design</div>
+          <h4>Email Templates</h4>
+          <p>Marketing emails, newsletters, transactional emails</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">AI Tools</div>
+          <h4>Chatbots</h4>
+          <p>Customer support bots, FAQ bots, onboarding assistants</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">AI Tools</div>
+          <h4>AI Agents</h4>
+          <p>Research assistants, content analyzers, decision support tools</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">Business</div>
+          <h4>Analytics Tools</h4>
+          <p>Campaign trackers, ROI calculators, performance dashboards</p>
+        </div>
+        <div class="example-card">
+          <div class="example-card-tag">Business</div>
+          <h4>Workflow Automations</h4>
+          <p>Approval systems, notification bots, task managers</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Real-World Examples</h3>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">1</div>
+            <div class="step-title">Hook Analyzer Tool</div>
+          </div>
+          <p><strong>What it does:</strong> Paste any ad, and it breaks down why it works (hook type, emotional triggers, power words) and rewrites it in your brand voice.</p>
+          <p><strong>Time to build:</strong> 2-3 hours</p>
+          <p><strong>Prompt used:</strong> "Build me an HTML tool where I can paste an ad. The tool should analyze the hook type, identify emotional triggers, highlight power words, and then rewrite the ad in my brand voice. Include buttons to generate variations."</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">2</div>
+            <div class="step-title">Campaign Dashboard</div>
+          </div>
+          <p><strong>What it does:</strong> Reads your campaign data from a CSV and creates an interactive dashboard showing performance metrics, trends, and recommendations.</p>
+          <p><strong>Time to build:</strong> 1-2 hours</p>
+          <p><strong>Prompt used:</strong> "Read the campaign-data.csv file and build a dashboard. Show total revenue, conversion rate, best performing campaigns, and worst performing ones. Add charts for trends over time. Make it beautiful with a dark theme."</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-card-header">
+            <div class="step-number">3</div>
+            <div class="step-title">Email Sequence Generator</div>
+          </div>
+          <p><strong>What it does:</strong> Takes your product info and target audience, then generates a complete 5-email nurture sequence with subject lines and body copy.</p>
+          <p><strong>Time to build:</strong> 1 hour</p>
+          <p><strong>Prompt used:</strong> "Read my product-info.md and create a 5-email nurture sequence. Email 1 should introduce the problem, Email 2 should agitate it, Email 3 should present the solution, Email 4 should handle objections, Email 5 should be the hard sell. Generate 3 subject line options for each."</p>
+        </div>
+      </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-black text-gray-500 py-10 px-6 lg:px-16 text-center border-t border-white/10">
-        <p class="text-xs mb-3">© 2025 Marisha Lakhiani. All rights reserved.</p>
-        <p class="text-xs uppercase tracking-[0.2em]">
-            <a href="../index.html" class="hover:text-white transition-colors">Main Site</a>
-            <span class="mx-3">·</span>
-            <a href="../blog/" class="hover:text-white transition-colors">Blog</a>
-            <span class="mx-3">·</span>
-            <a href="../apply/" class="hover:text-white transition-colors">Apply for Audit</a>
-        </p>
-    </footer>
+  </main>
 
-    <script>
-        // Fade in
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Live score
-        const checkboxes = document.querySelectorAll('[data-leak-input]');
-        const pillNum = document.getElementById('score-pill-num');
-        const pill = document.getElementById('score-pill');
-        const bigScore = document.getElementById('big-score');
-        const bandLabel = document.getElementById('score-band-label');
-        const bandDetail = document.getElementById('score-band-detail');
-
-        function updateScore() {
-            const checked = Array.from(checkboxes).filter(c => c.checked).length;
-            pillNum.textContent = checked;
-            bigScore.textContent = checked;
-
-            // Highlight checked cards
-            checkboxes.forEach(c => {
-                const card = c.closest('[data-leak]');
-                card.classList.toggle('checked', c.checked);
-            });
-
-            // Show pill once they've started
-            if (checked > 0) {
-                pill.classList.add('visible');
-            } else {
-                pill.classList.remove('visible');
-            }
-
-            // Band copy
-            if (checked === 0) {
-                bandLabel.textContent = 'Start the scorecard above';
-                bandDetail.textContent = 'Check the boxes above to see your band.';
-            } else if (checked >= 8) {
-                bandLabel.textContent = 'Optimised.';
-                bandDetail.textContent = "You're in the top 5%. Minor tweaks here could still add $100K–$500K a year — and the audit pinpoints exactly which.";
-            } else if (checked >= 5) {
-                bandLabel.textContent = 'Healthy but leaking.';
-                bandDetail.textContent = "You're doing well, but $250K–$750K is still walking out the door each year. Most of it is concentrated in the leaks you didn't check.";
-            } else if (checked >= 3) {
-                bandLabel.textContent = 'Critical gaps.';
-                bandDetail.textContent = "Your funnel has structural leaks costing $500K–$1.5M per year. The good news: this is the band where audits produce the biggest ROI multiples.";
-            } else {
-                bandLabel.textContent = 'Hemorrhaging.';
-                bandDetail.textContent = "Your funnel is losing $1M–$3M annually to fixable leaks. Don't scale yet. Fix the bucket first — every fix here compounds against everything you'll do later.";
-            }
-        }
-
-        checkboxes.forEach(cb => cb.addEventListener('change', updateScore));
-        updateScore();
-    </script>
+  <!-- Footer CTA -->
+  <footer class="footer-cta">
+    <h2>Ready to Start Building?</h2>
+    <p>Follow me for more tips on using AI to scale your business.</p>
+    <a href="https://instagram.com/marishalakhiani" class="footer-cta-link" target="_blank">@marishalakhiani</a>
+  </footer>
 
 </body>
 </html>
