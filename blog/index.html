@@ -30,44 +30,140 @@
     </script>
 
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        "name": "The Revenue Recovery Blog",
-        "description": "Field notes on funnel optimization and revenue recovery from Marisha Lakhiani.",
-        "url": "https://marishalakhiani.com/blog/",
-        "author": {
-            "@type": "Person",
-            "name": "Marisha Lakhiani",
-            "url": "https://marishalakhiani.com",
-            "jobTitle": "Revenue Recovery Strategist",
-            "alumniOf": "Mindvalley"
-        }
-    }
+    {"@context":"https://schema.org","@type":"Blog","name":"The Revenue Recovery Blog","description":"Field notes on funnel optimization and revenue recovery from Marisha Lakhiani.","url":"https://marishalakhiani.com/blog/","author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com","jobTitle":"Revenue Recovery Strategist","alumniOf":"Mindvalley"}}
     </script>
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; }
-        h1, h2, h3 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
         .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+
         .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
-        .article-card { transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-        .article-card:hover { transform: translateY(-4px); }
+
+        /* Cards */
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            padding: 2rem;
+            border-top: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            height: 100%;
+        }
+        .article-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
+        }
+        .article-card[data-category="foundational"] { border-top-color: #6b1f3d; }
+        .article-card[data-category="webinar"] { border-top-color: #c9a66b; }
+        .article-card[data-category="diagnostic"] { border-top-color: #2d2d2d; }
+        .article-card[data-category="tactical"] { border-top-color: #6b1f3d; opacity: 1; }
+
+        .article-card .article-title { transition: color 0.3s ease; }
         .article-card:hover .article-title { color: #6b1f3d; }
-        .article-title { transition: color 0.3s ease; }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+
+        .category-pill {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 4px 10px;
+            margin-bottom: 1.25rem;
+        }
+        [data-category="foundational"] .category-pill { background: rgba(107, 31, 61, 0.08); color: #6b1f3d; }
+        [data-category="webinar"] .category-pill { background: rgba(201, 166, 107, 0.12); color: #8a6f3a; }
+        [data-category="diagnostic"] .category-pill { background: rgba(45, 45, 45, 0.06); color: #2d2d2d; }
+        [data-category="tactical"] .category-pill { background: rgba(107, 31, 61, 0.06); color: #6b1f3d; }
+
+        /* Featured (Start Here) */
+        .essential-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-left: 2px solid #c9a66b;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .essential-card:hover { transform: translateY(-6px); border-left-color: #6b1f3d; box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08); }
+        .essential-card .essential-title { transition: color 0.3s ease; }
+        .essential-card:hover .essential-title { color: #6b1f3d; }
+        .essential-num {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 2.5rem;
+            line-height: 1;
+            color: #c9a66b;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        /* Filter pills */
+        .filter-pill {
+            font-family: inherit;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: transparent;
+            color: #6a6a6a;
+            border: 1px solid #d4d4d4;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            white-space: nowrap;
+        }
+        .filter-pill:hover {
+            border-color: #6b1f3d;
+            color: #6b1f3d;
+        }
+        .filter-pill.active {
+            background: #6b1f3d;
+            border-color: #6b1f3d;
+            color: white;
+        }
+        .filter-pill .count {
+            opacity: 0.6;
+            margin-left: 6px;
+            font-weight: 400;
+        }
+        .filter-pill.active .count { opacity: 0.8; }
+
+        /* Reading flow */
+        .read-arrow { transition: transform 0.3s ease; }
+        .article-card:hover .read-arrow,
+        .essential-card:hover .read-arrow { transform: translateX(4px); }
+
+        /* Reading progress */
+        #scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6b1f3d, #c9a66b);
+            z-index: 100;
+            transition: width 0.1s ease;
+            width: 0;
+        }
+
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); }
         .fade-in.reveal { opacity: 1; transform: translateY(0); }
+
         @media (max-width: 768px) {
-            h1 { font-size: 2.25rem !important; }
+            h1 { font-size: 2.5rem !important; }
+            h2 { font-size: 1.875rem !important; }
+            .article-card { padding: 1.5rem; }
+            .essential-card { padding: 2rem 1.5rem; }
         }
     </style>
 </head>
 <body>
 
+    <div id="scroll-progress"></div>
+
     <!-- HEADER -->
-    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10">
+    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10 bg-cream sticky top-0 z-40 backdrop-blur-sm">
         <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
             <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
             <div class="flex items-center gap-6 lg:gap-10">
@@ -77,178 +173,205 @@
         </div>
     </header>
 
-    <!-- HERO -->
-    <section class="px-6 lg:px-16 py-20 lg:py-32">
-        <div class="max-w-5xl mx-auto fade-in">
-            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">The Revenue Recovery Blog</p>
-            <h1 class="text-4xl lg:text-6xl xl:text-7xl leading-[1.05] mb-8">Field notes from inside<br><span class="text-bordeaux italic">hundreds of funnel audits.</span></h1>
-            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl">
-                Specific frameworks, benchmarks, and diagnostic methods from $1B+ in client revenue. The same material I use on every audit — distilled into readable pieces you can act on.
+    <!-- HERO (compact) -->
+    <section class="px-6 lg:px-16 pt-16 lg:pt-20 pb-10 lg:pb-12">
+        <div class="max-w-4xl mx-auto fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-5">The Revenue Recovery Blog</p>
+            <h1 class="text-4xl lg:text-6xl leading-[1.05] mb-6">Field notes from inside <span class="text-bordeaux italic">hundreds of funnel audits.</span></h1>
+            <p class="text-lg text-gray-600 leading-relaxed max-w-2xl">
+                Specific frameworks, benchmarks, and diagnostic methods from $1B+ in client revenue. The same material I use on every audit.
             </p>
         </div>
     </section>
 
-    <!-- FEATURED ARTICLE -->
-    <section class="px-6 lg:px-16 pb-16 lg:pb-24">
-        <div class="max-w-5xl mx-auto">
-            <a href="why-your-funnel-is-leaking.html" class="article-card block bg-white border-l-2 border-bordeaux p-10 lg:p-16 fade-in">
-                <p class="text-gold text-[10px] tracking-[0.3em] uppercase font-semibold mb-6">Featured · Foundational</p>
-                <h2 class="article-title text-3xl lg:text-5xl leading-tight mb-6">Why your funnel is leaking $100K+ a year — and how to find it.</h2>
-                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-8 max-w-3xl">
-                    Most founders blame traffic. The real problem is between the click and the credit card. Here are the four universal leak categories I find in every funnel audit — and the math on what they're costing you.
-                </p>
-                <div class="flex flex-wrap gap-4 lg:gap-6 text-[11px] uppercase tracking-[0.2em] text-gray-500">
-                    <span>Marisha Lakhiani</span>
-                    <span>·</span>
-                    <span>12 min read</span>
-                    <span>·</span>
-                    <span>Foundational</span>
+    <!-- START HERE -->
+    <section class="px-6 lg:px-16 py-16 lg:py-20 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 lg:mb-14 fade-in">
+                <div>
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">Start Here</p>
+                    <h2 class="text-3xl lg:text-4xl leading-tight">New here? <span class="italic">Read these 3 first.</span></h2>
                 </div>
-            </a>
+                <p class="text-sm text-gray-500 max-w-md">A 30-minute read that covers the foundation, the methodology, and how to apply it.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-5 lg:gap-6">
+                <a href="why-your-funnel-is-leaking.html" class="essential-card fade-in">
+                    <div class="essential-num">01</div>
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold mb-3">Foundational</p>
+                    <h3 class="essential-title text-xl lg:text-2xl leading-tight mb-4 flex-1">Why your funnel is leaking $100K+ a year — and how to find it.</h3>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">12 min read</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
+                    </div>
+                </a>
+
+                <a href="revenue-recovery-methodology.html" class="essential-card fade-in">
+                    <div class="essential-num">02</div>
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold mb-3">Methodology</p>
+                    <h3 class="essential-title text-xl lg:text-2xl leading-tight mb-4 flex-1">The Revenue Recovery methodology — 5 diagnostic layers.</h3>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">10 min read</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
+                    </div>
+                </a>
+
+                <a href="how-to-audit-your-funnel.html" class="essential-card fade-in">
+                    <div class="essential-num">03</div>
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold mb-3">How-To</p>
+                    <h3 class="essential-title text-xl lg:text-2xl leading-tight mb-4 flex-1">How to audit your own funnel — a 5-step process.</h3>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">10 min read</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
+                    </div>
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- ARTICLE LIST -->
-    <section class="px-6 lg:px-16 py-16 lg:py-24 bg-white">
-        <div class="max-w-5xl mx-auto">
-            <div class="mb-12 lg:mb-16 fade-in">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">All Articles</p>
-                <h2 class="text-3xl lg:text-5xl leading-tight">The full field guide.</h2>
+    <!-- LIBRARY (filterable grid) -->
+    <section class="px-6 lg:px-16 py-16 lg:py-24">
+        <div class="max-w-6xl mx-auto">
+
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 fade-in">
+                <div>
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">The Library</p>
+                    <h2 class="text-3xl lg:text-4xl leading-tight">Everything, by category.</h2>
+                </div>
+                <p class="text-sm text-gray-500" id="article-count">10 articles</p>
             </div>
 
-            <div class="divide-y divide-gray-200">
+            <!-- Filter pills -->
+            <div class="flex flex-wrap gap-2 lg:gap-3 mb-10 lg:mb-12 fade-in">
+                <button class="filter-pill active" data-filter="all">All <span class="count">10</span></button>
+                <button class="filter-pill" data-filter="foundational">Foundational <span class="count">1</span></button>
+                <button class="filter-pill" data-filter="webinar">Webinar <span class="count">3</span></button>
+                <button class="filter-pill" data-filter="diagnostic">Diagnostic <span class="count">4</span></button>
+                <button class="filter-pill" data-filter="tactical">Tactical <span class="count">2</span></button>
+            </div>
 
-                <a href="cost-per-lead-benchmarks.html" class="article-card block py-8 lg:py-10 fade-in">
-                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-                        <div class="lg:col-span-2">
-                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Benchmarks</p>
-                        </div>
-                        <div class="lg:col-span-8">
-                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">Cost per lead benchmarks for 2026 — by funnel type.</h3>
-                            <p class="text-gray-600 leading-relaxed">What a good CPL looks like for webinar, VSL, challenge, and application funnels. Plus: how to diagnose why yours is too high.</p>
-                        </div>
-                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">8 min read</div>
+            <!-- Article grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6" id="article-grid">
+
+                <a href="why-your-funnel-is-leaking.html" class="article-card fade-in" data-category="foundational">
+                    <span class="category-pill">Foundational</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">Why your funnel is leaking $100K+ a year.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">The 4 universal leak categories I find in every funnel audit — and the math on what they're costing you.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">12 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
                     </div>
                 </a>
 
-                <a href="five-metrics-every-audit.html" class="article-card block py-8 lg:py-10 fade-in">
-                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-                        <div class="lg:col-span-2">
-                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Framework</p>
-                        </div>
-                        <div class="lg:col-span-8">
-                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">The 5 metrics every funnel audit should measure.</h3>
-                            <p class="text-gray-600 leading-relaxed">Most founders track vanity numbers. The 5 metrics below are the ones that actually predict revenue — and reveal leaks before they compound.</p>
-                        </div>
-                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">7 min read</div>
+                <a href="cost-per-lead-benchmarks.html" class="article-card fade-in" data-category="diagnostic">
+                    <span class="category-pill">Diagnostic</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">Cost per lead benchmarks for 2026.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">What a good CPL looks like for webinar, VSL, challenge, and application funnels — plus how to diagnose why yours is too high.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">8 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
                     </div>
                 </a>
 
-                <a href="webinar-show-up-rate.html" class="article-card block py-8 lg:py-10 fade-in">
-                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-                        <div class="lg:col-span-2">
-                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Webinar</p>
-                        </div>
-                        <div class="lg:col-span-8">
-                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">Why 72% of webinar registrants don't show up (and how to fix it).</h3>
-                            <p class="text-gray-600 leading-relaxed">Show-up rate is the quietest killer in any webinar funnel. Five specific fixes that typically recover 15–25 points within one cohort.</p>
-                        </div>
-                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">9 min read</div>
+                <a href="five-metrics-every-audit.html" class="article-card fade-in" data-category="diagnostic">
+                    <span class="category-pill">Diagnostic</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">The 5 metrics every funnel audit should measure.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">Most founders track vanity numbers. The 5 below actually predict revenue — and reveal leaks before they compound.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">7 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
                     </div>
                 </a>
 
-                <a href="revenue-recovery-methodology.html" class="article-card block py-8 lg:py-10 fade-in">
-                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-                        <div class="lg:col-span-2">
-                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Methodology</p>
-                        </div>
-                        <div class="lg:col-span-8">
-                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">The Revenue Recovery methodology — 5 diagnostic layers.</h3>
-                            <p class="text-gray-600 leading-relaxed">How I actually tear a funnel apart: the five layers I diagnose in every audit, what each one measures, and why fixing them in order matters.</p>
-                        </div>
-                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">10 min read</div>
+                <a href="webinar-show-up-rate.html" class="article-card fade-in" data-category="webinar">
+                    <span class="category-pill">Webinar</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">Why 72% of webinar registrants don't show up.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">Show-up rate is the quietest killer in any webinar funnel. Five fixes that recover 15–25 points in one cohort.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">9 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
                     </div>
                 </a>
 
-                <a href="post-webinar-email-sequence.html" class="article-card block py-8 lg:py-10 fade-in">
-                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-                        <div class="lg:col-span-2">
-                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Sequences</p>
-                        </div>
-                        <div class="lg:col-span-8">
-                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">The 7-day post-webinar email sequence that recovers 20–40% more revenue.</h3>
-                            <p class="text-gray-600 leading-relaxed">Day-by-day framework. Which objection to attack on which day. The single highest-ROI fix in most webinar funnels, because the leads are already paid for.</p>
-                        </div>
-                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">11 min read</div>
+                <a href="revenue-recovery-methodology.html" class="article-card fade-in" data-category="diagnostic">
+                    <span class="category-pill">Diagnostic</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">The Revenue Recovery methodology — 5 diagnostic layers.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">How I tear a funnel apart: what each layer measures and why fixing them in order matters.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">10 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
                     </div>
                 </a>
 
-                <a href="cart-abandonment-fixes.html" class="article-card block py-8 lg:py-10 fade-in">
-                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-                        <div class="lg:col-span-2">
-                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Checkout</p>
-                        </div>
-                        <div class="lg:col-span-8">
-                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">Why your checkout is losing 30% of buyers — and the four fixes.</h3>
-                            <p class="text-gray-600 leading-relaxed">Cart abandonment is the most fixable leak in any funnel. The people bailing out already wanted to buy — here's how to stop losing them at the button.</p>
-                        </div>
-                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">7 min read</div>
+                <a href="post-webinar-email-sequence.html" class="article-card fade-in" data-category="webinar">
+                    <span class="category-pill">Webinar</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">The 7-day post-webinar email sequence.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">Day-by-day framework. Which objection on which day. Recovers 20–40% more revenue at zero acquisition cost.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">11 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
                     </div>
                 </a>
 
-                <a href="live-vs-evergreen-webinars.html" class="article-card block py-8 lg:py-10 fade-in">
-                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-                        <div class="lg:col-span-2">
-                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Strategy</p>
-                        </div>
-                        <div class="lg:col-span-8">
-                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">Live vs evergreen webinars — which actually makes more money.</h3>
-                            <p class="text-gray-600 leading-relaxed">The honest comparison: conversion math, operational load, scaling ceiling. When to run each, and the hybrid model that outperforms both in most cases.</p>
-                        </div>
-                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">9 min read</div>
+                <a href="cart-abandonment-fixes.html" class="article-card fade-in" data-category="tactical">
+                    <span class="category-pill">Tactical</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">Why your checkout is losing 30% of buyers.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">Cart abandonment is the most fixable leak. The people bailing already wanted to buy — here's how to keep them.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">7 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
                     </div>
                 </a>
 
-                <a href="how-to-audit-your-funnel.html" class="article-card block py-8 lg:py-10 fade-in">
-                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-                        <div class="lg:col-span-2">
-                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">How-To</p>
-                        </div>
-                        <div class="lg:col-span-8">
-                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">How to audit your own funnel — a 5-step process.</h3>
-                            <p class="text-gray-600 leading-relaxed">A condensed version of my full audit process you can run yourself. Five steps, ninety minutes, and a prioritised fix list by the end.</p>
-                        </div>
-                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">10 min read</div>
+                <a href="live-vs-evergreen-webinars.html" class="article-card fade-in" data-category="webinar">
+                    <span class="category-pill">Webinar</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">Live vs evergreen webinars.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">Honest comparison: conversion math, operational load, scaling ceiling — and the hybrid that outperforms both.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">9 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
                     </div>
                 </a>
 
-                <a href="high-ticket-close-rate.html" class="article-card block py-8 lg:py-10 fade-in">
-                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-                        <div class="lg:col-span-2">
-                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">High-Ticket</p>
-                        </div>
-                        <div class="lg:col-span-8">
-                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">High-ticket close rate — why it matters more than lead volume.</h3>
-                            <p class="text-gray-600 leading-relaxed">In high-ticket funnels, a 10-point close rate jump beats doubling ad spend. Here's why — plus the three fixes that move the needle fastest.</p>
-                        </div>
-                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">8 min read</div>
+                <a href="how-to-audit-your-funnel.html" class="article-card fade-in" data-category="diagnostic">
+                    <span class="category-pill">Diagnostic</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">How to audit your own funnel.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">A condensed 5-step DIY process. Ninety minutes, prioritised fix list by the end.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">10 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
                     </div>
                 </a>
 
+                <a href="high-ticket-close-rate.html" class="article-card fade-in" data-category="tactical">
+                    <span class="category-pill">Tactical</span>
+                    <h3 class="article-title text-xl lg:text-2xl leading-tight mb-3">High-ticket close rate — why it matters more than lead volume.</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">A 10-point close rate jump beats doubling ad spend. Three fixes that move the needle fastest.</p>
+                    <div class="flex justify-between items-baseline pt-4 border-t border-gray-100">
+                        <span class="text-[11px] uppercase tracking-[0.15em] text-gray-500">8 min</span>
+                        <span class="text-xs uppercase tracking-[0.15em] text-bordeaux font-semibold">Read <span class="read-arrow inline-block">→</span></span>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Empty state -->
+            <div id="empty-state" class="hidden text-center py-20">
+                <p class="text-gray-500 text-base">No articles in this category yet.</p>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="px-6 lg:px-16 py-24 lg:py-32 bg-bordeaux text-white">
+    <section class="px-6 lg:px-16 py-20 lg:py-28 bg-bordeaux text-white">
         <div class="max-w-3xl mx-auto text-center fade-in">
-            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Want Your Funnel Audited?</p>
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Want Your Funnel Audited?</p>
             <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">The full audit is more than any article can deliver.</h2>
-            <p class="text-lg lg:text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-                If you're running a $1M–$150M funnel and want a prioritised fix list with dollar-quantified leaks, apply for the Revenue Recovery Audit™.
+            <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
+                $1M–$150M funnel? Apply for a Revenue Recovery Audit™. Prioritised fix list with dollar-quantified leaks. $100K guaranteed or you don't pay.
             </p>
             <a href="../apply/" class="btn-primary inline-block bg-white text-bordeaux px-10 lg:px-12 py-5 lg:py-6 text-sm lg:text-base font-bold uppercase tracking-[0.2em]">Apply for Audit →</a>
-            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">$100K guarantee · Only 4 spots per month</p>
+            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
         </div>
     </section>
 
@@ -263,10 +386,49 @@
     </footer>
 
     <script>
+        // Fade-in observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Scroll progress
+        const progress = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            const w = h > 0 ? (window.scrollY / h) * 100 : 0;
+            progress.style.width = w + '%';
+        });
+
+        // Filter logic
+        const pills = document.querySelectorAll('.filter-pill');
+        const cards = document.querySelectorAll('.article-card[data-category]');
+        const countEl = document.getElementById('article-count');
+        const emptyEl = document.getElementById('empty-state');
+        const gridEl = document.getElementById('article-grid');
+
+        pills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const filter = pill.dataset.filter;
+                pills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+
+                let visible = 0;
+                cards.forEach(card => {
+                    const matches = filter === 'all' || card.dataset.category === filter;
+                    if (matches) {
+                        card.style.display = '';
+                        visible++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                countEl.textContent = visible === 1 ? '1 article' : `${visible} articles`;
+                emptyEl.classList.toggle('hidden', visible > 0);
+                gridEl.classList.toggle('hidden', visible === 0);
+            });
+        });
     </script>
 
 </body>
