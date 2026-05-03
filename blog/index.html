@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Revenue Recovery Blog | Marisha Lakhiani</title>
+    <meta name="description" content="Field notes on funnel optimization, revenue recovery, and the hidden leaks in $1M–$150M funnels. Written by Marisha Lakhiani — architect of Mindvalley's $30M → $150M growth.">
+    <link rel="canonical" href="https://marishalakhiani.com/blog/">
+
+    <meta property="og:title" content="The Revenue Recovery Blog | Marisha Lakhiani">
+    <meta property="og:description" content="Field notes on funnel optimization, revenue recovery, and the hidden leaks in $1M–$150M funnels.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marishalakhiani.com/blog/">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bordeaux: '#6b1f3d', 'bordeaux-dark': '#4a1529',
+                        gold: '#c9a66b', 'gold-light': '#d4b896',
+                        cream: '#f8f6f3', 'cream-dark': '#f3f0eb'
+                    },
+                    borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' }
+                }
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "The Revenue Recovery Blog",
+        "description": "Field notes on funnel optimization and revenue recovery from Marisha Lakhiani.",
+        "url": "https://marishalakhiani.com/blog/",
+        "author": {
+            "@type": "Person",
+            "name": "Marisha Lakhiani",
+            "url": "https://marishalakhiani.com",
+            "jobTitle": "Revenue Recovery Strategist",
+            "alumniOf": "Mindvalley"
+        }
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; }
+        h1, h2, h3 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+        .article-card { transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .article-card:hover { transform: translateY(-4px); }
+        .article-card:hover .article-title { color: #6b1f3d; }
+        .article-title { transition: color 0.3s ease; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .fade-in.reveal { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.25rem !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
+            <div class="flex items-center gap-6 lg:gap-10">
+                <a href="../index.html" class="text-xs uppercase tracking-[0.2em] text-gray-600 hover:text-bordeaux transition-colors hidden md:inline">Main Site</a>
+                <a href="../apply/" class="btn-primary bg-bordeaux text-white px-5 py-2.5 font-semibold text-xs uppercase tracking-[0.15em]">Apply for Audit</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="px-6 lg:px-16 py-20 lg:py-32">
+        <div class="max-w-5xl mx-auto fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">The Revenue Recovery Blog</p>
+            <h1 class="text-4xl lg:text-6xl xl:text-7xl leading-[1.05] mb-8">Field notes from inside<br><span class="text-bordeaux italic">hundreds of funnel audits.</span></h1>
+            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl">
+                Specific frameworks, benchmarks, and diagnostic methods from $1B+ in client revenue. The same material I use on every audit — distilled into readable pieces you can act on.
+            </p>
+        </div>
+    </section>
+
+    <!-- FEATURED ARTICLE -->
+    <section class="px-6 lg:px-16 pb-16 lg:pb-24">
+        <div class="max-w-5xl mx-auto">
+            <a href="why-your-funnel-is-leaking.html" class="article-card block bg-white border-l-2 border-bordeaux p-10 lg:p-16 fade-in">
+                <p class="text-gold text-[10px] tracking-[0.3em] uppercase font-semibold mb-6">Featured · Foundational</p>
+                <h2 class="article-title text-3xl lg:text-5xl leading-tight mb-6">Why your funnel is leaking $100K+ a year — and how to find it.</h2>
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-8 max-w-3xl">
+                    Most founders blame traffic. The real problem is between the click and the credit card. Here are the four universal leak categories I find in every funnel audit — and the math on what they're costing you.
+                </p>
+                <div class="flex flex-wrap gap-4 lg:gap-6 text-[11px] uppercase tracking-[0.2em] text-gray-500">
+                    <span>Marisha Lakhiani</span>
+                    <span>·</span>
+                    <span>12 min read</span>
+                    <span>·</span>
+                    <span>Foundational</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ARTICLE LIST -->
+    <section class="px-6 lg:px-16 py-16 lg:py-24 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-12 lg:mb-16 fade-in">
+                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">All Articles</p>
+                <h2 class="text-3xl lg:text-5xl leading-tight">The full field guide.</h2>
+            </div>
+
+            <div class="divide-y divide-gray-200">
+
+                <a href="cost-per-lead-benchmarks.html" class="article-card block py-8 lg:py-10 fade-in">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                        <div class="lg:col-span-2">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Benchmarks</p>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">Cost per lead benchmarks for 2026 — by funnel type.</h3>
+                            <p class="text-gray-600 leading-relaxed">What a good CPL looks like for webinar, VSL, challenge, and application funnels. Plus: how to diagnose why yours is too high.</p>
+                        </div>
+                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">8 min read</div>
+                    </div>
+                </a>
+
+                <a href="five-metrics-every-audit.html" class="article-card block py-8 lg:py-10 fade-in">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                        <div class="lg:col-span-2">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Framework</p>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">The 5 metrics every funnel audit should measure.</h3>
+                            <p class="text-gray-600 leading-relaxed">Most founders track vanity numbers. The 5 metrics below are the ones that actually predict revenue — and reveal leaks before they compound.</p>
+                        </div>
+                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">7 min read</div>
+                    </div>
+                </a>
+
+                <a href="webinar-show-up-rate.html" class="article-card block py-8 lg:py-10 fade-in">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                        <div class="lg:col-span-2">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Webinar</p>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">Why 72% of webinar registrants don't show up (and how to fix it).</h3>
+                            <p class="text-gray-600 leading-relaxed">Show-up rate is the quietest killer in any webinar funnel. Five specific fixes that typically recover 15–25 points within one cohort.</p>
+                        </div>
+                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">9 min read</div>
+                    </div>
+                </a>
+
+                <a href="revenue-recovery-methodology.html" class="article-card block py-8 lg:py-10 fade-in">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                        <div class="lg:col-span-2">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Methodology</p>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">The Revenue Recovery methodology — 5 diagnostic layers.</h3>
+                            <p class="text-gray-600 leading-relaxed">How I actually tear a funnel apart: the five layers I diagnose in every audit, what each one measures, and why fixing them in order matters.</p>
+                        </div>
+                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">10 min read</div>
+                    </div>
+                </a>
+
+                <a href="post-webinar-email-sequence.html" class="article-card block py-8 lg:py-10 fade-in">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                        <div class="lg:col-span-2">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Sequences</p>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">The 7-day post-webinar email sequence that recovers 20–40% more revenue.</h3>
+                            <p class="text-gray-600 leading-relaxed">Day-by-day framework. Which objection to attack on which day. The single highest-ROI fix in most webinar funnels, because the leads are already paid for.</p>
+                        </div>
+                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">11 min read</div>
+                    </div>
+                </a>
+
+                <a href="cart-abandonment-fixes.html" class="article-card block py-8 lg:py-10 fade-in">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                        <div class="lg:col-span-2">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Checkout</p>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">Why your checkout is losing 30% of buyers — and the four fixes.</h3>
+                            <p class="text-gray-600 leading-relaxed">Cart abandonment is the most fixable leak in any funnel. The people bailing out already wanted to buy — here's how to stop losing them at the button.</p>
+                        </div>
+                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">7 min read</div>
+                    </div>
+                </a>
+
+                <a href="live-vs-evergreen-webinars.html" class="article-card block py-8 lg:py-10 fade-in">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                        <div class="lg:col-span-2">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">Strategy</p>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">Live vs evergreen webinars — which actually makes more money.</h3>
+                            <p class="text-gray-600 leading-relaxed">The honest comparison: conversion math, operational load, scaling ceiling. When to run each, and the hybrid model that outperforms both in most cases.</p>
+                        </div>
+                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">9 min read</div>
+                    </div>
+                </a>
+
+                <a href="how-to-audit-your-funnel.html" class="article-card block py-8 lg:py-10 fade-in">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                        <div class="lg:col-span-2">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">How-To</p>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">How to audit your own funnel — a 5-step process.</h3>
+                            <p class="text-gray-600 leading-relaxed">A condensed version of my full audit process you can run yourself. Five steps, ninety minutes, and a prioritised fix list by the end.</p>
+                        </div>
+                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">10 min read</div>
+                    </div>
+                </a>
+
+                <a href="high-ticket-close-rate.html" class="article-card block py-8 lg:py-10 fade-in">
+                    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+                        <div class="lg:col-span-2">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold">High-Ticket</p>
+                        </div>
+                        <div class="lg:col-span-8">
+                            <h3 class="article-title text-2xl lg:text-3xl leading-tight mb-3">High-ticket close rate — why it matters more than lead volume.</h3>
+                            <p class="text-gray-600 leading-relaxed">In high-ticket funnels, a 10-point close rate jump beats doubling ad spend. Here's why — plus the three fixes that move the needle fastest.</p>
+                        </div>
+                        <div class="lg:col-span-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">8 min read</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="px-6 lg:px-16 py-24 lg:py-32 bg-bordeaux text-white">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Want Your Funnel Audited?</p>
+            <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">The full audit is more than any article can deliver.</h2>
+            <p class="text-lg lg:text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+                If you're running a $1M–$150M funnel and want a prioritised fix list with dollar-quantified leaks, apply for the Revenue Recovery Audit™.
+            </p>
+            <a href="../apply/" class="btn-primary inline-block bg-white text-bordeaux px-10 lg:px-12 py-5 lg:py-6 text-sm lg:text-base font-bold uppercase tracking-[0.2em]">Apply for Audit →</a>
+            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">$100K guarantee · Only 4 spots per month</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-gray-500 py-10 px-6 lg:px-16 text-center border-t border-white/10">
+        <p class="text-xs mb-3">© 2025 Marisha Lakhiani. All rights reserved.</p>
+        <p class="text-xs uppercase tracking-[0.2em]">
+            <a href="../index.html" class="hover:text-white transition-colors">Main Site</a>
+            <span class="mx-3">·</span>
+            <a href="../apply/" class="hover:text-white transition-colors">Apply for Audit</a>
+        </p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

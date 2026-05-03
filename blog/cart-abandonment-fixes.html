@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Your Checkout Is Losing 30% of Buyers — And the 4 Fixes | Marisha Lakhiani</title>
+    <meta name="description" content="Cart abandonment is the most fixable leak in any funnel. These are people who already wanted to buy. Four fixes to stop losing them at the button.">
+    <link rel="canonical" href="https://marishalakhiani.com/blog/cart-abandonment-fixes.html">
+    <meta property="og:title" content="Why Your Checkout Is Losing 30% of Buyers — And the 4 Fixes">
+    <meta property="og:description" content="Cart abandonment is the most fixable leak in any funnel. These are people who already wanted to buy. Four fixes to stop losing them at the button.">
+    <meta property="og:type" content="article">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { bordeaux: '#6b1f3d', gold: '#c9a66b', cream: '#f8f6f3', 'cream-dark': '#f3f0eb' }, borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' } } } }</script>
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Why Your Checkout Is Losing 30% of Buyers — And the 4 Fixes","description":"Cart abandonment is the most fixable leak in any funnel. Four fixes to stop losing buyers at the button.","author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com"},"datePublished":"2026-04-18","mainEntityOfPage":"https://marishalakhiani.com/blog/cart-abandonment-fixes.html"}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":"What is a good checkout completion rate?","acceptedAnswer":{"@type":"Answer","text":"75% is benchmark for digital offers. Most funnels run 50–60%, which means 40–50% of people who clicked \"buy now\" never finish the purchase."}},
+        {"@type":"Question","name":"Why do people abandon checkouts?","acceptedAnswer":{"@type":"Answer","text":"Four common reasons: too many form fields, missing trust signals near the button, no one-click payment option, and no follow-up sequence to recover abandoned carts."}},
+        {"@type":"Question","name":"How do I reduce cart abandonment?","acceptedAnswer":{"@type":"Answer","text":"Strip form fields to the minimum (email + card), add trust signals near the button (guarantee, security badges, buyer count), enable Apple Pay and Google Pay, and deploy a 3-email recovery sequence (1hr, 24hr, 48hr)."}}
+    ]}
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+        .article-body h2 { font-size: 1.875rem; margin-top: 3rem; margin-bottom: 1.25rem; }
+        .article-body h3 { font-size: 1.375rem; margin-top: 2rem; margin-bottom: 0.75rem; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: 0; }
+        .article-body p { margin-bottom: 1.25rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body ul, .article-body ol { margin-bottom: 1.5rem; margin-left: 1.5rem; }
+        .article-body li { margin-bottom: 0.75rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body strong { color: #1a1a1a; font-weight: 600; }
+        .article-body blockquote { border-left: 2px solid #6b1f3d; padding: 0.5rem 0 0.5rem 1.5rem; margin: 2rem 0; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 1.375rem; line-height: 1.4; color: #1a1a1a; }
+        .article-body a { color: #6b1f3d; text-decoration: underline; text-underline-offset: 3px; }
+        .benchmark-table { width: 100%; margin: 2rem 0; border: 1px solid #e5e5e5; background: white; }
+        .benchmark-table th { background: #f3f0eb; padding: 14px 20px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; color: #6b1f3d; border-bottom: 1px solid #e5e5e5; }
+        .benchmark-table td { padding: 14px 20px; font-size: 15px; border-bottom: 1px solid #f0f0f0; color: #333; }
+        .benchmark-table tr:last-child td { border-bottom: none; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .fade-in.reveal { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) { h1 { font-size: 2.25rem !important; } .article-body h2 { font-size: 1.5rem; } .benchmark-table th, .benchmark-table td { padding: 10px 12px; font-size: 13px; } }
+    </style>
+</head>
+<body>
+
+    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
+            <div class="flex items-center gap-6 lg:gap-10">
+                <a href="index.html" class="text-xs uppercase tracking-[0.2em] text-gray-600 hover:text-bordeaux transition-colors">← Blog</a>
+                <a href="../apply/" class="btn-primary bg-bordeaux text-white px-5 py-2.5 font-semibold text-xs uppercase tracking-[0.15em]">Apply for Audit</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24">
+        <div class="max-w-3xl mx-auto fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Checkout</p>
+            <h1 class="text-4xl lg:text-6xl leading-[1.05] mb-6">Why your checkout is losing 30% of buyers — <span class="text-bordeaux italic">and the 4 fixes.</span></h1>
+            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10">
+                Cart abandonment is the most fixable leak in any funnel. These are people who already wanted to buy.
+            </p>
+            <div class="flex flex-wrap items-center gap-4 lg:gap-6 text-[11px] uppercase tracking-[0.2em] text-gray-500 pb-6 border-b border-gray-200">
+                <span>Marisha Lakhiani</span>
+                <span>·</span>
+                <span>April 18, 2026</span>
+                <span>·</span>
+                <span>7 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <article class="px-6 lg:px-16 pb-20">
+        <div class="max-w-3xl mx-auto article-body fade-in">
+
+            <p>Cart abandonment is the most bizarre leak in any funnel. These aren't cold leads who got curious and clicked an ad. These are people who saw your offer, decided they wanted it, clicked "buy now," and then bailed at the last moment.</p>
+
+            <p>The hardest part — the wanting — is done. Everything from here is mechanical. And yet most checkouts lose 30–50% of the people who reach them. The good news: this is the most fixable leak in the whole funnel, and the fixes are mostly 2-week projects with 10–20x returns.</p>
+
+            <h2>The benchmark and the math</h2>
+
+            <p>Checkout completion benchmark for digital offers: <strong>75%</strong>. Most funnels I audit run 50–60%. That 15–25 point gap is where the money is.</p>
+
+            <p>Do the math on a $500 offer with 200 monthly checkouts. A 15-point gap is $15K/month. A 25-point gap is $25K/month. That's $180K–$300K/year walking out of the checkout page — after you've already paid to acquire every one of those buyers.</p>
+
+            <p>Every dollar of acquisition spend, every hour of funnel optimisation upstream — all of it gets dumped on the floor at the checkout form. Fixing this is usually a 2-week project with a 10–20x return. It's the highest ROI work in the entire funnel.</p>
+
+            <h2>The 4 fixes</h2>
+
+            <h3>Fix 1 — Strip form fields ruthlessly</h3>
+
+            <p>The single biggest driver of checkout abandonment is field count. Every field you add cuts completion 5–10%. Most digital offers need exactly two things: email and card. That's it.</p>
+
+            <p>Phone, address, company, referral source — all collect-later fields. If compliance requires more (B2B, physical products), make them a second-step after purchase, not a pre-purchase gate.</p>
+
+            <p>The psychological principle: every field increases perceived commitment. "Buy now" with one form field feels different than "buy now" with eight. The buyer's brain reads the length of the form as a proxy for how complicated the decision is — and a complicated decision is a decision people defer.</p>
+
+            <h3>Fix 2 — Add trust signals next to the button</h3>
+
+            <p>The moment before clicking "Buy Now" is peak anxiety. The lizard brain is asking "is this safe? will this work? will I regret this?" Your job is to answer those questions in the visible space near the button — not on a separate page, not three scrolls up.</p>
+
+            <p>What works: money-back guarantee badge, SSL/security icon, "1,200+ customers" social proof, recent buyer name/city ("Sarah from Austin bought 3 min ago"). These signals reduce abandonment 5–15% on their own, and they cost nothing to implement because the data already exists — you just need to surface it in the right place.</p>
+
+            <h3>Fix 3 — Enable one-click payment</h3>
+
+            <p>Apple Pay, Google Pay, PayPal, Shop Pay. Any one-click option cuts 15–30% of abandonment by removing the "do I want to fish out my card right now?" moment.</p>
+
+            <p>Most checkout abandonment on mobile isn't "I don't want this" — it's "I can't be bothered to manually enter card details while walking into a coffee shop." One-click payment solves that. It takes 30 minutes to install on Stripe, Shopify, or most modern checkout systems. This is the single highest-ROI hour of work in the entire project.</p>
+
+            <h3>Fix 4 — Deploy a 3-email abandonment sequence</h3>
+
+            <p>The people who abandoned usually still want the thing. They got distracted, had a bad moment of hesitation, or ran out of time. An abandonment sequence recovers a meaningful chunk of them — and every recovered sale is pure margin, because the lead cost is already sunk.</p>
+
+            <p><strong>Email 1 (1 hour post-abandonment):</strong> "You left something behind. Here's your link to finish." Short. No pitch. Just the link.</p>
+
+            <p><strong>Email 2 (24 hours):</strong> objection-handler. Address the single most common reason people hesitate on your specific offer — price, fit, timing.</p>
+
+            <p><strong>Email 3 (48 hours):</strong> soft urgency + a small bonus. "Complete your order today and get X free." This sequence typically recovers 10–20% of abandoned carts.</p>
+
+            <h2>What to measure</h2>
+
+            <p>Track three numbers on a monthly dashboard:</p>
+
+            <ol>
+                <li><strong>Checkout start rate</strong> — % of offer-page visitors who click "buy now."</li>
+                <li><strong>Checkout completion rate</strong> — % of starts who finish the purchase.</li>
+                <li><strong>Abandonment recovery rate</strong> — % of abandoners who complete after the email sequence.</li>
+            </ol>
+
+            <p>If completion drops below 70% or abandonment recovery drops below 10%, something broke. Investigate that week, not next quarter.</p>
+
+            <h2>The takeaway</h2>
+
+            <p>Cart abandonment is the leak most founders leave untouched because it feels technical. It isn't — it's psychology + friction. Fix those two things and recover 15–25 points of completion within weeks.</p>
+
+            <p>If you want me to audit your specific checkout and tell you which of the 4 fixes moves the needle most, that's what the <a href="../apply/">Revenue Recovery Audit</a> is for.</p>
+
+        </div>
+    </article>
+
+    <section class="px-6 lg:px-16 py-20 lg:py-24 bg-bordeaux text-white">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Your checkout vs. benchmark — what's the actual dollar gap?</p>
+            <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">I'll quantify every leak in your funnel.</h2>
+            <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto">The Revenue Recovery Audit™: 8–10 hours on your funnel, written report in 7 days, $100K in recoverable revenue guaranteed — or you don't pay.</p>
+            <a href="../apply/" class="btn-primary inline-block bg-white text-bordeaux px-10 lg:px-12 py-5 lg:py-6 text-sm lg:text-base font-bold uppercase tracking-[0.2em]">Apply for Audit →</a>
+            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 bg-white">
+        <div class="max-w-3xl mx-auto border-l-2 border-gold pl-8 lg:pl-10 fade-in">
+            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold mb-4">About the author</p>
+            <h3 class="text-2xl font-serif mb-4">Marisha Lakhiani</h3>
+            <p class="text-gray-600 leading-relaxed">Revenue Recovery Strategist. Architect of Mindvalley's growth from $30M to $150M over 8 years. Now audits $1M–$150M funnels — $1B+ in combined client revenue, 100+ funnels audited.</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24 bg-cream">
+        <div class="max-w-5xl mx-auto">
+            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 fade-in">Keep reading</p>
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <a href="why-your-funnel-is-leaking.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Foundational</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">Why your funnel is leaking $100K+ a year</h4>
+                    <p class="text-sm text-gray-600">The 4 universal leak categories.</p>
+                </a>
+                <a href="five-metrics-every-audit.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Framework</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">The 5 metrics every funnel audit should measure</h4>
+                    <p class="text-sm text-gray-600">The numbers that predict revenue.</p>
+                </a>
+                <a href="high-ticket-close-rate.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">High-Ticket</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">High-ticket close rate — why it matters more</h4>
+                    <p class="text-sm text-gray-600">Why close rate beats lead volume.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-500 py-10 px-6 lg:px-16 text-center border-t border-white/10">
+        <p class="text-xs mb-3">© 2025 Marisha Lakhiani. All rights reserved.</p>
+        <p class="text-xs uppercase tracking-[0.2em]">
+            <a href="../index.html" class="hover:text-white transition-colors">Main Site</a><span class="mx-3">·</span>
+            <a href="index.html" class="hover:text-white transition-colors">Blog</a><span class="mx-3">·</span>
+            <a href="../apply/" class="hover:text-white transition-colors">Apply for Audit</a>
+        </p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

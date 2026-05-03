@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Revenue Recovery Methodology — 5 Diagnostic Layers | Marisha Lakhiani</title>
+    <meta name="description" content="How Marisha actually tears a funnel apart: the 5 diagnostic layers used in every Revenue Recovery Audit, what each measures, and why order matters.">
+    <link rel="canonical" href="https://marishalakhiani.com/blog/revenue-recovery-methodology.html">
+    <meta property="og:title" content="The Revenue Recovery Methodology — 5 Diagnostic Layers">
+    <meta property="og:description" content="How Marisha actually tears a funnel apart: the 5 diagnostic layers used in every Revenue Recovery Audit, what each measures, and why order matters.">
+    <meta property="og:type" content="article">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { bordeaux: '#6b1f3d', gold: '#c9a66b', cream: '#f8f6f3', 'cream-dark': '#f3f0eb' }, borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' } } } }</script>
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"The Revenue Recovery Methodology — 5 Diagnostic Layers","description":"How Marisha actually tears a funnel apart: the 5 diagnostic layers used in every Revenue Recovery Audit, what each measures, and why order matters.","author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com"},"datePublished":"2026-04-18","mainEntityOfPage":"https://marishalakhiani.com/blog/revenue-recovery-methodology.html"}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":"What are the 5 layers of a funnel audit?","acceptedAnswer":{"@type":"Answer","text":"Acquisition (CPL and creative), Engagement (show-up or opt-in), Offer (close rate and structure), Sequence (follow-up and nurture), and LTV (retention and upsells). Each layer feeds the next."}},
+        {"@type":"Question","name":"Why does the order of funnel fixes matter?","acceptedAnswer":{"@type":"Answer","text":"Acquisition sets the CPL foundation; all downstream metrics multiply against it. Engagement, offer, and sequence compound on that base. LTV optimisation is the last lever because it requires healthy data from the layers above."}},
+        {"@type":"Question","name":"What's the difference between a funnel audit and a funnel optimisation?","acceptedAnswer":{"@type":"Answer","text":"An audit diagnoses the whole system — what's broken, what's leaking, where dollars are going. Optimisation improves one specific thing. Audits come first; optimisation follows the fix list."}}
+    ]}
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+        .article-body h2 { font-size: 1.875rem; margin-top: 3rem; margin-bottom: 1.25rem; }
+        .article-body h3 { font-size: 1.375rem; margin-top: 2rem; margin-bottom: 0.75rem; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: 0; }
+        .article-body p { margin-bottom: 1.25rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body ul, .article-body ol { margin-bottom: 1.5rem; margin-left: 1.5rem; }
+        .article-body li { margin-bottom: 0.75rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body strong { color: #1a1a1a; font-weight: 600; }
+        .article-body blockquote { border-left: 2px solid #6b1f3d; padding: 0.5rem 0 0.5rem 1.5rem; margin: 2rem 0; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 1.375rem; line-height: 1.4; color: #1a1a1a; }
+        .article-body a { color: #6b1f3d; text-decoration: underline; text-underline-offset: 3px; }
+        .benchmark-table { width: 100%; margin: 2rem 0; border: 1px solid #e5e5e5; background: white; }
+        .benchmark-table th { background: #f3f0eb; padding: 14px 20px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; color: #6b1f3d; border-bottom: 1px solid #e5e5e5; }
+        .benchmark-table td { padding: 14px 20px; font-size: 15px; border-bottom: 1px solid #f0f0f0; color: #333; }
+        .benchmark-table tr:last-child td { border-bottom: none; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .fade-in.reveal { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) { h1 { font-size: 2.25rem !important; } .article-body h2 { font-size: 1.5rem; } .benchmark-table th, .benchmark-table td { padding: 10px 12px; font-size: 13px; } }
+    </style>
+</head>
+<body>
+
+    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
+            <div class="flex items-center gap-6 lg:gap-10">
+                <a href="index.html" class="text-xs uppercase tracking-[0.2em] text-gray-600 hover:text-bordeaux transition-colors">← Blog</a>
+                <a href="../apply/" class="btn-primary bg-bordeaux text-white px-5 py-2.5 font-semibold text-xs uppercase tracking-[0.15em]">Apply for Audit</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24">
+        <div class="max-w-3xl mx-auto fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Methodology</p>
+            <h1 class="text-4xl lg:text-6xl leading-[1.05] mb-6">The Revenue Recovery methodology — <span class="text-bordeaux italic">5 diagnostic layers.</span></h1>
+            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10">
+                How I actually tear a funnel apart: the five layers I diagnose in every audit, what each one measures, and why fixing them in order matters.
+            </p>
+            <div class="flex flex-wrap items-center gap-4 lg:gap-6 text-[11px] uppercase tracking-[0.2em] text-gray-500 pb-6 border-b border-gray-200">
+                <span>Marisha Lakhiani</span>
+                <span>·</span>
+                <span>April 18, 2026</span>
+                <span>·</span>
+                <span>10 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <article class="px-6 lg:px-16 pb-20">
+        <div class="max-w-3xl mx-auto article-body fade-in">
+
+            <p>Most funnel audits are surface-level — "your landing page could be better, your ads need new creative, consider email follow-up." That's not an audit. That's a wishlist.</p>
+
+            <p>A real audit quantifies every leak in dollars, ranks the fixes by revenue impact, and prescribes them in the order they compound best. It doesn't give you 40 things to look at. It gives you five, ranked, with dollar figures attached — and it tells you which one to touch first.</p>
+
+            <p>This piece walks through the 5-layer methodology I use on every Revenue Recovery Audit. Each layer feeds the next. Skip one and everything downstream is built on bad data.</p>
+
+            <h2>Layer 1 — Acquisition</h2>
+
+            <p><strong>What it measures:</strong> cost per lead, creative performance, audience targeting, and the promise-match between ad and landing page. This is the top of the funnel — the raw cost of getting a human to raise their hand.</p>
+
+            <p><strong>Why it's the foundation:</strong> every downstream metric multiplies against CPL. A $10 CPL overage on 1,000 leads per month compounds to $120K a year before your funnel has converted a single sale. You can't out-optimise a broken acquisition layer — you can only overpay for it.</p>
+
+            <p><strong>Diagnostic questions:</strong> Is CPL at or below benchmark for your funnel type? Are your ads fatigued (60+ days on one control)? Is targeting too broad — are you asking the algorithm to figure out who your buyer is on your dollar? Is ad-to-landing-page promise match tight, or does your LP change the subject?</p>
+
+            <p><strong>Fixes here:</strong> creative refresh on a 4–6 week cadence, lookalike audiences built off your best customers (not all customers), exclusion audiences so cold spend doesn't re-acquire people already in your world.</p>
+
+            <h2>Layer 2 — Engagement</h2>
+
+            <p><strong>What it measures:</strong> the step between "registered" and "saw the offer." Show-up rate for live webinars. Opt-in and watch-rate for evergreen. Landing-page-to-VSL progression for VSL funnels. Completion rate for challenges. Form completion for application funnels.</p>
+
+            <p><strong>Why this layer leaks hardest:</strong> these are people you already paid to acquire. The most expensive lead in your business is the one that never saw your pitch — you paid full CPL and got zero exposure to your offer. A 20-point show-up gap on a webinar with $15 CPL is $3 of pure waste on every registrant who ghosts.</p>
+
+            <p><strong>Diagnostic:</strong> benchmark vs actual at each step. Where's the drop-off? Is it between register and email-open, or between email-open and attendance?</p>
+
+            <p><strong>Fixes:</strong> pre-webinar indoctrination sequence, SMS reminders at 24hr / 1hr / go-live, landing page speed optimisation (anything over 3 seconds cuts conversion 25–40%), form field reduction to the minimum you actually use.</p>
+
+            <h2>Layer 3 — Offer</h2>
+
+            <p><strong>What it measures:</strong> close rate on offer-viewers. Attendee-to-buyer for webinars. VSL-to-checkout for VSLs. Call-to-close for application funnels. Cart conversion for direct-to-checkout.</p>
+
+            <p><strong>Why this layer is leverage:</strong> a 10-point close rate improvement isn't 50% more revenue — it's often 2–3x, because your acquisition cost doesn't change. You're extracting more dollars from the same spend. Close rate is the single most leveraged metric in any funnel.</p>
+
+            <p><strong>Diagnostic:</strong> is your close rate at benchmark for your funnel type? Is your offer architecture strong — value stack itemised, guarantee framed correctly, pricing revealed with proper anchoring? Are the top five objections handled explicitly on the pitch, or are you hoping people talk themselves into it?</p>
+
+            <p><strong>Fixes:</strong> offer restructure with itemised value stack, risk reversal (guarantee, pay-after-results, free trial of a phase), price anchoring against the next-best alternative, objection-handling Q&A scripts covering your top five recurring no's.</p>
+
+            <h2>Layer 4 — Sequence</h2>
+
+            <p><strong>What it measures:</strong> post-offer follow-up strength. Email sequence length, objection coverage per email, win-back campaigns at 30 / 60 / 90 days. The "people who saw the offer and didn't buy" recovery engine.</p>
+
+            <p><strong>Why this is the cheapest fix in the audit:</strong> the leads are already paid for. You've absorbed the full cost of acquisition and the full cost of the pitch. Every additional buyer extracted from the sequence is near-pure margin. Most founders stop touching a lead after one no. The average buyer says no 5–7 times before yes. A proper 7–10 email post-offer sequence typically recovers 20–40% of non-buyers on top of your initial close rate.</p>
+
+            <p><strong>Diagnostic:</strong> how many follow-up emails are you sending? What objections does each one cover? Is there a 30-day win-back? A 90-day re-engagement?</p>
+
+            <p><strong>Fixes:</strong> sequence build with one objection per email, 30-day win-back with a fresh angle or bonus, 90-day re-engagement for cold leads.</p>
+
+            <h2>Layer 5 — LTV</h2>
+
+            <p><strong>What it measures:</strong> lifetime value, retention rate, upsell attach rate, referral rate. How much each buyer is worth once they've bought, and for how long.</p>
+
+            <p><strong>Why it's last:</strong> LTV optimisation requires healthy data from the layers above. You can't meaningfully optimise retention on a broken acquisition funnel — your sample is wrong-fit and your churn reflects that, not your product. Fix the layers above first, then optimise LTV on the buyers that acquisition is actually delivering.</p>
+
+            <p><strong>Diagnostic:</strong> LTV:CAC ratio (aim for 3:1 or higher), 90-day retention on subscriptions, upsell conversion rate at point of first sale, referral rate from existing customers.</p>
+
+            <p><strong>Fixes:</strong> upsell architecture at checkout and post-purchase, retention playbook for the first 90 days, referral mechanics baked into onboarding.</p>
+
+            <h2>Why the order matters</h2>
+
+            <p>The layers compound. Fix acquisition first and every downstream improvement is worth more, because more leads are flowing through the system at a healthier cost. Fix engagement next because that's where the largest dollar volume leaks — you're losing people you already paid for. Then offer, because close rate is the leverage metric. Then sequence, because it's the cheapest fix with leads that are already bought and paid for. LTV last, because it's structural and needs the rest working to measure honestly.</p>
+
+            <p>Doing it out of order means you're optimising on a weak base. You can double LTV on a funnel with 30% show-up and still have a leaking system — you just pushed a bigger rock up a broken hill.</p>
+
+            <p>This 5-layer diagnostic is what turns "your funnel could be better" into "here's exactly $430,000 in recoverable revenue, ranked by impact, with a 30-day fix list." If you want me to run it on your funnel — with written report and $100K guarantee — that's what the <a href="../apply/">Revenue Recovery Audit</a> is for.</p>
+
+        </div>
+    </article>
+
+    <section class="px-6 lg:px-16 py-20 lg:py-24 bg-bordeaux text-white">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Your CPL vs. benchmark — what's the actual dollar gap?</p>
+            <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">I'll quantify every leak in your funnel.</h2>
+            <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto">The Revenue Recovery Audit™: 8–10 hours on your funnel, written report in 7 days, $100K in recoverable revenue guaranteed — or you don't pay.</p>
+            <a href="../apply/" class="btn-primary inline-block bg-white text-bordeaux px-10 lg:px-12 py-5 lg:py-6 text-sm lg:text-base font-bold uppercase tracking-[0.2em]">Apply for Audit →</a>
+            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 bg-white">
+        <div class="max-w-3xl mx-auto border-l-2 border-gold pl-8 lg:pl-10 fade-in">
+            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold mb-4">About the author</p>
+            <h3 class="text-2xl font-serif mb-4">Marisha Lakhiani</h3>
+            <p class="text-gray-600 leading-relaxed">Revenue Recovery Strategist. Architect of Mindvalley's growth from $30M to $150M over 8 years. Now audits $1M–$150M funnels — $1B+ in combined client revenue, 100+ funnels audited.</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24 bg-cream">
+        <div class="max-w-5xl mx-auto">
+            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 fade-in">Keep reading</p>
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <a href="why-your-funnel-is-leaking.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Foundational</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">Why your funnel is leaking $100K+ a year</h4>
+                    <p class="text-sm text-gray-600">The 4 universal leak categories found in every funnel audit.</p>
+                </a>
+                <a href="five-metrics-every-audit.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Framework</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">The 5 metrics every funnel audit should measure</h4>
+                    <p class="text-sm text-gray-600">The numbers that predict revenue — and reveal leaks.</p>
+                </a>
+                <a href="how-to-audit-your-funnel.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">How-To</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">How to audit your own funnel</h4>
+                    <p class="text-sm text-gray-600">A 5-step DIY process in 90 minutes.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-500 py-10 px-6 lg:px-16 text-center border-t border-white/10">
+        <p class="text-xs mb-3">© 2025 Marisha Lakhiani. All rights reserved.</p>
+        <p class="text-xs uppercase tracking-[0.2em]">
+            <a href="../index.html" class="hover:text-white transition-colors">Main Site</a><span class="mx-3">·</span>
+            <a href="index.html" class="hover:text-white transition-colors">Blog</a><span class="mx-3">·</span>
+            <a href="../apply/" class="hover:text-white transition-colors">Apply for Audit</a>
+        </p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

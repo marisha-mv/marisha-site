@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 5 Metrics Every Funnel Audit Should Measure | Marisha Lakhiani</title>
+    <meta name="description" content="Most founders track vanity metrics. The 5 numbers below are the ones that actually predict revenue — and reveal leaks before they compound.">
+    <link rel="canonical" href="https://marishalakhiani.com/blog/five-metrics-every-audit.html">
+    <meta property="og:title" content="The 5 Metrics Every Funnel Audit Should Measure">
+    <meta property="og:description" content="The metrics that actually predict revenue, from someone who's audited 100+ funnels.">
+    <meta property="og:type" content="article">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { bordeaux: '#6b1f3d', gold: '#c9a66b', cream: '#f8f6f3', 'cream-dark': '#f3f0eb' }, borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' } } } }</script>
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"The 5 Metrics Every Funnel Audit Should Measure","author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com"},"datePublished":"2026-04-18","mainEntityOfPage":"https://marishalakhiani.com/blog/five-metrics-every-audit.html"}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":"What metrics matter most in a funnel audit?","acceptedAnswer":{"@type":"Answer","text":"Five metrics: Cost per Lead (CPL), engagement rate (show-up or opt-in), close rate on offer-viewers, sequence recovery rate, and LTV:CAC ratio. These predict revenue and expose leaks earlier than vanity metrics like traffic volume."}},
+        {"@type":"Question","name":"Which funnel metric matters most?","acceptedAnswer":{"@type":"Answer","text":"Close rate — it's the highest-leverage metric because a small percentage improvement can double revenue without changing acquisition cost. But close rate only compounds on a healthy CPL and engagement base."}},
+        {"@type":"Question","name":"What is a good LTV to CAC ratio?","acceptedAnswer":{"@type":"Answer","text":"3:1 is healthy, 4:1 is strong, below 2:1 signals unprofitable scale. LTV:CAC below 1:1 means you lose money on every customer — a sign of foundational funnel problems."}}
+    ]}
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+        .article-body h2 { font-size: 1.875rem; margin-top: 3rem; margin-bottom: 1.25rem; }
+        .article-body h3 { font-size: 1.375rem; margin-top: 2rem; margin-bottom: 0.75rem; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: 0; }
+        .article-body p { margin-bottom: 1.25rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body ul, .article-body ol { margin-bottom: 1.5rem; margin-left: 1.5rem; }
+        .article-body li { margin-bottom: 0.75rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body strong { color: #1a1a1a; font-weight: 600; }
+        .article-body blockquote { border-left: 2px solid #6b1f3d; padding: 0.5rem 0 0.5rem 1.5rem; margin: 2rem 0; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 1.375rem; line-height: 1.4; color: #1a1a1a; }
+        .article-body a { color: #6b1f3d; text-decoration: underline; text-underline-offset: 3px; }
+        .metric-card { background: white; border-left: 2px solid #c9a66b; padding: 2rem; margin: 1.5rem 0; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .fade-in.reveal { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) { h1 { font-size: 2.25rem !important; } .article-body h2 { font-size: 1.5rem; } }
+    </style>
+</head>
+<body>
+
+    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
+            <div class="flex items-center gap-6 lg:gap-10">
+                <a href="index.html" class="text-xs uppercase tracking-[0.2em] text-gray-600 hover:text-bordeaux transition-colors">← Blog</a>
+                <a href="../apply/" class="btn-primary bg-bordeaux text-white px-5 py-2.5 font-semibold text-xs uppercase tracking-[0.15em]">Apply for Audit</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24">
+        <div class="max-w-3xl mx-auto fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Framework</p>
+            <h1 class="text-4xl lg:text-6xl leading-[1.05] mb-6">The 5 metrics every funnel audit should <span class="text-bordeaux italic">measure.</span></h1>
+            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10">Most founders track vanity numbers. The 5 below actually predict revenue — and expose leaks before they compound.</p>
+            <div class="flex flex-wrap items-center gap-4 lg:gap-6 text-[11px] uppercase tracking-[0.2em] text-gray-500 pb-6 border-b border-gray-200">
+                <span>Marisha Lakhiani</span><span>·</span><span>April 18, 2026</span><span>·</span><span>7 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <article class="px-6 lg:px-16 pb-20">
+        <div class="max-w-3xl mx-auto article-body fade-in">
+
+            <p>Most founder dashboards track the wrong things. Daily traffic, Facebook impressions, email list size — these are activity metrics. They tell you if you're <em>doing</em> marketing. They don't tell you if marketing is working.</p>
+
+            <p>These five metrics tell you if marketing is working. I measure all of them in every audit.</p>
+
+            <h2>1. Cost per Lead (CPL)</h2>
+
+            <p>CPL is the top of every downstream calculation. If it's broken, every fix further down the funnel compounds on a weak base.</p>
+
+            <div class="metric-card">
+                <p class="text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-2">Formula</p>
+                <p class="text-lg">CPL = Monthly ad spend ÷ Leads generated</p>
+                <p class="text-sm text-gray-600 mt-3"><strong>Benchmarks:</strong> Webinar $15 · Evergreen $20 · VSL $25 · Challenge $10 · Application $75</p>
+            </div>
+
+            <p>Why it matters: a 30% CPL overage on modest volume compounds to six figures a year. Most founders don't notice because they look at monthly spend, not per-unit cost. Full benchmarks in <a href="cost-per-lead-benchmarks.html">this piece</a>.</p>
+
+            <h2>2. Engagement rate</h2>
+
+            <p>This is the leak between "registered" and "saw the offer." The specific metric depends on funnel type:</p>
+
+            <ul>
+                <li><strong>Live webinar:</strong> show-up rate. Benchmark 50%.</li>
+                <li><strong>Evergreen:</strong> landing page opt-in. Benchmark 40%.</li>
+                <li><strong>VSL:</strong> landing-to-video conversion. Benchmark 45%.</li>
+                <li><strong>Challenge:</strong> completion rate. Benchmark 40%.</li>
+                <li><strong>Application:</strong> form completion. Benchmark 60%.</li>
+            </ul>
+
+            <p>Engagement rate is where founders bleed the hardest because these are people they already paid to acquire. A 15-point gap on show-up rate is 15% of your acquisition budget walking away silently every month.</p>
+
+            <h2>3. Close rate on offer-viewers</h2>
+
+            <p>Of the people who actually see your offer, how many buy? This is the highest-leverage metric in any funnel.</p>
+
+            <blockquote>A 10-point improvement in close rate isn't 50% more revenue — it's often 2–3x more revenue, because acquisition cost didn't change.</blockquote>
+
+            <p>Benchmarks vary: 15% for webinar close-on-shows, 4% for evergreen conversion, 75% for VSL checkout completion, 30% for application close-on-calls. When this metric moves, everything downstream amplifies.</p>
+
+            <h2>4. Sequence recovery rate</h2>
+
+            <p>Of the non-buyers who went through your offer, how many eventually buy? Most founders track close rate and stop. That's a mistake. The average high-ticket buyer says no 5–7 times before saying yes — if you don't have a sequence catching them, you're leaving 20–40% of revenue on the table.</p>
+
+            <div class="metric-card">
+                <p class="text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-2">Benchmark</p>
+                <p class="text-lg">A healthy 7–14 day post-offer sequence recovers <strong>8–15%</strong> of non-buyers. A 30-day win-back adds another 3–5%.</p>
+            </div>
+
+            <p>This is usually the cheapest leak to fix because the leads are already paid for. More in <a href="post-webinar-email-sequence.html">this piece on the 7-day sequence framework</a>.</p>
+
+            <h2>5. LTV:CAC ratio</h2>
+
+            <p>LTV:CAC is the only metric that tells you if the whole funnel is profitable. Everything else is inputs — this is the output.</p>
+
+            <div class="metric-card">
+                <p class="text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-2">Formula</p>
+                <p class="text-lg">LTV:CAC = Lifetime customer value ÷ Customer acquisition cost</p>
+                <p class="text-sm text-gray-600 mt-3"><strong>Bands:</strong> 3:1 healthy · 4:1+ strong · Below 2:1 signals unprofitable scale · Below 1:1 means you lose money per customer</p>
+            </div>
+
+            <p>If your LTV:CAC is below 3:1, the fix is almost never "get more leads." It's either raise LTV (upsells, retention, higher price) or lower CAC (the first four metrics). A funnel with bad LTV:CAC can't be fixed by pouring more traffic into it — that just amplifies the loss.</p>
+
+            <h2>What not to track (the vanity trap)</h2>
+
+            <p>Metrics that feel important but don't predict revenue:</p>
+
+            <ul>
+                <li><strong>Total website traffic.</strong> Irrelevant if it doesn't convert.</li>
+                <li><strong>Email list size.</strong> A 50K list that never gets sequenced is worth less than a 5K list that does.</li>
+                <li><strong>Social followers.</strong> Brand health, not funnel health.</li>
+                <li><strong>Monthly ad spend.</strong> Input, not output. Judge spend by CPL × LTV:CAC.</li>
+                <li><strong>Webinar registrations.</strong> Means nothing if show-up rate is broken.</li>
+            </ul>
+
+            <p>If you're tracking all of the above and not the five metrics above it, your dashboard is lying to you about the state of your funnel.</p>
+
+            <h2>Where to start</h2>
+
+            <p>Pull the five metrics for the last 90 days. Benchmark each one against the numbers above. Rank the gaps by dollar impact. That's your fix list.</p>
+
+            <p>If you want me to do it for you — with leaks quantified to the dollar and a prioritised action list — that's exactly what the <a href="../apply/">Revenue Recovery Audit</a> delivers.</p>
+
+        </div>
+    </article>
+
+    <section class="px-6 lg:px-16 py-20 lg:py-24 bg-bordeaux text-white">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Want your metrics benchmarked?</p>
+            <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">I'll audit all 5 — and find at least $100K.</h2>
+            <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto">Written report in 7 days + 90-min walk-through call. $100,000 guaranteed or you don't pay.</p>
+            <a href="../apply/" class="btn-primary inline-block bg-white text-bordeaux px-10 lg:px-12 py-5 lg:py-6 text-sm lg:text-base font-bold uppercase tracking-[0.2em]">Apply for Audit →</a>
+            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 bg-white">
+        <div class="max-w-3xl mx-auto border-l-2 border-gold pl-8 lg:pl-10 fade-in">
+            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold mb-4">About the author</p>
+            <h3 class="text-2xl font-serif mb-4">Marisha Lakhiani</h3>
+            <p class="text-gray-600 leading-relaxed">Revenue Recovery Strategist. Architect of Mindvalley's growth from $30M to $150M over 8 years. Now audits $1M–$150M funnels — $1B+ in combined client revenue, 100+ funnels audited.</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24 bg-cream">
+        <div class="max-w-5xl mx-auto">
+            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 fade-in">Keep reading</p>
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <a href="why-your-funnel-is-leaking.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Foundational</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">Why your funnel is leaking $100K+ a year</h4>
+                    <p class="text-sm text-gray-600">The 4 universal leak categories found in every funnel audit.</p>
+                </a>
+                <a href="cost-per-lead-benchmarks.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Benchmarks</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">Cost per lead benchmarks for 2026</h4>
+                    <p class="text-sm text-gray-600">What a good CPL looks like across 5 funnel types.</p>
+                </a>
+                <a href="how-to-audit-your-funnel.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">How-To</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">How to audit your own funnel</h4>
+                    <p class="text-sm text-gray-600">A 5-step process you can run in 90 minutes.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-500 py-10 px-6 lg:px-16 text-center border-t border-white/10">
+        <p class="text-xs mb-3">© 2025 Marisha Lakhiani. All rights reserved.</p>
+        <p class="text-xs uppercase tracking-[0.2em]">
+            <a href="../index.html" class="hover:text-white transition-colors">Main Site</a><span class="mx-3">·</span>
+            <a href="index.html" class="hover:text-white transition-colors">Blog</a><span class="mx-3">·</span>
+            <a href="../apply/" class="hover:text-white transition-colors">Apply for Audit</a>
+        </p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

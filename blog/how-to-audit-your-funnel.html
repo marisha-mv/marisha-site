@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Audit Your Funnel — A 5-Step Process | Marisha Lakhiani</title>
+    <meta name="description" content="A condensed version of the full Revenue Recovery Audit you can run yourself in 90 minutes. Five steps, a prioritised fix list by the end.">
+    <link rel="canonical" href="https://marishalakhiani.com/blog/how-to-audit-your-funnel.html">
+    <meta property="og:title" content="How to Audit Your Funnel — A 5-Step Process">
+    <meta property="og:description" content="A condensed version of the full Revenue Recovery Audit you can run yourself in 90 minutes. Five steps, a prioritised fix list by the end.">
+    <meta property="og:type" content="article">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { bordeaux: '#6b1f3d', gold: '#c9a66b', cream: '#f8f6f3', 'cream-dark': '#f3f0eb' }, borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' } } } }</script>
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"How to Audit Your Funnel — A 5-Step Process","description":"A condensed version of the full Revenue Recovery Audit you can run yourself in 90 minutes. Five steps, a prioritised fix list by the end.","author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com"},"datePublished":"2026-04-18","mainEntityOfPage":"https://marishalakhiani.com/blog/how-to-audit-your-funnel.html"}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":"How do I audit my funnel myself?","acceptedAnswer":{"@type":"Answer","text":"Map every step from ad impression to sale, pull actual numbers at each step, benchmark against industry standards, calculate the dollar leak at each step, and rank by revenue impact. 90-minute process."}},
+        {"@type":"Question","name":"What tools do I need to audit a funnel?","acceptedAnswer":{"@type":"Answer","text":"Your ad platform analytics (Meta, Google), your email platform (ActiveCampaign, Beehiiv, ConvertKit), your checkout/CRM (Stripe, HubSpot), a spreadsheet, and 90 minutes of uninterrupted time."}},
+        {"@type":"Question","name":"How long does a funnel audit take?","acceptedAnswer":{"@type":"Answer","text":"A DIY audit following this 5-step process takes ~90 minutes. A professional audit takes 8–10 hours of analyst time and delivers deeper diagnosis with dollar-quantified fixes."}}
+    ]}
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+        .article-body h2 { font-size: 1.875rem; margin-top: 3rem; margin-bottom: 1.25rem; }
+        .article-body h3 { font-size: 1.375rem; margin-top: 2rem; margin-bottom: 0.75rem; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: 0; }
+        .article-body p { margin-bottom: 1.25rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body ul, .article-body ol { margin-bottom: 1.5rem; margin-left: 1.5rem; }
+        .article-body li { margin-bottom: 0.75rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body strong { color: #1a1a1a; font-weight: 600; }
+        .article-body blockquote { border-left: 2px solid #6b1f3d; padding: 0.5rem 0 0.5rem 1.5rem; margin: 2rem 0; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 1.375rem; line-height: 1.4; color: #1a1a1a; }
+        .article-body a { color: #6b1f3d; text-decoration: underline; text-underline-offset: 3px; }
+        .benchmark-table { width: 100%; margin: 2rem 0; border: 1px solid #e5e5e5; background: white; }
+        .benchmark-table th { background: #f3f0eb; padding: 14px 20px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; color: #6b1f3d; border-bottom: 1px solid #e5e5e5; }
+        .benchmark-table td { padding: 14px 20px; font-size: 15px; border-bottom: 1px solid #f0f0f0; color: #333; }
+        .benchmark-table tr:last-child td { border-bottom: none; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .fade-in.reveal { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) { h1 { font-size: 2.25rem !important; } .article-body h2 { font-size: 1.5rem; } .benchmark-table th, .benchmark-table td { padding: 10px 12px; font-size: 13px; } }
+    </style>
+</head>
+<body>
+
+    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
+            <div class="flex items-center gap-6 lg:gap-10">
+                <a href="index.html" class="text-xs uppercase tracking-[0.2em] text-gray-600 hover:text-bordeaux transition-colors">← Blog</a>
+                <a href="../apply/" class="btn-primary bg-bordeaux text-white px-5 py-2.5 font-semibold text-xs uppercase tracking-[0.15em]">Apply for Audit</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24">
+        <div class="max-w-3xl mx-auto fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">How-To</p>
+            <h1 class="text-4xl lg:text-6xl leading-[1.05] mb-6">How to audit your funnel — <span class="text-bordeaux italic">a 5-step process.</span></h1>
+            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10">
+                A condensed version of my full audit process. Ninety minutes, five steps, a prioritised fix list by the end.
+            </p>
+            <div class="flex flex-wrap items-center gap-4 lg:gap-6 text-[11px] uppercase tracking-[0.2em] text-gray-500 pb-6 border-b border-gray-200">
+                <span>Marisha Lakhiani</span>
+                <span>·</span>
+                <span>April 18, 2026</span>
+                <span>·</span>
+                <span>10 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <article class="px-6 lg:px-16 pb-20">
+        <div class="max-w-3xl mx-auto article-body fade-in">
+
+            <p>Most DIY funnel audits fail for one reason: no structure. Founders pull random numbers, eyeball their ads, read their landing page, and walk away with a vague "could be better" feeling. That's not an audit.</p>
+
+            <p>This piece gives you the exact 5-step process I use — condensed for solo execution. 90 minutes and a spreadsheet gets you a prioritised fix list.</p>
+
+            <h2>Before you start — what you need</h2>
+
+            <p>Three things. First, <strong>ad platform access</strong> — Meta, Google, TikTok, wherever you spend. Second, <strong>email platform and CRM access</strong> — you need show-up rates, open rates, sequence data, checkout numbers. Third, <strong>90 minutes of uninterrupted focus</strong>.</p>
+
+            <p>Not 90 minutes split into six 15-minute sessions. One focused block. Audits done in fragments produce fragmented conclusions — you lose the pattern recognition that makes the whole exercise valuable. Block the time, close Slack, put your phone in another room.</p>
+
+            <h2>Step 1 — Map every funnel step (15 min)</h2>
+
+            <p>Open a spreadsheet. Write every single step from ad impression → sale.</p>
+
+            <p>For a typical webinar funnel: ad impression → ad click → landing page view → opt-in → registration confirmation → pre-webinar email open → webinar attendance → offer view → checkout start → checkout complete → post-purchase.</p>
+
+            <p>Don't skip steps. The step you don't write down is the step where the leak is hiding. For evergreen and VSL funnels the steps are different — map yours specifically. If you run an application funnel, include call-booked, call-showed, and call-closed as separate steps.</p>
+
+            <p>This is the hardest part, because most founders think they know their funnel but have never written it down step by step. Writing it forces you to notice the steps you've been mentally skipping past for months.</p>
+
+            <h2>Step 2 — Pull actual numbers at each step (20 min)</h2>
+
+            <p>For each step, two numbers: the raw count and the conversion rate to the next step. Pull from analytics, don't estimate.</p>
+
+            <p>Common data sources: Meta Ads Manager (impressions, clicks, CPL), Google Analytics (page views, opt-in rate), your email platform (open rate, click rate), webinar platform (registered, attended, attendance rate), Stripe or your CRM (checkout starts, completions, revenue).</p>
+
+            <p>Write it all down in the spreadsheet. Use <strong>last 90 days of data</strong> — shorter windows are too noisy to read signal from, longer windows hide recent problems underneath stale averages. Ninety days is the sweet spot.</p>
+
+            <h2>Step 3 — Benchmark against industry standards (15 min)</h2>
+
+            <p>For each number, compare to the benchmark for your funnel type. Reference my <a href="cost-per-lead-benchmarks.html">CPL benchmarks article</a> and <a href="five-metrics-every-audit.html">5-metrics framework</a> for the standards I use.</p>
+
+            <p>Mark each row in your spreadsheet: <strong>at or above benchmark</strong> (green), <strong>close</strong> (yellow), <strong>below</strong> (red). The red rows are your leaks.</p>
+
+            <p>Don't get attached to any individual number — some will be lower than benchmark, that's normal, no funnel is at benchmark everywhere. What matters is identifying which ones are <em>significantly</em> below. Roughly, anything 30%+ off benchmark is a real leak. Anything within 10% is noise.</p>
+
+            <h2>Step 4 — Calculate dollar leak per step (25 min)</h2>
+
+            <p>For each red row, calculate what the gap costs you annually. This is where most audits go from interesting to actionable.</p>
+
+            <p>Example: your show-up rate is 30%, benchmark is 50%. You had 1,000 registrants last month. The 20-point gap = 200 missing attendees. If 15% of attendees buy at $2K, those 200 missing attendees = $60K/month of lost revenue = <strong>$720K/year</strong>.</p>
+
+            <p>Do this math for every red row. Some will be small ($10K/year). Some will be enormous ($500K+/year). The enormous ones are your priorities.</p>
+
+            <p>This step is the hardest one to do honestly, because seeing the real number is uncomfortable. Founders instinctively round down or write off the math as "too theoretical." Don't. Sit with the discomfort — it's exactly what motivates you to actually ship the fixes. A $720K/year leak gets fixed. A "show-up rate could be better" doesn't.</p>
+
+            <h2>Step 5 — Rank and prescribe (15 min)</h2>
+
+            <p>Sort your red rows by dollar impact, descending. The top 2–3 are your priorities. Everything else waits.</p>
+
+            <p>For each priority leak, write one <strong>specific fix</strong>. Don't write "improve show-up rate" — that's a goal, not a fix. Write "build 5-touch pre-webinar email sequence with SMS reminder 15 minutes before start." Specific, implementable, someone could do it without asking follow-up questions.</p>
+
+            <p>That's your fix list. Work it in order. Ship one fix per week for 30 days. Re-measure at day 60.</p>
+
+            <p>The rhythm matters: one fix per week, shipped, not six fixes started and none finished. Audits die in execution, not in diagnosis.</p>
+
+            <h2>What this DIY audit misses</h2>
+
+            <p>Three things a professional audit surfaces that DIY usually misses:</p>
+
+            <ol>
+                <li><strong>Cross-layer interactions.</strong> How a CPL fix affects downstream close rate. How a landing page change reshapes lead quality. DIY audits read each metric in isolation.</li>
+                <li><strong>Offer architecture issues.</strong> Your close rate might be low because your offer <em>structure</em> is wrong, not because your sales process is. That's almost impossible to see from the inside.</li>
+                <li><strong>Sequence construction.</strong> Knowing "you need better follow-up" is different from knowing "your day-3 email should attack the money objection with this specific case study." Prescriptions require pattern recognition across many funnels.</li>
+            </ol>
+
+            <p>The DIY version gets you 60–70% of the value of a professional audit. The last 30% is what requires outside expertise.</p>
+
+            <p>Run this process anyway. Even a rough pass beats no audit. If you do it and want a second set of eyes on the biggest leaks — with dollar-quantified fixes and a $100K guarantee on what I find — that's when the <a href="../apply/">Revenue Recovery Audit</a> adds value on top of what you can do yourself.</p>
+
+        </div>
+    </article>
+
+    <section class="px-6 lg:px-16 py-20 lg:py-24 bg-bordeaux text-white">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Done the DIY pass? Want a second set of eyes?</p>
+            <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">I'll quantify every leak in your funnel.</h2>
+            <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto">The Revenue Recovery Audit™: 8–10 hours on your funnel, written report in 7 days, $100K in recoverable revenue guaranteed — or you don't pay.</p>
+            <a href="../apply/" class="btn-primary inline-block bg-white text-bordeaux px-10 lg:px-12 py-5 lg:py-6 text-sm lg:text-base font-bold uppercase tracking-[0.2em]">Apply for Audit →</a>
+            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 bg-white">
+        <div class="max-w-3xl mx-auto border-l-2 border-gold pl-8 lg:pl-10 fade-in">
+            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold mb-4">About the author</p>
+            <h3 class="text-2xl font-serif mb-4">Marisha Lakhiani</h3>
+            <p class="text-gray-600 leading-relaxed">Revenue Recovery Strategist. Architect of Mindvalley's growth from $30M to $150M over 8 years. Now audits $1M–$150M funnels — $1B+ in combined client revenue, 100+ funnels audited.</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24 bg-cream">
+        <div class="max-w-5xl mx-auto">
+            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 fade-in">Keep reading</p>
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <a href="five-metrics-every-audit.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Framework</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">The 5 metrics every funnel audit should measure</h4>
+                    <p class="text-sm text-gray-600">The numbers that predict revenue.</p>
+                </a>
+                <a href="revenue-recovery-methodology.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Methodology</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">The Revenue Recovery methodology</h4>
+                    <p class="text-sm text-gray-600">The 5 diagnostic layers explained.</p>
+                </a>
+                <a href="why-your-funnel-is-leaking.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Foundational</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">Why your funnel is leaking $100K+ a year</h4>
+                    <p class="text-sm text-gray-600">The 4 universal leak categories.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-500 py-10 px-6 lg:px-16 text-center border-t border-white/10">
+        <p class="text-xs mb-3">© 2025 Marisha Lakhiani. All rights reserved.</p>
+        <p class="text-xs uppercase tracking-[0.2em]">
+            <a href="../index.html" class="hover:text-white transition-colors">Main Site</a><span class="mx-3">·</span>
+            <a href="index.html" class="hover:text-white transition-colors">Blog</a><span class="mx-3">·</span>
+            <a href="../apply/" class="hover:text-white transition-colors">Apply for Audit</a>
+        </p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

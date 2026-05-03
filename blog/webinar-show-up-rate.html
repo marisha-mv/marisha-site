@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why 72% of Webinar Registrants Don't Show Up (And the Fix) | Marisha Lakhiani</title>
+    <meta name="description" content="Show-up rate is the quietest killer in webinar funnels. 5 specific fixes that typically recover 15–25 points within one cohort.">
+    <link rel="canonical" href="https://marishalakhiani.com/blog/webinar-show-up-rate.html">
+    <meta property="og:title" content="Why 72% of Webinar Registrants Don't Show Up (And the Fix)">
+    <meta property="og:description" content="Show-up rate is the quietest killer in webinar funnels. 5 specific fixes that typically recover 15–25 points within one cohort.">
+    <meta property="og:type" content="article">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { bordeaux: '#6b1f3d', gold: '#c9a66b', cream: '#f8f6f3', 'cream-dark': '#f3f0eb' }, borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' } } } }</script>
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Why 72% of Webinar Registrants Don't Show Up (And the Fix)","description":"Why webinar show-up rate is the biggest leak in most webinar funnels, and 5 fixes to recover 15–25 points.","author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com"},"datePublished":"2026-04-18","mainEntityOfPage":"https://marishalakhiani.com/blog/webinar-show-up-rate.html"}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":"What is a good webinar show-up rate?","acceptedAnswer":{"@type":"Answer","text":"50% is the benchmark for live webinars. Most funnels run 30–35%, which means half the people who registered (and were paid for) never see the pitch."}},
+        {"@type":"Question","name":"How do I increase webinar show-up rate?","acceptedAnswer":{"@type":"Answer","text":"Build a 5–7 touch pre-webinar email sequence, add SMS reminders 15 min before start, send a 'running late?' email when the session begins, refresh the webinar topic quarterly, and reduce registration friction."}},
+        {"@type":"Question","name":"Why is my webinar show-up rate dropping?","acceptedAnswer":{"@type":"Answer","text":"Three common causes: (1) email deliverability issues (SPF/DKIM/DMARC misconfigured so reminders go to spam), (2) weak pre-webinar sequence with only 1–2 reminders, (3) topic fatigue — your webinar title has been running too long."}}
+    ]}
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+        .article-body h2 { font-size: 1.875rem; margin-top: 3rem; margin-bottom: 1.25rem; }
+        .article-body h3 { font-size: 1.375rem; margin-top: 2rem; margin-bottom: 0.75rem; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: 0; }
+        .article-body p { margin-bottom: 1.25rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body ul, .article-body ol { margin-bottom: 1.5rem; margin-left: 1.5rem; }
+        .article-body li { margin-bottom: 0.75rem; font-size: 1.0625rem; line-height: 1.7; color: #333; }
+        .article-body strong { color: #1a1a1a; font-weight: 600; }
+        .article-body blockquote { border-left: 2px solid #6b1f3d; padding: 0.5rem 0 0.5rem 1.5rem; margin: 2rem 0; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 1.375rem; line-height: 1.4; color: #1a1a1a; }
+        .article-body a { color: #6b1f3d; text-decoration: underline; text-underline-offset: 3px; }
+        .benchmark-table { width: 100%; margin: 2rem 0; border: 1px solid #e5e5e5; background: white; }
+        .benchmark-table th { background: #f3f0eb; padding: 14px 20px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; color: #6b1f3d; border-bottom: 1px solid #e5e5e5; }
+        .benchmark-table td { padding: 14px 20px; font-size: 15px; border-bottom: 1px solid #f0f0f0; color: #333; }
+        .benchmark-table tr:last-child td { border-bottom: none; }
+        .stat-callout { background: white; border-left: 2px solid #c9a66b; padding: 1.5rem 1.75rem; margin: 2rem 0; }
+        .stat-callout p { margin-bottom: 0; font-size: 1rem; color: #1a1a1a; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .fade-in.reveal { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) { h1 { font-size: 2.25rem !important; } .article-body h2 { font-size: 1.5rem; } .benchmark-table th, .benchmark-table td { padding: 10px 12px; font-size: 13px; } }
+    </style>
+</head>
+<body>
+
+    <header class="px-6 lg:px-16 py-6 lg:py-8 border-b border-bordeaux/10">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
+            <div class="flex items-center gap-6 lg:gap-10">
+                <a href="index.html" class="text-xs uppercase tracking-[0.2em] text-gray-600 hover:text-bordeaux transition-colors">← Blog</a>
+                <a href="../apply/" class="btn-primary bg-bordeaux text-white px-5 py-2.5 font-semibold text-xs uppercase tracking-[0.15em]">Apply for Audit</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24">
+        <div class="max-w-3xl mx-auto fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Webinar</p>
+            <h1 class="text-4xl lg:text-6xl leading-[1.05] mb-6">Why 72% of webinar registrants don't show up — <span class="text-bordeaux italic">and the fix.</span></h1>
+            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10">
+                Show-up rate is the quietest killer in any webinar funnel. 5 specific fixes that typically recover 15–25 points within one cohort.
+            </p>
+            <div class="flex flex-wrap items-center gap-4 lg:gap-6 text-[11px] uppercase tracking-[0.2em] text-gray-500 pb-6 border-b border-gray-200">
+                <span>Marisha Lakhiani</span>
+                <span>·</span>
+                <span>April 18, 2026</span>
+                <span>·</span>
+                <span>9 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <article class="px-6 lg:px-16 pb-20">
+        <div class="max-w-3xl mx-auto article-body fade-in">
+
+            <p>Here's the painful reality most webinar funnels run on: if your show-up rate is 30%, you're paying for leads, paying for their registration, and then 70% of them never hear your pitch. These are the most expensive leads in your funnel — because you paid twice and got nothing.</p>
+
+            <p>Show-up rate is the quietest metric in the stack. It doesn't announce itself like CPL or close rate. But it compounds against every downstream number, and fixing it is usually the single highest-leverage move an audit surfaces.</p>
+
+            <h2>The benchmark, and why you're probably below it</h2>
+
+            <p>The benchmark for live webinars is <strong>50% show-up rate</strong>. Most funnels I audit sit at 30–35%. That 15–20 point gap doesn't just mean fewer people in the room — it means every metric downstream of it is compounding on a smaller base.</p>
+
+            <p>Here's the math that makes the point.</p>
+
+            <blockquote>1,000 registrants × 30% show × 15% close × $2K offer = $9K per session. Same funnel at 50% show = $15K per session. Same ad spend, 67% more revenue.</blockquote>
+
+            <p>Nothing else in the funnel produces that kind of lift from a single fix. You didn't change the offer, the ads, the pitch, or the price. You just got the people you already paid for to show up.</p>
+
+            <h2>Why show-up rate collapses</h2>
+
+            <p>When show-up rate drops, it's almost always one of three causes — and you can usually diagnose which one in under 30 minutes.</p>
+
+            <ol>
+                <li><strong>Email deliverability.</strong> Reminders going to spam because SPF, DKIM, and DMARC aren't configured on your sending domain. Run your reminder sequence through <a href="https://www.mail-tester.com" target="_blank" rel="noopener">mail-tester.com</a> — anything under 8/10 is leaking registrants.</li>
+                <li><strong>Weak pre-webinar sequence.</strong> 1–2 reminder emails isn't enough in 2026. The benchmark is 5–7 touches between registration and live, and most funnels are sending a third of what they should.</li>
+                <li><strong>Topic fatigue.</strong> If your webinar title has been the same for 6+ months, the warm audience that was going to show has already shown (or already skipped). The hook is worn out.</li>
+            </ol>
+
+            <h2>The 5 fixes</h2>
+
+            <h3>1. Build a 5–7 touch pre-webinar sequence</h3>
+
+            <p>Between registration and the session, you need: welcome email (immediate), value-loaded content (day 1), a "what you'll learn" teaser (day before), morning-of reminder, 1-hour-before reminder, 15-min-before SMS, and a "running late?" email at session start. Most funnels send 2. The gap is that big.</p>
+
+            <p>Each touch has a job — confirmation, nurture, curiosity, utility, urgency, recovery. Skipping any of them compounds into a show-rate drop.</p>
+
+            <h3>2. Add SMS reminders 15 minutes before start</h3>
+
+            <p>SMS open rates are 97% versus 20–30% for email. A single SMS 15 minutes before the session typically adds 20–30 points on top of your email-only show rate.</p>
+
+            <p>Use Twilio or SimpleTexting. Collect phone numbers at registration (optional field, but set expectations clearly). One text, one link, done. This is the single highest-ROI change most funnels can make in under a week.</p>
+
+            <h3>3. Send a "running late?" email when the session begins</h3>
+
+            <p>The moment your webinar starts, send an email with subject line <strong>"Starting now — join the room"</strong> and a one-click rejoin link. This catches the "I forgot" segment in real time.</p>
+
+            <p>Typically recovers 5–8% of registrants who would have otherwise vanished — people who intended to show, got distracted, and just needed one more nudge.</p>
+
+            <h3>4. Refresh your webinar topic quarterly</h3>
+
+            <p>Your hook fatigues the same way ad creative fatigues. Same headline for 6+ months = declining show rate because your warm audience has already seen it in their inbox three times.</p>
+
+            <p>Rotate the topic every 3 months. Keep the core content intact — rewrite the hook, the promise, the title. Show rate typically jumps 10–15 points in the first cohort after a refresh, and CPL usually drops alongside it because the ads feel new too.</p>
+
+            <h3>5. Fix email deliverability</h3>
+
+            <p>Often the silent killer. If reminders are going to spam, nothing else in this list matters — your registrants are never seeing any of it.</p>
+
+            <p>Check SPF, DKIM, and DMARC at mail-tester.com. Use a dedicated sending domain (not your main brand domain). Keep subject lines clean: no ALL CAPS, no excessive punctuation, no spam trigger words. This fix alone has recovered hundreds of attendees per webinar in client audits — and it costs nothing but an afternoon of configuration.</p>
+
+            <h2>What to measure</h2>
+
+            <p>Track show-up rate per webinar against the 50% benchmark. If it drops 5+ points over two consecutive sessions, something broke — usually deliverability or topic. Investigate immediately, because the cost compounds every week you run the leaky version.</p>
+
+            <p>Segment show rate by traffic source too. Cold paid traffic shows at lower rates than warm email list traffic — averaging them hides which source is the actual problem.</p>
+
+            <p>Show-up rate is the cheapest leak to fix because the leads are already paid for. Every point you recover is pure margin. If you want me to diagnose which of the 5 fixes moves the needle most for your specific funnel, that's what the <a href="../apply/">Revenue Recovery Audit</a> delivers.</p>
+
+        </div>
+    </article>
+
+    <section class="px-6 lg:px-16 py-20 lg:py-24 bg-bordeaux text-white">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-8">Your show-up rate vs. benchmark — what's the actual revenue gap?</p>
+            <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">I'll quantify every leak in your funnel.</h2>
+            <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto">The Revenue Recovery Audit™: 8–10 hours on your funnel, written report in 7 days, $100K in recoverable revenue guaranteed — or you don't pay.</p>
+            <a href="../apply/" class="btn-primary inline-block bg-white text-bordeaux px-10 lg:px-12 py-5 lg:py-6 text-sm lg:text-base font-bold uppercase tracking-[0.2em]">Apply for Audit →</a>
+            <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 bg-white">
+        <div class="max-w-3xl mx-auto border-l-2 border-gold pl-8 lg:pl-10 fade-in">
+            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold mb-4">About the author</p>
+            <h3 class="text-2xl font-serif mb-4">Marisha Lakhiani</h3>
+            <p class="text-gray-600 leading-relaxed">Revenue Recovery Strategist. Architect of Mindvalley's growth from $30M to $150M over 8 years. Now audits $1M–$150M funnels — $1B+ in combined client revenue, 100+ funnels audited.</p>
+        </div>
+    </section>
+
+    <section class="px-6 lg:px-16 py-16 lg:py-24 bg-cream">
+        <div class="max-w-5xl mx-auto">
+            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 fade-in">Keep reading</p>
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <a href="why-your-funnel-is-leaking.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Foundational</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">Why your funnel is leaking $100K+ a year</h4>
+                    <p class="text-sm text-gray-600">The 4 universal leak categories found in every funnel audit.</p>
+                </a>
+                <a href="post-webinar-email-sequence.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Sequences</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">The 7-day post-webinar email sequence</h4>
+                    <p class="text-sm text-gray-600">Day-by-day framework that recovers 20–40% more revenue.</p>
+                </a>
+                <a href="live-vs-evergreen-webinars.html" class="block bg-white p-8 border-l-2 border-bordeaux hover:border-gold transition-colors fade-in">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-semibold mb-3">Strategy</p>
+                    <h4 class="text-xl font-serif leading-tight mb-3">Live vs evergreen webinars</h4>
+                    <p class="text-sm text-gray-600">The honest comparison: conversion math, operational load, scaling ceiling.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-500 py-10 px-6 lg:px-16 text-center border-t border-white/10">
+        <p class="text-xs mb-3">© 2025 Marisha Lakhiani. All rights reserved.</p>
+        <p class="text-xs uppercase tracking-[0.2em]">
+            <a href="../index.html" class="hover:text-white transition-colors">Main Site</a><span class="mx-3">·</span>
+            <a href="index.html" class="hover:text-white transition-colors">Blog</a><span class="mx-3">·</span>
+            <a href="../apply/" class="hover:text-white transition-colors">Apply for Audit</a>
+        </p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

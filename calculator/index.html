@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Leak Calculator | Marisha Lakhiani</title>
+    <meta name="description" content="Find out in 3 minutes exactly where your funnel is losing money — and which fix recovers the most first.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bordeaux: '#6b1f3d',
+                        'bordeaux-dark': '#4a1529',
+                        gold: '#c9a66b',
+                        'gold-light': '#d4b896',
+                        cream: '#f8f6f3',
+                        'cream-dark': '#f3f0eb'
+                    },
+                    borderRadius: {
+                        DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
+
+        .screen { display: none; }
+        .screen.active { display: block; }
+
+        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+
+        .tile {
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+            background: white;
+        }
+        .tile:hover {
+            border-color: #6b1f3d;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(107, 31, 61, 0.08);
+        }
+        .tile.selected {
+            border-color: #6b1f3d;
+            background: #6b1f3d;
+            color: white;
+        }
+        .tile.selected .tile-icon { color: #c9a66b; }
+        .tile.selected .tile-desc { color: rgba(255,255,255,0.7); }
+
+        input[type="number"], input[type="email"] {
+            width: 100%;
+            font-size: 1.125rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid #d4d4d4;
+            background: white;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            color: #1a1a1a;
+        }
+        input[type="number"]:focus, input[type="email"]:focus {
+            outline: none;
+            border-color: #6b1f3d;
+            box-shadow: 0 0 0 3px rgba(107, 31, 61, 0.1);
+        }
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] { -moz-appearance: textfield; }
+
+        .progress-bar { transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+
+        .fade-in-calc { animation: fadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) both; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .leak-bar { transition: width 1s cubic-bezier(0.25, 1, 0.5, 1); }
+        .score-ring { transition: stroke-dashoffset 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.25rem !important; }
+            h2 { font-size: 1.75rem !important; }
+        }
+    </style>
+</head>
+<body class="bg-cream min-h-screen flex flex-col">
+    <!-- Nav -->
+    <nav class="px-6 lg:px-16 py-4 lg:py-6 border-b border-bordeaux/10 bg-cream">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
+            <a href="../index.html" class="text-xs uppercase tracking-[0.2em] text-gray-600 hover:text-bordeaux transition-colors">← Back to Site</a>
+        </div>
+    </nav>
+
+    <!-- Progress -->
+    <div id="progress-wrapper" class="px-6 lg:px-16 py-4 border-b border-bordeaux/5 hidden bg-cream">
+        <div class="max-w-3xl mx-auto flex items-center gap-4">
+            <p class="text-[10px] uppercase tracking-[0.25em] text-gray-500 font-semibold whitespace-nowrap" id="progress-label">Step 1 of 5</p>
+            <div class="flex-1 h-[2px] bg-gray-200">
+                <div class="progress-bar h-full bg-bordeaux" id="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <main class="flex-1 flex items-start">
+        <div class="w-full max-w-3xl mx-auto px-6 lg:px-16 py-12 lg:py-20">
+
+            <!-- SCREEN 1: INTRO -->
+            <section id="screen-intro" class="screen active fade-in-calc">
+                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Free Revenue Leak Calculator</p>
+                <h1 class="text-4xl lg:text-6xl mb-6 leading-tight">See exactly where your funnel is<br><span class="text-bordeaux italic">losing money.</span></h1>
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10 max-w-2xl">
+                    Answer 11 questions about your funnel. I'll show you—in dollars—where revenue is leaking, score your efficiency, and tell you which fix recovers the most first.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="border-l-2 border-gold pl-5">
+                        <p class="text-2xl font-bold mb-1">3 min</p>
+                        <p class="text-xs uppercase tracking-[0.15em] text-gray-500">Completion time</p>
+                    </div>
+                    <div class="border-l-2 border-gold pl-5">
+                        <p class="text-2xl font-bold mb-1">$0</p>
+                        <p class="text-xs uppercase tracking-[0.15em] text-gray-500">Cost</p>
+                    </div>
+                    <div class="border-l-2 border-gold pl-5">
+                        <p class="text-2xl font-bold mb-1">4 leaks</p>
+                        <p class="text-xs uppercase tracking-[0.15em] text-gray-500">Diagnosed</p>
+                    </div>
+                </div>
+
+                <button onclick="goTo('funnel-type')" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Start Calculator →</button>
+                <p class="text-xs text-gray-500 mt-6">Based on benchmarks from $1B+ in client revenue.</p>
+            </section>
+
+            <!-- SCREEN 2: FUNNEL TYPE -->
+            <section id="screen-funnel-type" class="screen">
+                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Question 1 of 11</p>
+                <h2 class="text-3xl lg:text-4xl mb-4">What kind of funnel are you running?</h2>
+                <p class="text-gray-600 mb-10">Pick the primary one. The rest of the questions will be tailored to match.</p>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <button class="tile border border-gray-300 p-6 text-left" data-funnel="webinar" onclick="selectFunnel(this, 'webinar')">
+                        <span class="material-symbols-outlined tile-icon text-bordeaux text-3xl mb-3 block">videocam</span>
+                        <h3 class="font-bold uppercase tracking-[0.12em] text-sm mb-2">Live Webinar</h3>
+                        <p class="tile-desc text-sm text-gray-600">Register → attend live → offer at close</p>
+                    </button>
+                    <button class="tile border border-gray-300 p-6 text-left" data-funnel="evergreen" onclick="selectFunnel(this, 'evergreen')">
+                        <span class="material-symbols-outlined tile-icon text-bordeaux text-3xl mb-3 block">all_inclusive</span>
+                        <h3 class="font-bold uppercase tracking-[0.12em] text-sm mb-2">Evergreen Webinar</h3>
+                        <p class="tile-desc text-sm text-gray-600">Opt-in → automated video → offer</p>
+                    </button>
+                    <button class="tile border border-gray-300 p-6 text-left" data-funnel="vsl" onclick="selectFunnel(this, 'vsl')">
+                        <span class="material-symbols-outlined tile-icon text-bordeaux text-3xl mb-3 block">play_circle</span>
+                        <h3 class="font-bold uppercase tracking-[0.12em] text-sm mb-2">Video Sales Letter (VSL)</h3>
+                        <p class="tile-desc text-sm text-gray-600">Landing page → VSL → checkout</p>
+                    </button>
+                    <button class="tile border border-gray-300 p-6 text-left" data-funnel="challenge" onclick="selectFunnel(this, 'challenge')">
+                        <span class="material-symbols-outlined tile-icon text-bordeaux text-3xl mb-3 block">flag</span>
+                        <h3 class="font-bold uppercase tracking-[0.12em] text-sm mb-2">Challenge</h3>
+                        <p class="tile-desc text-sm text-gray-600">Multi-day challenge → close event</p>
+                    </button>
+                    <button class="tile border border-gray-300 p-6 text-left md:col-span-2" data-funnel="application" onclick="selectFunnel(this, 'application')">
+                        <span class="material-symbols-outlined tile-icon text-bordeaux text-3xl mb-3 block">description</span>
+                        <h3 class="font-bold uppercase tracking-[0.12em] text-sm mb-2">High-Ticket Application</h3>
+                        <p class="tile-desc text-sm text-gray-600">Application form → sales call → close</p>
+                    </button>
+                </div>
+            </section>
+
+            <!-- SCREEN 3: UNIVERSAL QUESTIONS -->
+            <section id="screen-universal" class="screen">
+                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Questions 2–5 of 11</p>
+                <h2 class="text-3xl lg:text-4xl mb-4">The numbers.</h2>
+                <p class="text-gray-600 mb-10">Best estimates are fine. The more accurate, the better the report.</p>
+
+                <div class="space-y-6 mb-10">
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Monthly ad spend (USD)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">$</span>
+                            <input type="number" id="q_adSpend" placeholder="10000" class="pl-8" min="0">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Leads per month</label>
+                        <input type="number" id="q_leads" placeholder="500" min="0">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Offer price (USD)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">$</span>
+                            <input type="number" id="q_offerPrice" placeholder="2000" class="pl-8" min="1">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Current monthly revenue (USD)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">$</span>
+                            <input type="number" id="q_revenue" placeholder="50000" class="pl-8" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <button onclick="goTo('funnel-type')" class="text-sm uppercase tracking-[0.15em] font-semibold text-gray-600 hover:text-bordeaux transition-colors">← Back</button>
+                    <button onclick="submitUniversal()" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Continue →</button>
+                </div>
+                <p id="universal-error" class="text-sm text-bordeaux mt-4 hidden">Please fill all four fields with realistic numbers.</p>
+            </section>
+
+            <!-- SCREEN 4: SPECIFIC QUESTIONS -->
+            <section id="screen-specific" class="screen">
+                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Questions 6–11 of 11</p>
+                <h2 class="text-3xl lg:text-4xl mb-4" id="specific-title">The specifics.</h2>
+                <p class="text-gray-600 mb-10" id="specific-subtitle">Last round. These are the metrics that reveal where you're leaking.</p>
+
+                <div id="specific-fields" class="space-y-6 mb-10"></div>
+
+                <div class="flex items-center gap-6">
+                    <button onclick="goTo('universal')" class="text-sm uppercase tracking-[0.15em] font-semibold text-gray-600 hover:text-bordeaux transition-colors">← Back</button>
+                    <button onclick="submitSpecific()" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">See My Report →</button>
+                </div>
+                <p id="specific-error" class="text-sm text-bordeaux mt-4 hidden">Please fill all fields.</p>
+            </section>
+
+            <!-- SCREEN 5: EMAIL -->
+            <section id="screen-email" class="screen">
+                <div class="text-center">
+                    <span class="material-symbols-outlined text-gold text-5xl mb-6">mark_email_read</span>
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Almost There</p>
+                    <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">Where should I send<br><span class="text-bordeaux italic">your report?</span></h2>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-10 max-w-lg mx-auto">
+                        Your personalised Revenue Leak Report—with dollar amounts, score, and top fix—will appear on the next screen and land in your inbox.
+                    </p>
+
+                    <div class="max-w-md mx-auto mb-8">
+                        <input type="email" id="q_email" placeholder="you@company.com" class="text-center">
+                    </div>
+
+                    <button onclick="submitEmail()" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Show My Report →</button>
+                    <p id="email-error" class="text-sm text-bordeaux mt-4 hidden">Please enter a valid email address.</p>
+                    <p class="text-xs text-gray-500 mt-6">One email. No spam. Unsubscribe any time.</p>
+                </div>
+            </section>
+
+            <!-- SCREEN 6: RESULTS -->
+            <section id="screen-results" class="screen">
+                <div id="results-content"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-black text-gray-500 py-8 px-6 lg:px-16 text-center text-xs">
+        <p>© 2025 Marisha Lakhiani. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+    // Question data + benchmarks (tuned from $1B+ in client revenue per Marisha's reference band)
+    const funnelQuestions = {
+        webinar: {
+            title: 'Your webinar specifics.',
+            subtitle: "Six metrics. We're looking for drop-offs and conversion gaps.",
+            questions: [
+                { id: 'registrations', label: 'Registrations per webinar', placeholder: '250' },
+                { id: 'showup', label: 'Show-up rate', placeholder: '40', suffix: '%' },
+                { id: 'closeRate', label: 'Close rate on attendees', placeholder: '10', suffix: '%' },
+                { id: 'avgWatchMin', label: 'Average watch time (minutes)', placeholder: '45' },
+                { id: 'followupEmails', label: 'Post-webinar email sequence length (# emails)', placeholder: '3' },
+                { id: 'followupCallPct', label: '% of attendees who get a follow-up call', placeholder: '0', suffix: '%' },
+            ],
+            benchmarks: { cpl: 15, showup: 50, closeRate: 15, avgWatchMin: 60, followupEmails: 7, followupCallPct: 20 }
+        },
+        evergreen: {
+            title: 'Your evergreen specifics.',
+            subtitle: "Six metrics. We're looking for conversion and nurture gaps.",
+            questions: [
+                { id: 'optinRate', label: 'Landing page opt-in rate', placeholder: '25', suffix: '%' },
+                { id: 'watchRate', label: 'Watch rate on the video', placeholder: '30', suffix: '%' },
+                { id: 'conversionRate', label: 'Conversion rate to sale', placeholder: '2', suffix: '%' },
+                { id: 'followupEmails', label: 'Number of follow-up emails', placeholder: '5' },
+                { id: 'openRate', label: 'Average email open rate', placeholder: '25', suffix: '%' },
+                { id: 'longTermNurturePct', label: '% of non-buyers who get long-term nurture', placeholder: '20', suffix: '%' },
+            ],
+            benchmarks: { cpl: 20, optinRate: 40, watchRate: 50, conversionRate: 4, followupEmails: 10, openRate: 35, longTermNurturePct: 80 }
+        },
+        vsl: {
+            title: 'Your VSL specifics.',
+            subtitle: "Six metrics. We're looking for where viewers drop off and why carts abandon.",
+            questions: [
+                { id: 'lpConversion', label: 'Landing page conversion (to VSL)', placeholder: '30', suffix: '%' },
+                { id: 'vslWatchthrough', label: 'VSL watch-through rate', placeholder: '25', suffix: '%' },
+                { id: 'ctaClickRate', label: 'CTA click-through to checkout', placeholder: '4', suffix: '%' },
+                { id: 'checkoutCompletion', label: 'Checkout completion rate', placeholder: '50', suffix: '%' },
+                { id: 'abandonEmails', label: 'Cart abandonment email sequence length', placeholder: '3' },
+                { id: 'upsellPresent', label: 'Do you have an upsell/downsell? (1 = yes, 0 = no)', placeholder: '0' },
+            ],
+            benchmarks: { cpl: 25, lpConversion: 45, vslWatchthrough: 40, ctaClickRate: 8, checkoutCompletion: 75, abandonEmails: 5, upsellPresent: 1 }
+        },
+        challenge: {
+            title: 'Your challenge specifics.',
+            subtitle: "Six metrics. We're looking for completion drop-off and post-challenge conversion.",
+            questions: [
+                { id: 'optinRate', label: 'Opt-in rate to challenge', placeholder: '30', suffix: '%' },
+                { id: 'completionRate', label: '% of registrants who complete the challenge', placeholder: '25', suffix: '%' },
+                { id: 'closeRate', label: 'Conversion rate at close event', placeholder: '5', suffix: '%' },
+                { id: 'challengeEmails', label: 'Avg emails during challenge', placeholder: '7' },
+                { id: 'postChallengeEmails', label: 'Post-challenge sales sequence length (# emails)', placeholder: '3' },
+                { id: 'reengagePct', label: '% of non-buyers re-engaged in next 90 days', placeholder: '10', suffix: '%' },
+            ],
+            benchmarks: { cpl: 10, optinRate: 45, completionRate: 40, closeRate: 8, challengeEmails: 10, postChallengeEmails: 7, reengagePct: 50 }
+        },
+        application: {
+            title: 'Your application-funnel specifics.',
+            subtitle: "Six metrics. We're looking for application drop-off, call show rate, and nurture.",
+            questions: [
+                { id: 'appCompletion', label: 'Application form completion rate', placeholder: '40', suffix: '%' },
+                { id: 'bookRate', label: '% of applicants who book a call', placeholder: '50', suffix: '%' },
+                { id: 'showupRate', label: 'Show-up rate on sales call', placeholder: '60', suffix: '%' },
+                { id: 'closeRate', label: 'Close rate on show-ups', placeholder: '20', suffix: '%' },
+                { id: 'cycleDays', label: 'Avg sales cycle (days from application → close)', placeholder: '14' },
+                { id: 'nurturePct', label: '% of non-buyers added to nurture', placeholder: '30', suffix: '%' },
+            ],
+            benchmarks: { cpl: 75, appCompletion: 60, bookRate: 70, showupRate: 70, closeRate: 30, cycleDays: 7, nurturePct: 90 }
+        }
+    };
+
+    const funnelLabels = {
+        webinar: 'Live Webinar',
+        evergreen: 'Evergreen Webinar',
+        vsl: 'VSL',
+        challenge: 'Challenge',
+        application: 'Application'
+    };
+
+    const state = {
+        current: 'intro',
+        funnelType: null,
+        universal: {},
+        specific: {},
+        email: null,
+        results: null
+    };
+
+    // Navigation
+    function goTo(screen) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        const el = document.getElementById('screen-' + screen);
+        if (el) {
+            el.classList.add('active');
+            el.classList.remove('fade-in-calc');
+            void el.offsetWidth;
+            el.classList.add('fade-in-calc');
+        }
+        state.current = screen;
+        updateProgress();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateProgress() {
+        const wrapper = document.getElementById('progress-wrapper');
+        const fill = document.getElementById('progress-fill');
+        const label = document.getElementById('progress-label');
+        const steps = { 'intro': 0, 'funnel-type': 1, 'universal': 2, 'specific': 3, 'email': 4, 'results': 5 };
+        const stepLabels = {
+            'intro': '',
+            'funnel-type': 'Step 1 of 5',
+            'universal': 'Step 2 of 5',
+            'specific': 'Step 3 of 5',
+            'email': 'Step 4 of 5',
+            'results': 'Complete'
+        };
+        const step = steps[state.current] || 0;
+        if (step === 0) {
+            wrapper.classList.add('hidden');
+        } else {
+            wrapper.classList.remove('hidden');
+            fill.style.width = (step / 5 * 100) + '%';
+            label.textContent = stepLabels[state.current];
+        }
+    }
+
+    function selectFunnel(el, type) {
+        state.funnelType = type;
+        document.querySelectorAll('.tile').forEach(t => t.classList.remove('selected'));
+        el.classList.add('selected');
+        setTimeout(() => {
+            renderSpecificFields();
+            goTo('universal');
+        }, 350);
+    }
+
+    function submitUniversal() {
+        const adSpend = parseFloat(document.getElementById('q_adSpend').value);
+        const leads = parseFloat(document.getElementById('q_leads').value);
+        const offerPrice = parseFloat(document.getElementById('q_offerPrice').value);
+        const revenue = parseFloat(document.getElementById('q_revenue').value);
+        const err = document.getElementById('universal-error');
+
+        if (!(adSpend >= 0) || !(leads > 0) || !(offerPrice > 0) || !(revenue >= 0)) {
+            err.classList.remove('hidden');
+            return;
+        }
+        err.classList.add('hidden');
+        state.universal = { adSpend, leads, offerPrice, revenue };
+        goTo('specific');
+    }
+
+    function renderSpecificFields() {
+        const data = funnelQuestions[state.funnelType];
+        document.getElementById('specific-title').textContent = data.title;
+        document.getElementById('specific-subtitle').textContent = data.subtitle;
+        const container = document.getElementById('specific-fields');
+        container.innerHTML = data.questions.map(q => {
+            const suffix = q.suffix ? `<span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">${q.suffix}</span>` : '';
+            return `
+                <div>
+                    <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">${q.label}</label>
+                    <div class="relative">
+                        <input type="number" id="qs_${q.id}" placeholder="${q.placeholder}" min="0" ${q.suffix ? 'class="pr-10"' : ''}>
+                        ${suffix}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function submitSpecific() {
+        const data = funnelQuestions[state.funnelType];
+        const answers = {};
+        let missing = 0;
+        data.questions.forEach(q => {
+            const v = document.getElementById('qs_' + q.id).value;
+            if (v === '' || isNaN(parseFloat(v))) missing++;
+            else answers[q.id] = parseFloat(v);
+        });
+        const err = document.getElementById('specific-error');
+        if (missing > 0) { err.classList.remove('hidden'); return; }
+        err.classList.add('hidden');
+        state.specific = answers;
+        goTo('email');
+    }
+
+    function submitEmail() {
+        const email = document.getElementById('q_email').value.trim();
+        const err = document.getElementById('email-error');
+        const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!valid) { err.classList.remove('hidden'); return; }
+        err.classList.add('hidden');
+        state.email = email;
+        calculate();
+        renderResults();
+        goTo('results');
+
+        // TODO: wire to Zapier webhook → Beehive for real email delivery
+        // fetch('YOUR_ZAPIER_WEBHOOK_URL', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({
+        //         email: state.email,
+        //         funnelType: state.funnelType,
+        //         universal: state.universal,
+        //         specific: state.specific,
+        //         results: state.results,
+        //         timestamp: new Date().toISOString()
+        //     })
+        // }).catch(() => {});
+    }
+
+    function calculate() {
+        const { funnelType, universal, specific } = state;
+        const bench = funnelQuestions[funnelType].benchmarks;
+        const { adSpend, leads, offerPrice, revenue } = universal;
+
+        const actualCPL = adSpend / Math.max(leads, 1);
+        const monthlyBuyers = Math.max(0, revenue / Math.max(offerPrice, 1));
+
+        const cplOverage = Math.max(0, actualCPL - bench.cpl);
+        const cplWasteAnnual = Math.round(cplOverage * leads * 12);
+
+        let engagementGapPct = 0;
+        if (funnelType === 'webinar') engagementGapPct = Math.max(0, (bench.showup - specific.showup) / bench.showup);
+        else if (funnelType === 'evergreen') engagementGapPct = Math.max(0, (bench.optinRate - specific.optinRate) / bench.optinRate);
+        else if (funnelType === 'vsl') engagementGapPct = Math.max(0, (bench.lpConversion - specific.lpConversion) / bench.lpConversion);
+        else if (funnelType === 'challenge') engagementGapPct = Math.max(0, (bench.completionRate - specific.completionRate) / bench.completionRate);
+        else if (funnelType === 'application') engagementGapPct = Math.max(0, (bench.appCompletion - specific.appCompletion) / bench.appCompletion);
+        engagementGapPct = Math.min(engagementGapPct, 0.8);
+        const engagementGapAnnual = Math.round(engagementGapPct * revenue * 12);
+
+        let closeGapPct = 0;
+        if (funnelType === 'webinar') closeGapPct = Math.max(0, (bench.closeRate - specific.closeRate) / bench.closeRate);
+        else if (funnelType === 'evergreen') closeGapPct = Math.max(0, (bench.conversionRate - specific.conversionRate) / bench.conversionRate);
+        else if (funnelType === 'vsl') closeGapPct = Math.max(0, (bench.checkoutCompletion - specific.checkoutCompletion) / bench.checkoutCompletion);
+        else if (funnelType === 'challenge') closeGapPct = Math.max(0, (bench.closeRate - specific.closeRate) / bench.closeRate);
+        else if (funnelType === 'application') closeGapPct = Math.max(0, (bench.closeRate - specific.closeRate) / bench.closeRate);
+        closeGapPct = Math.min(closeGapPct, 0.8);
+        const closeGapAnnual = Math.round(closeGapPct * revenue * 12);
+
+        let seqScore = 0;
+        if (funnelType === 'webinar') seqScore = Math.min(1, (specific.followupEmails || 0) / bench.followupEmails);
+        else if (funnelType === 'evergreen') seqScore = Math.min(1, (((specific.followupEmails || 0) / bench.followupEmails) + ((specific.longTermNurturePct || 0) / bench.longTermNurturePct)) / 2);
+        else if (funnelType === 'vsl') seqScore = Math.min(1, (specific.abandonEmails || 0) / bench.abandonEmails);
+        else if (funnelType === 'challenge') seqScore = Math.min(1, (((specific.postChallengeEmails || 0) / bench.postChallengeEmails) + ((specific.reengagePct || 0) / bench.reengagePct)) / 2);
+        else if (funnelType === 'application') seqScore = Math.min(1, (specific.nurturePct || 0) / bench.nurturePct);
+        const sequenceGapPct = 1 - seqScore;
+        const nonBuyersPerMonth = Math.max(0, leads - monthlyBuyers);
+        const sequenceGapAnnual = Math.round(sequenceGapPct * nonBuyersPerMonth * offerPrice * 0.05 * 12);
+
+        const cplScore = actualCPL <= bench.cpl ? 100 : Math.max(0, Math.round(100 - ((actualCPL - bench.cpl) / bench.cpl) * 100));
+        const engagementScore = Math.round(100 * (1 - engagementGapPct));
+        const closeScore = Math.round(100 * (1 - closeGapPct));
+        const sequenceScoreOut = Math.round(100 * seqScore);
+        const overall = Math.round((cplScore * 0.2 + engagementScore * 0.3 + closeScore * 0.3 + sequenceScoreOut * 0.2));
+
+        const rawLeaks = [
+            { name: 'CPL Waste', amount: cplWasteAnnual },
+            { name: 'Engagement Gap', amount: engagementGapAnnual },
+            { name: 'Close Rate Gap', amount: closeGapAnnual },
+            { name: 'Sequence Gap', amount: sequenceGapAnnual }
+        ];
+        const leaks = rawLeaks.map(l => ({ ...l, ...getLeakDetail(l.name, funnelType, universal, specific, bench) }))
+                              .sort((a, b) => b.amount - a.amount);
+        const totalLeak = leaks.reduce((s, l) => s + l.amount, 0);
+
+        let band, bandLabel, bandCopy, bandAccent;
+        if (overall >= 80) {
+            band = 'optimised'; bandLabel = 'Optimised'; bandAccent = 'text-gold';
+            bandCopy = "Your funnel is performing above benchmark across most categories. The leaks below are concentrated, not systemic. Fixing them compounds what's already working.";
+        } else if (overall >= 50) {
+            band = 'leaking'; bandLabel = 'Leaking'; bandAccent = 'text-bordeaux';
+            bandCopy = "Your funnel is producing revenue, but it's also bleeding. The leaks below are fixable — and concentrated enough that the top two alone should recover most of the loss within 90 days.";
+        } else {
+            band = 'hemorrhaging'; bandLabel = 'Hemorrhaging'; bandAccent = 'text-bordeaux';
+            bandCopy = 'Your funnel is losing serious money — most likely more than your monthly ad spend. These leaks are structural, not cosmetic. The prescription below orders the fixes by priority.';
+        }
+
+        const benchmarkComparison = getBenchmarkComparison(funnelType, universal, specific, bench, actualCPL);
+        const strengths = getStrengths(funnelType, universal, specific, bench, actualCPL, cplScore, engagementScore, closeScore, sequenceScoreOut);
+        const thirtyDayActions = getThirtyDayActions(leaks, funnelType);
+        const ninetyDayLow = Math.round(totalLeak * 0.35);
+        const ninetyDayHigh = Math.round(totalLeak * 0.65);
+        const executiveSummary = getExecutiveSummary(funnelType, overall, band, totalLeak, leaks, universal);
+
+        state.results = {
+            overall, band, bandLabel, bandAccent, bandCopy,
+            leaks, totalLeak, benchmarkComparison, strengths,
+            thirtyDayActions, ninetyDayLow, ninetyDayHigh,
+            executiveSummary, actualCPL
+        };
+    }
+
+    function getLeakDetail(leakName, funnelType, universal, specific, bench) {
+        const { adSpend, leads } = universal;
+        const actualCPL = adSpend / Math.max(leads, 1);
+
+        if (leakName === 'CPL Waste') {
+            if (actualCPL > bench.cpl) {
+                const gapPct = Math.round((actualCPL - bench.cpl) / bench.cpl * 100);
+                const wastePerMonth = (actualCPL - bench.cpl) * leads;
+                return {
+                    current: '$' + actualCPL.toFixed(2) + ' CPL',
+                    benchmark: '$' + bench.cpl + ' CPL',
+                    gap: gapPct + '% above benchmark',
+                    whatsHappening: `Your cost per lead is running <strong>${gapPct}% higher</strong> than the benchmark for ${funnelLabels[funnelType]} funnels. On your current volume of ${leads} leads/month, that's <strong>${formatCurrency(wastePerMonth)}/month</strong> of pure acquisition overspend — <strong>${formatCurrency(wastePerMonth * 12)}/year</strong> that never had to leave your account.`,
+                    whyItMatters: `CPL is the number that multiplies across everything else. A $10 difference at the top of the funnel isn't "just $10" — it's $10 × your volume × 12 months × compounding lost reinvestment. Every percentage point above benchmark means you need proportionally higher show-up, close, and retention rates just to stay profitable. Bringing CPL in line is usually the single fastest ROI move in a funnel.`,
+                    howToFix: `<strong>1. Test 4 new ad angles this week.</strong> Most CPL bloat comes from creative fatigue — your current control has been running too long. Write 4 different hooks (outcome, pain, curiosity, social proof) and split-test against it. Kill the losers after 7 days, scale the winner.<br><br><strong>2. Exclude existing customers + past registrants from paid audiences.</strong> Upload customer, registrant, and unsubscribed lists as exclusions on Meta and Google. You'd be surprised how much spend goes to re-acquiring people who already know you.<br><br><strong>3. Audit your landing page speed.</strong> Pages loading slower than 3 seconds cut conversion 25–40%, which mechanically raises your CPL. Run a PageSpeed Insights test today.`,
+                    timeline: '30–60 days',
+                    difficulty: 'Medium',
+                    isHealthy: false
+                };
+            }
+            return {
+                current: '$' + actualCPL.toFixed(2) + ' CPL', benchmark: '$' + bench.cpl + ' CPL', gap: 'At or below benchmark',
+                whatsHappening: `Your cost per lead is at or below benchmark. You're acquiring efficiently — no detectable leak here.`,
+                whyItMatters: `A healthy CPL is the foundation of everything else. It means every downstream optimisation (show-up, close, sequence) compounds on a solid base.`,
+                howToFix: `Rotate in fresh ad creative every 4–6 weeks to prevent fatigue from creeping back in. Catch any upward trend in CPL within the first 14 days.`,
+                timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+            };
+        }
+
+        if (leakName === 'Engagement Gap') {
+            if (funnelType === 'webinar') {
+                if (specific.showup < bench.showup) {
+                    const gap = Math.round((bench.showup - specific.showup) / bench.showup * 100);
+                    const missing = Math.round((specific.registrations || 0) * (bench.showup - specific.showup) / 100);
+                    return {
+                        current: specific.showup + '% show-up', benchmark: bench.showup + '% show-up', gap: gap + '% below benchmark',
+                        whatsHappening: `Only <strong>${specific.showup}%</strong> of your registrants are attending live. Benchmark for live webinars is ${bench.showup}%. That's roughly <strong>${missing} people per session</strong> who signed up to hear your pitch and never showed.`,
+                        whyItMatters: `The most expensive lead in any funnel is the one you paid to acquire, paid to register, and then never saw at the pitch. These aren't cold traffic — they raised their hand. Recovering a percentage of them costs almost nothing compared to acquiring new leads, which is why pre-webinar sequence is the highest-ROI fix in webinar funnels.`,
+                        howToFix: `<strong>1. Rebuild your pre-webinar sequence.</strong> Most funnels send 1–2 reminders. What works: 5–7 touches from registration → session. Mix value-loaded content (a pre-read, a case study) with reminders and a "what you'll learn" teaser.<br><br><strong>2. Add an SMS 15 minutes before start.</strong> SMS show-up lift is 20–30% on top of email alone. Use Twilio or SimpleTexting.<br><br><strong>3. Send a "running late?" email the moment the session begins.</strong> With a one-click rejoin link. Catches the "forgot" segment in real time.<br><br>Show rate typically jumps 15–25 points within one webinar cycle.`,
+                        timeline: '30 days', difficulty: 'Easy', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.showup + '% show-up', benchmark: bench.showup + '% show-up', gap: 'At or above benchmark',
+                    whatsHappening: 'Your show-up rate is at or above benchmark. The people you pay to register are actually attending.',
+                    whyItMatters: 'Show-up rate is the rate-limiter on every downstream metric. Yours is strong — that means your close rate and sequence improvements will compound instead of getting diluted.',
+                    howToFix: 'Maintain. Refresh the pre-webinar sequence content every 90 days.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+            if (funnelType === 'evergreen') {
+                if (specific.optinRate < bench.optinRate) {
+                    const gap = Math.round((bench.optinRate - specific.optinRate) / bench.optinRate * 100);
+                    return {
+                        current: specific.optinRate + '% opt-in', benchmark: bench.optinRate + '% opt-in', gap: gap + '% below benchmark',
+                        whatsHappening: `Your landing page is converting at <strong>${specific.optinRate}%</strong> — benchmark for evergreen funnels is ${bench.optinRate}%. Paid traffic is reaching the page and leaving without becoming a lead.`,
+                        whyItMatters: `You're paying twice for every opt-in gap: once for the click, and again for the replacement traffic you need to hit your lead goal. A 10-point jump in opt-in rate effectively cuts your CPL in half — and compounds across every downstream metric in the funnel.`,
+                        howToFix: `<strong>1. Split-test your headline.</strong> The single biggest lever on opt-in rate. Write 3 new headlines attacking different angles (outcome, pain, curiosity). Run 5 days each, pick the winner.<br><br><strong>2. Strip the form to email-only.</strong> Every extra field cuts opt-in 8–15%. Name can come later.<br><br><strong>3. Add an exit-intent popup with a sharper angle.</strong> Different hook, different lead magnet. Recovers 3–5 points on top of your baseline.<br><br>Combined impact: typically 8–15 points on opt-in within 30 days.`,
+                        timeline: '14–30 days', difficulty: 'Easy', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.optinRate + '% opt-in', benchmark: bench.optinRate + '% opt-in', gap: 'At or above benchmark',
+                    whatsHappening: 'Your opt-in rate is strong. Your landing page is doing its job.',
+                    whyItMatters: 'A healthy opt-in rate means your acquisition cost per lead is working in your favour — the math downstream compounds.',
+                    howToFix: 'Maintain. Run a fresh headline split-test every quarter to stay ahead of fatigue.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+            if (funnelType === 'vsl') {
+                if (specific.lpConversion < bench.lpConversion) {
+                    const gap = Math.round((bench.lpConversion - specific.lpConversion) / bench.lpConversion * 100);
+                    return {
+                        current: specific.lpConversion + '% LP → VSL', benchmark: bench.lpConversion + '% LP → VSL', gap: gap + '% below benchmark',
+                        whatsHappening: `Your landing page is converting to VSL at <strong>${specific.lpConversion}%</strong> — benchmark is ${bench.lpConversion}%. A chunk of paid traffic is reaching your page and bouncing before ever seeing your pitch.`,
+                        whyItMatters: `Every LP bounce is a dollar of acquisition spend that produced zero pitch impressions. The page is the first gate — if it's leaking, every downstream metric (watch-through, CTA click, checkout) is working on a fraction of the intended volume. Fixing LP conversion is almost always the cheapest way to increase total revenue.`,
+                        howToFix: `<strong>1. Rewrite the above-the-fold promise.</strong> It should answer "what will I get, for whom, and why should I care" in 7 words. Test against your current headline.<br><br><strong>2. Audit page speed.</strong> Run PageSpeed Insights. Anything over 3 seconds is bleeding 25–40% of clicks before they even see the page.<br><br><strong>3. Add social proof in the first scroll.</strong> A logo bar, a pull-quote, a "1,200 founders…" line. People scan for social proof before they read copy.<br><br>The first fix alone is typically worth 10–15 points in two weeks.`,
+                        timeline: '14–30 days', difficulty: 'Easy', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.lpConversion + '% LP → VSL', benchmark: bench.lpConversion + '% LP → VSL', gap: 'At or above benchmark',
+                    whatsHappening: 'Your landing page is pulling its weight — visitors are engaging with the VSL.',
+                    whyItMatters: 'Strong LP conversion means your acquisition cost converts efficiently into pitch impressions.',
+                    howToFix: 'Maintain. Run a headline split test quarterly to stay ahead of fatigue.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+            if (funnelType === 'challenge') {
+                if (specific.completionRate < bench.completionRate) {
+                    const gap = Math.round((bench.completionRate - specific.completionRate) / bench.completionRate * 100);
+                    return {
+                        current: specific.completionRate + '% completion', benchmark: bench.completionRate + '% completion', gap: gap + '% below benchmark',
+                        whatsHappening: `Only <strong>${specific.completionRate}%</strong> of registrants are finishing the challenge. Benchmark is ${bench.completionRate}%. People who don't finish almost never buy — they check out emotionally long before the close event.`,
+                        whyItMatters: `Completion rate and close rate are tightly correlated. Every person who drops out of the challenge is a person who won't buy, no matter how strong your offer is. Challenge funnels live or die on completion — it's the primary leading indicator of revenue.`,
+                        howToFix: `<strong>1. Add daily recap emails with video.</strong> Keep momentum alive between sessions. A 90-second video recap outperforms text by ~2x on engagement.<br><br><strong>2. Build a private community for peer pressure.</strong> Facebook group, Circle, or Discord. People who post are 3–5x more likely to complete. Seed daily prompts.<br><br><strong>3. Add a completion bonus.</strong> "Finish all 5 days, get [high-value bonus]." Completion rates typically jump 10–15 points, and close rate at the event follows.`,
+                        timeline: '30 days (next challenge)', difficulty: 'Medium', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.completionRate + '% completion', benchmark: bench.completionRate + '% completion', gap: 'At or above benchmark',
+                    whatsHappening: 'Your completion rate is strong. The ones who register are staying engaged.',
+                    whyItMatters: 'Completion is the #1 predictor of close rate in challenges. Yours is healthy — the rest of the funnel compounds on a solid base.',
+                    howToFix: 'Maintain. Keep refining the daily engagement hooks and community prompts.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+            if (funnelType === 'application') {
+                if (specific.appCompletion < bench.appCompletion) {
+                    const gap = Math.round((bench.appCompletion - specific.appCompletion) / bench.appCompletion * 100);
+                    return {
+                        current: specific.appCompletion + '% app completion', benchmark: bench.appCompletion + '% app completion', gap: gap + '% below benchmark',
+                        whatsHappening: `Your form completion rate is <strong>${specific.appCompletion}%</strong> — benchmark for application funnels is ${bench.appCompletion}%. People are starting your form and bailing before they finish. That's almost always a question-count or question-design problem.`,
+                        whyItMatters: `Form completion is free conversion. You already paid for the click, paid for the scroll, and paid for the decision to start filling in an application. Losing them on field 4 of 10 is the most painful kind of leak because the fix costs nothing — it's just a design decision.`,
+                        howToFix: `<strong>1. Cut to 5–6 questions maximum.</strong> Every question past 6 cuts completion 5–10%. If you need more data, collect it post-application via email.<br><br><strong>2. Reorder the easy questions first.</strong> Name, revenue, business type first. Save scary/introspective ones (goals, challenges) for last — by then the sunk-cost effect is on your side.<br><br><strong>3. Show a progress bar.</strong> "Question 3 of 6" dramatically reduces bounce on longer forms.<br><br>Expect completion to jump 15–25 points within 14 days.`,
+                        timeline: '14 days', difficulty: 'Easy', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.appCompletion + '% app completion', benchmark: bench.appCompletion + '% app completion', gap: 'At or above benchmark',
+                    whatsHappening: 'Your form is well-designed — completion rate is strong.',
+                    whyItMatters: 'Application form completion is a leading indicator of call show-ups and close rate. Yours is healthy.',
+                    howToFix: 'Maintain. Review question order once per quarter.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+        }
+
+        if (leakName === 'Close Rate Gap') {
+            if (funnelType === 'webinar') {
+                if (specific.closeRate < bench.closeRate) {
+                    const gap = Math.round((bench.closeRate - specific.closeRate) / bench.closeRate * 100);
+                    return {
+                        current: specific.closeRate + '% close on shows', benchmark: bench.closeRate + '% close on shows', gap: gap + '% below benchmark',
+                        whatsHappening: `Your close rate on webinar attendees is <strong>${specific.closeRate}%</strong> — benchmark is ${bench.closeRate}%. Your traffic is qualified enough to register and show up, but something in the pitch itself isn't converting them.`,
+                        whyItMatters: `Close rate is the highest-leverage metric in any funnel. Moving from 10% to 15% isn't "50% more revenue" — it's often <em>2–3x</em> more revenue, because you're paying the same acquisition cost for significantly more buyers. Every percentage point on close rate compounds through every single lead you acquire.`,
+                        howToFix: `<strong>1. Rebuild offer architecture.</strong> Stack value clearly (what they get, itemised with $ values), add a real risk reversal (not just "money back"), and make the price feel small relative to the total value.<br><br><strong>2. Reframe the pricing reveal.</strong> Anchor against a bigger number — "agencies charge $25K for this" — before revealing your actual price. Don't let price land cold.<br><br><strong>3. Treat the last 20 minutes as its own skill.</strong> Most close-rate problems are Q&A problems. The objections that come up late are the real objections. Scripted responses for the top 5 beat improvisation every time.`,
+                        timeline: '30–60 days', difficulty: 'Medium', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.closeRate + '% close on shows', benchmark: bench.closeRate + '% close on shows', gap: 'At or above benchmark',
+                    whatsHappening: 'Your close rate is strong. The attendees who show up are converting.',
+                    whyItMatters: 'Close rate is leverage. A strong close rate means every acquisition dollar compounds harder than it does for most funnels.',
+                    howToFix: 'Maintain. Test one new bonus or pricing tweak per month.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+            if (funnelType === 'evergreen') {
+                if (specific.conversionRate < bench.conversionRate) {
+                    const gap = Math.round((bench.conversionRate - specific.conversionRate) / bench.conversionRate * 100);
+                    return {
+                        current: specific.conversionRate + '% conversion', benchmark: bench.conversionRate + '% conversion', gap: gap + '% below benchmark',
+                        whatsHappening: `Your evergreen is converting at <strong>${specific.conversionRate}%</strong> — benchmark is ${bench.conversionRate}%. Each percentage point below benchmark multiplies across every lead you acquire.`,
+                        whyItMatters: `Evergreen conversion is the purest form of leverage. Unlike live webinars, you can't blame energy, tech glitches, or attendee mood. If conversion is low, it's almost always either offer structure or message-market mismatch — both testable and fixable.`,
+                        howToFix: `<strong>1. Audit the ad → VSL promise handoff.</strong> Every ad angle should resolve in the VSL's first 60 seconds. Mismatches cause premature drop-off because viewers feel tricked.<br><br><strong>2. Tighten offer structure.</strong> Clear bonuses, visible guarantee, scarcity (even soft scarcity like "enrollment closes in 7 days"). Most low-conversion VSLs are missing one of these.<br><br><strong>3. A/B test the CTA page.</strong> Different copy, different layout, different guarantee placement. The CTA page converts worse than founders realise — it deserves its own optimisation cycle.`,
+                        timeline: '30–60 days', difficulty: 'Medium', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.conversionRate + '% conversion', benchmark: bench.conversionRate + '% conversion', gap: 'At or above benchmark',
+                    whatsHappening: 'Your conversion rate is healthy.',
+                    whyItMatters: 'Strong conversion on an evergreen means your economics compound — every lead is worth more.',
+                    howToFix: 'Maintain. Quarterly offer refresh keeps this performing.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+            if (funnelType === 'vsl') {
+                if (specific.checkoutCompletion < bench.checkoutCompletion) {
+                    const gap = Math.round((bench.checkoutCompletion - specific.checkoutCompletion) / bench.checkoutCompletion * 100);
+                    return {
+                        current: specific.checkoutCompletion + '% checkout completion', benchmark: bench.checkoutCompletion + '% checkout completion', gap: gap + '% below benchmark',
+                        whatsHappening: `Your checkout completion rate is <strong>${specific.checkoutCompletion}%</strong> — benchmark is ${bench.checkoutCompletion}%. People are clicking through to buy and then abandoning before payment.`,
+                        whyItMatters: `Cart abandonment is the most fixable leak in any funnel. These aren't cold leads — they're people who saw your pitch, wanted what you offered, clicked "buy now," and then hesitated. Getting to checkout is the hardest part. Everything from here is mechanical.`,
+                        howToFix: `<strong>1. Strip form fields ruthlessly.</strong> Email, card, done. Every extra field (phone, address, company) cuts completion 10–20%. Collect the rest post-purchase.<br><br><strong>2. Add trust signals next to the button.</strong> Guarantee badge, security icons, "1,200+ customers" social proof. People bail at the button when their lizard brain says "is this safe?"<br><br><strong>3. Enable one-click payment.</strong> Apple Pay, Google Pay, PayPal. Removes the "do I want to fish out my card right now" friction — which is 15–30% of cart abandonment.<br><br><strong>4. Deploy an abandonment sequence.</strong> 3 emails over 48 hours: 1-hour reminder, 24-hour objection-killer, 48-hour "last chance" with a small bonus.`,
+                        timeline: '14–30 days', difficulty: 'Easy', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.checkoutCompletion + '% checkout', benchmark: bench.checkoutCompletion + '% checkout', gap: 'At or above benchmark',
+                    whatsHappening: 'Your checkout is converting well — the people who click through are buying.',
+                    whyItMatters: 'Strong checkout completion means your pitch and your payment flow are aligned. No friction killing deals at the finish line.',
+                    howToFix: 'Maintain. Audit form fields quarterly for creep.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+            if (funnelType === 'challenge') {
+                if (specific.closeRate < bench.closeRate) {
+                    const gap = Math.round((bench.closeRate - specific.closeRate) / bench.closeRate * 100);
+                    return {
+                        current: specific.closeRate + '% close at event', benchmark: bench.closeRate + '% close at event', gap: gap + '% below benchmark',
+                        whatsHappening: `Your close rate at the event is <strong>${specific.closeRate}%</strong> — benchmark is ${bench.closeRate}%. You're getting people to finish the challenge and show up for the pitch, but the pitch isn't landing.`,
+                        whyItMatters: `Close rate at the close event is where challenge ROI is made or lost. People have already spent hours with you — they're warmer than almost any other funnel type at this stage. If they're not buying, the issue is almost always the transition from teaching to selling, not the offer itself.`,
+                        howToFix: `<strong>1. Rework the bridge between challenge and offer.</strong> The pivot from "here's what you learned" to "here's what happens next" is its own content piece. Write it as a standalone mini-talk.<br><br><strong>2. Pre-seed the offer inside the challenge.</strong> Planted mentions on Day 2, Day 3, Day 4 build familiarity so the offer doesn't land cold. Not sales pitches — natural references.<br><br><strong>3. Rework pricing reveal with anchor.</strong> Same principle as webinar close: anchor against a bigger number before revealing your actual price.`,
+                        timeline: '30–60 days (next cohort)', difficulty: 'Medium', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.closeRate + '% close at event', benchmark: bench.closeRate + '% close at event', gap: 'At or above benchmark',
+                    whatsHappening: 'Your close rate at the event is strong.',
+                    whyItMatters: 'Challenge close rate is the revenue mechanism for the whole funnel. Yours is healthy.',
+                    howToFix: 'Maintain. Test offer structure between cohorts.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+            if (funnelType === 'application') {
+                if (specific.closeRate < bench.closeRate) {
+                    const gap = Math.round((bench.closeRate - specific.closeRate) / bench.closeRate * 100);
+                    return {
+                        current: specific.closeRate + '% close on calls', benchmark: bench.closeRate + '% close on calls', gap: gap + '% below benchmark',
+                        whatsHappening: `Your close rate on sales calls is <strong>${specific.closeRate}%</strong> — benchmark is ${bench.closeRate}%. Your qualification is pulling people through, but the call itself isn't converting.`,
+                        whyItMatters: `In high-ticket funnels, close rate on calls is the single number that determines your entire economics. A 10-point close-rate improvement on a $10K offer is worth more than doubling ad spend — because you're converting the same lead volume at a higher rate. This is often where founder-level attention pays its highest ROI.`,
+                        howToFix: `<strong>1. Tighten qualification before diagnosing close.</strong> Sometimes a "close rate" problem is really an "unqualified prospect" problem. Add a budget question, a timeline question, and a decision-maker question to the application.<br><br><strong>2. Switch to diagnostic-first call structure.</strong> Spend the first 15 minutes asking hard questions about their business. Don't pitch until you've earned the right. Converts 2–3x better than pitch-first for high-ticket.<br><br><strong>3. Pre-frame the investment in the application.</strong> Add a question referencing your pricing floor ("Our programs start at $X — comfortable with that range?"). Self-disqualifies low-fit leads before they get on a call.`,
+                        timeline: '30 days', difficulty: 'Medium', isHealthy: false
+                    };
+                }
+                return {
+                    current: specific.closeRate + '% close on calls', benchmark: bench.closeRate + '% close on calls', gap: 'At or above benchmark',
+                    whatsHappening: 'Your close rate is strong. Your calls are converting.',
+                    whyItMatters: 'In high-ticket, close rate is everything. Yours is healthy.',
+                    howToFix: 'Maintain. Record and review calls monthly for consistency.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+        }
+
+        if (leakName === 'Sequence Gap') {
+            const seqCurrent =
+                funnelType === 'webinar' ? `${specific.followupEmails} post-webinar emails` :
+                funnelType === 'evergreen' ? `${specific.followupEmails} emails, ${specific.longTermNurturePct}% nurtured` :
+                funnelType === 'vsl' ? `${specific.abandonEmails} abandonment emails` :
+                funnelType === 'challenge' ? `${specific.postChallengeEmails} post-challenge, ${specific.reengagePct}% re-engaged` :
+                funnelType === 'application' ? `${specific.nurturePct}% of non-buyers nurtured` : '';
+            const seqBench =
+                funnelType === 'webinar' ? `${bench.followupEmails}+ emails` :
+                funnelType === 'evergreen' ? `${bench.followupEmails}+ emails, ${bench.longTermNurturePct}%+ nurtured` :
+                funnelType === 'vsl' ? `${bench.abandonEmails}+ emails` :
+                funnelType === 'challenge' ? `${bench.postChallengeEmails}+ emails, ${bench.reengagePct}%+ re-engaged` :
+                funnelType === 'application' ? `${bench.nurturePct}%+ nurtured` : '';
+            const isHealthy =
+                (funnelType === 'webinar' && specific.followupEmails >= bench.followupEmails) ||
+                (funnelType === 'evergreen' && specific.followupEmails >= bench.followupEmails && specific.longTermNurturePct >= bench.longTermNurturePct) ||
+                (funnelType === 'vsl' && specific.abandonEmails >= bench.abandonEmails) ||
+                (funnelType === 'challenge' && specific.postChallengeEmails >= bench.postChallengeEmails && specific.reengagePct >= bench.reengagePct) ||
+                (funnelType === 'application' && specific.nurturePct >= bench.nurturePct);
+
+            if (isHealthy) {
+                return {
+                    current: seqCurrent, benchmark: seqBench, gap: 'At or above benchmark',
+                    whatsHappening: "Your follow-up sequence is doing its job. You're capturing buyers who need one more nudge.",
+                    whyItMatters: 'Follow-up is compounding revenue. Strong sequences pay dividends on every lead you acquire — forever.',
+                    howToFix: 'Maintain. Refresh sequence content every 90 days and test new hooks.',
+                    timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
+                };
+            }
+            return {
+                current: seqCurrent, benchmark: seqBench, gap: 'Below benchmark',
+                whatsHappening: `Your post-offer follow-up is thin. You're capturing only a fraction of the buyers who just need one more touch.`,
+                whyItMatters: `The average buyer says no 5–7 times before saying yes. Most founders stop touching after one no because they mistake silence for disinterest — it's almost always just timing or bandwidth. The follow-up sequence is where founders leave <strong>20–40% of total revenue</strong> on the table, and it's the cheapest fix in the funnel because the leads are already paid for.`,
+                howToFix: `<strong>1. Build a 7–10 email sequence over 14 days.</strong> Each email attacks one specific objection:<br>• Day 1 — Recap + initial CTA<br>• Day 2 — Time objection (this takes less than you think)<br>• Day 4 — Money objection (ROI math + payment plan)<br>• Day 6 — Trust objection (case study + guarantee)<br>• Day 9 — Social proof (what 5 recent buyers said)<br>• Day 12 — Urgency (close window + bonus expiring)<br>• Day 14 — "Last chance" + soft exit<br><br><strong>2. Add a 30-day win-back for no-replies.</strong> New angle, new lead magnet, back into the sequence. Recovers 8–15% of dormant non-buyers.<br><br><strong>3. Segment by behavior.</strong> People who watched the webinar vs. didn't get different sequences. Granularity = higher recovery.<br><br>This single fix often outperforms every other optimisation combined — because the leads are already paid for.`,
+                timeline: '30 days', difficulty: 'Medium', isHealthy: false
+            };
+        }
+
+        return { current: '—', benchmark: '—', gap: '—', whatsHappening: '', whyItMatters: '', howToFix: '', timeline: '', difficulty: '', isHealthy: true };
+    }
+
+    function pctStatus(actual, benchmark) {
+        if (actual >= benchmark) return 'green';
+        if (actual >= benchmark * 0.7) return 'yellow';
+        return 'red';
+    }
+
+    function getBenchmarkComparison(funnelType, universal, specific, bench, actualCPL) {
+        const rows = [{
+            metric: 'Cost per Lead',
+            yours: '$' + actualCPL.toFixed(2),
+            benchmark: '$' + bench.cpl,
+            status: actualCPL <= bench.cpl * 1.1 ? 'green' : actualCPL <= bench.cpl * 1.3 ? 'yellow' : 'red'
+        }];
+        if (funnelType === 'webinar') {
+            rows.push({ metric: 'Show-up Rate', yours: specific.showup + '%', benchmark: bench.showup + '%', status: pctStatus(specific.showup, bench.showup) });
+            rows.push({ metric: 'Close Rate (on shows)', yours: specific.closeRate + '%', benchmark: bench.closeRate + '%', status: pctStatus(specific.closeRate, bench.closeRate) });
+            rows.push({ metric: 'Follow-up Emails', yours: specific.followupEmails, benchmark: bench.followupEmails + '+', status: pctStatus(specific.followupEmails, bench.followupEmails) });
+        } else if (funnelType === 'evergreen') {
+            rows.push({ metric: 'Opt-in Rate', yours: specific.optinRate + '%', benchmark: bench.optinRate + '%', status: pctStatus(specific.optinRate, bench.optinRate) });
+            rows.push({ metric: 'Conversion Rate', yours: specific.conversionRate + '%', benchmark: bench.conversionRate + '%', status: pctStatus(specific.conversionRate, bench.conversionRate) });
+            rows.push({ metric: 'Follow-up Emails', yours: specific.followupEmails, benchmark: bench.followupEmails + '+', status: pctStatus(specific.followupEmails, bench.followupEmails) });
+        } else if (funnelType === 'vsl') {
+            rows.push({ metric: 'LP Conversion', yours: specific.lpConversion + '%', benchmark: bench.lpConversion + '%', status: pctStatus(specific.lpConversion, bench.lpConversion) });
+            rows.push({ metric: 'Checkout Completion', yours: specific.checkoutCompletion + '%', benchmark: bench.checkoutCompletion + '%', status: pctStatus(specific.checkoutCompletion, bench.checkoutCompletion) });
+            rows.push({ metric: 'Abandonment Sequence', yours: specific.abandonEmails, benchmark: bench.abandonEmails + '+', status: pctStatus(specific.abandonEmails, bench.abandonEmails) });
+        } else if (funnelType === 'challenge') {
+            rows.push({ metric: 'Completion Rate', yours: specific.completionRate + '%', benchmark: bench.completionRate + '%', status: pctStatus(specific.completionRate, bench.completionRate) });
+            rows.push({ metric: 'Close Rate (at event)', yours: specific.closeRate + '%', benchmark: bench.closeRate + '%', status: pctStatus(specific.closeRate, bench.closeRate) });
+            rows.push({ metric: 'Post-Challenge Sequence', yours: specific.postChallengeEmails, benchmark: bench.postChallengeEmails + '+', status: pctStatus(specific.postChallengeEmails, bench.postChallengeEmails) });
+        } else if (funnelType === 'application') {
+            rows.push({ metric: 'App Completion', yours: specific.appCompletion + '%', benchmark: bench.appCompletion + '%', status: pctStatus(specific.appCompletion, bench.appCompletion) });
+            rows.push({ metric: 'Close Rate (on shows)', yours: specific.closeRate + '%', benchmark: bench.closeRate + '%', status: pctStatus(specific.closeRate, bench.closeRate) });
+            rows.push({ metric: 'Non-Buyer Nurture', yours: specific.nurturePct + '%', benchmark: bench.nurturePct + '%+', status: pctStatus(specific.nurturePct, bench.nurturePct) });
+        }
+        return rows;
+    }
+
+    function getStrengths(funnelType, universal, specific, bench, actualCPL, cplScore, engagementScore, closeScore, sequenceScoreOut) {
+        const strengths = [];
+        if (actualCPL <= bench.cpl) {
+            strengths.push({
+                title: 'You acquire leads efficiently',
+                detail: `At $${actualCPL.toFixed(2)} per lead, you're at or below the $${bench.cpl} benchmark for ${funnelLabels[funnelType]} funnels. Every ad dollar is reaching more prospects than your competitors'.`
+            });
+        }
+        if (engagementScore >= 85) {
+            let metric = '';
+            if (funnelType === 'webinar') metric = `show-up rate (${specific.showup}%)`;
+            else if (funnelType === 'evergreen') metric = `opt-in rate (${specific.optinRate}%)`;
+            else if (funnelType === 'vsl') metric = `LP conversion (${specific.lpConversion}%)`;
+            else if (funnelType === 'challenge') metric = `completion rate (${specific.completionRate}%)`;
+            else if (funnelType === 'application') metric = `application completion (${specific.appCompletion}%)`;
+            strengths.push({
+                title: 'Your top-of-funnel engagement is strong',
+                detail: `Your ${metric} is at or above benchmark. The hard-won part — getting people into the funnel — is working.`
+            });
+        }
+        if (closeScore >= 85) {
+            strengths.push({
+                title: 'You close the ones who see the offer',
+                detail: "Your conversion rate on prospects who reach your offer is above benchmark. That's a strong sales layer."
+            });
+        }
+        if (sequenceScoreOut >= 85) {
+            strengths.push({
+                title: 'Your follow-up is working',
+                detail: "Your post-offer sequence is doing its job. You're catching buyers who just needed one more touch."
+            });
+        }
+        if (strengths.length === 0) {
+            strengths.push({
+                title: "You have a funnel, and it's generating revenue",
+                detail: `At ${formatCurrency(universal.revenue)}/month, you've already done the hardest part: building something that works. What's below is about compounding what you have.`
+            });
+        }
+        return strengths.slice(0, 3);
+    }
+
+    function getThirtyDayActions(leaks, funnelType) {
+        const actions = [];
+        const topLeaks = leaks.filter(l => l.amount > 0).slice(0, 3);
+        topLeaks.forEach(leak => {
+            if (leak.name === 'CPL Waste') {
+                actions.push({ title: 'Test 4 new ad angles', detail: 'Write 4 different hooks attacking your current control. 7-day split. Kill losers, scale the winner. Target: 25% CPL reduction.' });
+                actions.push({ title: 'Exclude existing contacts from paid audiences', detail: 'Upload customer, registrant, and unsubscribed lists as exclusions on Meta + Google. Stops paid spend on people already in your world.' });
+            } else if (leak.name === 'Engagement Gap') {
+                if (funnelType === 'webinar') actions.push({ title: 'Rebuild pre-webinar sequence to 5–7 touches', detail: 'Value content + reminders + SMS 15 min before + "running late?" email at start. Show rate typically jumps 15–25 points.' });
+                else if (funnelType === 'evergreen') actions.push({ title: 'Split-test 3 new landing page headlines', detail: '5 days each. Different angle per headline (outcome, pain, curiosity). Biggest lever on opt-in rate.' });
+                else if (funnelType === 'vsl') actions.push({ title: 'Audit LP above-the-fold in this order', detail: 'Promise → page speed → first social proof. The first fix alone is typically worth 10–15 points in two weeks.' });
+                else if (funnelType === 'challenge') actions.push({ title: 'Add daily recap emails + completion bonus', detail: 'Video recap > text recap. Bonus for full completion. Next cohort completion typically jumps 10–15 points.' });
+                else if (funnelType === 'application') actions.push({ title: 'Trim application form to 5–6 questions', detail: 'Reorder: easy first, harder last. Add progress bar. Completion jumps 15–25 points within 14 days.' });
+            } else if (leak.name === 'Close Rate Gap') {
+                if (funnelType === 'webinar') actions.push({ title: 'Rework offer architecture for next webinar', detail: 'Stack value itemised with $ values, add risk reversal, anchor against a bigger number before price.' });
+                else if (funnelType === 'evergreen') actions.push({ title: 'Audit ad → VSL promise match', detail: 'Every ad angle should resolve in the VSL opening 60 seconds. Mismatches bleed conversion.' });
+                else if (funnelType === 'vsl') actions.push({ title: 'Cut checkout fields + enable Apple/Google Pay', detail: 'Strip to email + card. Add trust signals next to button. Removes "is this safe?" hesitation.' });
+                else if (funnelType === 'challenge') actions.push({ title: 'Rewrite the bridge from challenge to offer', detail: 'The transition is its own content piece. Pre-seed the offer on Day 2, Day 3, Day 4.' });
+                else if (funnelType === 'application') actions.push({ title: 'Switch to diagnostic-first call structure', detail: 'First 15 min = hard questions about their business. Pitch after you earn the right. Converts 2–3x better.' });
+            } else if (leak.name === 'Sequence Gap') {
+                actions.push({ title: 'Build 7–10 email post-offer sequence', detail: 'Over 14 days. Each email tackles one objection: time, money, trust, urgency, proof, last chance. Add a 30-day win-back for no-replies.' });
+            }
+        });
+        return actions.slice(0, 5);
+    }
+
+    function getExecutiveSummary(funnelType, overall, band, totalLeak, leaks, universal) {
+        const topLeak = leaks.find(l => l.amount > 0) || leaks[0];
+        const funnelName = funnelLabels[funnelType];
+        const { revenue } = universal;
+        if (band === 'optimised') {
+            return `Your ${funnelName} funnel is doing a lot right. Scoring ${overall}/100 puts you in the top band — above most founders running similar funnels. The leaks below are small relative to your overall flow. But even at this level, ${formatCurrency(totalLeak)}/year is walking out the door, mostly concentrated in one category: <strong>${topLeak.name}</strong>. Fix that and the rest of your machine compounds harder.`;
+        }
+        if (band === 'leaking') {
+            return `Your ${funnelName} funnel is working — it's producing ${formatCurrency(revenue)}/month. But it's also leaking <strong>${formatCurrency(totalLeak)}/year</strong> across four categories, with the largest drain being <strong>${topLeak.name}</strong> at ${formatCurrency(topLeak.amount)}/year. Scoring ${overall}/100 means you're not broken — you're bleeding. The good news: these leaks are fixable, and the report below ranks them by dollar impact with a 30-day fix list in priority order.`;
+        }
+        return `Your ${funnelName} funnel is generating revenue, but it's losing far more than it should — <strong>${formatCurrency(totalLeak)}/year</strong> in detectable leaks against ${formatCurrency(revenue)}/month in output. Scoring ${overall}/100 means the leaks are structural, not cosmetic. Most of the drain is concentrated in <strong>${topLeak.name}</strong> (${formatCurrency(topLeak.amount)}/yr). The prescription below orders the fixes by impact — the top two alone should recover 30–60% of the loss within 90 days.`;
+    }
+
+    function formatCurrency(n) {
+        if (n >= 1000000) return '$' + (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+        return '$' + Math.round(n).toLocaleString('en-US');
+    }
+
+    function renderResults() {
+        const r = state.results;
+        const funnelName = funnelLabels[state.funnelType];
+        const circumference = 2 * Math.PI * 54;
+        const offset = circumference * (1 - r.overall / 100);
+        const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const ctaEyebrow = r.band === 'optimised' ? 'Ready for the full audit?' : r.band === 'leaking' ? 'Stop the leak.' : 'This is urgent.';
+        const statusColor = (s) => s === 'green' ? 'bg-green-500' : s === 'yellow' ? 'bg-yellow-500' : 'bg-bordeaux';
+
+        const html = `
+            <div class="fade-in-calc">
+                <div class="mb-16 pb-10 border-b border-bordeaux/20">
+                    <div class="flex flex-wrap items-center gap-3 mb-6">
+                        <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold">Your Revenue Leak Report</p>
+                        <span class="text-gray-400">·</span>
+                        <p class="text-[11px] tracking-[0.2em] uppercase text-gray-500">${dateStr}</p>
+                        <span class="text-gray-400">·</span>
+                        <p class="text-[11px] tracking-[0.2em] uppercase text-gray-500">${funnelName}</p>
+                    </div>
+                    <h1 class="text-4xl lg:text-6xl leading-tight mb-4">Your funnel is leaking <span class="text-bordeaux italic">${formatCurrency(r.totalLeak)}/year.</span></h1>
+                    <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl">Here's where, why, and what to fix first. Benchmarked against $1B+ in client revenue.</p>
+                </div>
+
+                <div class="mb-16">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Executive Summary</p>
+                    <p class="text-base lg:text-lg text-gray-800 leading-relaxed">${r.executiveSummary}</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 mb-16 pb-12 border-b border-gray-200 items-center">
+                    <div class="md:col-span-1 flex justify-center md:justify-start">
+                        <div class="relative w-44 h-44">
+                            <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120">
+                                <circle cx="60" cy="60" r="54" stroke="#e5e5e5" stroke-width="8" fill="none"></circle>
+                                <circle class="score-ring" cx="60" cy="60" r="54" stroke="#6b1f3d" stroke-width="8" fill="none" stroke-linecap="square" stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <p class="text-6xl font-bold">${r.overall}</p>
+                                <p class="text-[10px] uppercase tracking-[0.25em] text-gray-500 mt-1">/ 100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="text-[11px] tracking-[0.3em] uppercase font-semibold mb-3 text-gray-500">Your Efficiency Score</p>
+                        <h2 class="text-3xl lg:text-4xl mb-4 ${r.bandAccent} italic">${r.bandLabel}.</h2>
+                        <p class="text-base lg:text-lg text-gray-700 leading-relaxed">${r.bandCopy}</p>
+                    </div>
+                </div>
+
+                <div class="mb-16">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your Numbers vs Benchmark</p>
+                    <h3 class="text-2xl lg:text-3xl mb-8">The raw diagnostic.</h3>
+                    <div class="border border-gray-200">
+                        <div class="grid grid-cols-12 gap-4 px-6 py-3 bg-cream-dark border-b border-gray-200 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600">
+                            <div class="col-span-5 md:col-span-6">Metric</div>
+                            <div class="col-span-3 md:col-span-2 text-right">Yours</div>
+                            <div class="col-span-3 md:col-span-2 text-right">Benchmark</div>
+                            <div class="col-span-1 md:col-span-2 text-right">Status</div>
+                        </div>
+                        ${r.benchmarkComparison.map(row => `
+                            <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-100 last:border-b-0 items-center">
+                                <div class="col-span-5 md:col-span-6 text-sm lg:text-base">${row.metric}</div>
+                                <div class="col-span-3 md:col-span-2 text-right font-bold text-sm lg:text-base">${row.yours}</div>
+                                <div class="col-span-3 md:col-span-2 text-right text-gray-500 text-sm lg:text-base">${row.benchmark}</div>
+                                <div class="col-span-1 md:col-span-2 flex justify-end"><span class="w-3 h-3 ${statusColor(row.status)}"></span></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="flex flex-wrap gap-6 mt-4 text-[10px] uppercase tracking-[0.15em] text-gray-500">
+                        <span class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500"></span> At/Above</span>
+                        <span class="flex items-center gap-2"><span class="w-2 h-2 bg-yellow-500"></span> Close</span>
+                        <span class="flex items-center gap-2"><span class="w-2 h-2 bg-bordeaux"></span> Below</span>
+                    </div>
+                </div>
+
+                <div class="mb-16">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The Four Leaks, Diagnosed</p>
+                    <h3 class="text-2xl lg:text-3xl mb-8">Where the money is going — and how to stop it.</h3>
+                    <div class="space-y-6">
+                        ${r.leaks.map((leak, i) => `
+                            <div class="border ${leak.isHealthy ? 'border-green-500/30 bg-green-500/5' : 'border-bordeaux/20 bg-white'} p-8 lg:p-10">
+                                <div class="flex flex-wrap items-baseline justify-between gap-4 mb-6">
+                                    <div class="flex items-baseline gap-4">
+                                        <span class="text-3xl font-serif text-gray-300">${String(i + 1).padStart(2, '0')}</span>
+                                        <h4 class="text-xl lg:text-2xl font-bold uppercase tracking-[0.1em]">${leak.name}</h4>
+                                    </div>
+                                    <p class="text-2xl lg:text-3xl font-bold ${leak.isHealthy ? 'text-green-700' : 'text-bordeaux'}">${leak.isHealthy ? '—' : formatCurrency(leak.amount) + '/yr'}</p>
+                                </div>
+                                <div class="grid md:grid-cols-3 gap-4 mb-8 pb-6 border-b border-gray-200">
+                                    <div><p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-1">Your Number</p><p class="text-base font-bold">${leak.current}</p></div>
+                                    <div><p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-1">Benchmark</p><p class="text-base font-bold">${leak.benchmark}</p></div>
+                                    <div><p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-1">Gap</p><p class="text-base font-bold ${leak.isHealthy ? 'text-green-700' : 'text-bordeaux'}">${leak.gap}</p></div>
+                                </div>
+                                <div class="mb-6"><p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-2">What's Happening</p><p class="text-sm lg:text-base text-gray-700 leading-relaxed">${leak.whatsHappening}</p></div>
+                                <div class="mb-6"><p class="text-[10px] uppercase tracking-[0.2em] text-gold font-semibold mb-2">Why It Matters</p><p class="text-sm lg:text-base text-gray-700 leading-relaxed italic">${leak.whyItMatters}</p></div>
+                                <div class="mb-6"><p class="text-[10px] uppercase tracking-[0.2em] text-bordeaux font-semibold mb-2">How To Fix It</p><p class="text-sm lg:text-base text-gray-700 leading-relaxed">${leak.howToFix}</p></div>
+                                <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-200">
+                                    <span class="text-[10px] uppercase tracking-[0.2em] font-semibold bg-cream-dark px-3 py-1">Timeline: ${leak.timeline}</span>
+                                    <span class="text-[10px] uppercase tracking-[0.2em] font-semibold bg-cream-dark px-3 py-1">Difficulty: ${leak.difficulty}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                ${r.thirtyDayActions.length > 0 ? `
+                <div class="mb-16">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your 30-Day Playbook</p>
+                    <h3 class="text-2xl lg:text-3xl mb-8">Do these, in this order.</h3>
+                    <div class="space-y-4">
+                        ${r.thirtyDayActions.map((a, i) => `
+                            <div class="flex gap-6 bg-cream-dark p-6 lg:p-8 border-l-2 border-gold">
+                                <span class="text-3xl font-serif text-bordeaux flex-shrink-0">${String(i + 1).padStart(2, '0')}</span>
+                                <div>
+                                    <h4 class="text-base lg:text-lg font-bold uppercase tracking-[0.1em] mb-2">${a.title}</h4>
+                                    <p class="text-sm lg:text-base text-gray-700 leading-relaxed">${a.detail}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>` : ''}
+
+                ${r.totalLeak > 0 ? `
+                <div class="mb-16 bg-cream-dark p-10 lg:p-14 border-l-2 border-bordeaux">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your 90-Day Outlook</p>
+                    <h3 class="text-3xl lg:text-4xl mb-6">If you implement these fixes:</h3>
+                    <div class="grid md:grid-cols-2 gap-8 mb-6">
+                        <div>
+                            <p class="text-[10px] uppercase tracking-[0.25em] text-gray-500 font-semibold mb-2">Conservative Recovery</p>
+                            <p class="text-4xl lg:text-5xl font-bold text-bordeaux">${formatCurrency(r.ninetyDayLow)}</p>
+                            <p class="text-xs text-gray-500 mt-2">Top 2 fixes, half-executed</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase tracking-[0.25em] text-gray-500 font-semibold mb-2">Optimistic Recovery</p>
+                            <p class="text-4xl lg:text-5xl font-bold text-bordeaux">${formatCurrency(r.ninetyDayHigh)}</p>
+                            <p class="text-xs text-gray-500 mt-2">Full 30-day playbook shipped</p>
+                        </div>
+                    </div>
+                    <p class="text-sm lg:text-base text-gray-600 leading-relaxed">These recoveries compound — fixes you ship in Month 1 keep paying in Months 2, 3, 6, and beyond. The projection assumes 90 days of clean execution on the top two leaks.</p>
+                </div>` : ''}
+
+                ${r.strengths.length > 0 ? `
+                <div class="mb-16">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">What You're Doing Well</p>
+                    <h3 class="text-2xl lg:text-3xl mb-8">The bright spots.</h3>
+                    <div class="space-y-4">
+                        ${r.strengths.map(s => `
+                            <div class="flex gap-4 items-start border-l-2 border-gold pl-6 py-2">
+                                <span class="material-symbols-outlined text-gold text-2xl flex-shrink-0">check_circle</span>
+                                <div>
+                                    <h4 class="text-base lg:text-lg font-bold mb-1">${s.title}</h4>
+                                    <p class="text-sm lg:text-base text-gray-600 leading-relaxed">${s.detail}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>` : ''}
+
+                <div class="bg-bordeaux text-white p-10 lg:p-16 text-center mb-12">
+                    <p class="text-gold text-xs tracking-[0.3em] uppercase font-semibold mb-6">${ctaEyebrow}</p>
+                    <h3 class="text-3xl lg:text-5xl mb-6">The Revenue Recovery Audit™</h3>
+                    <p class="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto mb-4">This report is a snapshot. The full audit is a 10-hour tear-down: written WOO-style report on every funnel asset, delivered in 7 days, with a 90-minute walk-through call where I brief you on every finding.</p>
+                    <p class="text-lg lg:text-xl text-white/90 max-w-2xl mx-auto mb-10"><strong>$100K in recoverable revenue guaranteed — or you don't pay.</strong></p>
+                    <a href="https://calendly.com/marisha-hl" target="_blank" class="btn-primary inline-block bg-white text-bordeaux px-10 lg:px-12 py-5 lg:py-6 font-bold uppercase tracking-[0.2em] text-sm lg:text-base">Apply for Audit →</a>
+                    <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
+                </div>
+
+                <div class="text-center mt-12">
+                    <p class="text-sm text-gray-500 mb-3">A copy of this report has been sent to <strong>${state.email}</strong>.</p>
+                    <button onclick="restart()" class="text-xs uppercase tracking-[0.15em] font-semibold text-bordeaux border-b border-bordeaux pb-1 hover:opacity-70 transition-opacity">Start Over ↻</button>
+                </div>
+            </div>
+        `;
+        document.getElementById('results-content').innerHTML = html;
+
+        requestAnimationFrame(() => {
+            const ring = document.querySelector('.score-ring');
+            if (ring) ring.style.strokeDashoffset = offset;
+        });
+    }
+
+    function restart() {
+        state.funnelType = null;
+        state.universal = {};
+        state.specific = {};
+        state.email = null;
+        state.results = null;
+        goTo('intro');
+    }
+
+    updateProgress();
+    </script>
+</body>
+</html>
