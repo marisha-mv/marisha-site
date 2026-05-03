@@ -662,7 +662,11 @@
             <div class="mb-10 lg:mb-14 fade-in">
                 <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-4">The Application</p>
                 <h2 class="text-3xl lg:text-4xl leading-tight mb-4">6 questions. 4 minutes.</h2>
-                <p class="text-base lg:text-lg text-gray-600">Everything I need to see if we're a fit. Reviewed within 48 hours.</p>
+                <p class="text-base lg:text-lg text-gray-600 mb-6">Everything I need to see if we're a fit. Reviewed within 48 hours.</p>
+                <div class="bg-cream-dark border-l-2 border-gold pl-5 py-3">
+                    <p class="text-[11px] uppercase tracking-[0.2em] text-gold font-semibold mb-1">Who it's for</p>
+                    <p class="text-sm lg:text-base text-gray-800">$1M–$150M founders with an active paid funnel and $5K+/month in ad spend.</p>
+                </div>
             </div>
 
             <form id="audit-form" class="bg-cream p-8 md:p-12 border-l-2 border-bordeaux fade-in">
@@ -843,29 +847,56 @@
             updateControls();
         })();
 
-        // Form handler
-        document.getElementById('audit-form').addEventListener('submit', function(e) {
+        // Form handler — captures every submission (qualified or not), routes to thank-you or not-yet page
+        // Disqualifier check moved here from inline alerts so we capture email regardless of qualification status
+        const ZAPIER_WEBHOOK_URL = ''; // TODO: paste Zapier "Catch Hook" URL here once Adele creates the Zap
+
+        document.getElementById('audit-form').addEventListener('submit', async function(e) {
             e.preventDefault();
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting…';
+            submitBtn.disabled = true;
+
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
 
-            if (data.annual_revenue === 'under-1m') {
-                alert("Thank you for applying. The Revenue Recovery Audit is designed for businesses at $1M+ in annual revenue. Check back when you hit that milestone — I'd love to work with you then.");
-                return;
-            }
-            if (data.active_funnel === 'no') {
-                alert("Thank you for applying. The audit requires an active or recently active paid funnel to analyse. Once you have one running, please reapply.");
-                return;
-            }
-            if (data.ad_spend === 'under-5k') {
-                alert("Thank you for applying. To see meaningful ROI from the audit, a minimum of $5K/month in ad spend is required. Reach out when you're scaling.");
-                return;
+            // Determine qualification status
+            let disqualReason = null;
+            if (data.annual_revenue === 'under-1m') disqualReason = 'revenue';
+            else if (data.active_funnel === 'no') disqualReason = 'no-funnel';
+            else if (data.ad_spend === 'under-5k') disqualReason = 'ad-spend';
+
+            const payload = {
+                ...data,
+                qualified: !disqualReason,
+                disqual_reason: disqualReason || null,
+                submitted_at: new Date().toISOString(),
+                source_page: 'apply'
+            };
+
+            // POST to Zapier (fire-and-forget — failure shouldn't block the redirect)
+            if (ZAPIER_WEBHOOK_URL) {
+                try {
+                    await fetch(ZAPIER_WEBHOOK_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                } catch (err) {
+                    console.warn('Webhook submission failed (continuing anyway):', err);
+                }
+            } else {
+                console.log('[Webhook not configured] Application data:', payload);
             }
 
-            alert("Application submitted. I'll review it personally and respond within 48 hours.");
-
-            // TODO: POST to Zapier webhook → ActiveCampaign (add contact, tag 'audit-applicant', trigger 48hr-response workflow)
-            console.log('Application data:', data);
+            // Redirect based on qualification
+            if (disqualReason) {
+                window.location.href = 'not-yet/?reason=' + disqualReason;
+            } else {
+                window.location.href = 'thank-you/';
+            }
         });
     </script>
 

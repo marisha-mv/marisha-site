@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not the right fit yet | Marisha Lakhiani</title>
+    <meta name="description" content="The Revenue Recovery Audit isn't the right fit for you yet — here's what to do in the meantime.">
+    <meta name="robots" content="noindex">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { bordeaux: '#6b1f3d', 'bordeaux-dark': '#4a1529', gold: '#c9a66b', 'gold-light': '#d4b896', cream: '#f8f6f3', 'cream-dark': '#f3f0eb' }, borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' } } } }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; min-height: 100vh; display: flex; flex-direction: column; }
+        h1, h2, h3 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+        @media (max-width: 768px) { h1 { font-size: 2rem !important; } }
+    </style>
+</head>
+<body>
+
+    <header class="px-6 lg:px-16 py-6 lg:py-8">
+        <div class="max-w-screen-2xl mx-auto">
+            <a href="../../index.html" class="logo-name text-bordeaux hover:opacity-70 transition-opacity">MARISHA</a>
+        </div>
+    </header>
+
+    <main class="flex-1 flex items-center px-6 lg:px-16 py-12 lg:py-20">
+        <div class="max-w-3xl mx-auto text-center w-full">
+
+            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Honest answer</p>
+            <h1 class="text-3xl lg:text-5xl leading-[1.1] mb-8" id="not-yet-headline">Not the right fit <span class="text-bordeaux italic">yet.</span></h1>
+            <p class="text-lg lg:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto mb-12" id="not-yet-message">
+                Thanks for applying. The audit is built for businesses already running a paid funnel at scale — your numbers don't quite line up with that yet, but they will.
+            </p>
+
+            <!-- Reason-specific guidance -->
+            <div class="bg-white border-l-2 border-bordeaux p-8 lg:p-10 text-left max-w-2xl mx-auto mb-12">
+                <p class="text-gold text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What I'd do in your position</p>
+                <div id="reason-content" class="text-gray-700 text-sm lg:text-base leading-relaxed">
+                    <!-- Populated by JS based on ?reason= URL param -->
+                </div>
+            </div>
+
+            <!-- What to do now -->
+            <div class="border-t border-gray-200 pt-12">
+                <p class="text-[11px] uppercase tracking-[0.25em] text-gray-500 font-semibold mb-6">In the meantime</p>
+                <div class="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto">
+                    <a href="../../calculator/" class="bg-white border-l-2 border-gold p-5 text-left hover:border-bordeaux transition-colors group">
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-gold font-semibold mb-2">Free Tool</p>
+                        <p class="font-bold text-sm group-hover:text-bordeaux transition-colors">Run the Revenue Leak Calculator</p>
+                        <p class="text-xs text-gray-500 mt-2">Spot leaks before they compound</p>
+                    </a>
+                    <a href="../../blog/" class="bg-white border-l-2 border-gold p-5 text-left hover:border-bordeaux transition-colors group">
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-gold font-semibold mb-2">The Blog</p>
+                        <p class="font-bold text-sm group-hover:text-bordeaux transition-colors">10 articles to build the foundation</p>
+                        <p class="text-xs text-gray-500 mt-2">Free · Benchmarks + frameworks</p>
+                    </a>
+                </div>
+                <p class="text-sm text-gray-500 mt-10">When you cross the threshold, <a href="../" class="text-bordeaux underline underline-offset-4 hover:opacity-70">come back and apply</a>. I'll be here.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-black text-gray-500 py-10 px-6 lg:px-16 text-center border-t border-white/10">
+        <p class="text-xs mb-3">© 2025 Marisha Lakhiani. All rights reserved.</p>
+        <p class="text-xs uppercase tracking-[0.2em]">
+            <a href="../../index.html" class="hover:text-white transition-colors">Main Site</a>
+            <span class="mx-3">·</span>
+            <a href="../../blog/" class="hover:text-white transition-colors">Blog</a>
+        </p>
+    </footer>
+
+    <script>
+        const reasonContent = {
+            'revenue': {
+                headline: 'Not the right fit <span class="text-bordeaux italic">yet.</span>',
+                message: "The audit is designed for businesses doing $1M+ in annual revenue. Your funnel needs scale — and meaningful data — for the audit to deliver the $100K+ recovery the guarantee depends on. You're not there yet, but you can be.",
+                guidance: '<p class="mb-4"><strong>Focus first on:</strong> getting one repeatable funnel running predictably. Don\'t optimise yet. Just generate consistent monthly leads at any cost.</p><p class="mb-4">Once you cross $1M with a paid funnel running, <em>then</em> the audit math works — the leaks become big enough to matter, and the fixes return their cost in weeks.</p><p>Bookmark this page. Come back when you hit it.</p>'
+            },
+            'no-funnel': {
+                headline: 'You need a funnel <span class="text-bordeaux italic">first.</span>',
+                message: "The audit diagnoses leaks in an existing paid funnel. There needs to be a funnel for me to audit — running ads, generating leads, with at least 90 days of data — for the diagnostic to find anything actionable.",
+                guidance: '<p class="mb-4"><strong>What to build first:</strong> the simplest version of your funnel that can run on $5K–10K/month in ad spend. Start with one offer, one landing page, one ad. Get it converting at any rate.</p><p class="mb-4">Once it\'s live for 60–90 days, you\'ll have enough data for an audit to find real leaks. Until then, an audit would just be theoretical advice.</p><p>The blog below has the foundation you need to ship that first version.</p>'
+            },
+            'ad-spend': {
+                headline: 'Almost. <span class="text-bordeaux italic">Just need more data.</span>',
+                message: "The audit needs at least $5K/month in ad spend to produce a meaningful ROI on the fix list. Below that volume, the leak amounts are small enough that the recovery often doesn't justify the audit fee.",
+                guidance: '<p class="mb-4"><strong>What to do next:</strong> if your funnel is profitable on current spend, scale ad budget gradually until you\'re consistently in the $5K–10K/month range. The audit pays for itself fastest at that volume.</p><p class="mb-4">If you\'re not yet profitable on current spend, scaling won\'t fix that — you have a leak problem now, just at a smaller scale. The Calculator below will tell you where.</p><p>When you\'re running $5K+/month consistently, come back and apply.</p>'
+            },
+            'default': {
+                headline: 'Not the right fit <span class="text-bordeaux italic">yet.</span>',
+                message: "Thanks for applying. The audit isn't the right fit for your stage right now — but the resources below can take you forward.",
+                guidance: '<p>Use the Calculator and the blog. Come back when your funnel and ad spend grow into the audit\'s sweet spot.</p>'
+            }
+        };
+
+        // Read reason from URL and populate page
+        const params = new URLSearchParams(window.location.search);
+        const reason = params.get('reason');
+        const data = reasonContent[reason] || reasonContent.default;
+
+        document.getElementById('not-yet-headline').innerHTML = data.headline;
+        document.getElementById('not-yet-message').textContent = data.message;
+        document.getElementById('reason-content').innerHTML = data.guidance;
+    </script>
+
+</body>
+</html>
