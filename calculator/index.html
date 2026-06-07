@@ -114,6 +114,16 @@
             h2 { font-size: 1.75rem !important; }
         }
     </style>
+    <script type="text/javascript">
+        window.omnisend = window.omnisend || [];
+        omnisend.push(["brandID", "6a1fed1d654323b61ef23180"]);
+        omnisend.push(["track", "$pageViewed"]);
+        !function(){var e=document.createElement("script");
+        e.type="text/javascript",e.async=!0,
+        e.src="https://omnisnippet1.com/inshop/launcher-v2.js";
+        var t=document.getElementsByTagName("script")[0];
+        t.parentNode.insertBefore(e,t)}();
+    </script>
 </head>
 <body class="bg-cream min-h-screen flex flex-col">
     <!-- Nav -->
@@ -160,13 +170,38 @@
                     </div>
                 </div>
 
-                <button onclick="goTo('funnel-type')" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Start Calculator →</button>
-                <p class="text-xs text-gray-500 mt-6">Based on benchmarks from $1B+ in client revenue.</p>
+                <button onclick="goTo('start')" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Start Calculator →</button>
+                <p class="text-xs text-gray-500 mt-6">Based on benchmarks from $1B+ in client revenue. Takes about 4 minutes.</p>
+            </section>
+
+            <!-- SCREEN 1B: NAME + EMAIL (entry point — fires partial webhook) -->
+            <section id="screen-start" class="screen">
+                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Step 1 of 4</p>
+                <h2 class="text-3xl lg:text-4xl mb-4">Where should I send your report?</h2>
+                <p class="text-gray-600 mb-10">Quick details first, then 10 questions. The full calculator takes about 4 minutes.</p>
+
+                <div class="space-y-6 mb-10 max-w-md">
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">First name</label>
+                        <input type="text" id="q_firstName" placeholder="Your first name" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Email address</label>
+                        <input type="email" id="q_email" placeholder="you@company.com" required>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <button onclick="goTo('intro')" class="text-sm uppercase tracking-[0.15em] font-semibold text-gray-600 hover:text-bordeaux transition-colors">← Back</button>
+                    <button onclick="submitStart()" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Continue →</button>
+                </div>
+                <p id="start-error" class="text-sm text-bordeaux mt-4 hidden">Please enter your first name and a valid email address.</p>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 mt-6 font-semibold">No spam · Unsubscribe any time</p>
             </section>
 
             <!-- SCREEN 2: FUNNEL TYPE -->
             <section id="screen-funnel-type" class="screen">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Question 1 of 11</p>
+                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Step 2 of 4</p>
                 <h2 class="text-3xl lg:text-4xl mb-4">What kind of funnel are you running?</h2>
                 <p class="text-gray-600 mb-10">Pick the primary one. The rest of the questions will be tailored to match.</p>
 
@@ -201,7 +236,7 @@
 
             <!-- SCREEN 3: UNIVERSAL QUESTIONS -->
             <section id="screen-universal" class="screen">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Questions 2–5 of 11</p>
+                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Step 3 of 4</p>
                 <h2 class="text-3xl lg:text-4xl mb-4">The numbers.</h2>
                 <p class="text-gray-600 mb-10">Best estimates are fine. The more accurate, the better the report.</p>
 
@@ -242,7 +277,7 @@
 
             <!-- SCREEN 4: SPECIFIC QUESTIONS -->
             <section id="screen-specific" class="screen">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Questions 6–11 of 11</p>
+                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Step 4 of 4</p>
                 <h2 class="text-3xl lg:text-4xl mb-4" id="specific-title">The specifics.</h2>
                 <p class="text-gray-600 mb-10" id="specific-subtitle">Last round. These are the metrics that reveal where you're leaking.</p>
 
@@ -255,30 +290,7 @@
                 <p id="specific-error" class="text-sm text-bordeaux mt-4 hidden">Please fill all fields.</p>
             </section>
 
-            <!-- SCREEN 5: EMAIL -->
-            <section id="screen-email" class="screen">
-                <div class="text-center">
-                    <span class="material-symbols-outlined text-gold text-5xl mb-6">mark_email_read</span>
-                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Almost There</p>
-                    <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">Your report is <span class="text-bordeaux italic">ready.</span></h2>
-                    <p class="text-lg lg:text-xl text-gray-700 leading-relaxed mb-3 max-w-xl mx-auto">
-                        It lands in your inbox in 60 seconds — and on the next screen now.
-                    </p>
-                    <p class="text-base text-gray-600 leading-relaxed mb-10 max-w-xl mx-auto">
-                        Personalised dollar leaks, efficiency score, and the one fix that recovers the most.
-                    </p>
-
-                    <div class="max-w-md mx-auto mb-8">
-                        <input type="email" id="q_email" placeholder="you@company.com" class="text-center">
-                    </div>
-
-                    <button onclick="submitEmail()" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Show My Report →</button>
-                    <p id="email-error" class="text-sm text-bordeaux mt-4 hidden">Please enter a valid email address.</p>
-                    <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 mt-6 font-semibold">No spam · Unsubscribe any time</p>
-                </div>
-            </section>
-
-            <!-- SCREEN 6: RESULTS -->
+            <!-- SCREEN 5: RESULTS -->
             <section id="screen-results" class="screen">
                 <div id="results-content"></div>
             </section>
@@ -368,14 +380,41 @@
         application: 'Application'
     };
 
+    // Zapier webhook endpoints
+    const ZAPIER_PARTIAL_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw9xa8/';
+    const ZAPIER_COMPLETE_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw53fw/';
+
     const state = {
         current: 'intro',
+        firstName: null,
+        email: null,
         funnelType: null,
         universal: {},
         specific: {},
-        email: null,
-        results: null
+        results: null,
+        utm: { utm_source: '', utm_medium: '', utm_campaign: '' }
     };
+
+    // Capture UTM parameters from the URL on page load
+    (function captureUTMs() {
+        const params = new URLSearchParams(window.location.search);
+        ['utm_source', 'utm_medium', 'utm_campaign'].forEach(key => {
+            const v = params.get(key);
+            if (v) state.utm[key] = v;
+        });
+    })();
+
+    function postWebhook(url, payload) {
+        if (!url) return;
+        try {
+            fetch(url, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(() => {});
+        } catch (err) { /* swallow */ }
+    }
 
     // Navigation
     function goTo(screen) {
@@ -396,13 +435,13 @@
         const wrapper = document.getElementById('progress-wrapper');
         const fill = document.getElementById('progress-fill');
         const label = document.getElementById('progress-label');
-        const steps = { 'intro': 0, 'funnel-type': 1, 'universal': 2, 'specific': 3, 'email': 4, 'results': 5 };
+        const steps = { 'intro': 0, 'start': 1, 'funnel-type': 2, 'universal': 3, 'specific': 4, 'results': 5 };
         const stepLabels = {
             'intro': '',
-            'funnel-type': 'Step 1 of 5',
-            'universal': 'Step 2 of 5',
-            'specific': 'Step 3 of 5',
-            'email': 'Step 4 of 5',
+            'start': 'Step 1 of 4',
+            'funnel-type': 'Step 2 of 4',
+            'universal': 'Step 3 of 4',
+            'specific': 'Step 4 of 4',
             'results': 'Complete'
         };
         const step = steps[state.current] || 0;
@@ -413,6 +452,31 @@
             fill.style.width = (step / 5 * 100) + '%';
             label.textContent = stepLabels[state.current];
         }
+    }
+
+    function submitStart() {
+        const firstName = document.getElementById('q_firstName').value.trim();
+        const email = document.getElementById('q_email').value.trim();
+        const err = document.getElementById('start-error');
+        const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!firstName || !validEmail) { err.classList.remove('hidden'); return; }
+        err.classList.add('hidden');
+        state.firstName = firstName;
+        state.email = email;
+
+        // Stage 1: partial webhook — name + email captured, form not complete
+        postWebhook(ZAPIER_PARTIAL_URL, {
+            first_name: firstName,
+            email: email,
+            source_page: 'calculator',
+            submission_type: 'partial',
+            utm_source: state.utm.utm_source,
+            utm_medium: state.utm.utm_medium,
+            utm_campaign: state.utm.utm_campaign,
+            submitted_at: new Date().toISOString()
+        });
+
+        goTo('funnel-type');
     }
 
     function selectFunnel(el, type) {
@@ -473,33 +537,28 @@
         if (missing > 0) { err.classList.remove('hidden'); return; }
         err.classList.add('hidden');
         state.specific = answers;
-        goTo('email');
-    }
 
-    function submitEmail() {
-        const email = document.getElementById('q_email').value.trim();
-        const err = document.getElementById('email-error');
-        const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        if (!valid) { err.classList.remove('hidden'); return; }
-        err.classList.add('hidden');
-        state.email = email;
         calculate();
         renderResults();
         goTo('results');
 
-        // TODO: wire to Zapier webhook → Beehive for real email delivery
-        // fetch('YOUR_ZAPIER_WEBHOOK_URL', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({
-        //         email: state.email,
-        //         funnelType: state.funnelType,
-        //         universal: state.universal,
-        //         specific: state.specific,
-        //         results: state.results,
-        //         timestamp: new Date().toISOString()
-        //     })
-        // }).catch(() => {});
+        // Stage 2: complete webhook — full report generated
+        postWebhook(ZAPIER_COMPLETE_URL, {
+            first_name: state.firstName,
+            email: state.email,
+            source_page: 'calculator',
+            submission_type: 'complete',
+            utm_source: state.utm.utm_source,
+            utm_medium: state.utm.utm_medium,
+            utm_campaign: state.utm.utm_campaign,
+            funnel_type: state.funnelType,
+            ad_spend: state.universal.adSpend,
+            leads_per_month: state.universal.leads,
+            offer_price: state.universal.offerPrice,
+            monthly_revenue: state.universal.revenue,
+            ...state.specific,
+            submitted_at: new Date().toISOString()
+        });
     }
 
     function calculate() {
@@ -1169,10 +1228,11 @@
     }
 
     function restart() {
+        state.firstName = null;
+        state.email = null;
         state.funnelType = null;
         state.universal = {};
         state.specific = {};
-        state.email = null;
         state.results = null;
         goTo('intro');
     }

@@ -190,6 +190,16 @@
             .offset-shadow-bordeaux { box-shadow: -10px 10px 0 0 rgba(107, 31, 61, 0.12); }
         }
     </style>
+    <script type="text/javascript">
+        window.omnisend = window.omnisend || [];
+        omnisend.push(["brandID", "6a1fed1d654323b61ef23180"]);
+        omnisend.push(["track", "$pageViewed"]);
+        !function(){var e=document.createElement("script");
+        e.type="text/javascript",e.async=!0,
+        e.src="https://omnisnippet1.com/inshop/launcher-v2.js";
+        var t=document.getElementsByTagName("script")[0];
+        t.parentNode.insertBefore(e,t)}();
+    </script>
 </head>
 <body>
 
@@ -662,7 +672,7 @@
             <div class="mb-10 lg:mb-14 fade-in">
                 <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-4">The Application</p>
                 <h2 class="text-3xl lg:text-4xl leading-tight mb-4">6 questions. 4 minutes.</h2>
-                <p class="text-base lg:text-lg text-gray-600 mb-6">Everything I need to see if we're a fit. Reviewed within 48 hours.</p>
+                <p class="text-base lg:text-lg text-gray-600 mb-6">Everything I need to see if we're a fit. Qualified applicants book a call instantly.</p>
                 <div class="bg-cream-dark border-l-2 border-gold pl-5 py-3">
                     <p class="text-[11px] uppercase tracking-[0.2em] text-gold font-semibold mb-1">Who it's for</p>
                     <p class="text-sm lg:text-base text-gray-800">$1M–$150M founders with an active paid funnel and $5K+/month in ad spend.</p>
@@ -671,83 +681,104 @@
 
             <form id="audit-form" class="bg-cream p-8 md:p-12 border-l-2 border-bordeaux fade-in">
 
-                <div class="form-group">
-                    <label class="form-label">1 · Annual Business Revenue</label>
-                    <select name="annual_revenue" required>
-                        <option value="" disabled selected>Select revenue range</option>
-                        <option value="under-1m">Under $1M</option>
-                        <option value="1m-3m">$1M – $3M</option>
-                        <option value="3m-10m">$3M – $10M</option>
-                        <option value="10m-50m">$10M – $50M</option>
-                        <option value="50m-150m">$50M – $150M</option>
-                        <option value="150m-plus">$150M+</option>
-                    </select>
+                <!-- STEP 1: Name + Email (fires partial webhook) -->
+                <div id="step-1" class="form-step">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">Step 1 of 2</p>
+                    <h3 class="text-xl lg:text-2xl mb-6" style="font-family: 'Bodoni Moda', serif;">First, where should I send the audit details?</h3>
+
+                    <div class="form-group">
+                        <label class="form-label">First name</label>
+                        <input type="text" name="first_name" id="f_first_name" required placeholder="Your first name">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" id="f_email" required placeholder="you@company.com">
+                    </div>
+
+                    <button type="button" id="step-1-next" class="btn-primary bg-bordeaux text-white px-10 py-5 text-sm font-bold uppercase tracking-[0.15em] w-full mt-2">
+                        Continue →
+                    </button>
+
+                    <p id="step-1-error" class="text-sm text-bordeaux mt-4 text-center hidden">Please enter your first name and a valid email address.</p>
+
+                    <p class="text-center text-gray-500 text-[11px] uppercase tracking-[0.2em] mt-6">
+                        6 quick questions next · 4 minutes
+                    </p>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">2 · Do you have an active paid funnel running?</label>
-                    <select name="active_funnel" required>
-                        <option value="" disabled selected>Select an option</option>
-                        <option value="yes">Yes, currently running</option>
-                        <option value="paused">Paused, but ran recently</option>
-                        <option value="no">No active funnel</option>
-                    </select>
+                <!-- STEP 2: Qualifying questions (fires qualified/disqualified webhook) -->
+                <div id="step-2" class="form-step" style="display:none;">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">Step 2 of 2</p>
+                    <h3 class="text-xl lg:text-2xl mb-8" style="font-family: 'Bodoni Moda', serif;">Tell me about your funnel.</h3>
+
+                    <div class="form-group">
+                        <label class="form-label">1 · Do you have an active paid funnel running?</label>
+                        <select name="active_funnel" id="f_active_funnel" required>
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="yes">Yes, currently running</option>
+                            <option value="paused">Paused, but ran recently</option>
+                            <option value="no">No active funnel</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">2 · What type of funnel are you running?</label>
+                        <select name="funnel_type" id="f_funnel_type" required>
+                            <option value="" disabled selected>Select funnel type</option>
+                            <option value="webinar">Live Webinar</option>
+                            <option value="evergreen">Evergreen Video</option>
+                            <option value="vsl">Video Sales Letter (VSL)</option>
+                            <option value="challenge">Challenge</option>
+                            <option value="application">High-Ticket Application</option>
+                            <option value="ecommerce">E-commerce</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">3 · What is your monthly ad spend?</label>
+                        <select name="ad_spend" id="f_ad_spend" required>
+                            <option value="" disabled selected>Select ad spend</option>
+                            <option value="under-20k">Under $20K/month</option>
+                            <option value="50k-100k">$50K – $100K/month</option>
+                            <option value="100k-500k">$100K – $500K/month</option>
+                            <option value="500k-plus">$500K+/month</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">4 · What is your annual business revenue?</label>
+                        <select name="annual_revenue" id="f_annual_revenue" required>
+                            <option value="" disabled selected>Select revenue range</option>
+                            <option value="under-1m">Under $1M</option>
+                            <option value="1m-3m">$1M – $3M</option>
+                            <option value="3m-10m">$3M – $10M</option>
+                            <option value="10m-50m">$10M – $50M</option>
+                            <option value="50m-150m">$50M – $150M</option>
+                            <option value="150m-plus">$150M+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">5 · Your #1 biggest funnel challenge right now</label>
+                        <textarea name="challenge" id="f_challenge" rows="4" minlength="50" required placeholder="Be specific — this is what I'll diagnose first."></textarea>
+                        <p class="text-xs text-gray-500 mt-2 tracking-wide">Minimum 50 characters.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">6 · What outcome would make this audit a clear win?</label>
+                        <textarea name="outcome" id="f_outcome" rows="3" required placeholder="e.g., Cut CPL by 30%, 2× webinar close rate, hit $500K/month..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary bg-bordeaux text-white px-10 py-5 text-sm font-bold uppercase tracking-[0.15em] w-full mt-2">
+                        Submit Application →
+                    </button>
+
+                    <p class="text-center text-gray-500 text-[11px] uppercase tracking-[0.2em] mt-6">
+                        Qualified applicants are taken straight to the booking page.
+                    </p>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label">3 · Monthly Ad Spend</label>
-                    <select name="ad_spend" required>
-                        <option value="" disabled selected>Select ad spend</option>
-                        <option value="under-5k">Under $5K/month</option>
-                        <option value="5k-25k">$5K – $25K/month</option>
-                        <option value="25k-100k">$25K – $100K/month</option>
-                        <option value="100k-500k">$100K – $500K/month</option>
-                        <option value="500k-plus">$500K+/month</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">4 · Funnel Type</label>
-                    <select name="funnel_type" required>
-                        <option value="" disabled selected>Select funnel type</option>
-                        <option value="webinar">Live Webinar</option>
-                        <option value="evergreen">Evergreen Webinar</option>
-                        <option value="vsl">Video Sales Letter (VSL)</option>
-                        <option value="challenge">Challenge</option>
-                        <option value="application">High-Ticket Application</option>
-                        <option value="ecommerce">E-commerce</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">5 · Your #1 biggest funnel challenge right now</label>
-                    <textarea name="challenge" rows="4" minlength="50" required placeholder="Be specific — this is what I'll diagnose first."></textarea>
-                    <p class="text-xs text-gray-500 mt-2 tracking-wide">Minimum 50 characters.</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">6 · What outcome would make this audit a clear win?</label>
-                    <textarea name="outcome" rows="3" required placeholder="e.g., Cut CPL by 30%, 2× webinar close rate, hit $500K/month..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Name</label>
-                    <input type="text" name="name" required placeholder="Your full name">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" required placeholder="you@company.com">
-                </div>
-
-                <button type="submit" class="btn-primary bg-bordeaux text-white px-10 py-5 text-sm font-bold uppercase tracking-[0.15em] w-full mt-2">
-                    Submit Application →
-                </button>
-
-                <p class="text-center text-gray-500 text-[11px] uppercase tracking-[0.2em] mt-6">
-                    Reviewed within 48 hours · Personal response from Marisha
-                </p>
 
             </form>
         </div>
@@ -847,55 +878,103 @@
             updateControls();
         })();
 
-        // Form handler — captures every submission (qualified or not), routes to thank-you or not-yet page
-        // Disqualifier check moved here from inline alerts so we capture email regardless of qualification status
-        const ZAPIER_WEBHOOK_URL = ''; // TODO: paste Zapier "Catch Hook" URL here once Adele creates the Zap
+        // Zapier webhook endpoints (per RRA Form Specs Document)
+        const ZAPIER_PARTIAL_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw5tlb/';
+        const ZAPIER_QUALIFIED_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw5dfl/';
+        const ZAPIER_DISQUALIFIED_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw5m94/';
 
-        document.getElementById('audit-form').addEventListener('submit', async function(e) {
+        // Capture UTM parameters from URL on load
+        const utm = { utm_source: '', utm_medium: '', utm_campaign: '' };
+        (function captureUTMs() {
+            const params = new URLSearchParams(window.location.search);
+            Object.keys(utm).forEach(k => { const v = params.get(k); if (v) utm[k] = v; });
+        })();
+
+        function postWebhook(url, payload) {
+            if (!url) return;
+            try {
+                fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(() => {});
+            } catch (err) { /* swallow */ }
+        }
+
+        // Step 1 → fires partial webhook, reveals Step 2
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const step1Next = document.getElementById('step-1-next');
+        const step1Error = document.getElementById('step-1-error');
+
+        step1Next.addEventListener('click', function() {
+            const firstName = document.getElementById('f_first_name').value.trim();
+            const email = document.getElementById('f_email').value.trim();
+            const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            if (!firstName || !validEmail) { step1Error.classList.remove('hidden'); return; }
+            step1Error.classList.add('hidden');
+
+            postWebhook(ZAPIER_PARTIAL_URL, {
+                first_name: firstName,
+                email: email,
+                source_page: 'application',
+                submission_type: 'partial',
+                utm_source: utm.utm_source,
+                utm_medium: utm.utm_medium,
+                utm_campaign: utm.utm_campaign,
+                submitted_at: new Date().toISOString()
+            });
+
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+            step2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // Step 2 → fires qualified or disqualified webhook + redirects
+        document.getElementById('audit-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
+            const submitBtn = step2.querySelector('button[type="submit"]');
             submitBtn.textContent = 'Submitting…';
             submitBtn.disabled = true;
 
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
+            const data = Object.fromEntries(new FormData(this));
 
-            // Determine qualification status
+            // Disqualification gates (order matches form sequence per Section 2.2)
             let disqualReason = null;
-            if (data.annual_revenue === 'under-1m') disqualReason = 'revenue';
-            else if (data.active_funnel === 'no') disqualReason = 'no-funnel';
-            else if (data.ad_spend === 'under-5k') disqualReason = 'ad-spend';
+            if (data.active_funnel === 'no') disqualReason = 'no-funnel';
+            else if (data.ad_spend === 'under-20k') disqualReason = 'ad-spend';
+            else if (data.annual_revenue === 'under-1m') disqualReason = 'revenue';
 
-            const payload = {
-                ...data,
-                qualified: !disqualReason,
-                disqual_reason: disqualReason || null,
-                submitted_at: new Date().toISOString(),
-                source_page: 'apply'
+            const basePayload = {
+                first_name: data.first_name,
+                email: data.email,
+                source_page: 'application',
+                utm_source: utm.utm_source,
+                utm_medium: utm.utm_medium,
+                utm_campaign: utm.utm_campaign,
+                active_funnel: data.active_funnel,
+                funnel_type: data.funnel_type,
+                ad_spend: data.ad_spend,
+                annual_revenue: data.annual_revenue,
+                challenge: data.challenge,
+                outcome: data.outcome,
+                submitted_at: new Date().toISOString()
             };
 
-            // POST to Zapier (fire-and-forget — failure shouldn't block the redirect)
-            if (ZAPIER_WEBHOOK_URL) {
-                try {
-                    await fetch(ZAPIER_WEBHOOK_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                } catch (err) {
-                    console.warn('Webhook submission failed (continuing anyway):', err);
-                }
-            } else {
-                console.log('[Webhook not configured] Application data:', payload);
-            }
-
-            // Redirect based on qualification
             if (disqualReason) {
+                postWebhook(ZAPIER_DISQUALIFIED_URL, {
+                    ...basePayload,
+                    submission_type: 'disqualified',
+                    disqual_reason: disqualReason
+                });
                 window.location.href = 'not-yet/?reason=' + disqualReason;
             } else {
-                window.location.href = 'thank-you/';
+                postWebhook(ZAPIER_QUALIFIED_URL, {
+                    ...basePayload,
+                    submission_type: 'qualified'
+                });
+                window.location.href = 'booking/';
             }
         });
     </script>
