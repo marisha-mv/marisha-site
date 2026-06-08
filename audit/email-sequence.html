@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Recovery Audit™ — Value-Led Email Sequence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F1E6;
+    --paper-2:#FBF7EE;
+    --paper-3:#EEE6D5;
+    --ink:#22190F;
+    --ink-soft:#5C5142;
+    --ink-faint:#8A7E6B;
+    --emerald:#1B4A39;
+    --emerald-bright:#2C6B51;
+    --gold:#A9874A;
+    --gold-soft:#C7A968;
+    --rule:rgba(34,25,15,0.13);
+    --rule-strong:rgba(34,25,15,0.28);
+    --shadow:0 1px 2px rgba(34,25,15,.04),0 18px 40px -22px rgba(34,25,15,.28);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:84px;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:19px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  /* grain + vignette atmosphere */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity:.05;mix-blend-mode:multiply;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% -10%,rgba(169,135,74,.10),transparent 60%);
+  }
+  .wrap{position:relative;z-index:1;}
+
+  /* ---------- top nav ---------- */
+  header.bar{
+    position:sticky;top:0;z-index:40;
+    background:rgba(246,241,230,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+  }
+  .bar-inner{
+    max-width:1080px;margin:0 auto;padding:14px 32px;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+  }
+  .brand{display:flex;align-items:center;gap:11px;font-family:"Hanken Grotesk",sans-serif;}
+  .monogram{
+    width:30px;height:30px;border:1.5px solid var(--emerald);border-radius:50%;
+    display:grid;place-items:center;color:var(--emerald);
+    font-family:"Fraunces",serif;font-weight:600;font-size:15px;line-height:1;
+  }
+  .brand b{font-weight:600;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);}
+  nav.jump{display:flex;gap:4px;font-family:"Hanken Grotesk",sans-serif;}
+  nav.jump a{
+    text-decoration:none;color:var(--ink-soft);
+    font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+    padding:6px 9px;border-radius:999px;transition:.22s;
+  }
+  nav.jump a:hover{color:var(--emerald);background:rgba(27,74,57,.07);}
+  nav.jump a.active{color:var(--paper-2);background:var(--emerald);}
+
+  /* ---------- layout shell ---------- */
+  main{max-width:760px;margin:0 auto;padding:0 32px 120px;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:96px 0 56px;border-bottom:1px solid var(--rule);}
+  .eyebrow{
+    font-family:"Hanken Grotesk",sans-serif;font-size:12px;font-weight:600;
+    letter-spacing:.32em;text-transform:uppercase;color:var(--gold);
+    display:flex;align-items:center;gap:14px;
+  }
+  .eyebrow::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--gold-soft),transparent);}
+  h1{
+    font-family:"Fraunces",serif;font-weight:600;font-optical-sizing:auto;
+    font-size:clamp(44px,8vw,82px);line-height:.98;letter-spacing:-.018em;
+    margin:.42em 0 .26em;color:var(--ink);
+  }
+  h1 em{font-style:italic;color:var(--emerald);font-weight:500;}
+  .lede{
+    font-size:21px;color:var(--ink-soft);max-width:60ch;line-height:1.5;
+    font-style:italic;
+  }
+  .slope{margin:40px 0 4px;display:block;width:100%;max-width:340px;height:auto;opacity:.9;}
+
+  /* ---------- generic section ---------- */
+  section{padding:64px 0;border-bottom:1px solid var(--rule);}
+  .kicker{
+    font-family:"Hanken Grotesk",sans-serif;font-size:12px;font-weight:700;
+    letter-spacing:.26em;text-transform:uppercase;color:var(--emerald);
+    margin:0 0 18px;
+  }
+  h2{
+    font-family:"Fraunces",serif;font-weight:600;font-size:clamp(30px,4.6vw,42px);
+    line-height:1.06;letter-spacing:-.01em;margin:0 0 24px;
+  }
+  section p{margin:0 0 20px;}
+  section p:last-child{margin-bottom:0;}
+  strong{font-weight:600;color:var(--ink);}
+  em{font-style:italic;}
+  a.inline{color:var(--emerald);text-decoration:none;border-bottom:1px solid var(--gold-soft);transition:.2s;}
+  a.inline:hover{color:var(--emerald-bright);border-color:var(--emerald-bright);}
+
+  /* ---------- architecture table ---------- */
+  .tbl{width:100%;border-collapse:collapse;margin:30px 0 8px;font-family:"Hanken Grotesk",sans-serif;}
+  .tbl thead th{
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);
+    font-weight:700;text-align:left;padding:0 14px 12px;border-bottom:1.5px solid var(--rule-strong);
+  }
+  .tbl tbody td{padding:16px 14px;border-bottom:1px solid var(--rule);vertical-align:top;font-size:15px;line-height:1.45;color:var(--ink-soft);}
+  .tbl tbody tr:last-child td{border-bottom:none;}
+  .tbl .num{font-family:"Fraunces",serif;font-size:24px;font-weight:600;color:var(--emerald);width:42px;}
+  .tbl .role{font-weight:600;color:var(--ink);font-family:"Newsreader",serif;font-size:17px;}
+  .tag{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:4px 9px;border-radius:999px;white-space:nowrap;
+  }
+  .tag.none{background:rgba(138,126,107,.16);color:var(--ink-faint);}
+  .tag.soft{background:rgba(169,135,74,.18);color:var(--gold);}
+  .tag.clear{background:rgba(44,107,81,.16);color:var(--emerald-bright);}
+  .tag.full{background:var(--emerald);color:var(--paper-2);}
+  .cadence{
+    margin-top:34px;padding:20px 24px;background:var(--paper-3);border-left:3px solid var(--gold);
+    border-radius:0 8px 8px 0;font-size:16px;line-height:1.5;
+  }
+  .cadence b{font-family:"Hanken Grotesk",sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--emerald);display:block;margin-bottom:5px;}
+
+  /* ---------- email card ---------- */
+  .email{
+    background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;
+    box-shadow:var(--shadow);padding:40px 44px 44px;margin:30px 0;position:relative;overflow:hidden;
+  }
+  .email::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--emerald),var(--gold));}
+  .meta{
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;
+    font-family:"Hanken Grotesk",sans-serif;font-size:11px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);
+    padding-bottom:18px;margin-bottom:24px;border-bottom:1px solid var(--rule);
+  }
+  .meta .no{color:var(--emerald);font-size:12px;}
+  .meta .dot{width:4px;height:4px;border-radius:50%;background:var(--gold-soft);}
+  .subj-label{font-family:"Hanken Grotesk",sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+  .subj{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(24px,3.4vw,32px);line-height:1.1;letter-spacing:-.01em;color:var(--ink);margin:0 0 6px;}
+  .alt{font-size:15px;color:var(--ink-faint);font-style:italic;margin:0 0 26px;}
+  .body>p:first-of-type::first-letter{
+    font-family:"Fraunces",serif;font-weight:600;float:left;font-size:62px;line-height:.78;
+    padding:6px 12px 0 0;color:var(--emerald);
+  }
+  .body p{margin:0 0 18px;}
+  .leak{
+    background:var(--paper);border:1px solid var(--rule);border-radius:10px;
+    padding:18px 20px;margin:14px 0;
+  }
+  .leak .lk-head{font-family:"Fraunces",serif;font-weight:600;font-size:18px;color:var(--ink);display:block;margin-bottom:6px;}
+  .leak p{margin:0 0 10px;}
+  .leak .test{
+    font-family:"Hanken Grotesk",sans-serif;font-size:13.5px;line-height:1.5;color:var(--emerald);
+    background:rgba(27,74,57,.06);border-radius:7px;padding:9px 12px;margin:0;
+  }
+  .test em{font-style:normal;}
+  .sign{font-family:"Fraunces",serif;font-style:italic;font-size:20px;color:var(--ink);margin-top:22px;}
+  .ps{font-size:15.5px;color:var(--ink-soft);font-style:italic;border-top:1px dashed var(--rule-strong);padding-top:16px;margin-top:22px;}
+  .cta{
+    display:inline-block;margin:8px 0 6px;background:var(--emerald);color:var(--paper-2);
+    font-family:"Hanken Grotesk",sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    padding:15px 26px;border-radius:999px;text-decoration:none;transition:.24s;
+    box-shadow:0 12px 24px -12px rgba(27,74,57,.6);
+  }
+  .cta:hover{background:var(--emerald-bright);transform:translateY(-1px);}
+  .cta .arw{color:var(--gold-soft);}
+
+  /* ---------- notes ---------- */
+  .notes{list-style:none;padding:0;margin:24px 0 0;}
+  .notes li{position:relative;padding:0 0 22px 30px;font-size:17px;color:var(--ink-soft);line-height:1.55;}
+  .notes li::before{content:"";position:absolute;left:0;top:11px;width:9px;height:9px;background:var(--gold);transform:rotate(45deg);}
+  .notes li strong{color:var(--ink);}
+
+  footer{max-width:760px;margin:0 auto;padding:40px 32px 80px;text-align:center;font-family:"Hanken Grotesk",sans-serif;}
+  footer .rule{height:1px;background:var(--rule);margin-bottom:26px;}
+  footer .mono{width:38px;height:38px;border:1.5px solid var(--gold);border-radius:50%;display:inline-grid;place-items:center;color:var(--gold);font-family:"Fraunces",serif;font-weight:600;font-size:19px;margin-bottom:14px;}
+  footer p{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin:0;}
+
+  /* ---------- reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+  .hero .reveal{transition-delay:calc(var(--i,0)*90ms);}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  @media(max-width:680px){
+    body{font-size:18px;}
+    main{padding:0 20px 90px;}
+    .bar-inner{padding:12px 18px;}
+    nav.jump{display:none;}
+    .email{padding:30px 24px 32px;}
+    .hero{padding:64px 0 44px;}
+    .tbl thead{display:none;}
+    .tbl tbody td{display:block;border:none;padding:3px 0;}
+    .tbl tbody tr{display:block;padding:18px 0;border-bottom:1px solid var(--rule);}
+    .tbl .num{font-size:20px;}
+    .seqdiv{padding:34px 24px 30px;margin:54px 0 6px;}
+  }
+
+  /* ---------- sequence divider ---------- */
+  .seqdiv{
+    background:var(--emerald);color:var(--paper-2);border-radius:18px;
+    padding:46px 44px 44px;margin:78px 0 6px;position:relative;overflow:hidden;
+    box-shadow:0 24px 50px -28px rgba(27,74,57,.7);
+  }
+  .seqdiv::after{content:"";position:absolute;right:-46px;top:-46px;width:210px;height:210px;border:1px solid rgba(199,169,104,.32);border-radius:50%;pointer-events:none;}
+  .seqdiv::before{content:"";position:absolute;right:-12px;bottom:-60px;width:150px;height:150px;border:1px solid rgba(199,169,104,.18);border-radius:50%;pointer-events:none;}
+  .seqdiv .sd-no{font-family:"Fraunces",serif;font-weight:600;font-size:14px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-soft);}
+  .seqdiv h2{color:var(--paper-2);margin:14px 0 12px;font-size:clamp(28px,4.6vw,44px);}
+  .seqdiv h2 em{font-style:italic;color:var(--gold-soft);}
+  .seqdiv p{color:rgba(246,241,230,.82);font-size:18px;max-width:58ch;margin:0;font-style:italic;line-height:1.5;}
+  .seqdiv .pill{display:inline-block;margin-top:20px;font-family:"Hanken Grotesk",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-2);border:1px solid rgba(199,169,104,.55);border-radius:999px;padding:7px 14px;}
+
+  /* internal trigger note */
+  .note-int{font-family:"Hanken Grotesk",sans-serif;font-size:12px;line-height:1.55;letter-spacing:.02em;color:var(--ink-faint);background:var(--paper-3);border-radius:7px;padding:10px 13px;margin:0 0 22px;}
+  .note-int b{color:var(--emerald);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:10.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="bar">
+    <div class="bar-inner">
+      <div class="brand">
+        <span class="monogram">M</span>
+        <b>Revenue Recovery Audit™</b>
+      </div>
+      <nav class="jump">
+        <a href="#seq1">01 · Warm List</a>
+        <a href="#seq2">02 · Calculator</a>
+        <a href="#seq3">03 · Disqualified</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="eyebrow reveal" style="--i:0">Two Sequences · Two Audiences</div>
+      <h1 class="reveal" style="--i:1">Find the money<br>that's already <em>leaking</em>.</h1>
+      <p class="lede reveal" style="--i:2">Two value-led email sequences for the Revenue Recovery Audit™ — one for the warm list that ran the free checklist, one for the hotter list that completed the leak calculator. Both teach first and earn the offer, instead of pitching cold.</p>
+      <svg class="slope reveal" style="--i:3" viewBox="0 0 340 90" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M2 12 H70 V30 H138 V46 H206 V64 H274 V82 H338" stroke="#A9874A" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="2" cy="12" r="3.4" fill="#1B4A39"/>
+        <circle cx="70" cy="30" r="3.4" fill="#1B4A39"/>
+        <circle cx="138" cy="46" r="3.4" fill="#1B4A39"/>
+        <circle cx="206" cy="64" r="3.4" fill="#1B4A39"/>
+        <circle cx="274" cy="82" r="3.4" fill="#1B4A39"/>
+        <circle cx="338" cy="82" r="4.2" fill="#A9874A"/>
+      </svg>
+    </div>
+
+    <!-- SEQUENCE 1 DIVIDER -->
+    <div class="seqdiv reveal" id="seq1">
+      <div class="sd-no">Sequence One</div>
+      <h2>The Warm List <em>— Checklist</em></h2>
+      <p>Six emails for people who engaged on social and ran the free audit checklist. Teach first, earn the offer, escalate slowly.</p>
+      <span class="pill">6 emails · Day 1 → Day 8</span>
+    </div>
+
+    <!-- STRATEGY -->
+    <section id="strategy">
+      <p class="kicker reveal">The Architecture</p>
+      <h2 class="reveal">Value first. The offer escalates.</h2>
+      <p class="reveal">The old sequence led with the announcement on day one — “here's my offer, apply now.” For a list that just got a free tool, that spends goodwill before you've earned it. This version flips it.</p>
+      <p class="reveal">The whole thing hangs on one reframe: <strong>a checklist finds the leaks you can <em>see</em>. The audit finds the ones you <em>can't</em> — and you're structurally blind to your own, because you're inside the bottle.</strong> That honors the free tool, opens a clean gap to the paid offer, and disarms “I already optimized this myself.”</p>
+      <p class="reveal">Each email follows the principles the best operators actually use: Kern's <em>Results in Advance</em> (give a usable win, then lightly segue), Chaperon &amp; Brunson's <em>Soap Opera Sequence</em> (close one loop, open the next), Wiebe's <em>awareness-stage matching</em> and the <em>“but you are free”</em> release, and Robbins' <em>identity reframe</em>.</p>
+
+      <table class="tbl reveal">
+        <thead>
+          <tr><th>#</th><th>Email</th><th>Job</th><th>Offer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">01</td><td><span class="role">The Reframe</span><br>Visible vs. invisible leaks + the compounding-math “aha” + the drop-off-map exercise. Establish range.</td><td>Pure teaching, no pitch.</td><td><span class="tag none">None</span></td></tr>
+          <tr><td class="num">02</td><td><span class="role">The Three Leaks</span><br>Teach all three with self-tests. Results in advance.</td><td>Earned authority, soft segue.</td><td><span class="tag soft">Soft</span></td></tr>
+          <tr><td class="num">03</td><td><span class="role">Inside the Bottle</span><br>Why you can't see your own. First real audit intro.</td><td>Identity reframe.</td><td><span class="tag soft">Soft</span></td></tr>
+          <tr><td class="num">04</td><td><span class="role">The $1.8M Story</span><br>Proof told so the reader learns the lesson regardless.</td><td>Contextualized proof.</td><td><span class="tag clear">Clear</span></td></tr>
+          <tr><td class="num">05</td><td><span class="role">The Three Voices</span><br>Money / time / timing — answered, then released.</td><td>Full pitch.</td><td><span class="tag full">Full</span></td></tr>
+          <tr><td class="num">06</td><td><span class="role">Final Call</span><br>Urgency close. One question.</td><td>Close.</td><td><span class="tag full">Close</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="cadence reveal">
+        <b>Suggested cadence</b>
+        Day 1 · Day 2 · Day 4 · Day 5 · Day 7 · Day 8. Value emails come close together for momentum, with breathing room before the close.
+      </div>
+    </section>
+
+    <!-- EMAIL 1 -->
+    <section id="e1">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Email 01</span><span class="dot"></span><span>Send Day 1</span><span class="dot"></span><span>The Reframe</span></div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">The leaks your checklist couldn't show you</h3>
+        <p class="alt">Alt: What the checklist couldn't tell you</p>
+        <div class="body">
+          <p>A little while ago you ran your funnel through my audit checklist.</p>
+          <p>Maybe you found a weak headline. A CTA working harder than it should. A step in your opt-in quietly costing you. You fixed a couple of things, and if you're like most people who use it, your numbers nudged up.</p>
+          <p>Good. That's exactly what it's for.</p>
+          <p>But I want to be honest about what that checklist can and can't do — because the gap between the two is where most of your money is.</p>
+          <p>A checklist finds the leaks you can <em>see</em>. Headlines, buttons, page structure, obvious friction. Real money, but the kind you can spot yourself once someone points at it.</p>
+          <p>The leaks that cost the most don't live on a page. They live in the gaps <em>between</em> your steps. And here's why they're nearly impossible to catch on your own:</p>
+          <p>You measure each step in isolation. Your opt-in rate looks fine. Your show-up rate looks fine. Your close rate looks fine. Every individual number looks <em>acceptable</em> — so nothing waves a red flag. But a funnel doesn't add. It multiplies. And multiplication is brutal.</p>
+          <p>Watch. Say you've got a five-step funnel and each step holds onto 80% of the people. 80% sounds healthy — you'd sign off on every one of those numbers without blinking. But 80% × 80% × 80% × 80% × 80% = <strong>33%</strong>. Two out of every three people you <em>paid for</em> are gone by the end, and not one step ever looked broken. The leak isn't in any single step. It's in the compounding — which is the one thing no dashboard puts in front of you.</p>
+          <p>That's what I mean by an invisible leak. It doesn't show up as a problem. It shows up as a final number that's quietly lower than it should be, and you've made peace with it, because you've never seen it any other way.</p>
+          <p>So here's something more useful than a checklist. Map it:</p>
+          <p>Write down every step of your funnel, in order. Next to each one, write the conversion rate <em>from the step before it</em>. Now look at the whole column at once — not each number on its own, but the slope. The single biggest drop between two steps is your first real leak, and I'd put money on it being bigger than anything the checklist surfaced. Most founders have never once looked at their funnel as a single descending column. The first time they do, they go quiet.</p>
+          <p>Go map yours. Ten minutes. It'll tell you more than a year of swapping headlines.</p>
+          <p>I can say that with some confidence, by the way, because I've built nearly every kind of funnel there is — tripwires, webinars, challenges, live summits, you name it — and tested them at scale (my best did $9M in two weeks). The three-leak pattern I'm about to walk you through didn't come out of a book. It came from watching it show up in my own funnels first.</p>
+          <p>Tomorrow: the three invisible leaks I find in almost every funnel — top, middle, and bottom — with the exact test for each, so you can pinpoint yours without guessing.</p>
+          <p class="sign">Marisha</p>
+          <p class="ps"><strong>PS:</strong> When you map your drop-offs, the number that surprises you most is usually the one costing you the most. Tomorrow I'll show you which of the three it probably is.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- EMAIL 2 -->
+    <section id="e2">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Email 02</span><span class="dot"></span><span>Send Day 2</span><span class="dot"></span><span>The Three Leaks</span></div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">Three leaks. Top, middle, bottom.</h3>
+        <p class="alt">Alt: Where your money is actually leaking</p>
+        <div class="body">
+          <p>Yesterday I had you map your drop-offs into one descending column. Today, the three leaks that map almost always exposes.</p>
+          <p>And I don't say “almost always” loosely. Yes, I've audited hundreds of funnels — but the part that matters more is that I've <em>built</em> nearly every kind there is myself. Tripwires, webinars, challenges, live summits, you name it. My best one did $9M in two weeks. Here's the humbling bit: when I first started mapping my <em>own</em> funnels this way, the same three leaks were sitting right there in mine. Top, middle, bottom. That's how I know they're not a you-problem. They're a funnel-problem — they show up in everyone's, including the people who teach this for a living.</p>
+          <p>Here they are, with a test for each so you can find your own numbers today.</p>
+
+          <div class="leak">
+            <span class="lk-head">Leak #1 — the top. You're overpaying for leads.</span>
+            <p>Most funnels I see pay around $25 to put someone at the top, when the benchmark for their type is closer to $10. That's 2.5x too much, and on a $10K/month ad budget it's $150K a year leaving quietly. Usually it's targeting that's too broad, or a creative-to-page promise that doesn't match.</p>
+            <p class="test"><em>Test:</em> Last 90 days of ad spend ÷ total leads. Compare to what your funnel type should pay. More than 50% over benchmark = you have this leak.</p>
+          </div>
+
+          <div class="leak">
+            <span class="lk-head">Leak #2 — the middle. People vanish before your offer.</span>
+            <p>This is the one from yesterday, and it's the biggest. Across the funnels I audit, around 72% of registrants never reach the moment you actually pitch. They opted in. They got the confirmation. Some even showed up. Then they left before the part you brought them there for. Their acquisition cost was identical to your buyers'. Their value: zero.</p>
+            <p class="test"><em>Test:</em> Offer-watchers ÷ registrants. Under 30% = leak.</p>
+          </div>
+
+          <div class="leak">
+            <span class="lk-head">Leak #3 — the bottom. Your list is doing nothing.</span>
+            <p>Most founders I audit sit on 20,000–80,000 subscribers — all paid for — and pull 0–5% of revenue from email. A healthy paid funnel does 25–40%. You already paid to acquire these people. They already raised their hands. The cost of email revenue is basically zero, yet most businesses leave 30% of annual revenue on the table because nobody owns the sequences.</p>
+            <p class="test"><em>Test:</em> Last quarter's revenue vs. what's attributed to email. Under 15% = leak.</p>
+          </div>
+
+          <p>Three leaks. Top, middle, bottom. Most funnels I see have two. A surprising number have all three.</p>
+          <p>Now — here's the part that matters. <em>Finding</em> a leak is the easy half. You can do that with the tests above.</p>
+          <p><em>Quantifying</em> it — turning “this looks low” into “this is costing you $217,000 a year” — and then ranking all of them so you know which one to fix first: that's a different job. That's the half that actually moves the revenue line, and it's the half a checklist can't do. (If you want the quantified version of your own numbers without guessing, I built a calculator that does exactly that — about three minutes, free, at <a class="inline" href="https://marishalakhiani.com/calculator">marishalakhiani.com/calculator</a>.)</p>
+          <p>But there's a deeper reason these leaks stay hidden for so long, and it has nothing to do with your skill. It's the thing almost no founder wants to hear about themselves. That's tomorrow.</p>
+          <p class="sign">Marisha</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- EMAIL 3 -->
+    <section id="e3">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Email 03</span><span class="dot"></span><span>Send Day 4</span><span class="dot"></span><span>Inside the Bottle</span></div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">You're the last person who can find them</h3>
+        <p class="alt">Alt: It's not a skill gap. It's a position gap.</p>
+        <div class="body">
+          <p>Yesterday I said there's a reason these leaks stay hidden that has nothing to do with skill.</p>
+          <p>Here it is: you can't read the label from inside the bottle.</p>
+          <p>The founder who built the funnel is almost always the last person who can see what's wrong with it. Not because they're not smart — usually the opposite. Because they're too close. Too attached to the copy they wrote at 1am. Too used to the numbers to notice the one that's quietly wrong. Too buried in the business to see what's right in front of them.</p>
+          <p>This isn't a flaw in you. It's physics. The same thing that makes you good at running the business — being deep inside it — is the exact thing that blinds you to its leaks.</p>
+          <p>Here's what the best operators I know do about it: they don't try to out-discipline the problem. They bring in outside eyes.</p>
+          <p>I run the funnel at Mindvalley. It does over $150M a year. And I <em>still</em> bring in outside experts for the specific things I can't see myself — regularly. Not because I can't do the work. Because I know I can't see my own blind spots, and pretending otherwise is how you leak money for years.</p>
+          <p>Most founders have this backwards. They treat getting audited as something you do when something's <em>wrong</em> — a sign of weakness. It's the opposite. Getting another trained set of eyes on your funnel is what people at the top do precisely <em>because</em> things are mostly working and they want the money hiding in the gaps.</p>
+          <p>So if part of you has been thinking “I should be able to figure this out myself” — let that go. You shouldn't. Nobody can, on their own funnel. That's not the standard. The standard is knowing when to hand it to someone whose entire job is seeing what you can't.</p>
+          <p>Which is the whole idea behind the Revenue Recovery Audit™. I sit with your funnel for 7 business days, find every leak, put a dollar figure on each one, and hand your team a prioritised plan they can run inside 90 days.</p>
+          <p>Tomorrow I'll show you exactly what that looked like for one founder — a real funnel, real numbers, and what three fixes did to her revenue.</p>
+          <p class="sign">Marisha</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- EMAIL 4 -->
+    <section id="e4">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Email 04</span><span class="dot"></span><span>Send Day 5</span><span class="dot"></span><span>The $1.8M Story</span></div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">She was doing $1.8M and couldn't pay herself</h3>
+        <div class="body">
+          <p>I promised you a real one. Here it is.</p>
+          <p>A few months ago a founder came to me running a coaching business at $1.8M a year. On paper, profitable. In reality, barely breaking even. Great offer, beautiful funnel, clean paid traffic, thousands of customers who loved her — and almost no profit.</p>
+          <p>She kept saying the same line: <em>“I'm doing $1.8 million and barely breaking even. I've tried everything. What am I missing?”</em></p>
+          <p>She wanted me to rewrite her VSL. Most consultants would've said yes and started typing. Instead I asked one question: can I run a full audit on your funnel first?</p>
+          <p>In 47 minutes I found three leaks. The same three I've been describing to you all week.</p>
+          <p>Her cost per lead was $84, against a $40–$60 benchmark for her funnel type. Her show-up rate was 23 out of 100, against a benchmark of 40+. And her close rate on the people who <em>did</em> show was 4.2%, when a well-built webinar funnel closes 12–15%.</p>
+          <p>Top, middle, bottom — all draining at once. Her ad spend was eaten alive before anyone arrived, her audience vanished in the middle, and the few who reached the pitch weren't buying.</p>
+          <p>Notice what I did <em>not</em> do: I didn't tell her to rebuild anything. No new agency, no ripping things apart. My team mapped six specific fixes — a registration page rewrite with a clearer mechanism, a confirmation sequence built for anticipation, a restructured pitch with proper future-pacing, a replay sequence for no-shows, application calls for fence-sitters, and a nurture flow for the undecided.</p>
+          <p>Her team executed all six in eight weeks.</p>
+          <p>CPL dropped from $84 to $47. Show-up rate doubled, 23% to 48%. Close rate climbed from 4.2% to 11.3%. Six months later her funnel had gone from $1.8M to $2.5M — $700,000 added to a funnel that, on paper, already worked.</p>
+          <p>The money was always there. It was just leaking out.</p>
+          <p>Here's the lesson, and it's the whole point of every email this week: she didn't have a hundred problems. She had three. She just couldn't see them, because she was inside the bottle.</p>
+          <p>If you've ever looked at your own numbers and felt like there should be more to show for the work — that might be your funnel telling you the same thing hers was.</p>
+          <p>I'm taking 4 audits this cycle. If you want yours found, the application takes about 4 minutes.</p>
+          <p><a class="cta" href="#">Apply for your Revenue Recovery Audit <span class="arw">→</span></a></p>
+          <p class="ps"><strong>PS:</strong> The full leak-by-leak breakdown — every fix, every before-and-after — is at <a class="inline" href="https://marishalakhiani.com/audit">marishalakhiani.com/audit</a>.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- EMAIL 5 -->
+    <section id="e5">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Email 05</span><span class="dot"></span><span>Send Day 7</span><span class="dot"></span><span>The Three Voices</span></div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">The money, the time, or the timing?</h3>
+        <div class="body">
+          <p>If you read the story and felt the math but still haven't applied, you're probably having one of three conversations with yourself. I've heard all of them. Let's take them honestly — and then I'll genuinely leave it with you, because this only works if it's your call.</p>
+          <p><strong>If it's the money</strong> — <em>“that's a real investment before I see results.”</em><br>Fair. So here's the actual structure: the guarantee is $100,000 in recoverable annual revenue, or you don't pay. That's not marketing copy, it's the contract. The only way this costs you anything is if I fail to find revenue already leaking out of your funnel. So the audit doesn't cost you. The leak does. The math: $10K in, $100K guaranteed floor — 10x worst case. The founder from yesterday got $700K on a $1.8M funnel — 70x. The question was never whether $10K is a lot. It's whether 10x is enough.</p>
+          <p><strong>If it's the time</strong> — <em>“I want to, but this is such a busy period.”</em><br>Also fair. Here's everything it asks of you: a 4-minute application (six questions; I review every one personally and reply within 48 hours), a 20–30 minute diagnostic call where you walk away with two specific insights <em>before the audit even starts</em>, and a 90-minute walkthrough once the report's done. That's it — your team runs the fixes from there. So the time question isn't really about time. It's whether you have time to keep leaking revenue while you wait to be less busy.</p>
+          <p><strong>If it's the timing</strong> — <em>“I'll do this once things settle down.”</em><br>The trickiest, because that moment doesn't exist. Founders who wait for the perfect time never run the audit. The ones who run it are mid-launch, mid-mess, mid-everything. The audit doesn't need your funnel clean. It works on the mess. That's the point.</p>
+          <p>So those are the three voices, answered.</p>
+          <p>And now I'll do the thing most sales emails won't: you are completely free to do nothing with this. No pressure from me. If your funnel is doing what you want, ignore all of this with my blessing.</p>
+          <p>But if it isn't — if there's a number you've quietly made peace with that you shouldn't have — the application is below, and it takes 4 minutes.</p>
+          <p><a class="cta" href="#">Apply for your Revenue Recovery Audit <span class="arw">→</span></a></p>
+          <p class="ps"><strong>PS:</strong> The guarantee is in writing. $100,000 recoverable, or you pay nothing.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- EMAIL 6 -->
+    <section id="e6">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Email 06</span><span class="dot"></span><span>Send Day 8</span><span class="dot"></span><span>Final Call</span></div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">Final call — and the last one I'll send</h3>
+        <p class="alt">Alt: Tonight at midnight</p>
+        <div class="body">
+          <p>Tonight at midnight, this round closes.</p>
+          <p>There are 2 slots left of the 4 I take each cycle. After tonight, the next opening is July.</p>
+          <p>This isn't a fake deadline. Four audits a month is genuinely the most I can take without compromising the work — each is 7 business days of my focused attention, and I'd rather fewer founders walk away with real revenue recovered than churn out reports.</p>
+          <p>So here's where you actually are.</p>
+          <p>You've seen the three leaks, and run the tests on your own numbers. You've seen why you can't find them yourself — not a skill gap, a position gap. You've seen what three fixes did for a $1.8M funnel that became a $2.5M one. You've seen the guarantee: $100K recoverable, or you don't pay. And you've answered the three voices about price, time, and timing.</p>
+          <p>If after all of that you still haven't applied, there's only one question left worth asking:</p>
+          <p>Is your funnel doing what it should be? Or is there revenue slipping out of it right now, in the gaps between the steps you already measure?</p>
+          <p>If it's the second one, the moment is now. Not next month. Not July. Now.</p>
+          <p>The application takes 4 minutes. The audit takes 7 business days. The work that comes out of it pays for itself before the quarter closes.</p>
+          <p><a class="cta" href="#">Apply for your Revenue Recovery Audit <span class="arw">→</span></a></p>
+          <p class="ps"><strong>PS:</strong> When this goes out, there are 2 slots left. At midnight, this round is gone and the next founders are in line for July. If you've been waiting for a sign about this round — this is it. It's the last email I'll send.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- NOTES -->
+    <section id="notes" style="border-bottom:none;">
+      <p class="kicker reveal">For Deployment</p>
+      <h2 class="reveal">Notes before this ships</h2>
+      <ul class="notes">
+        <li class="reveal"><strong>Email 1 earns its keep before it teases anything.</strong> The compounding-math demo (80%⁵ = 33%) is the “aha” that proves the invisible-leak thesis with arithmetic they can't argue with, and the drop-off-map exercise gives them something genuinely useful to <em>do</em> — not a test that sets up the pitch. No CTA, no offer. Pure gift.</li>
+        <li class="reveal"><strong>Authority is range, not just scale.</strong> “$150M Mindvalley funnel” (Email 3) proves scale; “built every funnel type, best did $9M in two weeks” (Emails 1 &amp; 2) proves range — and range is what licenses the claim that the same three leaks appear in <em>any</em> funnel. The $9M line lands hardest in Email 2, where you admit the leaks were in your own funnels first.</li>
+        <li class="reveal"><strong>The bridge asset.</strong> Email 2 points to your calculator as the “quantify it” step — a deliberate micro-yes that turns a passive reader into someone who has <em>seen their own dollar figure</em>, which makes Email 4 land harder. If the calculator captures which leak is biggest, you can segment Email 3+ by dominant leak later.</li>
+        <li class="reveal"><strong>Numbers hold across the whole sequence.</strong> The generic framework (Email 2) uses the $25-vs-$10 CPL frame; the case study (Email 4) uses its own client-specific $84 / $40–60 numbers — clearly a different funnel, so no reader catches a contradiction. The “47 minutes” hook is tied only to the diagnostic.</li>
+        <li class="reveal"><strong>What to A/B first.</strong> Subject lines on Email 1 (the open rate sets the tone for the whole sequence) and CTA placement on Email 4 (single CTA after the lesson vs. one mid-email too).</li>
+      </ul>
+    </section>
+
+    <!-- ===================== SEQUENCE 2 ===================== -->
+    <div class="seqdiv reveal" id="seq2">
+      <div class="sd-no">Sequence Two</div>
+      <h2>The Calculator List <em>— Post-Report</em></h2>
+      <p>Three emails for the hotter list that completed the Revenue Leak Calculator and already has a dollar figure. The reframe shifts: a number isn't a plan.</p>
+      <span class="pill">3 emails · Immediate → Day 5</span>
+    </div>
+
+    <!-- STRATEGY 2 -->
+    <section id="strategy2">
+      <p class="kicker reveal">The Architecture</p>
+      <h2 class="reveal">The number is the smoke. The audit finds the fire.</h2>
+      <p class="reveal">This audience is hotter — they entered 11 numbers and have already seen their own dollar figure. So re-selling “you're leaking” is redundant. The new reframe: <strong>a calculator is a tool, and a tool only measures what you point it at.</strong> It found four leaks and priced them. It can't see the mechanics underneath, can't sequence the fixes, and can't see what you're too close to see.</p>
+      <p class="reveal">That single idea — <em>the number is the smoke, the audit finds the fire</em> — runs through all three emails, and it graduates a self-serve calculator into a human audit without ever insulting the tool that brought them in.</p>
+
+      <table class="tbl reveal">
+        <thead>
+          <tr><th>#</th><th>Email</th><th>Job</th><th>Offer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">01</td><td><span class="role">The Report Reaction</span><br>Value + the two-reactions insight + the smoke/fire reframe + a band-specific line.</td><td>Pure value, no pitch.</td><td><span class="tag none">None</span></td></tr>
+          <tr><td class="num">02</td><td><span class="role">A Number Isn't a Plan</span><br>Tool reframe + honour the DIY path + inside-the-bottle + the audit case + authority.</td><td>Soft → clear.</td><td><span class="tag soft">Soft</span></td></tr>
+          <tr><td class="num">03</td><td><span class="role">Even His Funnel Leaked $2.35M</span><br>Case study told value-first, then the close: scarcity + one question.</td><td>Full pitch / close.</td><td><span class="tag full">Close</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="cadence reveal">
+        <b>Suggested cadence</b>
+        Immediate (on completion) · Day 3 · Day 5. Shorter and faster than Sequence One, because this list is already warm.
+      </div>
+    </section>
+
+    <!-- CALC EMAIL 1 -->
+    <section id="c1">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Email 01</span><span class="dot"></span><span>On Completion</span><span class="dot"></span><span>The Report Reaction</span></div>
+        <div class="note-int reveal"><b>Internal</b> &nbsp;Fires on calculator completion. Insert the band-insight line based on the user's score (variants shown in the body).</div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">I saw your numbers come through</h3>
+        <p class="alt">Alt: What your report can't tell you</p>
+        <div class="body">
+          <p>You just gave me 3 minutes and 11 honest answers about your funnel. Thank you. That kind of honesty is rarer than you'd think — and it's the only reason the math works.</p>
+          <p>Your full report is in your inbox (or seconds away). It shows your efficiency score, your leaks ranked by dollar impact, and the single fix that would recover the most.</p>
+          <p>That's the data. Hold onto it — even if you do nothing else, knowing the dollar figure on your biggest leak changes how you look at your funnel for the rest of the quarter.</p>
+          <p>Now here's the part the report itself can't give you — because a calculator can't see the patterns I see across hundreds of these.</p>
+          <p>When founders open their report, they react one of two ways.</p>
+          <p>Some recognise the leaks instantly and feel validated — <em>yep, knew it.</em> That usually means the work is known, just not done.</p>
+          <p>The rest are surprised. The biggest leak is somewhere they weren't even looking, because they'd been pouring their energy somewhere else entirely. This is the more common reaction, and honestly the more valuable one — because the leak you can't see is always the one bleeding the most. If that's you, don't look away from it. That surprise is the most useful thing the report just gave you.</p>
+          <div class="leak">
+            <span class="lk-head">Band insight — insert by score</span>
+            <p><strong>Under 50:</strong> You're in good company — that's where most funnels I audit start, before the leaks get found. A low score isn't a verdict on you. It's an un-audited funnel, and that's the most fixable kind there is.</p>
+            <p><strong>50–79:</strong> The fixable zone. The leaks are clear and so is the path to closing them — this is the band where the right three fixes move the revenue line fastest.</p>
+            <p style="margin-bottom:0;"><strong>80+:</strong> Top 20% of funnels I see. At that level you're not hunting leaks so much as the optimisation that breaks your current ceiling — a subtler, different chase.</p>
+          </div>
+          <p>But here's what a score in any band has in common: a number tells you <em>that</em> you're leaking, and roughly how much. It doesn't tell you <em>why</em>. It doesn't tell you which fix to do first. And it can't tell you the thing you're too close to your own funnel to see.</p>
+          <p>The number is the smoke. In a few days, I'll show you how to find the fire.</p>
+          <p class="sign">Marisha</p>
+          <p class="ps"><strong>PS:</strong> Whatever your number — that surprise leak, the one you weren't looking at — write it down somewhere you'll see it tomorrow. We're going to come back to it.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- CALC EMAIL 2 -->
+    <section id="c2">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Email 02</span><span class="dot"></span><span>Send Day 3</span><span class="dot"></span><span>A Number Isn't a Plan</span></div>
+        <div class="note-int reveal"><b>Internal</b> &nbsp;Written as the under-50 / heavy-leak variant. Lighter-band rewording in the deployment notes.</div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">A number isn't a plan</h3>
+        <p class="alt">Alt: What to do with your leak numbers</p>
+        <div class="body">
+          <p>Three days ago you got your numbers. By now they've had time to settle — and if your score landed low, that settling can feel like a weight. Let me take some of it off.</p>
+          <p>Here's the truth about every Revenue Leak Report, including mine: it's very good at telling you <em>where</em> the money leaks and <em>how much</em>. It's almost useless at telling you what to actually <em>do</em> about it.</p>
+          <p>That's not a flaw in the calculator. It's the nature of a tool. A tool can only measure what you point it at. It saw four leaks and put a dollar figure on each. It did not see the mechanics underneath them — the pitch that's aged out, the recovery sequence that doesn't exist, the order the fixes have to happen in so they compound instead of cancelling each other out. No calculator sees that. And — I'll be straight with you — no founder sees it on their own funnel either. I'll get to why in a second.</p>
+          <p>So from here there are two real paths.</p>
+          <p>The slow one: take the report and run it yourself. Sit with the data, rank the fixes, brief your team, work them one at a time. Plenty of founders go this way and pull it off — and if that's you, I mean it: go do it. The report is yours. You don't need me to act on it.</p>
+          <p>The faster one: let me do the diagnostic in depth, hand your team a prioritised action plan, and have them execute against it. That's the Revenue Recovery Audit.</p>
+          <p>Here's exactly what the Audit adds on top of the number you already have. The calculator gave you four leaks and a dollar figure. The Audit goes asset by asset across your entire funnel, benchmarks each one against what it <em>should</em> be doing, surfaces what to fix first, and quantifies the revenue impact of every fix on its own — so you know which piece of work earns back which amount, and in what order to do them.</p>
+          <p>And the reason an outside read matters isn't that you're not capable. It's position, not skill. You can't read the label from inside the bottle. I run the funnel at Mindvalley — $150M+ a year — and I <em>still</em> bring in outside eyes for the things I can't see on my own work, because being deep inside something is exactly what blinds you to its leaks. I've also built nearly every funnel type there is — tripwires, webinars, challenges, live summits (my best did $9M in two weeks) — which is the only reason I can spot the same patterns across yours.</p>
+          <p>The math is simple: the guarantee is $100,000 in recoverable annual revenue, or you don't pay. So at the floor, you're getting 10x. The way in is a 4-minute application, a 20–30 minute diagnostic call where I give you two specific insights about your funnel live, then the full audit and walkthrough inside 7 business days.</p>
+          <p>Wherever your number landed, the audit picks up exactly where the calculator stopped.</p>
+          <p><a class="cta" href="#">Apply for your Revenue Recovery Audit <span class="arw">→</span></a></p>
+          <p class="ps"><strong>PS:</strong> The guarantee is in writing — $100K recoverable, or you don't pay. The only real constraint is that I cap new audits at 4 a month, so applications are reviewed in the order they arrive.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- CALC EMAIL 3 -->
+    <section id="c3">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Email 03</span><span class="dot"></span><span>Send Day 5</span><span class="dot"></span><span>Case Study + Close</span></div>
+        <div class="note-int reveal"><b>Internal</b> &nbsp;Case study + close. Swap the case by band if you build variants — the 8-figure story is ideal for the 80+ band.</div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">Even his funnel was leaking $2.35M</h3>
+        <p class="alt">Alt: Inside the audit of an 8-figure funnel</p>
+        <div class="body">
+          <p>I want to leave you with one story, because it makes the whole point better than I can.</p>
+          <p>Last month a founder running an 8-figure online education business came to me. From the outside, his funnel was <em>working</em>. CPL of $21 — best-in-class for the category. Healthy attendance. AOV up 15% over the year. On paper, nothing to fix.</p>
+          <p>Except one number was quietly falling. Same-day ROAS on his webinar funnel had dropped 70% over twelve months. Same offer. More ad spend. Less back per dollar. He felt it but couldn't place it.</p>
+          <p>When we ran the audit, the leaks weren't where he'd been looking — they never are.</p>
+          <p>The first wasn't in his traffic. It was in his pitch. The core offer had run unchanged for 18 months, the live-call urgency had stopped being believable, and the close mechanics had simply aged out. Same-day conversion had slid from 4% to under 2%.</p>
+          <p>The second wasn't on the call at all. It was <em>after</em> it. Over 43,000 unconverted registrants and 10,000 unconverted attendees were sitting in his list with no escalating-urgency recovery sequence to win them back. Every webinar dollar was paying to bring people in — then losing them, because nothing closed them once the live event ended.</p>
+          <p>We put a figure on it: $2.35 million in recoverable annual revenue, on the exact ad spend he was already running. The fix path was three changes to the pitch, a 7-day post-webinar sequence with real urgency, and a pricing layer his audience had been asking for. No extra spend. No rebuild.</p>
+          <p>Here's why I'm telling you this. This was a <em>best-in-class</em> funnel. Top-decile CPL. A founder who knew exactly what he was doing. And it was still leaking $2.35M he couldn't see — because he was inside the bottle, staring at the one number that still looked good.</p>
+          <p>Your calculator gave you the smoke: the dollar figure on your leak. The audit finds the fire — the exact mechanics to rebuild, and the order to rebuild them in.</p>
+          <p>So here's where it stands. I take 4 audits a month, no more — each is 7 business days of my full attention, and I'd rather a handful of founders recover real money than churn out reports. Applications are reviewed in the order they arrive, and the guarantee is in writing: $100,000 in recoverable annual revenue, or you don't pay.</p>
+          <p>Then I'll leave it with you, because this only works if it's your call. If your funnel is doing everything you want it to, ignore me with my blessing. But if there's a number in that report you've quietly made peace with — one you know you shouldn't have — the application takes 4 minutes.</p>
+          <p><a class="cta" href="#">Apply for your Revenue Recovery Audit <span class="arw">→</span></a></p>
+          <p class="ps"><strong>PS:</strong> You already did the hard part — you faced your numbers. Most people never do. The only question left is whether you let someone find the rest of what those numbers are hiding.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- NOTES 2 -->
+    <section id="notes2" style="border-bottom:none;">
+      <p class="kicker reveal">For Deployment · Sequence Two</p>
+      <h2 class="reveal">Notes before this ships</h2>
+      <ul class="notes">
+        <li class="reveal"><strong>The spine is “smoke vs. fire.”</strong> Email 1 plants it, Email 2 explains why a tool can't see the fire (it only measures what you point it at), Email 3 pays it off with a real funnel where the fire was invisible. Keep the phrase consistent — it's the one-line reason a self-serve calculator graduates into a human audit, and it never insults the tool that brought them in.</li>
+        <li class="reveal"><strong>The DIY path is now genuinely respected.</strong> The old copy said most founders DIY and “a chunk actually pull it off,” which quietly disparages the slow path. Replaced with real permission (“go do it, the report is yours”). With sophisticated buyers the generous frame converts better — it's the “but you are free” release.</li>
+        <li class="reveal"><strong>Band variants.</strong> Email 1 handles all bands via the inserted line. For <em>50–79</em>, soften Email 2's opening to “you're close — the gap is smaller than it looks” and lead Email 3 with a mid-tier turnaround. For <em>80+</em>, reframe toward ceiling-breaking and keep the 8-figure case (great CPL, hidden $2.35M leak fits perfectly), dropping the “if your score landed low” line.</li>
+        <li class="reveal"><strong>Why the 8-figure case works for everyone.</strong> Its power isn't “struggling founder saved” — it's “even a top-decile funnel was hemorrhaging $2.35M he couldn't see.” Strongest possible proof for a low-band reader (<em>if the winner leaks, I definitely do</em>) and the only proof that lands for a high-band reader (<em>being good isn't the same as being audited</em>).</li>
+        <li class="reveal"><strong>One structural lift.</strong> To squeeze the last fence-sitters, split Email 3 into a Day-5 case study and a short Day-7 final call carrying only the scarcity + one question. Three emails is the disciplined minimum; the dedicated closer is where they move.</li>
+      </ul>
+    </section>
+
+    <!-- ===================== SEQUENCE 3 ===================== -->
+    <div class="seqdiv reveal" id="seq3">
+      <div class="sd-no">Sequence Three</div>
+      <h2>The Disqualified <em>— Door Open</em></h2>
+      <p>Three parallel branches for applicants who don't meet a minimum, routed by which criterion they fail. Not a drip — a single, gracious “not yet” that raises desire instead of burning the relationship.</p>
+      <span class="pill">3 branches · routed by criterion</span>
+    </div>
+
+    <!-- STRATEGY 3 -->
+    <section id="strategy3">
+      <p class="kicker reveal">The Architecture</p>
+      <h2 class="reveal">A “no” that builds more trust than a “yes.”</h2>
+      <p class="reveal">These aren't sales emails, so most of the sales playbook inverts. No urgency, no scarcity, no apply button. The job is to turn someone away in a way that makes the audit <em>more</em> desirable — that's the takeaway effect — while leaving the relationship warm and the door concretely open.</p>
+      <p class="reveal">The most persuasive line in each one is the refusal: <strong>“I'd rather tell you that than take your money.”</strong> It proves the guarantee is real. And every “no” ships with one genuine, stage-specific insight (results in advance), so a rejected founder leaves better off — which is exactly who comes back at the threshold and refers others in the meantime.</p>
+
+      <table class="tbl reveal">
+        <thead>
+          <tr><th>Branch</th><th>Trigger</th><th>The insight it gives away</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">A</td><td><span class="role">Revenue under $1M</span></td><td>The path to $1M is monetising the list you already paid for — not more spend.</td></tr>
+          <tr><td class="num">B</td><td><span class="role">No active paid funnel</span></td><td>Build one funnel before auditing one. Auditing nothing is pointing at empty pipes.</td></tr>
+          <tr><td class="num">C</td><td><span class="role">Ad spend under $5K/mo</span></td><td>Fix the mechanics before scaling — more spend into a leak just leaks faster.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="cadence reveal">
+        <b>Routing</b>
+        If an applicant fails more than one criterion, send the most fundamental: No funnel (B) → Under $1M (A) → Under $5K spend (C). One email only — never stack rejections.
+      </div>
+    </section>
+
+    <!-- BRANCH A -->
+    <section id="d1">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Branch A</span><span class="dot"></span><span>Revenue &lt; $1M</span><span class="dot"></span><span>Door Open</span></div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">About your audit application</h3>
+        <p class="alt">Alt: A straight answer on your application</p>
+        <div class="body">
+          <p>Thanks for putting your funnel in front of me — that takes a bit of nerve, and I don't take it lightly.</p>
+          <p>I read your application properly, so here's the straight version.</p>
+          <p>The Revenue Recovery Audit is built for businesses doing $1M+ a year, and your numbers tell me you're not quite there yet. So today, it's not the right fit — and I'd rather tell you that than take your money.</p>
+          <p>Here's why I hold that line, because it actually matters to you. The audit guarantees $100,000 in recoverable annual revenue, or you don't pay. For that guarantee to be honest, there has to be enough revenue moving through your funnel for $100K of leaks to even exist. Under $1M, the math gets tight and the guarantee stops being a real promise — it becomes marketing. I won't do that to you, and I won't do it to the guarantee.</p>
+          <p>But the door isn't closed. It's just not open <em>yet</em>. When you cross $1M, come back — reply straight to this email, and I'll have your application on file.</p>
+          <p>In the meantime, here's the one thing I'd focus on if I were you. Below $1M, the leak that holds most founders back isn't traffic — it's that they acquire leads faster than they monetise the ones they already have. The fastest path to $1M is almost never more ad spend; it's pulling more revenue out of the list you've already paid for. Run the Revenue Leak Calculator (<a class="inline" href="https://marishalakhiani.com/calculator">marishalakhiani.com/calculator</a> — free, 3 minutes); it'll show you in dollars exactly where that's leaking at your current scale. Treat it as your roadmap to the threshold.</p>
+          <p>Get there. Then let's talk.</p>
+          <p class="sign">Marisha</p>
+          <p class="ps"><strong>PS:</strong> Reply to this the day you cross $1M. I read every one.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- BRANCH B -->
+    <section id="d2">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Branch B</span><span class="dot"></span><span>No active paid funnel</span><span class="dot"></span><span>Door Open</span></div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">Read your application earlier</h3>
+        <p class="alt">Alt: Your application — the honest read</p>
+        <div class="body">
+          <p>Just read your application. Here's the honest read.</p>
+          <p>The Revenue Recovery Audit fixes leaks in an active paid funnel — paid traffic flowing through a structured conversion path, like a webinar, a VSL, or an application funnel. From your application, you don't have that running yet: either the traffic isn't paid, or the structured funnel itself isn't built.</p>
+          <p>That's not a no. It's a “not yet” — and it's a sequence thing, not a you thing. The audit finds money leaking out of an existing funnel. If there's no funnel running, there's nothing to recover — there's something to <em>build</em> first. Auditing a funnel that doesn't exist would just be me pointing at empty pipes and charging you for it.</p>
+          <p>So here's the order I'd go in. Get one paid funnel live, even at modest scale — one offer, one structured path, real paid traffic moving through it. The moment that's running, the audit becomes the highest-leverage thing you can do, because then there's an actual machine to find money inside.</p>
+          <p>When you've got something live, come back — reply right here.</p>
+          <p>In the meantime, the Revenue Leak Calculator (<a class="inline" href="https://marishalakhiani.com/calculator">marishalakhiani.com/calculator</a>) is the diagnostic I built for funnels at every stage. Bookmark it now, and the day your funnel goes live, run your numbers through it before you touch anything else. Free, 3 minutes, the same dollar-quantified breakdown the audit works from — it'll tell you where to look the moment you have something to look at.</p>
+          <p class="sign">Marisha</p>
+          <p class="ps"><strong>PS:</strong> Reply the day your funnel's live. I read every one.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- BRANCH C -->
+    <section id="d3">
+      <article class="email reveal">
+        <div class="meta"><span class="no">Branch C</span><span class="dot"></span><span>Ad spend &lt; $5K/mo</span><span class="dot"></span><span>Door Open</span></div>
+        <div class="subj-label">Subject</div>
+        <h3 class="subj">Regarding your audit application</h3>
+        <p class="alt">Alt: A straight answer on your ad spend</p>
+        <div class="body">
+          <p>Your application came in — let me be straight with you, because you'd want me to be.</p>
+          <p>The Revenue Recovery Audit is built for funnels spending at least $5,000/month on paid ads, and your numbers aren't quite there yet. Which means the math behind the audit doesn't work for your funnel today — and I'd rather say so than pretend otherwise.</p>
+          <p>Here's the why, because it's in your interest. The audit guarantees $100,000 in recoverable annual revenue, or you don't pay. For that to be an honest promise, there has to be enough spend flowing through the funnel for $100K of leaks to live in it. Under $5K/month, your entire ad budget is smaller than the leak I'd need to find — so the guarantee can't hold, and I won't offer one I can't stand behind.</p>
+          <p>But this is a “not yet,” not a no. When your spend scales past $5K/month, come back — reply straight to this email and I'll have your application on file.</p>
+          <p>And one thing worth hearing before you scale: more spend into a leaking funnel just leaks faster. The founders who scale cleanly fix their conversion mechanics <em>first</em>, then pour fuel on. So before you push the budget up, run the Revenue Leak Calculator (<a class="inline" href="https://marishalakhiani.com/calculator">marishalakhiani.com/calculator</a> — free, 3 minutes). It'll show you, in dollars, which leaks to close before you add a single dollar of spend — so when you do hit $5K, you're scaling a funnel that actually holds water.</p>
+          <p>Scale it right. Then let's talk.</p>
+          <p class="sign">Marisha</p>
+          <p class="ps"><strong>PS:</strong> Reply the day your spend crosses $5K/month. I read every one.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- NOTES 3 -->
+    <section id="notes3" style="border-bottom:none;">
+      <p class="kicker reveal">For Deployment · Sequence Three</p>
+      <h2 class="reveal">Notes before this ships</h2>
+      <ul class="notes">
+        <li class="reveal"><strong>The takeaway is the strategy.</strong> The most valuable line in each email is the refusal — “I'd rather tell you than take your money.” It signals the guarantee is real, which makes the audit more desirable, not less. Don't soften it.</li>
+        <li class="reveal"><strong>Every “no” ships with a real insight.</strong> A → monetise the existing list; B → build one funnel before auditing one; C → fix mechanics before scaling spend. These do the relationship work — a rejected founder who got a genuinely useful steer comes back, and refers people.</li>
+        <li class="reveal"><strong>The re-entry trigger is specific and self-serve.</strong> “Reply the day you cross $X” gives them a clean action and you a warm, pre-qualified inbound later. Keep the application-on-file promise real — when they reply, they should be remembered.</li>
+        <li class="reveal"><strong>Asset check.</strong> Bodies offer the Revenue Leak Calculator; the internal note said “Funnel Audit Scorecard.” Pick one consistently — for these applicants the Calculator is the better gift (a quantified roadmap to a threshold, not a yes/no checklist).</li>
+        <li class="reveal"><strong>Scoring source.</strong> The 50 / 79 / 80 bands used in Sequence Two came from your own post-calculator copy, not your calculator's repo — and that copy also referenced an “under 35” cutoff elsewhere. Confirm the real band logic in the tool and align all copy to it.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="rule"></div>
+    <div class="mono">M</div>
+    <p>Marisha Lakhiani · Revenue Recovery Audit™</p>
+  </footer>
+</div>
+
+<script>
+  // scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // active nav highlight
+  const links = [...document.querySelectorAll('nav.jump a')];
+  const map = {};
+  links.forEach(a=>{ const id=a.getAttribute('href').slice(1); const sec=document.getElementById(id); if(sec) map[id]=a; });
+  const spy = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const a = map[e.target.id]; if(a) a.classList.add('active');
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  Object.keys(map).forEach(id=>{ const s=document.getElementById(id); if(s) spy.observe(s); });
+</script>
+</body>
+</html>
