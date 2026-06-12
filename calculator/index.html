@@ -552,6 +552,9 @@
         goTo('results');
 
         // Stage 2: complete webhook — full report generated
+        const email = buildReportEmail();
+        const r = state.results;
+        const topLeak = r.leaks[0];
         postWebhook(ZAPIER_COMPLETE_URL, {
             first_name: state.firstName,
             email: state.email,
@@ -566,6 +569,16 @@
             offer_price: state.universal.offerPrice,
             monthly_revenue: state.universal.revenue,
             ...state.specific,
+            overall_score: r.overall,
+            band: r.band,
+            band_label: r.bandLabel,
+            total_leak_annual: r.totalLeak,
+            ninety_day_low: r.ninetyDayLow,
+            ninety_day_high: r.ninetyDayHigh,
+            top_leak_name: topLeak.name,
+            top_leak_amount: topLeak.amount,
+            report_subject: email.subject,
+            report_html: email.html,
             submitted_at: new Date().toISOString()
         });
     }
@@ -1042,6 +1055,85 @@
         return '$' + Math.round(n).toLocaleString('en-US');
     }
 
+    function buildReportEmail() {
+        const r = state.results;
+        const funnelName = funnelLabels[state.funnelType];
+        const firstName = state.firstName;
+        const topLeak = r.leaks[0];
+        const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const stripTags = (s) => (s || '').replace(/<[^>]+>/g, '');
+
+        const dailyLeak = formatCurrency(Math.round(r.totalLeak / 365));
+        const weeklyLeak = formatCurrency(Math.round(r.totalLeak / 52));
+        const annualLeak = formatCurrency(r.totalLeak);
+
+        // Band-aware framing
+        let subject, openingHero, openingSub, blindspot, decisionFrame;
+        if (r.band === 'hemorrhaging') {
+            subject = `${firstName}, you're hemorrhaging ${annualLeak} a year`;
+            openingHero = `${annualLeak} a year is walking out of your funnel.`;
+            openingSub = `That's <strong>${dailyLeak} every single day</strong>. Today. Tomorrow. While you're reading this. While you sleep. The bleed doesn't stop because you're not looking.`;
+            blindspot = `You haven't seen this until now because your dashboard tells you a friendly story: revenue is up, leads are up, growth is happening. All true. But growth and leakage aren't the same thing — you can grow ${annualLeak}/year and still leave ${annualLeak} on the table. Most founders never look at the second number.`;
+            decisionFrame = `Two paths from here. Keep paying the leak — ${weeklyLeak} a week, forever. Or fix it once.`;
+        } else if (r.band === 'leaking') {
+            subject = `${firstName}, you're losing ${annualLeak} a year you don't have to`;
+            openingHero = `There's a ${annualLeak} leak in your funnel.`;
+            openingSub = `That's <strong>${dailyLeak} a day</strong>. Or ${weeklyLeak} a week. Or ${annualLeak} a year you could have spent on the hire you can't justify, the launch budget that mysteriously disappears every quarter, or the Q4 number you missed by exactly this much.`;
+            blindspot = `The reason you haven't fixed this yet is that nothing's on fire. The funnel works. Revenue's growing. But "working" and "compounding" are two different things — and the gap between them is this number.`;
+            decisionFrame = `Two options. Keep paying ${weeklyLeak} a week to a leak you now know about. Or close it.`;
+        } else {
+            subject = `${firstName}, ${annualLeak}/yr is still walking out — and it's fixable`;
+            openingHero = `Your funnel is well-built. And it's still leaking ${annualLeak} a year.`;
+            openingSub = `That's <strong>${dailyLeak} a day</strong> you could be reinvesting into the next ad test, the next hire, the next launch. At your level, the leaks aren't structural — they're concentrated. Which is exactly why fixing them compounds harder than anything else you could do this quarter.`;
+            blindspot = `The reason you haven't moved on this is that it's not breaking anything. Everything works. But "works" and "compounds" are different — and the gap between them is this number.`;
+            decisionFrame = `You don't have to fix this. The funnel will keep producing. But every quarter you don't, ${formatCurrency(Math.round(r.totalLeak/4))} that should be compounding into your next move… isn't.`;
+        }
+
+        const html = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${subject}</title></head>
+<body style="margin:0;padding:0;background:#f5f3ef;font-family:Georgia,'Times New Roman',serif;color:#222222;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f3ef;"><tr><td align="center" style="padding:32px 16px;">
+<table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border-radius:4px;overflow:hidden;">
+<tr><td style="background:#6B1F3D;padding:20px 32px;"><p style="color:#ffffff;margin:0;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;font-weight:600;font-family:Helvetica,Arial,sans-serif;">Revenue Leak Report · ${dateStr}</p></td></tr>
+<tr><td style="padding:40px 32px 8px;">
+<p style="font-size:15px;color:#666;margin:0 0 28px;">${firstName},</p>
+<h1 style="font-size:30px;line-height:1.2;font-weight:400;margin:0 0 20px;color:#222;letter-spacing:-0.01em;">${openingHero}</h1>
+<p style="font-size:16px;line-height:1.65;color:#333;margin:0 0 32px;">${openingSub}</p>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 32px;"><tr><td style="background:#f5f3ef;padding:22px 26px;border-left:3px solid #6B1F3D;">
+<p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 8px;font-weight:600;font-family:Helvetica,Arial,sans-serif;">Your Funnel Score</p>
+<p style="font-size:30px;margin:0 0 4px;color:#6B1F3D;font-weight:700;font-family:Helvetica,Arial,sans-serif;line-height:1;">${r.overall}/100 <span style="font-size:13px;color:#666;text-transform:uppercase;letter-spacing:0.15em;font-weight:500;">— ${r.bandLabel}</span></p>
+<p style="font-size:12px;color:#888;margin:6px 0 0;font-family:Helvetica,Arial,sans-serif;">${funnelName} · benchmarked vs. $1B+ in client revenue</p>
+</td></tr></table>
+<p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 10px;font-weight:600;font-family:Helvetica,Arial,sans-serif;">Why you haven't seen this</p>
+<p style="font-size:15px;line-height:1.7;color:#333;margin:0 0 32px;">${blindspot}</p>
+<p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 10px;font-weight:600;font-family:Helvetica,Arial,sans-serif;">Your biggest leak</p>
+<h2 style="font-size:22px;font-weight:600;margin:0 0 12px;color:#6B1F3D;line-height:1.3;">${topLeak.name} — ${formatCurrency(topLeak.amount)}/yr</h2>
+<p style="font-size:15px;line-height:1.7;color:#333;margin:0 0 20px;">${stripTags(topLeak.whatsHappening)}</p>
+<p style="font-size:15px;line-height:1.7;color:#333;margin:0 0 32px;">And here's what makes it worse: <strong>this leak compounds</strong>. Every month you don't fix it, you're not just losing this month's money — you're losing the reinvestment you'd have made with it. The ads you can't run. The team you can't grow. The next funnel you can't fund. By next year at this time, the cost of inaction won't be ${annualLeak}. It'll be ${annualLeak} <em>plus everything that money would have built</em>.</p>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 36px;"><tr><td style="background:#fff8f0;padding:26px;border:1px solid #f0e5d0;">
+<p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 8px;font-weight:600;font-family:Helvetica,Arial,sans-serif;">90-Day Recovery Window</p>
+<p style="font-size:26px;margin:0 0 6px;color:#6B1F3D;font-weight:700;font-family:Helvetica,Arial,sans-serif;line-height:1.1;">${formatCurrency(r.ninetyDayLow)} – ${formatCurrency(r.ninetyDayHigh)}</p>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0;">Not a forecast. This is what's recoverable across funnels with your exact leak pattern, based on benchmarks from $1B+ of audited revenue. Top two leaks first — that's where 80% of the recovery comes from.</p>
+</td></tr></table>
+<p style="font-size:15px;line-height:1.7;color:#222;margin:0 0 28px;font-style:italic;">${decisionFrame}</p>
+<table cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px;"><tr><td style="background:#6B1F3D;border-radius:2px;">
+<a href="https://marishalakhiani.com/apply/?utm_source=calculator_email&utm_medium=email&utm_campaign=leak_report" style="display:inline-block;padding:16px 30px;color:#ffffff;text-decoration:none;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;font-family:Helvetica,Arial,sans-serif;">Apply for an Audit →</a>
+</td></tr></table>
+<p style="font-size:14px;color:#333;line-height:1.6;margin:0 0 6px;"><strong>$100K in recoverable revenue guaranteed — or you don't pay.</strong></p>
+<p style="font-size:11px;color:#999;letter-spacing:0.15em;text-transform:uppercase;margin:0 0 32px;font-family:Helvetica,Arial,sans-serif;">Only 4 spots per month.</p>
+</td></tr>
+<tr><td style="padding:24px 32px 32px;border-top:1px solid #eee;">
+<p style="font-size:14px;color:#333;margin:0 0 4px;font-style:italic;">— Marisha Lakhiani</p>
+<p style="font-size:12px;color:#888;margin:0;font-family:Helvetica,Arial,sans-serif;">Revenue Recovery · scaled Mindvalley $30M → $150M · <a href="https://marishalakhiani.com" style="color:#888;text-decoration:underline;">marishalakhiani.com</a></p>
+</td></tr>
+</table>
+<p style="font-size:11px;color:#999;margin:16px 0 0;line-height:1.5;font-family:Helvetica,Arial,sans-serif;">Report generated ${dateStr} from the inputs you provided. Figures are estimates benchmarked against $1B+ of client revenue — not a forecast.</p>
+</td></tr></table>
+</body></html>`;
+
+        return { subject, html };
+    }
+
     function renderResults() {
         const r = state.results;
         const funnelName = funnelLabels[state.funnelType];
@@ -1223,7 +1315,7 @@
                 </div>
 
                 <div class="text-center mt-12">
-                    <p class="text-sm text-gray-500 mb-3">A copy of this report has been sent to <strong>${state.email}</strong>.</p>
+                    <p class="text-sm text-gray-500 mb-3">A copy of this report has been sent to <strong>${state.email}</strong>. Check spam if it's not in your inbox within 5 minutes.</p>
                     <button onclick="restart()" class="text-xs uppercase tracking-[0.15em] font-semibold text-bordeaux border-b border-bordeaux pb-1 hover:opacity-70 transition-opacity">Start Over ↻</button>
                 </div>
             </div>
