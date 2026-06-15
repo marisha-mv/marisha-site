@@ -76,41 +76,16 @@
             transform: translate(-4px, 4px);
         }
 
-        .video-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            box-shadow: 20px 20px 0 0 rgba(201, 166, 107, 0.25);
+        .hero-image-link {
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .video-container:hover {
-            box-shadow: 12px 12px 0 0 rgba(201, 166, 107, 0.25);
+        .hero-image-link img {
+            transition: box-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .hero-image-link:hover img {
+            box-shadow: 12px 12px 0 0 rgba(201, 166, 107, 0.25) !important;
             transform: translate(4px, 4px);
         }
-        .video-placeholder {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-            color: #fff;
-        }
-        .play-button {
-            width: 80px;
-            height: 80px;
-            background: #6b1f3d;
-            border: 1px solid #c9a66b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .play-button:hover { transform: scale(1.08); background: #c9a66b; border-color: #c9a66b; }
-        .play-button svg { width: 28px; height: 28px; margin-left: 4px; }
 
         input[type="text"], input[type="email"], input[type="number"], select, textarea {
             width: 100%;
@@ -195,7 +170,7 @@
         @media (max-width: 768px) {
             h1 { font-size: 2.25rem !important; }
             h2 { font-size: 1.75rem !important; }
-            .video-container { box-shadow: 10px 10px 0 0 rgba(201, 166, 107, 0.25); }
+            .hero-image-link img { box-shadow: 10px 10px 0 0 rgba(201, 166, 107, 0.25) !important; }
             .offset-shadow-bordeaux { box-shadow: -10px 10px 0 0 rgba(107, 31, 61, 0.12); }
         }
     </style>
@@ -223,27 +198,20 @@
     <section class="px-6 lg:px-16 pb-16 lg:pb-24">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-10 lg:mb-14 fade-in">
-                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Free Training · 10 Minutes</p>
                 <h1 class="text-4xl lg:text-6xl leading-[1.05] mb-6">
                     Your funnel is leaking <span class="text-bordeaux italic">$100K+/year.</span><br>
                     I'll show you exactly where.
                 </h1>
                 <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                    In this 10-minute breakdown, I walk through the 3 universal leaks I find in every funnel audit — and the methodology I use to quantify them in dollars.
+                    The Revenue Recovery Audit™ quantifies every leak in dollars and hands you a prioritised fix list — or you don't pay.
                 </p>
             </div>
 
-            <div class="video-container mb-8 fade-in">
-                <div class="video-placeholder">
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-                    </div>
-                    <p class="mt-6 text-gray-400 text-[10px] uppercase tracking-[0.25em]">Video coming soon</p>
-                </div>
-            </div>
+            <a href="#application-form" class="block hero-image-link mb-8 fade-in" aria-label="Apply for the Revenue Recovery Audit">
+                <img src="../apply-hero.jpg" alt="Revenue Recovery Audit — $100,000 in recoverable revenue guaranteed, or you pay nothing." class="w-full h-auto block" style="box-shadow: 20px 20px 0 0 rgba(201, 166, 107, 0.25); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);" loading="eager">
+            </a>
 
             <div class="text-center">
-                <p class="text-gray-500 text-sm mb-4">No email required. Watch the full training above.</p>
                 <a href="#application-form" class="inline-block text-xs uppercase tracking-[0.2em] font-semibold text-bordeaux border-b border-bordeaux pb-1 hover:opacity-70 transition-opacity">Or apply for the audit below ↓</a>
             </div>
         </div>
@@ -275,7 +243,7 @@
             <h2 class="text-3xl lg:text-5xl mb-10 leading-tight">You don't have a traffic problem.<br><span class="text-bordeaux italic">You have a leak problem.</span></h2>
             <div class="space-y-5 text-base lg:text-lg text-gray-700 leading-relaxed max-w-3xl">
                 <p>You're running a funnel that makes money. But when you actually map the numbers from ad impression → sale, every step is quietly bleeding — and the total is always bigger than founders expect.</p>
-                <p>The Revenue Recovery Audit™ is for founders doing <strong>$1M–$150M a year</strong> with an active paid funnel and $5K+/month in ad spend. I tear your funnel apart across five diagnostic layers, quantify every leak in dollars, and hand you a prioritised fix list ranked by revenue impact.</p>
+                <p>The Revenue Recovery Audit™ is for founders doing <strong>$1M–$150M a year</strong> with an active paid funnel and $20K+/month in ad spend. I tear your funnel apart across five diagnostic layers, quantify every leak in dollars, and hand you a prioritised fix list ranked by revenue impact.</p>
                 <p>If you've tried hiring agencies, redesigning pages, and raising ad spend — and nothing moved the needle — it's because you don't have a traffic problem. You have a leak problem. And the leaks are fixable once you can see them.</p>
             </div>
         </div>
@@ -684,7 +652,7 @@
                 <p class="text-base lg:text-lg text-gray-600 mb-6">Everything I need to see if we're a fit. Qualified applicants book a call instantly.</p>
                 <div class="bg-cream-dark border-l-2 border-gold pl-5 py-3">
                     <p class="text-[11px] uppercase tracking-[0.2em] text-gold font-semibold mb-1">Who it's for</p>
-                    <p class="text-sm lg:text-base text-gray-800">$1M–$150M founders with an active paid funnel and $5K+/month in ad spend.</p>
+                    <p class="text-sm lg:text-base text-gray-800">$1M–$150M founders with an active paid funnel and $20K+/month in ad spend.</p>
                 </div>
             </div>
 
@@ -750,6 +718,7 @@
                         <select name="ad_spend" id="f_ad_spend" required>
                             <option value="" disabled selected>Select ad spend</option>
                             <option value="under-20k">Under $20K/month</option>
+                            <option value="20k-50k">$20K – $50K/month</option>
                             <option value="50k-100k">$50K – $100K/month</option>
                             <option value="100k-500k">$100K – $500K/month</option>
                             <option value="500k-plus">$500K+/month</option>
