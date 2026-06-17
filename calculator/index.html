@@ -389,9 +389,12 @@
         application: 'Application'
     };
 
-    // Zapier webhook endpoints
+    // Zapier webhook endpoints (CRM / analytics)
     const ZAPIER_PARTIAL_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw9xa8/';
     const ZAPIER_COMPLETE_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw53fw/';
+
+    // Direct SMTP email endpoint (Titan via Vercel function)
+    const SEND_REPORT_URL = 'https://marisha-email-api.vercel.app/api/send-report';
 
     const state = {
         current: 'intro',
@@ -421,6 +424,17 @@
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
+            }).catch(() => {});
+        } catch (err) { /* swallow */ }
+    }
+
+    function sendReportEmail({ to, subject, html }) {
+        if (!to || !subject || !html) return;
+        try {
+            fetch(SEND_REPORT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ to, subject, html })
             }).catch(() => {});
         } catch (err) { /* swallow */ }
     }
@@ -551,10 +565,17 @@
         renderResults();
         goTo('results');
 
-        // Stage 2: complete webhook — full report generated
+        // Stage 2: complete — fire report email directly + send analytics webhook
         const email = buildReportEmail();
         const r = state.results;
         const topLeak = r.leaks[0];
+
+        sendReportEmail({
+            to: state.email,
+            subject: email.subject,
+            html: email.html
+        });
+
         postWebhook(ZAPIER_COMPLETE_URL, {
             first_name: state.firstName,
             email: state.email,

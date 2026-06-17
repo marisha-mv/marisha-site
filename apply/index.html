@@ -1025,6 +1025,13 @@
             else if (data.ad_spend === 'under-20k') disqualReason = 'ad-spend';
             else if (data.annual_revenue === 'under-1m') disqualReason = 'revenue';
 
+            // Map URL-slug disqual reasons to Omnisend tag names
+            const disqualOmnisendTag = {
+                'no-funnel': 'rra_disqualified_no_funnel',
+                'ad-spend': 'rra_disqualified_adspend',
+                'revenue': 'rra_disqualified_revenue'
+            };
+
             const basePayload = {
                 first_name: data.first_name,
                 email: data.email,
@@ -1045,7 +1052,7 @@
                 postWebhook(ZAPIER_DISQUALIFIED_URL, {
                     ...basePayload,
                     submission_type: 'disqualified',
-                    disqual_reason: disqualReason
+                    disqual_reason: disqualOmnisendTag[disqualReason]
                 });
                 window.location.href = 'not-yet/?reason=' + disqualReason;
             } else {
