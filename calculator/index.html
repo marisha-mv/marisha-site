@@ -86,7 +86,7 @@
         .tile.selected .tile-icon { color: #c9a66b; }
         .tile.selected .tile-desc { color: rgba(255,255,255,0.7); }
 
-        input[type="number"], input[type="email"] {
+        input[type="number"], input[type="email"], input[type="text"], select.calc-select {
             width: 100%;
             font-size: 1.125rem;
             padding: 1rem 1.25rem;
@@ -96,10 +96,19 @@
             font-family: inherit;
             color: #1a1a1a;
         }
-        input[type="number"]:focus, input[type="email"]:focus {
+        input[type="number"]:focus, input[type="email"]:focus, input[type="text"]:focus, select.calc-select:focus {
             outline: none;
             border-color: #6b1f3d;
             box-shadow: 0 0 0 3px rgba(107, 31, 61, 0.1);
+        }
+        /* USD fields: enough left padding that the $ prefix never touches digits or cursor */
+        input.money-input { padding-left: 2.5rem !important; }
+        select.calc-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236b1f3d' stroke-width='1.5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.25rem center;
+            cursor: pointer;
         }
         input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -156,63 +165,95 @@
     <main class="flex-1 flex items-start">
         <div class="w-full max-w-3xl mx-auto px-6 lg:px-16 py-12 lg:py-20">
 
-            <!-- SCREEN 1: INTRO -->
+            <!-- SCREEN 1: LANDING (Part D — works for cold visitors, proof high on page) -->
             <section id="screen-intro" class="screen active fade-in-calc">
-                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Free Revenue Leak Calculator</p>
-                <h1 class="text-4xl lg:text-6xl mb-6 leading-tight">See exactly where your funnel is<br><span class="text-bordeaux italic">losing money.</span></h1>
-                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10 max-w-2xl">
-                    Answer 11 questions about your funnel. I'll show you—in dollars—where revenue is leaking, score your efficiency, and tell you which fix recovers the most first.
-                </p>
-
-                <div class="grid md:grid-cols-3 gap-6 mb-12">
-                    <div class="border-l-2 border-gold pl-5">
-                        <p class="text-2xl font-bold mb-1">3 min</p>
-                        <p class="text-xs uppercase tracking-[0.15em] text-gray-500">Completion time</p>
+                <div class="grid lg:grid-cols-5 gap-10 lg:gap-14 items-center mb-14">
+                    <div class="lg:col-span-3">
+                        <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Free Revenue Leak Calculator</p>
+                        <h1 class="text-4xl lg:text-5xl mb-6 leading-tight">Your funnel is leaking money right now. <span class="text-bordeaux italic">In about 3 minutes, I'll show you exactly where.</span></h1>
+                        <p class="text-base lg:text-lg text-gray-600 leading-relaxed mb-10">
+                            I'm Marisha Lakhiani, Chief Growth Officer at Mindvalley. After auditing more than 100 funnels, I've learned exactly where the costliest leaks hide. So I built this calculator to find yours. Just answer a few quick questions, and you'll get your funnel scored out of 100, your four biggest leaks measured in dollars, and the highest-impact fixes to make first.
+                        </p>
+                        <button onclick="goTo('start')" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Show Me My Leak Report →</button>
+                        <p class="text-xs text-gray-500 mt-6">Takes 3 minutes · Costs $0 · No credit card required</p>
                     </div>
-                    <div class="border-l-2 border-gold pl-5">
-                        <p class="text-2xl font-bold mb-1">$0</p>
-                        <p class="text-xs uppercase tracking-[0.15em] text-gray-500">Cost</p>
-                    </div>
-                    <div class="border-l-2 border-gold pl-5">
-                        <p class="text-2xl font-bold mb-1">4 leaks</p>
-                        <p class="text-xs uppercase tracking-[0.15em] text-gray-500">Diagnosed</p>
+                    <div class="lg:col-span-2 hidden lg:block">
+                        <img src="../marisha-hero.jpg" alt="Marisha Lakhiani" class="w-full object-cover" style="aspect-ratio: 4/5; object-position: top;">
                     </div>
                 </div>
 
-                <button onclick="goTo('start')" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Start Calculator →</button>
-                <p class="text-xs text-gray-500 mt-6">Based on benchmarks from $1B+ in client revenue. Takes about 4 minutes.</p>
+                <div class="border-t border-b border-bordeaux/10 py-8 mb-12">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold text-center mb-5">You might have seen me on</p>
+                    <p class="text-sm text-gray-600 text-center leading-relaxed max-w-3xl mx-auto">CBS · NBC · FOX · Tatler · Google Leading with AI · Meta Marketing Summit · Semrush Academy · Ad World · Affiliate World · Affiliate Summit · Global Marketing Day · Women in Tech · The Goal Digger Podcast · Selling with Love · Gulf Magazine · GOSS Magazine · CXL</p>
+                </div>
+
+                <div class="mb-12">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold text-center mb-8">My track record</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div>
+                            <p class="text-3xl lg:text-4xl text-bordeaux mb-2" style="font-family: 'Bodoni Moda', serif;">100+</p>
+                            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold">Funnels audited</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl lg:text-4xl text-bordeaux mb-2" style="font-family: 'Bodoni Moda', serif;">$1B+</p>
+                            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold">Generated for clients</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl lg:text-4xl text-bordeaux mb-2" style="font-family: 'Bodoni Moda', serif;">$120M+</p>
+                            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold">Added to Mindvalley's revenue</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl lg:text-4xl text-bordeaux mb-2" style="font-family: 'Bodoni Moda', serif;">40–50%</p>
+                            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold">Year-on-year growth, delivered</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cream-dark p-10 text-center">
+                    <p class="text-lg lg:text-xl leading-relaxed mb-2" style="font-family: 'Bodoni Moda', serif;">That's what I've delivered for others. Now let's see how much revenue we can recover from your funnel.</p>
+                    <p class="text-lg lg:text-xl text-gold italic mb-8" style="font-family: 'Bodoni Moda', serif;">Finding out is free.</p>
+                    <button onclick="goTo('start')" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Show Me My Leak Report →</button>
+                </div>
             </section>
 
             <!-- SCREEN 1B: NAME + EMAIL (entry point — fires partial webhook) -->
             <section id="screen-start" class="screen">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Step 1 of 4</p>
-                <h2 class="text-3xl lg:text-4xl mb-4">Where should I send your report?</h2>
-                <p class="text-gray-600 mb-10">Quick details first, then 10 questions. The full calculator takes about 4 minutes.</p>
+                <h2 class="text-3xl lg:text-4xl mb-4">Let's find out how much your funnel is leaking.</h2>
+                <p class="text-gray-600 mb-10">Enter your name and email, and I'll show you exactly where the money's flowing out, and how to get it back.</p>
 
-                <div class="space-y-6 mb-10 max-w-md">
+                <div class="space-y-6 mb-4 max-w-md">
                     <div>
                         <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">First name</label>
                         <input type="text" id="q_firstName" placeholder="Your first name" required>
                     </div>
                     <div>
-                        <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Email address</label>
+                        <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Email</label>
                         <input type="email" id="q_email" placeholder="you@company.com" required>
+                        <p class="text-sm text-gray-500 mt-3">Your report will be sent straight to this email the moment you finish.</p>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-6">
+                <div class="flex items-center gap-6 mt-10">
                     <button onclick="goTo('intro')" class="text-sm uppercase tracking-[0.15em] font-semibold text-gray-600 hover:text-bordeaux transition-colors">← Back</button>
                     <button onclick="submitStart()" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Continue →</button>
                 </div>
                 <p id="start-error" class="text-sm text-bordeaux mt-4 hidden">Please enter your first name and a valid email address.</p>
-                <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 mt-6 font-semibold">No spam · Unsubscribe any time</p>
+                <p class="text-xs text-gray-400 italic mt-6">*By continuing, you'll also join my Marketing Mastery Newsletter.</p>
+            </section>
+
+            <!-- SPLASH 1: TRANSITION AFTER NAME + EMAIL -->
+            <section id="screen-splash1" class="screen">
+                <div class="text-center py-16 lg:py-24 max-w-xl mx-auto">
+                    <div class="w-12 h-12 rounded-full bg-bordeaux/10 text-bordeaux flex items-center justify-center mx-auto mb-10 text-lg">✓</div>
+                    <p class="text-2xl lg:text-3xl leading-relaxed mb-10" style="font-family: 'Bodoni Moda', serif;" id="splash1-body">Perfect. A few quick questions, and then I'll have everything I need to show you exactly where your funnel's leaking. You'll get the full report right here and a copy in your inbox.</p>
+                    <button onclick="goTo('funnel-type')" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Continue →</button>
+                </div>
             </section>
 
             <!-- SCREEN 2: FUNNEL TYPE -->
             <section id="screen-funnel-type" class="screen">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Step 2 of 4</p>
                 <h2 class="text-3xl lg:text-4xl mb-4">What kind of funnel are you running?</h2>
-                <p class="text-gray-600 mb-10">Pick the primary one. The rest of the questions will be tailored to match.</p>
+                <p class="text-gray-600 mb-10">Pick the one that makes you the most money, and I'll tailor the rest of the questions to it.</p>
 
                 <div class="grid md:grid-cols-2 gap-4">
                     <button class="tile border border-gray-300 p-6 text-left" data-funnel="webinar" onclick="selectFunnel(this, 'webinar')">
@@ -243,38 +284,50 @@
                 </div>
             </section>
 
+            <!-- SPLASH 2: THE THREE LEAK POINTS (per funnel) -->
+            <section id="screen-splash2" class="screen">
+                <div class="text-center py-16 lg:py-24 max-w-xl mx-auto">
+                    <p class="text-2xl lg:text-3xl leading-relaxed mb-10" style="font-family: 'Bodoni Moda', serif;" id="splash2-body"></p>
+                    <button onclick="goTo('universal')" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Continue →</button>
+                </div>
+            </section>
+
             <!-- SCREEN 3: UNIVERSAL QUESTIONS -->
             <section id="screen-universal" class="screen">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Step 3 of 4</p>
-                <h2 class="text-3xl lg:text-4xl mb-4">The numbers.</h2>
-                <p class="text-gray-600 mb-10">Best estimates are fine. The more accurate, the better the report.</p>
+                <h2 class="text-3xl lg:text-4xl mb-4">Walk me through your baseline numbers.</h2>
+                <p class="text-gray-600 mb-10">Fill in the details below. Rough estimates are fine. But the more accurate they are, the more precise your report will come out.</p>
 
-                <div class="space-y-6 mb-10">
+                <div class="space-y-6 mb-8">
                     <div>
                         <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Monthly ad spend (USD)</label>
                         <div class="relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">$</span>
-                            <input type="number" id="q_adSpend" placeholder="10000" class="pl-8" min="0">
+                            <input type="text" inputmode="numeric" data-thousands="1" id="q_adSpend" placeholder="Across all platforms" class="money-input" min="0">
                         </div>
                     </div>
                     <div>
                         <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Leads per month</label>
-                        <input type="number" id="q_leads" placeholder="500" min="0">
+                        <input type="text" inputmode="numeric" data-thousands="1" id="q_leads" placeholder="New leads only" min="0">
                     </div>
                     <div>
                         <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Offer price (USD)</label>
                         <div class="relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">$</span>
-                            <input type="number" id="q_offerPrice" placeholder="2000" class="pl-8" min="1">
+                            <input type="text" inputmode="numeric" data-thousands="1" id="q_offerPrice" placeholder="Your core offer" class="money-input" min="1">
                         </div>
                     </div>
                     <div>
                         <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">Current monthly revenue (USD)</label>
                         <div class="relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">$</span>
-                            <input type="number" id="q_revenue" placeholder="50000" class="pl-8" min="0">
+                            <input type="text" inputmode="numeric" data-thousands="1" id="q_revenue" placeholder="From this funnel" class="money-input" min="0">
                         </div>
                     </div>
+                </div>
+
+                <div class="leak-meter hidden bg-cream-dark border-l-2 border-gold p-6 mb-8">
+                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-2">Leak detected so far</p>
+                    <p class="text-3xl lg:text-4xl font-bold text-bordeaux"><span class="leak-meter-value">$0</span> <span class="text-sm text-gray-500 font-normal italic">/ year, and counting</span></p>
                 </div>
 
                 <div class="flex items-center gap-6">
@@ -284,19 +337,43 @@
                 <p id="universal-error" class="text-sm text-bordeaux mt-4 hidden">Please fill all four fields with realistic numbers.</p>
             </section>
 
+            <!-- SPLASH 3: THE CPL REVEAL (conditional: leak vs bright-spot) -->
+            <section id="screen-splash3" class="screen">
+                <div class="text-center py-16 lg:py-24 max-w-xl mx-auto">
+                    <p class="text-[11px] tracking-[0.3em] uppercase font-semibold mb-8" id="splash3-eyebrow"></p>
+                    <p class="text-2xl lg:text-3xl leading-relaxed mb-10" style="font-family: 'Bodoni Moda', serif;" id="splash3-body"></p>
+                    <button onclick="goTo('specific')" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Continue →</button>
+                </div>
+            </section>
+
             <!-- SCREEN 4: SPECIFIC QUESTIONS -->
             <section id="screen-specific" class="screen">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Step 4 of 4</p>
-                <h2 class="text-3xl lg:text-4xl mb-4" id="specific-title">The specifics.</h2>
-                <p class="text-gray-600 mb-10" id="specific-subtitle">Last round. These are the metrics that reveal where you're leaking.</p>
+                <h2 class="text-3xl lg:text-4xl mb-4" id="specific-title">The last few things I need.</h2>
+                <p class="text-gray-600 mb-10" id="specific-subtitle"></p>
 
-                <div id="specific-fields" class="space-y-6 mb-10"></div>
+                <div id="specific-fields" class="space-y-6 mb-8"></div>
+
+                <div class="leak-meter hidden bg-cream-dark border-l-2 border-gold p-6 mb-8">
+                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-2">Leak detected so far</p>
+                    <p class="text-3xl lg:text-4xl font-bold text-bordeaux"><span class="leak-meter-value">$0</span> <span class="text-sm text-gray-500 font-normal italic">/ year, and counting</span></p>
+                </div>
 
                 <div class="flex items-center gap-6">
                     <button onclick="goTo('universal')" class="text-sm uppercase tracking-[0.15em] font-semibold text-gray-600 hover:text-bordeaux transition-colors">← Back</button>
                     <button onclick="submitSpecific()" class="btn-primary bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">See My Report →</button>
                 </div>
                 <p id="specific-error" class="text-sm text-bordeaux mt-4 hidden">Please fill all fields.</p>
+            </section>
+
+            <!-- LOADING BEAT: total climbs, then the report opens -->
+            <section id="screen-loading" class="screen">
+                <div class="text-center py-20 lg:py-32 max-w-xl mx-auto">
+                    <p class="text-xl lg:text-2xl mb-4" style="font-family: 'Bodoni Moda', serif;">Your funnel is leaking</p>
+                    <p class="text-5xl lg:text-7xl font-bold text-bordeaux mb-3" style="font-family: 'Bodoni Moda', serif;" id="loading-total">$0</p>
+                    <p class="text-xl lg:text-2xl italic text-gray-600 mb-12" style="font-family: 'Bodoni Moda', serif;">a year</p>
+                    <p class="text-sm font-semibold text-gray-700 mb-6">Sit tight, your full report's on its way.</p>
+                    <p class="text-2xl text-bordeaux tracking-[0.3em]">•••</p>
+                </div>
             </section>
 
             <!-- SCREEN 5: RESULTS -->
@@ -308,76 +385,68 @@
     </main>
 
     <footer class="bg-black text-gray-500 py-8 px-6 lg:px-16 text-center text-xs">
-        <p>© 2025 Marisha Lakhiani. All Rights Reserved.</p>
+        <p>© <span id="footer-year">2026</span> Marisha Lakhiani. All Rights Reserved.</p>
     </footer>
 
     <script>
     // Question data + benchmarks (tuned from $1B+ in client revenue per Marisha's reference band)
     const funnelQuestions = {
         webinar: {
-            title: 'Your webinar specifics.',
-            subtitle: "Six metrics. We're looking for drop-offs and conversion gaps.",
+            splashLeakPoints: 'Good choice. A live webinar funnel can leak in three places: the room, the pitch, and the follow-up. Let’s find out which one is costing you the most.',
+            cplPhrase: 'a webinar funnel',
             questions: [
-                { id: 'registrations', label: 'Registrations per webinar', placeholder: '250' },
-                { id: 'showup', label: 'Show-up rate', placeholder: '40', suffix: '%' },
-                { id: 'closeRate', label: 'Close rate on attendees', placeholder: '10', suffix: '%' },
-                { id: 'avgWatchMin', label: 'Average watch time (minutes)', placeholder: '45' },
-                { id: 'followupEmails', label: 'Post-webinar email sequence length (# emails)', placeholder: '3' },
-                { id: 'followupCallPct', label: '% of attendees who get a follow-up call', placeholder: '0', suffix: '%' },
+                { id: 'registrations', label: 'How many register each month?', placeholder: 'All your webinars combined', format: 'thousands' },
+                { id: 'showup', label: "What's your show-up rate?", placeholder: '', suffix: '%' },
+                { id: 'closeRate', label: "What's your close rate on attendees?", placeholder: '', suffix: '%' },
+                { id: 'followupEmails', label: 'How long is your post-webinar sequence?', placeholder: 'How many emails' },
             ],
-            benchmarks: { cpl: 15, showup: 50, closeRate: 15, avgWatchMin: 60, followupEmails: 7, followupCallPct: 20 }
+            benchmarks: { cpl: 15, showup: 50, closeRate: 15, followupEmails: 7 }
         },
         evergreen: {
-            title: 'Your evergreen specifics.',
-            subtitle: "Six metrics. We're looking for conversion and nurture gaps.",
+            splashLeakPoints: 'Good choice. An evergreen funnel can leak in three places: your opt-in, your offer, and your follow-up. Let’s find out which one is costing you the most.',
+            cplPhrase: 'an evergreen funnel',
             questions: [
-                { id: 'optinRate', label: 'Landing page opt-in rate', placeholder: '25', suffix: '%' },
-                { id: 'watchRate', label: 'Watch rate on the video', placeholder: '30', suffix: '%' },
-                { id: 'conversionRate', label: 'Conversion rate to sale', placeholder: '2', suffix: '%' },
-                { id: 'followupEmails', label: 'Number of follow-up emails', placeholder: '5' },
-                { id: 'openRate', label: 'Average email open rate', placeholder: '25', suffix: '%' },
-                { id: 'longTermNurturePct', label: '% of non-buyers who get long-term nurture', placeholder: '20', suffix: '%' },
+                { id: 'optinRate', label: "What's your opt-in rate?", placeholder: '', suffix: '%' },
+                { id: 'conversionRate', label: 'How many opt-ins go on to buy?', placeholder: 'A rough percentage is fine', suffix: '%' },
+                { id: 'followupEmails', label: 'How long is your follow-up sequence?', placeholder: 'How many emails' },
+                { id: 'longTermNurturePct', label: 'How many non-buyers do you keep following up with?', placeholder: 'A rough percentage is fine', suffix: '%' },
             ],
-            benchmarks: { cpl: 20, optinRate: 40, watchRate: 50, conversionRate: 4, followupEmails: 10, openRate: 35, longTermNurturePct: 80 }
+            benchmarks: { cpl: 20, optinRate: 40, conversionRate: 4, followupEmails: 10, longTermNurturePct: 80 }
         },
         vsl: {
-            title: 'Your VSL specifics.',
-            subtitle: "Six metrics. We're looking for where viewers drop off and why carts abandon.",
+            splashLeakPoints: 'Good choice. A VSL funnel can leak in three places: your landing page, your checkout, and your follow-up. Let’s find out which one is costing you the most.',
+            cplPhrase: 'a VSL funnel',
             questions: [
-                { id: 'lpConversion', label: 'Landing page conversion (to VSL)', placeholder: '30', suffix: '%' },
-                { id: 'vslWatchthrough', label: 'VSL watch-through rate', placeholder: '25', suffix: '%' },
-                { id: 'ctaClickRate', label: 'CTA click-through to checkout', placeholder: '4', suffix: '%' },
-                { id: 'checkoutCompletion', label: 'Checkout completion rate', placeholder: '50', suffix: '%' },
-                { id: 'abandonEmails', label: 'Cart abandonment email sequence length', placeholder: '3' },
-                { id: 'upsellPresent', label: 'Do you have an upsell/downsell? (1 = yes, 0 = no)', placeholder: '0' },
+                { id: 'lpConversion', label: "What's your landing page conversion rate?", placeholder: '', suffix: '%' },
+                { id: 'checkoutCompletion', label: "What's your checkout completion rate?", placeholder: '', suffix: '%' },
+                { id: 'abandonEmails', label: 'How long is your abandonment sequence?', placeholder: 'How many emails' },
+                { id: 'upsellPresent', label: 'Do you have an upsell or downsell?', type: 'select', options: [{ value: '1', label: 'Yes' }, { value: '0', label: 'No' }] },
             ],
-            benchmarks: { cpl: 25, lpConversion: 45, vslWatchthrough: 40, ctaClickRate: 8, checkoutCompletion: 75, abandonEmails: 5, upsellPresent: 1 }
+            benchmarks: { cpl: 25, lpConversion: 45, checkoutCompletion: 75, abandonEmails: 5, upsellPresent: 1 }
         },
         challenge: {
-            title: 'Your challenge specifics.',
-            subtitle: "Six metrics. We're looking for completion drop-off and post-challenge conversion.",
+            splashLeakPoints: 'Good choice. A challenge funnel can leak in three places: the daily sessions, the close, and the follow-up. Let’s find out which one is costing you the most.',
+            cplPhrase: 'a challenge funnel',
             questions: [
-                { id: 'optinRate', label: 'Opt-in rate to challenge', placeholder: '30', suffix: '%' },
-                { id: 'completionRate', label: '% of registrants who complete the challenge', placeholder: '25', suffix: '%' },
-                { id: 'closeRate', label: 'Conversion rate at close event', placeholder: '5', suffix: '%' },
-                { id: 'challengeEmails', label: 'Avg emails during challenge', placeholder: '7' },
-                { id: 'postChallengeEmails', label: 'Post-challenge sales sequence length (# emails)', placeholder: '3' },
-                { id: 'reengagePct', label: '% of non-buyers re-engaged in next 90 days', placeholder: '10', suffix: '%' },
+                { id: 'optinRate', label: "What's your opt-in rate?", placeholder: '', suffix: '%' },
+                { id: 'completionRate', label: 'How many sign-ups complete the challenge?', placeholder: 'A rough percentage is fine', suffix: '%' },
+                { id: 'closeRate', label: "What's your close rate at the event?", placeholder: '', suffix: '%' },
+                { id: 'postChallengeEmails', label: 'How long is your post-challenge sequence?', placeholder: 'How many emails' },
+                { id: 'reengagePct', label: 'How many non-buyers do you re-engage afterward?', placeholder: 'A rough percentage is fine', suffix: '%' },
             ],
-            benchmarks: { cpl: 10, optinRate: 45, completionRate: 40, closeRate: 8, challengeEmails: 10, postChallengeEmails: 7, reengagePct: 50 }
+            benchmarks: { cpl: 10, optinRate: 45, completionRate: 40, closeRate: 8, postChallengeEmails: 7, reengagePct: 50 }
         },
         application: {
-            title: 'Your application-funnel specifics.',
-            subtitle: "Six metrics. We're looking for application drop-off, call show rate, and nurture.",
+            splashLeakPoints: 'Good choice. A high-ticket sales funnel can leak in three places: the application, the sales call, and the follow-up. Let’s find out which one is costing you the most.',
+            cplPhrase: 'a high-ticket sales funnel',
             questions: [
-                { id: 'appCompletion', label: 'Application form completion rate', placeholder: '40', suffix: '%' },
-                { id: 'bookRate', label: '% of applicants who book a call', placeholder: '50', suffix: '%' },
-                { id: 'showupRate', label: 'Show-up rate on sales call', placeholder: '60', suffix: '%' },
-                { id: 'closeRate', label: 'Close rate on show-ups', placeholder: '20', suffix: '%' },
-                { id: 'cycleDays', label: 'Avg sales cycle (days from application → close)', placeholder: '14' },
-                { id: 'nurturePct', label: '% of non-buyers added to nurture', placeholder: '30', suffix: '%' },
+                { id: 'appCompletion', label: 'Of those who start, how many finish your application?', placeholder: 'A rough percentage is fine', suffix: '%' },
+                { id: 'bookRate', label: 'How many applicants book a call?', placeholder: 'A rough percentage is fine', suffix: '%' },
+                { id: 'showupRate', label: "What's your show-up rate on calls?", placeholder: '', suffix: '%' },
+                { id: 'closeRate', label: "What's your close rate on calls?", placeholder: '', suffix: '%' },
+                { id: 'nurturePct', label: 'How many non-buyers do you keep following up with?', placeholder: 'A rough percentage is fine', suffix: '%' },
             ],
-            benchmarks: { cpl: 75, appCompletion: 60, bookRate: 70, showupRate: 70, closeRate: 30, cycleDays: 7, nurturePct: 90 }
+            benchmarks: { cpl: 75, appCompletion: 60, bookRate: 70, showupRate: 70, closeRate: 30, nurturePct: 90 }
         }
     };
 
@@ -404,6 +473,7 @@
         universal: {},
         specific: {},
         results: null,
+        runningLeak: 0,
         utm: { utm_source: '', utm_medium: '', utm_campaign: '' }
     };
 
@@ -415,6 +485,106 @@
             if (v) state.utm[key] = v;
         });
     })();
+
+    // Read a field's numeric value; strips comma formatting. Returns null when empty/invalid.
+    function numericValue(el) {
+        if (!el) return null;
+        const raw = String(el.value).replace(/,/g, '').trim();
+        if (raw === '' || isNaN(parseFloat(raw))) return null;
+        return parseFloat(raw);
+    }
+
+    // Live thousands separators on large-number fields (5000000 → 5,000,000)
+    function attachThousandsFormatting(scope) {
+        (scope || document).querySelectorAll('input[data-thousands]').forEach(el => {
+            if (el.dataset.thousandsBound) return;
+            el.dataset.thousandsBound = '1';
+            el.addEventListener('input', () => {
+                const digits = el.value.replace(/[^\d]/g, '');
+                el.value = digits ? Number(digits).toLocaleString('en-US') : '';
+            });
+        });
+    }
+
+    function formatFullCurrency(n) {
+        return '$' + Math.round(n).toLocaleString('en-US');
+    }
+
+    // Running leak meter: a live subtotal of the same math calculate() finishes.
+    // Only components whose inputs exist are included; never shows $0.
+    function computePartialLeak() {
+        const bench = state.funnelType ? funnelQuestions[state.funnelType].benchmarks : null;
+        if (!bench) return 0;
+
+        const adSpend = numericValue(document.getElementById('q_adSpend'));
+        const leads = numericValue(document.getElementById('q_leads'));
+        const offerPrice = numericValue(document.getElementById('q_offerPrice'));
+        const revenue = numericValue(document.getElementById('q_revenue'));
+
+        let total = 0;
+
+        // CPL waste — computable as soon as ad spend + leads exist
+        if (adSpend !== null && leads !== null && leads > 0) {
+            const actualCPL = adSpend / leads;
+            total += Math.round(Math.max(0, actualCPL - bench.cpl) * leads * 12);
+        }
+
+        const sv = (id) => numericValue(document.getElementById('qs_' + id));
+
+        // Engagement gap
+        if (revenue !== null) {
+            let engField = null, engBench = null;
+            if (state.funnelType === 'webinar') { engField = sv('showup'); engBench = bench.showup; }
+            else if (state.funnelType === 'evergreen') { engField = sv('optinRate'); engBench = bench.optinRate; }
+            else if (state.funnelType === 'vsl') { engField = sv('lpConversion'); engBench = bench.lpConversion; }
+            else if (state.funnelType === 'challenge') { engField = sv('completionRate'); engBench = bench.completionRate; }
+            else if (state.funnelType === 'application') { engField = sv('appCompletion'); engBench = bench.appCompletion; }
+            if (engField !== null) {
+                const gapPct = Math.min(Math.max(0, (engBench - engField) / engBench), 0.8);
+                total += Math.round(gapPct * revenue * 12);
+            }
+
+            // Close gap
+            let closeField = null, closeBench = null;
+            if (state.funnelType === 'webinar' || state.funnelType === 'challenge' || state.funnelType === 'application') { closeField = sv('closeRate'); closeBench = bench.closeRate; }
+            else if (state.funnelType === 'evergreen') { closeField = sv('conversionRate'); closeBench = bench.conversionRate; }
+            else if (state.funnelType === 'vsl') { closeField = sv('checkoutCompletion'); closeBench = bench.checkoutCompletion; }
+            if (closeField !== null) {
+                const gapPct = Math.min(Math.max(0, (closeBench - closeField) / closeBench), 0.8);
+                total += Math.round(gapPct * revenue * 12);
+            }
+        }
+
+        // Sequence gap — needs leads, offer price, revenue plus the sequence fields
+        if (leads !== null && offerPrice !== null && offerPrice > 0 && revenue !== null) {
+            let seqScore = null;
+            if (state.funnelType === 'webinar' && sv('followupEmails') !== null) seqScore = Math.min(1, sv('followupEmails') / bench.followupEmails);
+            else if (state.funnelType === 'evergreen' && sv('followupEmails') !== null && sv('longTermNurturePct') !== null) seqScore = Math.min(1, ((sv('followupEmails') / bench.followupEmails) + (sv('longTermNurturePct') / bench.longTermNurturePct)) / 2);
+            else if (state.funnelType === 'vsl' && sv('abandonEmails') !== null) seqScore = Math.min(1, sv('abandonEmails') / bench.abandonEmails);
+            else if (state.funnelType === 'challenge' && sv('postChallengeEmails') !== null && sv('reengagePct') !== null) seqScore = Math.min(1, ((sv('postChallengeEmails') / bench.postChallengeEmails) + (sv('reengagePct') / bench.reengagePct)) / 2);
+            else if (state.funnelType === 'application' && sv('nurturePct') !== null) seqScore = Math.min(1, sv('nurturePct') / bench.nurturePct);
+            if (seqScore !== null) {
+                const monthlyBuyers = Math.max(0, revenue / offerPrice);
+                const nonBuyersPerMonth = Math.max(0, leads - monthlyBuyers);
+                total += Math.round((1 - seqScore) * nonBuyersPerMonth * offerPrice * 0.05 * 12);
+            }
+        }
+
+        return total;
+    }
+
+    function updateLeakMeter() {
+        const total = computePartialLeak();
+        state.runningLeak = total;
+        document.querySelectorAll('.leak-meter').forEach(box => {
+            if (total > 0) {
+                box.classList.remove('hidden');
+                box.querySelector('.leak-meter-value').textContent = formatFullCurrency(total);
+            } else {
+                box.classList.add('hidden');
+            }
+        });
+    }
 
     function postWebhook(url, payload) {
         if (!url) return;
@@ -458,22 +628,26 @@
         const wrapper = document.getElementById('progress-wrapper');
         const fill = document.getElementById('progress-fill');
         const label = document.getElementById('progress-label');
-        const steps = { 'intro': 0, 'start': 1, 'funnel-type': 2, 'universal': 3, 'specific': 4, 'results': 5 };
-        const stepLabels = {
-            'intro': '',
-            'start': 'Step 1 of 4',
-            'funnel-type': 'Step 2 of 4',
-            'universal': 'Step 3 of 4',
-            'specific': 'Step 4 of 4',
-            'results': 'Complete'
+        // The bar spreads across all seven screens before the report, splashes included (Part E)
+        const progressMap = {
+            'intro': null,
+            'start': { pct: 14, label: 'Step 1 of 4' },
+            'splash1': { pct: 28, label: 'Getting started' },
+            'funnel-type': { pct: 42, label: 'Step 2 of 4' },
+            'splash2': { pct: 55, label: 'Halfway there' },
+            'universal': { pct: 70, label: 'Step 3 of 4' },
+            'splash3': { pct: 85, label: 'Almost there' },
+            'specific': { pct: 100, label: 'Step 4 of 4' },
+            'loading': { pct: 100, label: 'Building your report' },
+            'results': { pct: 100, label: 'Complete' }
         };
-        const step = steps[state.current] || 0;
-        if (step === 0) {
+        const p = progressMap[state.current];
+        if (!p) {
             wrapper.classList.add('hidden');
         } else {
             wrapper.classList.remove('hidden');
-            fill.style.width = (step / 5 * 100) + '%';
-            label.textContent = stepLabels[state.current];
+            fill.style.width = p.pct + '%';
+            label.textContent = p.label;
         }
     }
 
@@ -499,24 +673,27 @@
             submitted_at: new Date().toISOString()
         });
 
-        goTo('funnel-type');
+        document.getElementById('splash1-body').textContent = `Perfect, ${firstName}. A few quick questions, and then I'll have everything I need to show you exactly where your funnel's leaking. You'll get the full report right here and a copy in your inbox.`;
+        goTo('splash1');
     }
 
     function selectFunnel(el, type) {
         state.funnelType = type;
         document.querySelectorAll('.tile').forEach(t => t.classList.remove('selected'));
         el.classList.add('selected');
+        document.getElementById('splash2-body').textContent = funnelQuestions[type].splashLeakPoints;
         setTimeout(() => {
             renderSpecificFields();
-            goTo('universal');
+            updateLeakMeter();
+            goTo('splash2');
         }, 350);
     }
 
     function submitUniversal() {
-        const adSpend = parseFloat(document.getElementById('q_adSpend').value);
-        const leads = parseFloat(document.getElementById('q_leads').value);
-        const offerPrice = parseFloat(document.getElementById('q_offerPrice').value);
-        const revenue = parseFloat(document.getElementById('q_revenue').value);
+        const adSpend = numericValue(document.getElementById('q_adSpend'));
+        const leads = numericValue(document.getElementById('q_leads'));
+        const offerPrice = numericValue(document.getElementById('q_offerPrice'));
+        const revenue = numericValue(document.getElementById('q_revenue'));
         const err = document.getElementById('universal-error');
 
         if (!(adSpend >= 0) || !(leads > 0) || !(offerPrice > 0) || !(revenue >= 0)) {
@@ -525,26 +702,63 @@
         }
         err.classList.add('hidden');
         state.universal = { adSpend, leads, offerPrice, revenue };
-        goTo('specific');
+
+        // Splash 3 — the CPL reveal. Branches on this funnel's benchmark.
+        const bench = funnelQuestions[state.funnelType].benchmarks;
+        const phrase = funnelQuestions[state.funnelType].cplPhrase;
+        const actualCPL = adSpend / leads;
+        const cplDisplay = actualCPL >= 10 ? '$' + Math.round(actualCPL).toLocaleString('en-US') : '$' + actualCPL.toFixed(2);
+        const eyebrow = document.getElementById('splash3-eyebrow');
+        const body = document.getElementById('splash3-body');
+        if (actualCPL > bench.cpl) {
+            const cplWasteAnnual = Math.round((actualCPL - bench.cpl) * leads * 12);
+            eyebrow.textContent = 'Found your first leak';
+            eyebrow.className = 'text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 text-gold';
+            body.innerHTML = `At ${cplDisplay} a lead, your cost per lead is running higher than ${phrase} should, and that gap alone is costing you <span class="text-bordeaux font-semibold">${formatFullCurrency(cplWasteAnnual)} a year</span>. Now let's check the rest of your funnel and find what else is leaking.`;
+        } else {
+            eyebrow.textContent = 'Good news first';
+            eyebrow.className = 'text-[11px] tracking-[0.3em] uppercase font-semibold mb-8 text-green-700';
+            body.innerHTML = `At ${cplDisplay} a lead, your cost per lead is <span class="text-green-700">right where ${phrase} should be</span>. Now let's find where the money's actually leaking.`;
+        }
+        updateLeakMeter();
+        goTo('splash3');
     }
 
     function renderSpecificFields() {
         const data = funnelQuestions[state.funnelType];
-        document.getElementById('specific-title').textContent = data.title;
-        document.getElementById('specific-subtitle').textContent = data.subtitle;
+        const funnelWord = data.cplPhrase.replace(/^an? /, '');
+        document.getElementById('specific-title').textContent = 'The last few things I need.';
+        document.getElementById('specific-subtitle').textContent = `These last few details tell me where the money's leaking out of your ${funnelWord}. Answer them and your report's ready.`;
         const container = document.getElementById('specific-fields');
         container.innerHTML = data.questions.map(q => {
+            if (q.type === 'select') {
+                return `
+                <div>
+                    <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">${q.label}</label>
+                    <select id="qs_${q.id}" class="calc-select">
+                        <option value="" disabled selected>Select…</option>
+                        ${q.options.map(o => `<option value="${o.value}">${o.label}</option>`).join('')}
+                    </select>
+                </div>
+                `;
+            }
             const suffix = q.suffix ? `<span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">${q.suffix}</span>` : '';
+            const isThousands = q.format === 'thousands';
             return `
                 <div>
                     <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-3 text-gray-700">${q.label}</label>
                     <div class="relative">
-                        <input type="number" id="qs_${q.id}" placeholder="${q.placeholder}" min="0" ${q.suffix ? 'class="pr-10"' : ''}>
+                        <input type="${isThousands ? 'text' : 'number'}" ${isThousands ? 'inputmode="numeric" data-thousands="1"' : ''} id="qs_${q.id}" placeholder="${q.placeholder}" min="0" ${q.suffix ? 'class="pr-10"' : ''}>
                         ${suffix}
                     </div>
                 </div>
             `;
         }).join('');
+        container.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('input', updateLeakMeter);
+            el.addEventListener('change', updateLeakMeter);
+        });
+        attachThousandsFormatting(container);
     }
 
     function submitSpecific() {
@@ -552,9 +766,9 @@
         const answers = {};
         let missing = 0;
         data.questions.forEach(q => {
-            const v = document.getElementById('qs_' + q.id).value;
-            if (v === '' || isNaN(parseFloat(v))) missing++;
-            else answers[q.id] = parseFloat(v);
+            const v = numericValue(document.getElementById('qs_' + q.id));
+            if (v === null) missing++;
+            else answers[q.id] = v;
         });
         const err = document.getElementById('specific-error');
         if (missing > 0) { err.classList.remove('hidden'); return; }
@@ -562,8 +776,7 @@
         state.specific = answers;
 
         calculate();
-        renderResults();
-        goTo('results');
+        showLoadingBeat();
 
         // Stage 2: complete — fire report email directly + send analytics webhook
         const email = buildReportEmail();
@@ -602,6 +815,26 @@
             report_html: email.html,
             submitted_at: new Date().toISOString()
         });
+    }
+
+    // The number climbs from the running meter value to the final total, locks, then the report opens.
+    function showLoadingBeat() {
+        const target = state.results.totalLeak;
+        const start = Math.min(state.runningLeak || 0, target);
+        const el = document.getElementById('loading-total');
+        el.textContent = formatFullCurrency(start);
+        goTo('loading');
+
+        const duration = 2200;
+        const t0 = performance.now();
+        function tick(now) {
+            const p = Math.min((now - t0) / duration, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = formatFullCurrency(start + (target - start) * eased);
+            if (p < 1) requestAnimationFrame(tick);
+            else setTimeout(() => { renderResults(); goTo('results'); }, 900);
+        }
+        requestAnimationFrame(tick);
     }
 
     function calculate() {
@@ -722,7 +955,7 @@
                     const missing = Math.round((specific.registrations || 0) * (bench.showup - specific.showup) / 100);
                     return {
                         current: specific.showup + '% show-up', benchmark: bench.showup + '% show-up', gap: gap + '% below benchmark',
-                        whatsHappening: `Only <strong>${specific.showup}%</strong> of your registrants are attending live. Benchmark for live webinars is ${bench.showup}%. That's roughly <strong>${missing} people per session</strong> who signed up to hear your pitch and never showed.`,
+                        whatsHappening: `Only <strong>${specific.showup}%</strong> of your registrants are attending live. Benchmark for live webinars is ${bench.showup}%. That's roughly <strong>${missing.toLocaleString('en-US')} people per month</strong> who signed up to hear your pitch and never showed.`,
                         whyItMatters: `The most expensive lead in any funnel is the one you paid to acquire, paid to register, and then never saw at the pitch. These aren't cold traffic — they raised their hand. Recovering a percentage of them costs almost nothing compared to acquiring new leads, which is why pre-webinar sequence is the highest-ROI fix in webinar funnels.`,
                         howToFix: `<strong>1. Rebuild your pre-webinar sequence.</strong> Most funnels send 1–2 reminders. What works: 5–7 touches from registration → session. Mix value-loaded content (a pre-read, a case study) with reminders and a "what you'll learn" teaser.<br><br><strong>2. Add an SMS 15 minutes before start.</strong> SMS show-up lift is 20–30% on top of email alone. Use Twilio or SimpleTexting.<br><br><strong>3. Send a "running late?" email the moment the session begins.</strong> With a one-click rejoin link. Catches the "forgot" segment in real time.<br><br>Show rate typically jumps 15–25 points within one webinar cycle.`,
                         timeline: '30 days', difficulty: 'Easy', isHealthy: false
@@ -978,12 +1211,15 @@
             rows.push({ metric: 'LP Conversion', yours: specific.lpConversion + '%', benchmark: bench.lpConversion + '%', status: pctStatus(specific.lpConversion, bench.lpConversion) });
             rows.push({ metric: 'Checkout Completion', yours: specific.checkoutCompletion + '%', benchmark: bench.checkoutCompletion + '%', status: pctStatus(specific.checkoutCompletion, bench.checkoutCompletion) });
             rows.push({ metric: 'Abandonment Sequence', yours: specific.abandonEmails, benchmark: bench.abandonEmails + '+', status: pctStatus(specific.abandonEmails, bench.abandonEmails) });
+            rows.push({ metric: 'Upsell / Downsell', yours: specific.upsellPresent ? 'Yes' : 'No', benchmark: 'Yes', status: specific.upsellPresent ? 'green' : 'red' });
         } else if (funnelType === 'challenge') {
             rows.push({ metric: 'Completion Rate', yours: specific.completionRate + '%', benchmark: bench.completionRate + '%', status: pctStatus(specific.completionRate, bench.completionRate) });
             rows.push({ metric: 'Close Rate (at event)', yours: specific.closeRate + '%', benchmark: bench.closeRate + '%', status: pctStatus(specific.closeRate, bench.closeRate) });
             rows.push({ metric: 'Post-Challenge Sequence', yours: specific.postChallengeEmails, benchmark: bench.postChallengeEmails + '+', status: pctStatus(specific.postChallengeEmails, bench.postChallengeEmails) });
         } else if (funnelType === 'application') {
             rows.push({ metric: 'App Completion', yours: specific.appCompletion + '%', benchmark: bench.appCompletion + '%', status: pctStatus(specific.appCompletion, bench.appCompletion) });
+            rows.push({ metric: 'Call Booking Rate', yours: specific.bookRate + '%', benchmark: bench.bookRate + '%', status: pctStatus(specific.bookRate, bench.bookRate) });
+            rows.push({ metric: 'Call Show-up Rate', yours: specific.showupRate + '%', benchmark: bench.showupRate + '%', status: pctStatus(specific.showupRate, bench.showupRate) });
             rows.push({ metric: 'Close Rate (on shows)', yours: specific.closeRate + '%', benchmark: bench.closeRate + '%', status: pctStatus(specific.closeRate, bench.closeRate) });
             rows.push({ metric: 'Non-Buyer Nurture', yours: specific.nurturePct + '%', benchmark: bench.nurturePct + '%+', status: pctStatus(specific.nurturePct, bench.nurturePct) });
         }
@@ -1033,6 +1269,9 @@
 
     function getThirtyDayActions(leaks, funnelType) {
         const actions = [];
+        if (funnelType === 'vsl' && !state.specific.upsellPresent) {
+            actions.push({ title: 'Add a post-purchase upsell', detail: "You have no upsell or downsell. A one-click post-purchase offer typically lifts average order value 20–30% with zero extra ad spend — it's the cheapest revenue in your funnel." });
+        }
         const topLeaks = leaks.filter(l => l.amount > 0).slice(0, 3);
         topLeaks.forEach(leak => {
             if (leak.name === 'CPL Waste') {
@@ -1110,46 +1349,27 @@
             decisionFrame = `You don't have to fix this. The funnel will keep producing. But every quarter you don't, ${formatCurrency(Math.round(r.totalLeak/4))} that should be compounding into your next move… isn't.`;
         }
 
+        // Plain personal-letter HTML on purpose: no colored bars, boxes, or button
+        // tables — heavy design is what gets one-to-one mail filed under Promotions.
         const html = `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${subject}</title></head>
-<body style="margin:0;padding:0;background:#f5f3ef;font-family:Georgia,'Times New Roman',serif;color:#222222;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f3ef;"><tr><td align="center" style="padding:32px 16px;">
-<table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border-radius:4px;overflow:hidden;">
-<tr><td style="background:#6B1F3D;padding:20px 32px;"><p style="color:#ffffff;margin:0;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;font-weight:600;font-family:Helvetica,Arial,sans-serif;">Revenue Leak Report · ${dateStr}</p></td></tr>
-<tr><td style="padding:40px 32px 8px;">
-<p style="font-size:15px;color:#666;margin:0 0 28px;">${firstName},</p>
-<h1 style="font-size:30px;line-height:1.2;font-weight:400;margin:0 0 20px;color:#222;letter-spacing:-0.01em;">${openingHero}</h1>
-<p style="font-size:16px;line-height:1.65;color:#333;margin:0 0 32px;">${openingSub}</p>
-<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 32px;"><tr><td style="background:#f5f3ef;padding:22px 26px;border-left:3px solid #6B1F3D;">
-<p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 8px;font-weight:600;font-family:Helvetica,Arial,sans-serif;">Your Funnel Score</p>
-<p style="font-size:30px;margin:0 0 4px;color:#6B1F3D;font-weight:700;font-family:Helvetica,Arial,sans-serif;line-height:1;">${r.overall}/100 <span style="font-size:13px;color:#666;text-transform:uppercase;letter-spacing:0.15em;font-weight:500;">— ${r.bandLabel}</span></p>
-<p style="font-size:12px;color:#888;margin:6px 0 0;font-family:Helvetica,Arial,sans-serif;">${funnelName} · benchmarked vs. $1B+ in client revenue</p>
-</td></tr></table>
-<p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 10px;font-weight:600;font-family:Helvetica,Arial,sans-serif;">Why you haven't seen this</p>
-<p style="font-size:15px;line-height:1.7;color:#333;margin:0 0 32px;">${blindspot}</p>
-<p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 10px;font-weight:600;font-family:Helvetica,Arial,sans-serif;">Your biggest leak</p>
-<h2 style="font-size:22px;font-weight:600;margin:0 0 12px;color:#6B1F3D;line-height:1.3;">${topLeak.name} — ${formatCurrency(topLeak.amount)}/yr</h2>
-<p style="font-size:15px;line-height:1.7;color:#333;margin:0 0 20px;">${stripTags(topLeak.whatsHappening)}</p>
-<p style="font-size:15px;line-height:1.7;color:#333;margin:0 0 32px;">And here's what makes it worse: <strong>this leak compounds</strong>. Every month you don't fix it, you're not just losing this month's money — you're losing the reinvestment you'd have made with it. The ads you can't run. The team you can't grow. The next funnel you can't fund. By next year at this time, the cost of inaction won't be ${annualLeak}. It'll be ${annualLeak} <em>plus everything that money would have built</em>.</p>
-<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 36px;"><tr><td style="background:#fff8f0;padding:26px;border:1px solid #f0e5d0;">
-<p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 8px;font-weight:600;font-family:Helvetica,Arial,sans-serif;">90-Day Recovery Window</p>
-<p style="font-size:26px;margin:0 0 6px;color:#6B1F3D;font-weight:700;font-family:Helvetica,Arial,sans-serif;line-height:1.1;">${formatCurrency(r.ninetyDayLow)} – ${formatCurrency(r.ninetyDayHigh)}</p>
-<p style="font-size:13px;color:#555;line-height:1.6;margin:0;">Not a forecast. This is what's recoverable across funnels with your exact leak pattern, based on benchmarks from $1B+ of audited revenue. Top two leaks first — that's where 80% of the recovery comes from.</p>
-</td></tr></table>
-<p style="font-size:15px;line-height:1.7;color:#222;margin:0 0 28px;font-style:italic;">${decisionFrame}</p>
-<table cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px;"><tr><td style="background:#6B1F3D;border-radius:2px;">
-<a href="https://marishalakhiani.com/apply/?utm_source=calculator_email&utm_medium=email&utm_campaign=leak_report" style="display:inline-block;padding:16px 30px;color:#ffffff;text-decoration:none;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;font-family:Helvetica,Arial,sans-serif;">Apply for an Audit →</a>
-</td></tr></table>
-<p style="font-size:14px;color:#333;line-height:1.6;margin:0 0 6px;"><strong>$100K in recoverable revenue guaranteed — or you don't pay.</strong></p>
-<p style="font-size:11px;color:#999;letter-spacing:0.15em;text-transform:uppercase;margin:0 0 32px;font-family:Helvetica,Arial,sans-serif;">Only 4 spots per month.</p>
-</td></tr>
-<tr><td style="padding:24px 32px 32px;border-top:1px solid #eee;">
-<p style="font-size:14px;color:#333;margin:0 0 4px;font-style:italic;">— Marisha Lakhiani</p>
-<p style="font-size:12px;color:#888;margin:0;font-family:Helvetica,Arial,sans-serif;">Revenue Recovery · scaled Mindvalley $30M → $150M · <a href="https://marishalakhiani.com" style="color:#888;text-decoration:underline;">marishalakhiani.com</a></p>
-</td></tr>
-</table>
-<p style="font-size:11px;color:#999;margin:16px 0 0;line-height:1.5;font-family:Helvetica,Arial,sans-serif;">Report generated ${dateStr} from the inputs you provided. Figures are estimates benchmarked against $1B+ of client revenue — not a forecast.</p>
-</td></tr></table>
+<body style="margin:0;padding:24px 16px;background:#ffffff;color:#222222;">
+<div style="max-width:560px;margin:0 auto;font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.65;color:#222;">
+<p style="margin:0 0 20px;">${firstName},</p>
+<p style="margin:0 0 20px;"><strong>${openingHero}</strong></p>
+<p style="margin:0 0 20px;">${openingSub}</p>
+<p style="margin:0 0 20px;">I scored your ${funnelName.toLowerCase()} funnel at <strong>${r.overall}/100 — ${r.bandLabel.toLowerCase()}</strong>, benchmarked against $1B+ in client revenue.</p>
+<p style="margin:0 0 20px;">${blindspot}</p>
+<p style="margin:0 0 20px;">Your biggest leak is <strong>${topLeak.name.toLowerCase()}, at ${formatCurrency(topLeak.amount)} a year</strong>. ${stripTags(topLeak.whatsHappening)}</p>
+<p style="margin:0 0 20px;">And here's what makes it worse: this leak compounds. Every month you don't fix it, you're not just losing this month's money — you're losing the reinvestment you'd have made with it. By next year, the cost of inaction won't be ${annualLeak}. It'll be ${annualLeak} plus everything that money would have built.</p>
+<p style="margin:0 0 20px;">Based on funnels with your exact leak pattern, <strong>${formatCurrency(r.ninetyDayLow)}–${formatCurrency(r.ninetyDayHigh)} of this is recoverable in 90 days</strong> — most of it from the top two leaks alone. Your full breakdown, with all four leaks diagnosed and a 30-day fix list, is on the report page you just saw.</p>
+<p style="margin:0 0 20px;">${decisionFrame}</p>
+<p style="margin:0 0 20px;">If you want it fixed, I run a Revenue Recovery Audit: a 10-hour teardown of every funnel asset, delivered in 7 days, with a 90-minute walkthrough call. $100K in recoverable revenue guaranteed, or you don't pay. I take 4 a month.</p>
+<p style="margin:0 0 28px;">You can apply here: <a href="https://marishalakhiani.com/apply/?utm_source=calculator_email&utm_medium=email&utm_campaign=leak_report" style="color:#6B1F3D;">marishalakhiani.com/apply</a></p>
+<p style="margin:0 0 4px;">— Marisha</p>
+<p style="margin:0 0 24px;color:#666;font-size:14px;">Marisha Lakhiani · Chief Growth Officer, Mindvalley<br>marishalakhiani.com</p>
+<p style="margin:0;color:#999;font-size:12px;">Report generated ${dateStr} from the inputs you provided. Figures are estimates benchmarked against $1B+ of client revenue — not a forecast.</p>
+</div>
 </body></html>`;
 
         return { subject, html };
@@ -1174,7 +1394,7 @@
                         <span class="text-gray-400">·</span>
                         <p class="text-[11px] tracking-[0.2em] uppercase text-gray-500">${funnelName}</p>
                     </div>
-                    <h1 class="text-4xl lg:text-6xl leading-tight mb-4">Your funnel is leaking <span class="text-bordeaux italic">${formatCurrency(r.totalLeak)}/year.</span></h1>
+                    <h1 class="text-4xl lg:text-6xl leading-tight mb-4">Your funnel is leaking <span class="text-bordeaux italic">${formatFullCurrency(r.totalLeak)} a year.</span></h1>
                     <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl">Here's where, why, and what to fix first. Benchmarked against $1B+ in client revenue.</p>
                 </div>
 
@@ -1356,8 +1576,22 @@
         state.universal = {};
         state.specific = {};
         state.results = null;
+        state.runningLeak = 0;
+        document.querySelectorAll('.leak-meter').forEach(box => box.classList.add('hidden'));
         goTo('intro');
     }
+
+    // Wire up the baseline-numbers fields: comma formatting + live meter
+    attachThousandsFormatting(document);
+    ['q_adSpend', 'q_leads', 'q_offerPrice', 'q_revenue'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateLeakMeter);
+    });
+
+    // Footer year always current
+    (function () {
+        const yearEl = document.getElementById('footer-year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+    })();
 
     updateProgress();
     </script>
