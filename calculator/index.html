@@ -510,6 +510,19 @@
         return '$' + Math.round(n).toLocaleString('en-US');
     }
 
+    // Credibility cap: the revenue-modelled leaks (engagement/close/sequence) are computed
+    // independently, so on badly leaking funnels they can stack past total revenue — true by
+    // benchmark math, but unbelievable. Cap their sum at 60% of annual revenue and say so.
+    // CPL waste is real overspend and is never capped. Shared by the live meter and the report
+    // so the meter always equals the headline.
+    function capRevenueLeaks(eAmt, cAmt, sAmt, revenueMonthly) {
+        const raw = eAmt + cAmt + sAmt;
+        const cap = Math.round(revenueMonthly * 12 * 0.6);
+        if (raw <= cap || raw === 0) return { e: eAmt, c: cAmt, s: sAmt, capped: false, raw };
+        const k = cap / raw;
+        return { e: Math.round(eAmt * k), c: Math.round(cAmt * k), s: Math.round(sAmt * k), capped: true, raw };
+    }
+
     // Running leak meter: a live subtotal of the same math calculate() finishes.
     // Only components whose inputs exist are included; never shows $0.
     function computePartialLeak() {
@@ -521,12 +534,12 @@
         const offerPrice = numericValue(document.getElementById('q_offerPrice'));
         const revenue = numericValue(document.getElementById('q_revenue'));
 
-        let total = 0;
+        let cplAmt = 0, eAmt = 0, cAmt = 0, sAmt = 0;
 
         // CPL waste — computable as soon as ad spend + leads exist
         if (adSpend !== null && leads !== null && leads > 0) {
             const actualCPL = adSpend / leads;
-            total += Math.round(Math.max(0, actualCPL - bench.cpl) * leads * 12);
+            cplAmt = Math.round(Math.max(0, actualCPL - bench.cpl) * leads * 12);
         }
 
         const sv = (id) => numericValue(document.getElementById('qs_' + id));
@@ -541,7 +554,7 @@
             else if (state.funnelType === 'application') { engField = sv('appCompletion'); engBench = bench.appCompletion; }
             if (engField !== null) {
                 const gapPct = Math.min(Math.max(0, (engBench - engField) / engBench), 0.8);
-                total += Math.round(gapPct * revenue * 12);
+                eAmt = Math.round(gapPct * revenue * 12);
             }
 
             // Close gap
@@ -551,7 +564,7 @@
             else if (state.funnelType === 'vsl') { closeField = sv('checkoutCompletion'); closeBench = bench.checkoutCompletion; }
             if (closeField !== null) {
                 const gapPct = Math.min(Math.max(0, (closeBench - closeField) / closeBench), 0.8);
-                total += Math.round(gapPct * revenue * 12);
+                cAmt = Math.round(gapPct * revenue * 12);
             }
         }
 
@@ -566,11 +579,18 @@
             if (seqScore !== null) {
                 const monthlyBuyers = Math.max(0, revenue / offerPrice);
                 const nonBuyersPerMonth = Math.max(0, leads - monthlyBuyers);
-                total += Math.round((1 - seqScore) * nonBuyersPerMonth * offerPrice * 0.05 * 12);
+                sAmt = Math.round((1 - seqScore) * nonBuyersPerMonth * offerPrice * 0.05 * 12);
             }
         }
 
-        return total;
+        return applyPartialCap(cplAmt, eAmt, cAmt, sAmt);
+    }
+
+    function applyPartialCap(cplAmt, eAmt, cAmt, sAmt) {
+        const revenue = numericValue(document.getElementById('q_revenue'));
+        if (revenue === null || revenue <= 0) return cplAmt + eAmt + cAmt + sAmt;
+        const capped = capRevenueLeaks(eAmt, cAmt, sAmt, revenue);
+        return cplAmt + capped.e + capped.c + capped.s;
     }
 
     function updateLeakMeter() {
@@ -622,6 +642,13 @@
         state.current = screen;
         updateProgress();
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        // GA4 step event — makes drop-off between screens visible in analytics
+        try {
+            if (typeof gtag === 'function') gtag('event', 'calculator_step', {
+                step: screen,
+                funnel_type: state.funnelType || '(not picked)'
+            });
+        } catch (e) { /* analytics never blocks the funnel */ }
     }
 
     function updateProgress() {
@@ -811,6 +838,12 @@
             ninety_day_high: r.ninetyDayHigh,
             top_leak_name: topLeak.name,
             top_leak_amount: topLeak.amount,
+            // Derived qualification fields — segmentation-ready without spreadsheet work
+            annual_revenue: Math.round(state.universal.revenue * 12),
+            actual_cpl: Math.round(r.actualCPL * 100) / 100,
+            leak_ratio_pct: state.universal.revenue > 0 ? Math.round(r.totalLeak / (state.universal.revenue * 12) * 100) : 0,
+            report_capped: !!r.capped,
+            audit_qualified: state.universal.adSpend >= 20000 && (state.universal.revenue * 12) >= 1000000,
             report_subject: email.subject,
             report_html: email.html,
             submitted_at: new Date().toISOString()
@@ -880,13 +913,15 @@
         const engagementScore = Math.round(100 * (1 - engagementGapPct));
         const closeScore = Math.round(100 * (1 - closeGapPct));
         const sequenceScoreOut = Math.round(100 * seqScore);
-        const overall = Math.round((cplScore * 0.2 + engagementScore * 0.3 + closeScore * 0.3 + sequenceScoreOut * 0.2));
+        // Capped at 94: no funnel is finished, and a near-perfect score undersells the work left
+        const overall = Math.min(94, Math.round((cplScore * 0.2 + engagementScore * 0.3 + closeScore * 0.3 + sequenceScoreOut * 0.2)));
 
+        const cappedAmts = capRevenueLeaks(engagementGapAnnual, closeGapAnnual, sequenceGapAnnual, revenue);
         const rawLeaks = [
             { name: 'CPL Waste', amount: cplWasteAnnual },
-            { name: 'Engagement Gap', amount: engagementGapAnnual },
-            { name: 'Close Rate Gap', amount: closeGapAnnual },
-            { name: 'Sequence Gap', amount: sequenceGapAnnual }
+            { name: 'Engagement Gap', amount: cappedAmts.e },
+            { name: 'Close Rate Gap', amount: cappedAmts.c },
+            { name: 'Sequence Gap', amount: cappedAmts.s }
         ];
         const leaks = rawLeaks.map(l => ({ ...l, ...getLeakDetail(l.name, funnelType, universal, specific, bench) }))
                               .sort((a, b) => b.amount - a.amount);
@@ -915,8 +950,57 @@
             overall, band, bandLabel, bandAccent, bandCopy,
             leaks, totalLeak, benchmarkComparison, strengths,
             thirtyDayActions, ninetyDayLow, ninetyDayHigh,
-            executiveSummary, actualCPL
+            executiveSummary, actualCPL,
+            capped: cappedAmts.capped, rawLeakTotal: cappedAmts.raw + cplWasteAnnual,
+            waterfall: getWaterfall(funnelType, universal, specific, leaks)
         };
+    }
+
+    // The signature view: the funnel as one descending column, with the people
+    // and dollars lost at each stage. Counts are derived from the user's own inputs.
+    function getWaterfall(funnelType, universal, specific, leaks) {
+        const { leads, offerPrice, revenue } = universal;
+        const buyers = Math.max(0, Math.round(revenue / Math.max(offerPrice, 1)));
+        const leakAmt = (name) => (leaks.find(l => l.name === name && !l.isHealthy) || {}).amount || 0;
+        const rows = [];
+        const clamp = (n, prev) => Math.max(0, Math.min(Math.round(n), prev));
+
+        if (funnelType === 'webinar') {
+            const regs = Math.round(specific.registrations || leads);
+            const shows = clamp(regs * specific.showup / 100, regs);
+            rows.push({ label: 'People who register', count: regs });
+            rows.push({ label: 'Show up live', count: shows, lossLabel: 'lost before the room', dollars: leakAmt('Engagement Gap') });
+            rows.push({ label: 'Buy', count: clamp(buyers, shows), lossLabel: 'heard the pitch and walked', dollars: leakAmt('Close Rate Gap') });
+        } else if (funnelType === 'evergreen') {
+            const visitors = specific.optinRate > 0 ? Math.round(leads / (specific.optinRate / 100)) : leads;
+            rows.push({ label: 'People who hit your page', count: visitors });
+            rows.push({ label: 'Opt in', count: clamp(leads, visitors), lossLabel: 'bounced before opting in', dollars: leakAmt('Engagement Gap') });
+            rows.push({ label: 'Buy', count: clamp(buyers, leads), lossLabel: 'watched and never bought', dollars: leakAmt('Close Rate Gap') });
+        } else if (funnelType === 'vsl') {
+            const viewers = clamp(leads * specific.lpConversion / 100, leads);
+            rows.push({ label: 'Leads in', count: leads });
+            rows.push({ label: 'Reach your VSL', count: viewers, lossLabel: 'lost at the landing page', dollars: leakAmt('Engagement Gap') });
+            rows.push({ label: 'Buy', count: clamp(buyers, viewers), lossLabel: 'abandoned at checkout', dollars: leakAmt('Close Rate Gap') });
+        } else if (funnelType === 'challenge') {
+            rows.push({ label: 'People who sign up', count: leads });
+            const completers = clamp(leads * specific.completionRate / 100, leads);
+            rows.push({ label: 'Complete the challenge', count: completers, lossLabel: 'drop out mid-challenge', dollars: leakAmt('Engagement Gap') });
+            rows.push({ label: 'Buy', count: clamp(buyers, completers), lossLabel: 'finished and never bought', dollars: leakAmt('Close Rate Gap') });
+        } else if (funnelType === 'application') {
+            rows.push({ label: 'People who start an application', count: leads });
+            const finish = clamp(leads * specific.appCompletion / 100, leads);
+            rows.push({ label: 'Finish it', count: finish, lossLabel: 'abandon the form', dollars: leakAmt('Engagement Gap') });
+            const booked = clamp(finish * specific.bookRate / 100, finish);
+            rows.push({ label: 'Book a call', count: booked, lossLabel: 'never book', dollars: 0 });
+            const showed = clamp(booked * specific.showupRate / 100, booked);
+            rows.push({ label: 'Show up to the call', count: showed, lossLabel: 'no-show', dollars: 0 });
+            rows.push({ label: 'Buy', count: clamp(buyers, showed), lossLabel: 'heard the offer and passed', dollars: leakAmt('Close Rate Gap') });
+        }
+        // losses between rows
+        for (let i = 1; i < rows.length; i++) rows[i].lost = Math.max(0, rows[i - 1].count - rows[i].count);
+        const seq = leakAmt('Sequence Gap');
+        const nonBuyers = Math.max(0, leads - buyers);
+        return { rows, endPct: rows[0].count > 0 ? (rows[rows.length - 1].count / rows[0].count * 100) : 0, seqDollars: seq, nonBuyers };
     }
 
     function getLeakDetail(leakName, funnelType, universal, specific, bench) {
@@ -1174,11 +1258,26 @@
                     timeline: 'Maintain', difficulty: 'Easy', isHealthy: true
                 };
             }
+            const seqEngaged =
+                funnelType === 'webinar' ? 'attended live vs. registered and never showed' :
+                funnelType === 'evergreen' ? 'watched your training vs. opted in and never watched' :
+                funnelType === 'vsl' ? 'watched your VSL vs. bounced before it' :
+                funnelType === 'challenge' ? 'completed the challenge vs. dropped out' :
+                'showed up to the call vs. never booked one';
+            // Near-benchmark gets graded language, not "thin"
+            const seqNearMiss =
+                (funnelType === 'webinar' && specific.followupEmails >= bench.followupEmails * 0.8) ||
+                (funnelType === 'evergreen' && specific.followupEmails >= bench.followupEmails * 0.8 && specific.longTermNurturePct >= bench.longTermNurturePct * 0.8) ||
+                (funnelType === 'vsl' && specific.abandonEmails >= bench.abandonEmails * 0.8) ||
+                (funnelType === 'challenge' && specific.postChallengeEmails >= bench.postChallengeEmails * 0.8 && specific.reengagePct >= bench.reengagePct * 0.8) ||
+                (funnelType === 'application' && specific.nurturePct >= bench.nurturePct * 0.8);
             return {
                 current: seqCurrent, benchmark: seqBench, gap: 'Below benchmark',
-                whatsHappening: `Your post-offer follow-up is thin. You're capturing only a fraction of the buyers who just need one more touch.`,
+                whatsHappening: seqNearMiss
+                    ? `Your follow-up is close to benchmark — closer than most funnels I see. But the last few points of follow-up are the cheapest revenue you'll ever add, because every one of these people is already paid for.`
+                    : `Your post-offer follow-up is thin. You're capturing only a fraction of the buyers who just need one more touch.`,
                 whyItMatters: `The average buyer says no 5–7 times before saying yes. Most founders stop touching after one no because they mistake silence for disinterest — it's almost always just timing or bandwidth. The follow-up sequence is where founders leave <strong>20–40% of total revenue</strong> on the table, and it's the cheapest fix in the funnel because the leads are already paid for.`,
-                howToFix: `<strong>1. Build a 7–10 email sequence over 14 days.</strong> Each email attacks one specific objection:<br>• Day 1 — Recap + initial CTA<br>• Day 2 — Time objection (this takes less than you think)<br>• Day 4 — Money objection (ROI math + payment plan)<br>• Day 6 — Trust objection (case study + guarantee)<br>• Day 9 — Social proof (what 5 recent buyers said)<br>• Day 12 — Urgency (close window + bonus expiring)<br>• Day 14 — "Last chance" + soft exit<br><br><strong>2. Add a 30-day win-back for no-replies.</strong> New angle, new lead magnet, back into the sequence. Recovers 8–15% of dormant non-buyers.<br><br><strong>3. Segment by behavior.</strong> People who watched the webinar vs. didn't get different sequences. Granularity = higher recovery.<br><br>This single fix often outperforms every other optimisation combined — because the leads are already paid for.`,
+                howToFix: `<strong>1. Build a 7–10 email sequence over 14 days.</strong> Each email attacks one specific objection:<br>• Day 1 — Recap + initial CTA<br>• Day 2 — Time objection (this takes less than you think)<br>• Day 4 — Money objection (ROI math + payment plan)<br>• Day 6 — Trust objection (case study + guarantee)<br>• Day 9 — Social proof (what 5 recent buyers said)<br>• Day 12 — Urgency (close window + bonus expiring)<br>• Day 14 — "Last chance" + soft exit<br><br><strong>2. Add a 30-day win-back for no-replies.</strong> New angle, new lead magnet, back into the sequence. Recovers 8–15% of dormant non-buyers.<br><br><strong>3. Segment by behavior.</strong> People who ${seqEngaged} get different sequences. Granularity = higher recovery.<br><br>This single fix often outperforms every other optimisation combined — because the leads are already paid for.`,
                 timeline: '30 days', difficulty: 'Medium', isHealthy: false
             };
         }
@@ -1270,10 +1369,13 @@
     function getThirtyDayActions(leaks, funnelType) {
         const actions = [];
         if (funnelType === 'vsl' && !state.specific.upsellPresent) {
-            actions.push({ title: 'Add a post-purchase upsell', detail: "You have no upsell or downsell. A one-click post-purchase offer typically lifts average order value 20–30% with zero extra ad spend — it's the cheapest revenue in your funnel." });
+            const buyers = Math.max(0, state.universal.revenue / Math.max(state.universal.offerPrice, 1));
+            const upsellValue = Math.round(buyers * state.universal.offerPrice * 0.25 * 12);
+            actions.push({ title: 'Add a post-purchase upsell', value: upsellValue, detail: "You have no upsell or downsell. A one-click post-purchase offer typically lifts average order value 20–30% with zero extra ad spend — it's the cheapest revenue in your funnel." });
         }
         const topLeaks = leaks.filter(l => l.amount > 0).slice(0, 3);
         topLeaks.forEach(leak => {
+            const startCount = actions.length;
             if (leak.name === 'CPL Waste') {
                 actions.push({ title: 'Test 4 new ad angles', detail: 'Write 4 different hooks attacking your current control. 7-day split. Kill losers, scale the winner. Target: 25% CPL reduction.' });
                 actions.push({ title: 'Exclude existing contacts from paid audiences', detail: 'Upload customer, registrant, and unsubscribed lists as exclusions on Meta + Google. Stops paid spend on people already in your world.' });
@@ -1292,6 +1394,8 @@
             } else if (leak.name === 'Sequence Gap') {
                 actions.push({ title: 'Build 7–10 email post-offer sequence', detail: 'Over 14 days. Each email tackles one objection: time, money, trust, urgency, proof, last chance. Add a 30-day win-back for no-replies.' });
             }
+            // Anchor the leak's dollar figure on its first action
+            if (actions.length > startCount && !actions[startCount].value) actions[startCount].value = leak.amount;
         });
         return actions.slice(0, 5);
     }
@@ -1362,6 +1466,7 @@
 <p style="margin:0 0 20px;">${blindspot}</p>
 <p style="margin:0 0 20px;">Your biggest leak is <strong>${topLeak.name.toLowerCase()}, at ${formatCurrency(topLeak.amount)} a year</strong>. ${stripTags(topLeak.whatsHappening)}</p>
 <p style="margin:0 0 20px;">And here's what makes it worse: this leak compounds. Every month you don't fix it, you're not just losing this month's money — you're losing the reinvestment you'd have made with it. By next year, the cost of inaction won't be ${annualLeak}. It'll be ${annualLeak} plus everything that money would have built.</p>
+${r.waterfall && r.waterfall.rows.length > 1 ? `<p style="margin:0 0 20px;">One thing worth going back to the report page for: it maps your funnel as a single descending column — ${r.waterfall.rows[0].count.toLocaleString('en-US')} people in, ${r.waterfall.rows[r.waterfall.rows.length - 1].count.toLocaleString('en-US')} buyers out, with the loss marked at every step. If you've never seen your funnel that way, that view alone is worth the three minutes.</p>` : ''}
 <p style="margin:0 0 20px;">Based on funnels with your exact leak pattern, <strong>${formatCurrency(r.ninetyDayLow)}–${formatCurrency(r.ninetyDayHigh)} of this is recoverable in 90 days</strong> — most of it from the top two leaks alone. Your full breakdown, with all four leaks diagnosed and a 30-day fix list, is on the report page you just saw.</p>
 <p style="margin:0 0 20px;">${decisionFrame}</p>
 <p style="margin:0 0 20px;">If you want it fixed, I run a Revenue Recovery Audit: a 10-hour teardown of every funnel asset, delivered in 7 days, with a 90-minute walkthrough call. $100K in recoverable revenue guaranteed, or you don't pay. I take 4 a month.</p>
@@ -1401,6 +1506,7 @@
                 <div class="mb-16">
                     <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Executive Summary</p>
                     <p class="text-base lg:text-lg text-gray-800 leading-relaxed">${r.executiveSummary}</p>
+                    ${r.capped ? `<p class="text-sm text-gray-500 leading-relaxed mt-4 italic">One note on the number: the raw benchmark math on your inputs actually says <strong>${formatCurrency(r.rawLeakTotal)}/year</strong>. We cap the reported total at a conservative share of your revenue, so every dollar in this report is defensible.</p>` : ''}
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8 mb-16 pb-12 border-b border-gray-200 items-center">
@@ -1449,6 +1555,35 @@
                     </div>
                 </div>
 
+                ${r.waterfall && r.waterfall.rows.length > 1 ? `
+                <div class="mb-16">
+                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The View Nobody Shows You</p>
+                    <h3 class="text-2xl lg:text-3xl mb-3">Your funnel, as a single descending column.</h3>
+                    <p class="text-gray-600 mb-8 max-w-2xl">Every number below comes from your own inputs. Most founders measure each step in isolation — every number looks acceptable, so nothing waves a red flag. But a funnel doesn't add. It multiplies. Look at the slope.</p>
+                    <div class="space-y-1">
+                        ${r.waterfall.rows.map((row, i) => `
+                            ${i > 0 && row.lost > 0 ? `
+                            <div class="flex items-center gap-3 pl-4 py-1">
+                                <span class="text-bordeaux text-lg leading-none">↓</span>
+                                <p class="text-sm text-gray-500"><strong class="text-bordeaux">−${row.lost.toLocaleString('en-US')} people</strong> ${row.lossLabel}${row.dollars > 0 ? ` <span class="text-bordeaux font-semibold">· ≈${formatCurrency(Math.round(row.dollars / 12))}/month walking out here</span>` : ''}</p>
+                            </div>` : ''}
+                            <div class="relative bg-cream-dark h-14 flex items-center">
+                                <div class="leak-bar absolute inset-y-0 left-0 bg-bordeaux/10 border-l-2 border-bordeaux" style="width: ${Math.max(4, Math.round(row.count / r.waterfall.rows[0].count * 100))}%"></div>
+                                <div class="relative flex items-baseline justify-between w-full px-5">
+                                    <span class="text-sm lg:text-base font-semibold">${row.label}</span>
+                                    <span class="text-xl lg:text-2xl font-bold text-bordeaux">${row.count.toLocaleString('en-US')}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                        ${r.waterfall.seqDollars > 0 ? `
+                        <div class="flex items-center gap-3 pl-4 py-2">
+                            <span class="text-bordeaux text-lg leading-none">↓</span>
+                            <p class="text-sm text-gray-500"><strong class="text-bordeaux">${r.waterfall.nonBuyers.toLocaleString('en-US')} non-buyers per month</strong> leave — and your follow-up barely chases them <span class="text-bordeaux font-semibold">· ≈${formatCurrency(Math.round(r.waterfall.seqDollars / 12))}/month recoverable after the "no"</span></p>
+                        </div>` : ''}
+                    </div>
+                    <p class="text-base lg:text-lg text-gray-800 leading-relaxed mt-6"><strong>${r.waterfall.endPct < 100 ? Math.round(100 - r.waterfall.endPct) : 0}% of the people you pay for never make it to the end.</strong> Not one step above looks broken on its own — that's why this leak survives. The slope is the leak.</p>
+                </div>` : ''}
+
                 <div class="mb-16">
                     <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The Four Leaks, Diagnosed</p>
                     <h3 class="text-2xl lg:text-3xl mb-8">Where the money is going — and how to stop it.</h3>
@@ -1487,8 +1622,11 @@
                         ${r.thirtyDayActions.map((a, i) => `
                             <div class="flex gap-6 bg-cream-dark p-6 lg:p-8 border-l-2 border-gold">
                                 <span class="text-3xl font-serif text-bordeaux flex-shrink-0">${String(i + 1).padStart(2, '0')}</span>
-                                <div>
-                                    <h4 class="text-base lg:text-lg font-bold uppercase tracking-[0.1em] mb-2">${a.title}</h4>
+                                <div class="flex-1">
+                                    <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                                        <h4 class="text-base lg:text-lg font-bold uppercase tracking-[0.1em]">${a.title}</h4>
+                                        ${a.value > 0 ? `<span class="text-sm font-bold text-bordeaux whitespace-nowrap">≈ ${formatCurrency(a.value)}/yr on your numbers</span>` : ''}
+                                    </div>
                                     <p class="text-sm lg:text-base text-gray-700 leading-relaxed">${a.detail}</p>
                                 </div>
                             </div>
@@ -1532,7 +1670,8 @@
                     </div>
                 </div>` : ''}
 
-                <!-- Trust band (bridges from "I'm leaking" to "apply for $10K audit") -->
+                <!-- Trust band (bridges from "I'm leaking" to "apply for $10K audit") — proof matched to their scale -->
+                ${state.universal.revenue >= 120000 ? `
                 <div class="bg-cream-dark border-l-2 border-bordeaux p-6 lg:p-8 mb-8">
                     <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
                         <div class="flex-shrink-0">
@@ -1544,19 +1683,33 @@
                             <p class="text-[11px] uppercase tracking-[0.15em] text-gray-600 font-semibold">Ben Croft · Founder, WBECS Group</p>
                         </div>
                     </div>
-                </div>
+                </div>` : `
+                <div class="bg-cream-dark border-l-2 border-bordeaux p-6 lg:p-8 mb-8">
+                    <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+                        <div class="flex-shrink-0">
+                            <p class="text-3xl lg:text-4xl font-bold text-bordeaux" style="font-family: 'Bodoni Moda', serif;">+$700K</p>
+                            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-semibold mt-1">In 6 months</p>
+                        </div>
+                        <div class="flex-1 border-l-0 md:border-l border-gray-300 md:pl-6">
+                            <p class="text-base lg:text-lg text-gray-900 italic leading-snug mb-2" style="font-family: 'Bodoni Moda', serif;">Case study: a $1.8M coaching business with three leaks — top, middle, bottom. Six fixes, eight weeks of execution, and the same funnel did $2.5M on the same ad spend.</p>
+                            <p class="text-[11px] uppercase tracking-[0.15em] text-gray-600 font-semibold">Full breakdown at marishalakhiani.com/audit</p>
+                        </div>
+                    </div>
+                </div>`}
 
                 <div class="bg-bordeaux text-white p-10 lg:p-16 text-center mb-12">
                     <p class="text-gold text-xs tracking-[0.3em] uppercase font-semibold mb-6">${ctaEyebrow}</p>
                     <h3 class="text-3xl lg:text-5xl mb-6">The Revenue Recovery Audit™</h3>
-                    <p class="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto mb-4">This report is a snapshot. The full audit is a 10-hour tear-down: written WOO-style report on every funnel asset, delivered in 7 days, with a 90-minute walk-through call where I brief you on every finding.</p>
+                    ${r.band === 'optimised'
+                        ? `<p class="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto mb-4">At ${r.overall}/100, you're past the easy fixes — and the last ${formatCurrency(r.totalLeak)} is the hardest to find on your own, because at your level it's rarely in the numbers. It's in the assets a calculator can't read: the pitch, the pages, the sequences. This report found the smoke. The audit finds the fire — a 10-hour teardown of every funnel asset, delivered in 7 days, with a 90-minute walkthrough call.</p>`
+                        : `<p class="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto mb-4">This report found the smoke: <strong>${formatCurrency(r.totalLeak)} a year</strong>, starting with your ${r.leaks[0] && !r.leaks[0].isHealthy ? r.leaks[0].name.toLowerCase() : 'biggest leak'}. The audit finds the fire — I go asset by asset through your actual funnel, find the <em>why</em> behind these numbers, and hand your team the exact order to fix them in. A 10-hour teardown of every funnel asset, delivered in 7 days, with a 90-minute walkthrough call.</p>`}
                     <p class="text-lg lg:text-xl text-white/90 max-w-2xl mx-auto mb-10"><strong>$100K in recoverable revenue guaranteed — or you don't pay.</strong></p>
                     <a href="https://marishalakhiani.com/apply/?utm_source=calculatorpg&utm_medium=website&utm_campaign=rlc_results" class="btn-primary inline-block bg-white text-bordeaux px-10 lg:px-12 py-5 lg:py-6 font-bold uppercase tracking-[0.2em] text-sm lg:text-base">Apply for Audit →</a>
                     <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mt-8">Only 4 spots per month</p>
                 </div>
 
                 <div class="text-center mt-12">
-                    <p class="text-sm text-gray-500 mb-3">A copy of this report has been sent to <strong>${state.email}</strong>. Check spam if it's not in your inbox within 5 minutes.</p>
+                    <p class="text-sm text-gray-500 mb-3">A copy of this report is on its way to <strong>${state.email}</strong>.</p>
                     <button onclick="restart()" class="text-xs uppercase tracking-[0.15em] font-semibold text-bordeaux border-b border-bordeaux pb-1 hover:opacity-70 transition-opacity">Start Over ↻</button>
                 </div>
             </div>
