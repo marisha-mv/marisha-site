@@ -1462,7 +1462,7 @@
 <p style="margin:0 0 20px;">${firstName},</p>
 <p style="margin:0 0 20px;"><strong>${openingHero}</strong></p>
 <p style="margin:0 0 20px;">${openingSub}</p>
-<p style="margin:0 0 20px;">I scored your ${funnelName.toLowerCase()} funnel at <strong>${r.overall}/100 — ${r.bandLabel.toLowerCase()}</strong>, benchmarked against $1B+ in client revenue.</p>
+<p style="margin:0 0 20px;">I scored your ${funnelName === 'VSL' ? 'VSL' : funnelName.toLowerCase()} funnel at <strong>${r.overall}/100 — ${r.bandLabel.toLowerCase()}</strong>, benchmarked against $1B+ in client revenue.</p>
 <p style="margin:0 0 20px;">${blindspot}</p>
 <p style="margin:0 0 20px;">Your biggest leak is <strong>${topLeak.name.toLowerCase()}, at ${formatCurrency(topLeak.amount)} a year</strong>. ${stripTags(topLeak.whatsHappening)}</p>
 <p style="margin:0 0 20px;">And here's what makes it worse: this leak compounds. Every month you don't fix it, you're not just losing this month's money — you're losing the reinvestment you'd have made with it. By next year, the cost of inaction won't be ${annualLeak}. It'll be ${annualLeak} plus everything that money would have built.</p>
