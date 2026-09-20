@@ -8,3 +8,4 @@ marisha site/
 .vscode/
 .idea/
 *.docx
+.vercel

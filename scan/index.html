@@ -312,10 +312,9 @@ function renderResults(d) {
         <div>
             <div class="flex justify-between items-baseline mb-1">
                 <span class="text-[11px] uppercase tracking-[0.2em] font-semibold text-gray-600">${name}</span>
-                <span class="text-sm font-bold">${p.score}</span>
+                <span class="text-sm font-bold">${p.score}<span class="text-gray-400 font-normal">/100</span></span>
             </div>
             <div class="bg-cream-dark h-2 w-full"><div class="pillar-bar h-2 bg-bordeaux" style="width:0%" data-w="${p.score}%"></div></div>
-            <p class="text-xs text-gray-500 mt-1 leading-relaxed">${esc(p.verdict)}</p>
         </div>`;
 
     const IMPACT_CHIP = { high: 'sev-critical', medium: 'sev-major', low: 'sev-minor' };
@@ -324,18 +323,31 @@ function renderResults(d) {
 
     const recs = a.recommendations.map((r, i) => `
         <div class="bg-white border border-gray-200 p-6 lg:p-8">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
                 <span class="text-gold font-bold text-sm">${String(i + 1).padStart(2, '0')}</span>
                 <span class="${IMPACT_CHIP[r.impact]} text-[10px] uppercase tracking-[0.15em] font-bold px-2.5 py-1">${r.impact} impact</span>
                 <span class="bg-cream-dark text-gray-600 text-[10px] uppercase tracking-[0.15em] font-bold px-2.5 py-1">${AREA_LABEL[r.area] || esc(r.area)}</span>
                 <span class="text-[10px] uppercase tracking-[0.15em] text-gray-500 font-semibold">${EFFORT_LABEL[r.effort] || esc(r.effort)}</span>
                 <h3 class="text-xl lg:text-2xl w-full mt-1">${esc(r.title)}</h3>
             </div>
-            <p class="text-[11px] tracking-[0.2em] uppercase font-semibold text-gray-400 mb-1">On your site now</p>
-            <div class="evidence px-4 py-3 text-sm text-gray-700 mb-4">${esc(r.current)}</div>
-            <p class="text-[11px] tracking-[0.2em] uppercase font-semibold text-bordeaux mb-1">Change it to</p>
-            <p class="text-sm lg:text-base leading-relaxed mb-4 text-gray-900">${esc(r.change)}</p>
-            <p class="text-xs text-gray-500 leading-relaxed">${esc(r.why)}</p>
+            <div class="grid gap-3">
+                <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
+                    <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gray-400">Now</p>
+                    <p class="text-sm text-gray-600 italic">${esc(r.current)}</p>
+                </div>
+                <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
+                    <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-bordeaux">Change</p>
+                    <p class="text-sm lg:text-base text-gray-900 leading-relaxed font-medium">${esc(r.change)}</p>
+                </div>
+                <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
+                    <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gray-400">Why</p>
+                    <p class="text-sm text-gray-700 leading-relaxed">${esc(r.why)}</p>
+                </div>
+                <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
+                    <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gray-400">Expected result</p>
+                    <p class="text-sm text-gray-700 leading-relaxed">${esc(r.expectedResult || '')}</p>
+                </div>
+            </div>
         </div>`).join('');
 
     const infraSections = ['speed', 'deliverability', 'capture', 'tracking'].map(sec => {
@@ -368,7 +380,7 @@ function renderResults(d) {
                 <p class="text-[11px] tracking-[0.2em] uppercase text-gray-500">${esc(host)}</p>
             </div>
             <h1 class="text-4xl lg:text-6xl leading-tight mb-4">Verdict: <span class="${b.accent} italic">${b.label}.</span></h1>
-            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mb-6">Scored against the top 10% of pages, not the average. Here's what a stranger sees, where the money leaks, and what to fix first.</p>
+            <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mb-6">Scored against the top 10% of pages, not the average.</p>
             <button onclick="window.print()" class="no-print text-xs uppercase tracking-[0.2em] font-semibold text-bordeaux border border-bordeaux px-5 py-3 hover:bg-bordeaux hover:text-white transition-colors">Save as PDF / share with your team</button>
         </div>
 
@@ -386,12 +398,20 @@ function renderResults(d) {
                 </div>
             </div>
             <div class="md:col-span-2 space-y-5">
-                ${pillarRow('Message', a.pillars.message)}
-                ${pillarRow('Proof', a.pillars.proof)}
-                ${pillarRow('Offer', a.pillars.offer)}
-                ${pillarRow('Friction', a.pillars.friction)}
+                ${pillarRow('Message — is it instantly clear?', a.pillars.message)}
+                ${pillarRow('Proof — do they believe you?', a.pillars.proof)}
+                ${pillarRow('Offer — is saying yes easy?', a.pillars.offer)}
+                ${pillarRow('Friction — how hard is the path?', a.pillars.friction)}
             </div>
         </div>
+
+        ${a.scoreReasons && a.scoreReasons.length ? `
+        <div class="mb-16 bg-white border border-gray-200 p-6 lg:p-8">
+            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Why This Score</p>
+            <div class="space-y-3">
+                ${a.scoreReasons.map(r => `<p class="flex gap-3 text-sm lg:text-base text-gray-800"><span class="text-bordeaux font-bold flex-none">→</span><span>${esc(r)}</span></p>`).join('')}
+            </div>
+        </div>` : ''}
 
         ${d.audit.dollars && d.audit.dollars.provided ? `
         <div class="mb-16 bg-bordeaux text-white p-8 lg:p-10">
@@ -420,21 +440,27 @@ function renderResults(d) {
 
         <div class="mb-16">
             <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The 5-Second Stranger Test</p>
-            <h2 class="text-2xl lg:text-3xl mb-6">${a.fiveSecond.passes ? 'A stranger gets it. Barely or brilliantly — read on.' : 'A stranger doesn’t know what you sell.'}</h2>
+            <h2 class="text-2xl lg:text-3xl mb-6">${a.fiveSecond.passes ? 'A stranger understands what you sell.' : 'A stranger can\'t tell what you sell.'}</h2>
             <div class="bg-white border border-gray-200 p-6 lg:p-8 mb-6">
-                <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mb-3">What a cold visitor concludes</p>
+                <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mb-3">What a cold visitor concludes in 5 seconds</p>
                 <p class="text-base lg:text-lg text-gray-800 leading-relaxed">${esc(a.fiveSecond.strangerRead)}</p>
-                ${a.fiveSecond.missing.length ? `<p class="text-sm text-gray-600 mt-4"><strong>Missing in the first fold:</strong> ${a.fiveSecond.missing.map(esc).join(' · ')}</p>` : ''}
+                ${a.fiveSecond.missing.length ? `
+                <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mt-6 mb-3">Missing from your first fold</p>
+                <div class="space-y-2">
+                    ${a.fiveSecond.missing.map(m => `<p class="flex gap-3 text-sm text-gray-700"><span class="text-bordeaux font-bold flex-none">→</span><span>${esc(m)}</span></p>`).join('')}
+                </div>` : ''}
             </div>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-cream-dark p-6">
-                    <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mb-3">Reads like</p>
-                    <p class="text-sm text-gray-600 leading-relaxed">They sell <strong>${esc(a.businessGuess.whatTheySell)}</strong> to <strong>${esc(a.businessGuess.whoFor)}</strong> — ${esc(a.businessGuess.model)}</p>
-                </div>
-                <div class="bg-bordeaux text-white p-6">
-                    <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gold mb-3">If this page were ours</p>
-                    <p class="font-['Bodoni_Moda'] text-xl leading-snug mb-2">"${esc(a.fiveSecond.rewrittenHeadline)}"</p>
-                    <p class="text-sm text-white/80 leading-relaxed">${esc(a.fiveSecond.rewrittenSubhead)}</p>
+            <div class="border border-gray-200">
+                <div class="grid md:grid-cols-2 items-stretch">
+                    <div class="bg-cream-dark p-6 lg:p-8">
+                        <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mb-3">Your headline now</p>
+                        <p class="font-['Bodoni_Moda'] text-xl lg:text-2xl leading-snug text-gray-700 italic">"${esc((d.page && d.page.h1) || (d.page && d.page.title) || 'No headline found on the page')}"</p>
+                    </div>
+                    <div class="bg-bordeaux text-white p-6 lg:p-8">
+                        <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gold mb-3">Rewritten to convert</p>
+                        <p class="font-['Bodoni_Moda'] text-xl lg:text-2xl leading-snug mb-3">"${esc(a.fiveSecond.rewrittenHeadline)}"</p>
+                        <p class="text-sm text-white/80 leading-relaxed">${esc(a.fiveSecond.rewrittenSubhead)}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -460,16 +486,19 @@ function renderResults(d) {
 
         <div class="mb-16">
             <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your Conversion Action Plan</p>
-            <h2 class="text-2xl lg:text-3xl mb-3">${a.recommendations.length} changes, ranked by what they'll do to your sales.</h2>
-            <p class="text-gray-600 mb-8 max-w-2xl">Each one is anchored to something on your actual page. Hand this list to whoever builds your site — the wording is written to be implemented, not interpreted.</p>
+            <h2 class="text-2xl lg:text-3xl mb-3">The ${a.recommendations.length} changes we'd make, in order.</h2>
+            <p class="text-gray-600 mb-8 max-w-2xl">Hand this list to whoever builds your site. Each change says what to do, why, and what to expect.</p>
             <div class="space-y-6">${recs}</div>
         </div>
 
         <div class="mb-16">
-            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Under the Hood</p>
-            <h2 class="text-2xl lg:text-3xl mb-3">The checks most founders never run.</h2>
-            <p class="text-gray-600 mb-8 max-w-2xl">Infrastructure score: <strong>${d.infra.score}/100</strong>. Loaded in ${d.fetched.ttfbMs}ms to first byte. These are the silent leaks — nobody complains, the numbers just sag.</p>
-            <div class="grid md:grid-cols-2 gap-6">${infraSections}</div>
+            <details class="bg-white border border-gray-200">
+                <summary class="cursor-pointer px-6 py-5 select-none">
+                    <span class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold">Under the Hood</span>
+                    <span class="block text-lg lg:text-xl mt-1 font-['Bodoni_Moda']">The 13 technical checks behind your score (${d.infra.score}/100) — tap to expand</span>
+                </summary>
+                <div class="grid md:grid-cols-2 gap-6 p-6 pt-2">${infraSections}</div>
+            </details>
         </div>
 
         <div class="mb-16 bg-bordeaux text-white p-8 lg:p-10">
