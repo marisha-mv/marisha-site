@@ -23,7 +23,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"Service","name":"Revenue Recovery Audit","description":"A diagnostic audit of $1M-$150M funnels. Identifies $100K+ in recoverable annual revenue or the client pays nothing. Includes written WOO-style report and 90-minute walk-through call delivered in 7 business days.","provider":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com","jobTitle":"Revenue Recovery Strategist","alumniOf":"Mindvalley"},"areaServed":"Worldwide","serviceType":"Funnel Audit","offers":{"@type":"Offer","price":"10000","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability","description":"Only 4 audit clients accepted per month"},"audience":{"@type":"BusinessAudience","audienceType":"$1M-$150M revenue businesses"}}
+    {"@context":"https://schema.org","@type":"Service","name":"Revenue Recovery Audit","description":"A diagnostic audit of $500K-$150M businesses. Identifies $100K+ in recoverable annual revenue or the client pays nothing. Includes written WOO-style report and 90-minute walk-through call delivered in 7 business days.","provider":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com","jobTitle":"Revenue Recovery Strategist","alumniOf":"Mindvalley"},"areaServed":"Worldwide","serviceType":"Funnel Audit","offers":{"@type":"Offer","price":"10000","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability","description":"Only 4 audit clients accepted per month"},"audience":{"@type":"BusinessAudience","audienceType":"$500K-$150M revenue businesses"}}
     </script>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
@@ -243,7 +243,7 @@
             <h2 class="text-3xl lg:text-5xl mb-10 leading-tight">You don't have a traffic problem.<br><span class="text-bordeaux italic">You have a leak problem.</span></h2>
             <div class="space-y-5 text-base lg:text-lg text-gray-700 leading-relaxed max-w-3xl">
                 <p>You're running a funnel that makes money. But when you actually map the numbers from ad impression → sale, every step is quietly bleeding — and the total is always bigger than founders expect.</p>
-                <p>The Revenue Recovery Audit™ is for founders running a real business: <strong>$1M–$150M a year</strong>. However you get customers, whether that's a paid funnel, a storefront, or a sales team, I tear your acquisition apart across five diagnostic layers, quantify every leak in dollars, and hand you a prioritised fix list ranked by revenue impact.</p>
+                <p>The Revenue Recovery Audit™ is for founders running a real business: <strong>$500K–$150M a year</strong>. However you get customers, whether that's a paid funnel, a storefront, or a sales team, I tear your acquisition apart across five diagnostic layers, quantify every leak in dollars, and hand you a prioritised fix list ranked by revenue impact.</p>
                 <p>If you've tried hiring agencies, redesigning pages, and raising ad spend — and nothing moved the needle — it's because you don't have a traffic problem. You have a leak problem. And the leaks are fixable once you can see them.</p>
             </div>
         </div>
@@ -261,7 +261,7 @@
                     <h2 class="text-3xl lg:text-5xl mb-8 leading-tight">I scaled Mindvalley from <span class="text-bordeaux italic">$30M → $150M.</span></h2>
                     <div class="space-y-5 text-base lg:text-lg text-gray-600 leading-relaxed mb-10">
                         <p>Over 8 years as Mindvalley's growth architect, I built the funnel systems that took us from $30M to $150M. What unlocked the other $120M wasn't more ads or more traffic — it was obsessing over what happens <em>after</em> the click.</p>
-                        <p>Now I audit funnels for $1M–$150M founders — applying the same methodology that worked at scale.</p>
+                        <p>Now I audit funnels for $500K–$150M founders — applying the same methodology that worked at scale.</p>
                     </div>
                     <div class="space-y-4">
                         <div class="border-l-2 border-gold pl-5">
@@ -375,7 +375,7 @@
             <div class="fade-in flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pt-6 border-t border-white/10">
                 <div>
                     <p class="text-[11px] uppercase tracking-[0.25em] text-white/40 mb-2">Requirements</p>
-                    <p class="text-white/80">$1M+ revenue · Any business model · 4 spots a month</p>
+                    <p class="text-white/80">$500K+ revenue · Any business model · 4 spots a month</p>
                 </div>
                 <div class="text-left md:text-right">
                     <p class="text-gold text-xs uppercase tracking-[0.25em] font-semibold mb-2">Only 4 spots per month</p>
@@ -830,7 +830,8 @@
                         <label class="form-label">4 · What is your annual business revenue?</label>
                         <select name="annual_revenue" id="f_annual_revenue" required>
                             <option value="" disabled selected>Select revenue range</option>
-                            <option value="under-1m">Under $1M</option>
+                            <option value="under-500k">Under $500K</option>
+                            <option value="500k-1m">$500K – $1M</option>
                             <option value="1m-3m">$1M – $3M</option>
                             <option value="3m-10m">$3M – $10M</option>
                             <option value="10m-50m">$10M – $50M</option>
@@ -1024,7 +1025,7 @@
             // No funnel / low ad spend no longer disqualify — those answers still
             // flow through the webhook so Marisha can triage by hand.
             let disqualReason = null;
-            if (data.annual_revenue === 'under-1m') disqualReason = 'revenue';
+            if (data.annual_revenue === 'under-500k') disqualReason = 'revenue';
 
             // Map URL-slug disqual reasons to Omnisend tag names
             const disqualOmnisendTag = {
