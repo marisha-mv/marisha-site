@@ -202,9 +202,13 @@
                     Your funnel is leaking <span class="text-bordeaux italic">$100K+/year.</span><br>
                     I'll show you exactly where.
                 </h1>
-                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">
                     The Revenue Recovery Audit™ quantifies every leak in dollars and hands you a prioritised fix list — or you don't pay.
                 </p>
+                <div class="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                    <a href="#application-form" class="btn-primary inline-block bg-bordeaux text-white px-10 lg:px-12 py-5 text-sm lg:text-base font-bold uppercase tracking-[0.15em]">Apply for the Audit →</a>
+                    <p class="text-sm text-gray-500">4 spots a month · 4-minute application</p>
+                </div>
             </div>
 
             <a href="#application-form" class="block hero-image-link mb-8 fade-in" aria-label="Apply for the Revenue Recovery Audit">
@@ -222,16 +226,16 @@
         <div class="max-w-screen-2xl mx-auto">
             <p class="text-center text-gold text-[10px] tracking-[0.4em] uppercase font-semibold mb-8 opacity-70">As Seen In</p>
             <div class="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-10 gap-6 lg:gap-8 items-center opacity-50 fade-in">
-                <img src="https://static.showit.co/200/FeBvzYtjTBSdBbnziLL2qg/shared/mindvalley_white.png" alt="Mindvalley" class="w-full h-8 lg:h-10 object-contain">
-                <img src="https://static.showit.co/200/a07WWJUpSF2gTRQ-aiWBLA/shared/google_white.png" alt="Google" class="w-full h-8 lg:h-10 object-contain">
-                <img src="https://static.showit.co/200/N6t-BQYqRhmzXW2g8I-sBg/shared/meta_white.png" alt="Meta" class="w-full h-8 lg:h-10 object-contain">
-                <img src="https://static.showit.co/200/C0jqL1TGT023K2IgZwZSvQ/shared/aw_white.png" alt="Affiliate World" class="w-full h-8 lg:h-10 object-contain hidden md:block">
-                <img src="https://static.showit.co/200/yu96TeIgRfqTGFW9zPiaKQ/shared/tatler_white.png" alt="Tatler" class="w-full h-8 lg:h-10 object-contain hidden md:block">
-                <img src="https://static.showit.co/200/4-kpFRFVQ0euiwWZU-uFvA/shared/clipart4506520.png" alt="Forbes" class="w-full h-8 lg:h-10 object-contain">
-                <img src="https://static.showit.co/200/qYNLW-gVRuSMmpZ9PIGOtw/shared/nbc_white.png" alt="NBC" class="w-full h-8 lg:h-10 object-contain hidden lg:block">
-                <img src="https://static.showit.co/200/vMduBVVzR8aji8w2E_VNkA/shared/fox_white.png" alt="FOX" class="w-full h-8 lg:h-10 object-contain hidden lg:block">
-                <img src="https://static.showit.co/200/MEeppK-fRW6IbkYLCaDD1w/shared/adworld_white.png" alt="Adworld" class="w-full h-8 lg:h-10 object-contain hidden lg:block">
-                <img src="https://static.showit.co/200/NZMrnsFqTp6Vw4gHF7N_FQ/shared/global_marketing_day_white.png" alt="Global Marketing Day" class="w-full h-8 lg:h-10 object-contain hidden lg:block">
+                <img src="../assets/logos/mindvalley_white.png" alt="Mindvalley" class="w-full h-8 lg:h-10 object-contain">
+                <img src="../assets/logos/google_white.png" alt="Google" class="w-full h-8 lg:h-10 object-contain">
+                <img src="../assets/logos/meta_white.png" alt="Meta" class="w-full h-8 lg:h-10 object-contain">
+                <img src="../assets/logos/aw_white.png" alt="Affiliate World" class="w-full h-8 lg:h-10 object-contain hidden md:block">
+                <img src="../assets/logos/tatler_white.png" alt="Tatler" class="w-full h-8 lg:h-10 object-contain hidden md:block">
+                <img src="../assets/logos/clipart4506520.png" alt="Forbes" class="w-full h-8 lg:h-10 object-contain">
+                <img src="../assets/logos/nbc_white.png" alt="NBC" class="w-full h-8 lg:h-10 object-contain hidden lg:block">
+                <img src="../assets/logos/fox_white.png" alt="FOX" class="w-full h-8 lg:h-10 object-contain hidden lg:block">
+                <img src="../assets/logos/adworld_white.png" alt="Adworld" class="w-full h-8 lg:h-10 object-contain hidden lg:block">
+                <img src="../assets/logos/global_marketing_day_white.png" alt="Global Marketing Day" class="w-full h-8 lg:h-10 object-contain hidden lg:block">
             </div>
         </div>
     </section>
@@ -783,12 +787,15 @@
                     <p class="text-center text-gray-500 text-[11px] uppercase tracking-[0.2em] mt-6">
                         6 quick questions next · 4 minutes
                     </p>
+                    <div class="border-l-2 border-gold bg-cream-dark/60 px-5 py-4 mt-6">
+                        <p class="text-sm text-gray-800 leading-relaxed"><strong class="text-bordeaux">The guarantee, one more time:</strong> if the audit doesn't identify at least $100,000 in recoverable annual revenue, you pay nothing.</p>
+                    </div>
                 </div>
 
                 <!-- STEP 2: Qualifying questions (fires qualified/disqualified webhook) -->
                 <div id="step-2" class="form-step" style="display:none;">
                     <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">Step 2 of 2</p>
-                    <h3 class="text-xl lg:text-2xl mb-8" style="font-family: 'Bodoni Moda', serif;">Tell me about your funnel.</h3>
+                    <h3 class="text-xl lg:text-2xl mb-8" style="font-family: 'Bodoni Moda', serif;">Tell me about your business.</h3>
 
                     <div class="form-group">
                         <label class="form-label">1 · Do you have an active paid funnel running?</label>
