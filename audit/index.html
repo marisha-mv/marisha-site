@@ -35,6 +35,7 @@
                         bordeaux: '#6b1f3d',
                         'bordeaux-dark': '#4a1529',
                         gold: '#c9a66b',
+                        'gold-deep': '#8a6832',
                         'gold-light': '#d4b896',
                         cream: '#f8f6f3',
                         'cream-dark': '#f3f0eb'
@@ -118,7 +119,7 @@
         <section id="screen-intro" class="screen active fade-in-calc">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
                 <div>
-                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-6">Free · 60 seconds · Any website</p>
+                    <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-6">Free · 60 seconds · Any website</p>
                     <h1 class="text-4xl lg:text-6xl leading-tight mb-6">See your website the way a <span class="text-bordeaux italic">stranger</span> does.</h1>
                     <p class="text-lg text-gray-600 leading-relaxed mb-8">Drop your URL and get the same first pass I run inside the $10K Revenue Recovery Audit™: what a cold visitor actually understands in 5 seconds, whether your proof matches your claims, where friction is eating conversions, and the email infrastructure check almost every founder fails.</p>
                     <div class="space-y-3 text-sm text-gray-700">
@@ -126,7 +127,7 @@
                         <p class="flex gap-3"><span class="text-bordeaux font-bold">02</span> Your leaks, ranked and quoted from your own page</p>
                         <p class="flex gap-3"><span class="text-bordeaux font-bold">03</span> Speed, tracking &amp; deliverability — checked against the 2026 Gmail/Yahoo rules</p>
                     </div>
-                    <p class="text-xs text-gray-400 italic mt-8">Benchmarked against $1B+ in client revenue and the top 10% of 41,000 analyzed landing pages.</p>
+                    <p class="text-xs text-gray-500 italic mt-8">Benchmarked against $1B+ in client revenue and the top 10% of 41,000 analyzed landing pages.</p>
                 </div>
 
                 <div class="bg-white border border-gray-200 p-8 lg:p-10">
@@ -168,7 +169,7 @@
                         </details>
                         <button id="start-btn" onclick="startScan()" class="btn-primary w-full bg-bordeaux text-white px-8 py-5 font-bold uppercase tracking-[0.15em] text-sm">Run My Free Audit →</button>
                         <p id="start-error" class="text-sm text-bordeaux hidden">Please enter a valid website, your name and email.</p>
-                        <p class="text-xs text-gray-400 italic">*By continuing, you'll also join my Marketing Mastery Newsletter.</p>
+                        <p class="text-xs text-gray-500 italic">*By continuing, you'll also join my Marketing Mastery Newsletter.</p>
                     </div>
                 </div>
             </div>
@@ -177,7 +178,7 @@
         <!-- SCREEN: SCANNING -->
         <section id="screen-scanning" class="screen">
             <div class="max-w-2xl mx-auto text-center py-10">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-6">Auditing <span id="scan-url-label"></span></p>
+                <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-6">Auditing <span id="scan-url-label"></span></p>
                 <h2 class="text-3xl lg:text-4xl mb-4">Walking your site like a buyer.</h2>
                 <p class="text-gray-600 mb-12">This is a real audit, not a checkbox scan — a full render on desktop and phone, a walk through your funnel, and an expert pass over every element. Give it 2 to 3 minutes.</p>
                 <div id="scan-steps" class="max-w-md mx-auto text-left space-y-5">
@@ -324,7 +325,7 @@ function renderResults(d) {
     const recs = a.recommendations.map((r, i) => `
         <div class="bg-white border border-gray-200 p-6 lg:p-8">
             <div class="flex flex-wrap items-center gap-3 mb-4">
-                <span class="text-gold font-bold text-sm">${String(i + 1).padStart(2, '0')}</span>
+                <span class="text-gold-deep font-bold text-sm">${String(i + 1).padStart(2, '0')}</span>
                 <span class="${IMPACT_CHIP[r.impact]} text-[10px] uppercase tracking-[0.15em] font-bold px-2.5 py-1">${r.impact} impact</span>
                 <span class="bg-cream-dark text-gray-600 text-[10px] uppercase tracking-[0.15em] font-bold px-2.5 py-1">${AREA_LABEL[r.area] || esc(r.area)}</span>
                 <span class="text-[10px] uppercase tracking-[0.15em] text-gray-500 font-semibold">${EFFORT_LABEL[r.effort] || esc(r.effort)}</span>
@@ -332,7 +333,7 @@ function renderResults(d) {
             </div>
             <div class="grid gap-3">
                 <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
-                    <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gray-400">Now</p>
+                    <p class="text-[11px] tracking-[0.18em] uppercase font-semibold text-gray-500">Now</p>
                     <p class="text-sm text-gray-600 italic">${esc(r.current)}</p>
                 </div>
                 <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
@@ -340,11 +341,11 @@ function renderResults(d) {
                     <p class="text-sm lg:text-base text-gray-900 leading-relaxed font-medium">${esc(r.change)}</p>
                 </div>
                 <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
-                    <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gray-400">Why</p>
+                    <p class="text-[11px] tracking-[0.18em] uppercase font-semibold text-gray-500">Why</p>
                     <p class="text-sm text-gray-700 leading-relaxed">${esc(r.why)}</p>
                 </div>
                 <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
-                    <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gray-400">Expected result</p>
+                    <p class="text-[11px] tracking-[0.18em] uppercase font-semibold text-gray-500">Expected result</p>
                     <p class="text-sm text-gray-700 leading-relaxed">${esc(r.expectedResult || '')}</p>
                 </div>
             </div>
@@ -373,7 +374,7 @@ function renderResults(d) {
     <div class="fade-in-calc">
         <div class="mb-14 pb-10 border-b border-bordeaux/20">
             <div class="flex flex-wrap items-center gap-3 mb-6">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold">Your Website Audit</p>
+                <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold">Your Website Audit</p>
                 <span class="text-gray-400">·</span>
                 <p class="text-[11px] tracking-[0.2em] uppercase text-gray-500">${dateStr}</p>
                 <span class="text-gray-400">·</span>
@@ -407,7 +408,7 @@ function renderResults(d) {
 
         ${a.scoreReasons && a.scoreReasons.length ? `
         <div class="mb-16 bg-white border border-gray-200 p-6 lg:p-8">
-            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Why This Score</p>
+            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Why This Score</p>
             <div class="space-y-3">
                 ${a.scoreReasons.map(r => `<p class="flex gap-3 text-sm lg:text-base text-gray-800"><span class="text-bordeaux font-bold flex-none">→</span><span>${esc(r)}</span></p>`).join('')}
             </div>
@@ -422,7 +423,7 @@ function renderResults(d) {
 
         ${d.screenshots && d.screenshots.desktop ? `
         <div class="mb-16">
-            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your First Fold, As Visitors See It</p>
+            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your First Fold, As Visitors See It</p>
             <h2 class="text-2xl lg:text-3xl mb-8">This is the moment you win or lose the click.</h2>
             <div class="grid md:grid-cols-5 gap-6 items-start">
                 <div class="md:col-span-3">
@@ -439,7 +440,7 @@ function renderResults(d) {
         </div>` : ''}
 
         <div class="mb-16">
-            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The 5-Second Stranger Test</p>
+            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The 5-Second Stranger Test</p>
             <h2 class="text-2xl lg:text-3xl mb-6">${a.fiveSecond.passes ? 'A stranger understands what you sell.' : 'A stranger can\'t tell what you sell.'}</h2>
             <div class="bg-white border border-gray-200 p-6 lg:p-8 mb-6">
                 <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mb-3">What a cold visitor concludes in 5 seconds</p>
@@ -467,12 +468,12 @@ function renderResults(d) {
 
         ${a.journey && (a.journey.pages.length || a.journey.seams) ? `
         <div class="mb-16">
-            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The Buyer's Journey</p>
+            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The Buyer's Journey</p>
             <h2 class="text-2xl lg:text-3xl mb-8">${a.journey.pages.length ? 'We followed your funnel the way a buyer would.' : 'Where does a buyer go next?'}</h2>
             ${a.journey.pages.length ? `<div class="grid md:grid-cols-${Math.min(a.journey.pages.length, 2)} gap-6 mb-6">
                 ${a.journey.pages.map(pg => `
                 <div class="bg-white border border-gray-200 p-6">
-                    <p class="text-[10px] tracking-[0.15em] uppercase text-gray-400 mb-1 break-all">${esc(pg.url.replace(/^https?:\/\//, ''))}</p>
+                    <p class="text-[11px] tracking-[0.12em] uppercase text-gray-500 mb-1 break-all">${esc(pg.url.replace(/^https?:\/\//, ''))}</p>
                     <p class="text-[11px] tracking-[0.2em] uppercase font-semibold text-bordeaux mb-3">${esc(pg.role)}</p>
                     <p class="text-sm text-gray-700 leading-relaxed mb-3">${esc(pg.verdict)}</p>
                     <p class="text-sm leading-relaxed"><strong class="text-bordeaux">Key issue:</strong> ${esc(pg.keyIssue)}</p>
@@ -485,7 +486,7 @@ function renderResults(d) {
         </div>` : ''}
 
         <div class="mb-16">
-            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your Conversion Action Plan</p>
+            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your Conversion Action Plan</p>
             <h2 class="text-2xl lg:text-3xl mb-3">The ${a.recommendations.length} changes we'd make, in order.</h2>
             <p class="text-gray-600 mb-8 max-w-2xl">Hand this list to whoever builds your site. Each change says what to do, why, and what to expect.</p>
             <div class="space-y-6">${recs}</div>
@@ -494,7 +495,7 @@ function renderResults(d) {
         <div class="mb-16">
             <details class="bg-white border border-gray-200">
                 <summary class="cursor-pointer px-6 py-5 select-none">
-                    <span class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold">Under the Hood</span>
+                    <span class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold">Under the Hood</span>
                     <span class="block text-lg lg:text-xl mt-1 font-['Bodoni_Moda']">The 13 technical checks behind your score (${d.infra.score}/100) — tap to expand</span>
                 </summary>
                 <div class="grid md:grid-cols-2 gap-6 p-6 pt-2">${infraSections}</div>
@@ -510,7 +511,7 @@ function renderResults(d) {
         <div class="border-t border-bordeaux/20 pt-12 mb-8">
             <p class="text-base lg:text-lg text-gray-700 leading-relaxed max-w-2xl mb-8">${esc(a.closingNote)}</p>
             <div class="bg-white border border-gray-200 p-8 lg:p-10">
-                <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The Next Layer</p>
+                <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The Next Layer</p>
                 <h2 class="text-2xl lg:text-3xl mb-4">This scan reads your page. The audit reads your business.</h2>
                 <p class="text-gray-600 leading-relaxed mb-8 max-w-2xl">The Revenue Recovery Audit™ goes where a scanner can't: your ad account, your email sequences, your checkout data, your follow-up economics — and comes back with the dollar figure attached to each leak and the order to fix them in.</p>
                 <div class="flex flex-wrap gap-4 items-center">
