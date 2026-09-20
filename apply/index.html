@@ -1019,11 +1019,11 @@
 
             const data = Object.fromEntries(new FormData(this));
 
-            // Disqualification gates (order matches form sequence per Section 2.2)
+            // Qualification gate: a real business (revenue) is the bar.
+            // No funnel / low ad spend no longer disqualify — those answers still
+            // flow through the webhook so Marisha can triage by hand.
             let disqualReason = null;
-            if (data.active_funnel === 'no') disqualReason = 'no-funnel';
-            else if (data.ad_spend === 'under-20k') disqualReason = 'ad-spend';
-            else if (data.annual_revenue === 'under-1m') disqualReason = 'revenue';
+            if (data.annual_revenue === 'under-1m') disqualReason = 'revenue';
 
             // Map URL-slug disqual reasons to Omnisend tag names
             const disqualOmnisendTag = {
