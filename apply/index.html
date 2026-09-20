@@ -961,6 +961,7 @@
         const ZAPIER_PARTIAL_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw5tlb/';
         const ZAPIER_QUALIFIED_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw5dfl/';
         const ZAPIER_DISQUALIFIED_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw5m94/';
+        const NOTIFY_URL = 'https://marisha-email-api.vercel.app/api/notify-application';
 
         // Capture UTM parameters from URL on load
         const utm = { utm_source: '', utm_medium: '', utm_campaign: '' };
@@ -1049,17 +1050,14 @@
             };
 
             if (disqualReason) {
-                postWebhook(ZAPIER_DISQUALIFIED_URL, {
-                    ...basePayload,
-                    submission_type: 'disqualified',
-                    disqual_reason: disqualOmnisendTag[disqualReason]
-                });
+                const payload = { ...basePayload, submission_type: 'disqualified', disqual_reason: disqualOmnisendTag[disqualReason] };
+                postWebhook(ZAPIER_DISQUALIFIED_URL, payload);
+                postWebhook(NOTIFY_URL, payload);
                 window.location.href = 'not-yet/?reason=' + disqualReason;
             } else {
-                postWebhook(ZAPIER_QUALIFIED_URL, {
-                    ...basePayload,
-                    submission_type: 'qualified'
-                });
+                const payload = { ...basePayload, submission_type: 'qualified' };
+                postWebhook(ZAPIER_QUALIFIED_URL, payload);
+                postWebhook(NOTIFY_URL, payload);
                 window.location.href = 'booking/';
             }
         });
