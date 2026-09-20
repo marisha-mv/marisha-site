@@ -34,7 +34,7 @@
     ]}
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -42,12 +42,13 @@
             theme: {
                 extend: {
                     colors: {
-                        bordeaux: '#6b1f3d',
-                        'bordeaux-dark': '#4a1529',
-                        gold: '#c9a66b',
-                        'gold-light': '#d4b896',
-                        cream: '#f8f6f3',
-                        'cream-dark': '#f3f0eb'
+                        bordeaux: '#161616',
+                        'bordeaux-dark': '#000000',
+                        gold: '#aac0cf',
+                        'gold-deep': '#6e6759',
+                        'gold-light': '#d8e3eb',
+                        cream: '#f6f4f0',
+                        'cream-dark': '#edeae3'
                     },
                     borderRadius: {
                         DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px'
@@ -59,20 +60,21 @@
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f8f6f3; }
-        h1, h2, h3 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
-        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #f6f4f0; }
+        h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 380; font-variation-settings: 'opsz' 100; line-height: 1.05; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Fraunces', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
 
+        .hl { background: #d8e3eb; padding: 0 0.3em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
         .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(16, 16, 16, 0.18); }
 
         .offset-shadow-bordeaux {
-            box-shadow: -20px 20px 0 0 rgba(107, 31, 61, 0.12);
+            box-shadow: -20px 20px 0 0 rgba(16, 16, 16, 0.12);
             transition: box-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .offset-shadow-bordeaux:hover {
-            box-shadow: -12px 12px 0 0 rgba(107, 31, 61, 0.12);
+            box-shadow: -12px 12px 0 0 rgba(16, 16, 16, 0.12);
             transform: translate(-4px, 4px);
         }
 
@@ -83,7 +85,7 @@
             transition: box-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
         .hero-image-link:hover img {
-            box-shadow: 12px 12px 0 0 rgba(201, 166, 107, 0.25) !important;
+            box-shadow: 12px 12px 0 0 rgba(216, 227, 235, 0.25) !important;
             transform: translate(4px, 4px);
         }
 
@@ -99,8 +101,8 @@
         }
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #6b1f3d;
-            box-shadow: 0 0 0 3px rgba(107, 31, 61, 0.08);
+            border-color: #161616;
+            box-shadow: 0 0 0 3px rgba(16, 16, 16, 0.08);
         }
         select {
             appearance: none;
@@ -131,8 +133,8 @@
         .audit-nav-btn {
             width: 48px;
             height: 48px;
-            border: 1px solid #6b1f3d;
-            color: #6b1f3d;
+            border: 1px solid #161616;
+            color: #161616;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -140,7 +142,7 @@
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             background: transparent;
         }
-        .audit-nav-btn:hover:not(:disabled) { background: #6b1f3d; color: #fff; }
+        .audit-nav-btn:hover:not(:disabled) { background: #161616; color: #fff; }
         .audit-nav-btn:disabled { opacity: 0.25; cursor: not-allowed; }
 
         .audit-dot {
@@ -152,7 +154,7 @@
             border: none;
             padding: 0;
         }
-        .audit-dot.active { background: #6b1f3d; width: 48px; }
+        .audit-dot.active { background: #161616; width: 48px; }
 
         .faq-content {
             max-height: 0;
@@ -163,15 +165,15 @@
         }
         .faq-content.open { max-height: 500px; padding-bottom: 1.5rem; }
         .faq-toggle { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
-        .faq-toggle:hover { background: rgba(107, 31, 61, 0.03); }
+        .faq-toggle:hover { background: rgba(16, 16, 16, 0.03); }
         .faq-icon { transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         .faq-icon.open { transform: rotate(45deg); }
 
         @media (max-width: 768px) {
             h1 { font-size: 2.25rem !important; }
             h2 { font-size: 1.75rem !important; }
-            .hero-image-link img { box-shadow: 10px 10px 0 0 rgba(201, 166, 107, 0.25) !important; }
-            .offset-shadow-bordeaux { box-shadow: -10px 10px 0 0 rgba(107, 31, 61, 0.12); }
+            .hero-image-link img { box-shadow: 10px 10px 0 0 rgba(216, 227, 235, 0.25) !important; }
+            .offset-shadow-bordeaux { box-shadow: -10px 10px 0 0 rgba(16, 16, 16, 0.12); }
         }
     </style>
     <script type="text/javascript">
@@ -199,7 +201,7 @@
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-10 lg:mb-14 fade-in">
                 <h1 class="text-4xl lg:text-6xl leading-[1.05] mb-6">
-                    Your funnel is leaking <span class="text-bordeaux italic">$100K+/year.</span><br>
+                    Your funnel is leaking <span class="hl italic">$100K+/year.</span><br>
                     I'll show you exactly where.
                 </h1>
                 <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">
@@ -212,7 +214,7 @@
             </div>
 
             <a href="#application-form" class="block hero-image-link mb-8 fade-in" aria-label="Apply for the Revenue Recovery Audit">
-                <img src="../apply-hero.jpg" alt="Revenue Recovery Audit — $100,000 in recoverable revenue guaranteed, or you pay nothing." class="w-full h-auto block" style="box-shadow: 20px 20px 0 0 rgba(201, 166, 107, 0.25); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);" loading="eager">
+                <img src="../apply-hero.jpg" alt="Revenue Recovery Audit — $100,000 in recoverable revenue guaranteed, or you pay nothing." class="w-full h-auto block" style="box-shadow: 20px 20px 0 0 rgba(216, 227, 235, 0.25); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);" loading="eager">
             </a>
 
             <div class="text-center">
@@ -243,7 +245,7 @@
     <!-- WHO THIS IS FOR -->
     <section class="px-6 lg:px-16 py-20 lg:py-32 bg-white">
         <div class="max-w-4xl mx-auto fade-in">
-            <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Who This Is For</p>
+            <p class="text-gold-deep text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Who This Is For</p>
             <h2 class="text-3xl lg:text-5xl mb-10 leading-tight">You don't have a traffic problem.<br><span class="text-bordeaux italic">You have a leak problem.</span></h2>
             <div class="space-y-5 text-base lg:text-lg text-gray-700 leading-relaxed max-w-3xl">
                 <p>You're running a funnel that makes money. But when you actually map the numbers from ad impression → sale, every step is quietly bleeding — and the total is always bigger than founders expect.</p>
@@ -261,7 +263,7 @@
                     <img src="https://static.showit.co/400/efKDHLASSHa41FhiJQYtKw/shared/img_8370_1.jpg" alt="Marisha Lakhiani" class="offset-shadow-bordeaux w-full h-[450px] lg:h-[550px] object-cover object-top">
                 </div>
                 <div class="fade-in order-1 lg:order-2">
-                    <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Who's Running The Audit</p>
+                    <p class="text-gold-deep text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Who's Running The Audit</p>
                     <h2 class="text-3xl lg:text-5xl mb-8 leading-tight">I scaled Mindvalley from <span class="text-bordeaux italic">$30M → $150M.</span></h2>
                     <div class="space-y-5 text-base lg:text-lg text-gray-600 leading-relaxed mb-10">
                         <p>Over 8 years as Mindvalley's growth architect, I built the funnel systems that took us from $30M to $150M. What unlocked the other $120M wasn't more ads or more traffic — it was obsessing over what happens <em>after</em> the click.</p>
@@ -394,7 +396,7 @@
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 lg:mb-16 fade-in">
                 <div>
-                    <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Recent Audits</p>
+                    <p class="text-gold-deep text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">Recent Audits</p>
                     <h2 class="text-3xl lg:text-5xl mb-6 leading-tight">Real funnels. Real leaks.<br><span class="text-bordeaux italic">Real dollars found.</span></h2>
                     <p class="text-lg lg:text-xl text-gray-600 max-w-2xl">The exact opportunities each audit surfaced, and the fixes that got them there.</p>
                 </div>
@@ -422,14 +424,14 @@
                                     <p class="text-2xl lg:text-3xl font-bold text-gray-900">$330K/yr</p>
                                 </div>
                                 <div class="border-l-2 border-bordeaux pl-5">
-                                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-1">Identified Opportunity</p>
+                                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold-deep font-semibold mb-1">Identified Opportunity</p>
                                     <p class="text-2xl lg:text-3xl font-bold text-bordeaux">+$785K/yr</p>
                                     <p class="text-[11px] uppercase tracking-[0.15em] text-gray-500 mt-1">→ $1.1M projected · 238% growth</p>
                                 </div>
                             </div>
                         </div>
                         <div class="lg:col-span-3 border-l-2 border-gold pl-8 lg:pl-14">
-                            <p class="text-gold text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What The Audit Found</p>
+                            <p class="text-gold-deep text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What The Audit Found</p>
                             <blockquote class="text-xl lg:text-2xl italic text-gray-900 leading-snug mb-8">
                                 "The money is in days 3–7 post-webinar — and you're barely touching it."
                             </blockquote>
@@ -447,7 +449,7 @@
                                     <p class="text-sm lg:text-base text-gray-700">Messaging targeted $100K–$1M earners, but 58% of registrants were at $0–$30K. Repositioning for $50K–$250K "plateau" buyers aligned traffic with offer.</p>
                                 </div>
                                 <div class="flex gap-4">
-                                    <span class="material-symbols-outlined text-gold text-xl flex-shrink-0 mt-0.5">payments</span>
+                                    <span class="material-symbols-outlined text-gold-deep text-xl flex-shrink-0 mt-0.5">payments</span>
                                     <p class="text-sm lg:text-base text-gray-700">Recommended $597 deposit model to filter tire-kickers. Projected close rate on depositors: 40–60% vs. 15% on free bookings.</p>
                                 </div>
                             </div>
@@ -471,14 +473,14 @@
                                     <p class="text-2xl lg:text-3xl font-bold text-gray-900">$2.67M/yr</p>
                                 </div>
                                 <div class="border-l-2 border-bordeaux pl-5">
-                                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-1">Identified Opportunity</p>
+                                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold-deep font-semibold mb-1">Identified Opportunity</p>
                                     <p class="text-2xl lg:text-3xl font-bold text-bordeaux">+$8.26M/yr</p>
                                     <p class="text-[11px] uppercase tracking-[0.15em] text-gray-500 mt-1">→ $10.93M projected · 309% growth</p>
                                 </div>
                             </div>
                         </div>
                         <div class="lg:col-span-3 border-l-2 border-gold pl-8 lg:pl-14">
-                            <p class="text-gold text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What The Audit Found</p>
+                            <p class="text-gold-deep text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What The Audit Found</p>
                             <blockquote class="text-xl lg:text-2xl italic text-gray-900 leading-snug mb-8">
                                 "You're already great at converting attendees into buyers. The opportunity is getting 3–5× more qualified people in the room."
                             </blockquote>
@@ -496,7 +498,7 @@
                                     <p class="text-sm lg:text-base text-gray-700">Email reminders landing in spam. SPF/DKIM/DMARC not configured. This fix alone recovered hundreds of attendees per webinar.</p>
                                 </div>
                                 <div class="flex gap-4">
-                                    <span class="material-symbols-outlined text-gold text-xl flex-shrink-0 mt-0.5">verified</span>
+                                    <span class="material-symbols-outlined text-gold-deep text-xl flex-shrink-0 mt-0.5">verified</span>
                                     <p class="text-sm lg:text-base text-gray-700">Recommended $97 application fee for sales calls. Projected show-up rate jump: 30–50% → 85–95%. Commitment filter, not revenue play.</p>
                                 </div>
                             </div>
@@ -520,14 +522,14 @@
                                     <p class="text-2xl lg:text-3xl font-bold text-gray-900">$5.5M/yr</p>
                                 </div>
                                 <div class="border-l-2 border-bordeaux pl-5">
-                                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-1">Identified Opportunity</p>
+                                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold-deep font-semibold mb-1">Identified Opportunity</p>
                                     <p class="text-2xl lg:text-3xl font-bold text-bordeaux">+$2.2M/yr</p>
                                     <p class="text-[11px] uppercase tracking-[0.15em] text-gray-500 mt-1">→ $7.7M projected · 40% growth</p>
                                 </div>
                             </div>
                         </div>
                         <div class="lg:col-span-3 border-l-2 border-gold pl-8 lg:pl-14">
-                            <p class="text-gold text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What The Audit Found</p>
+                            <p class="text-gold-deep text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What The Audit Found</p>
                             <blockquote class="text-xl lg:text-2xl italic text-gray-900 leading-snug mb-8">
                                 "It isn't a conversion problem. It's an expansion problem."
                             </blockquote>
@@ -545,7 +547,7 @@
                                     <p class="text-sm lg:text-base text-gray-700">"30% off ending soon" countdown comes back next visit. Sophisticated buyers figured it out — urgency became brand-damaging theater. Costs both the conversion AND the trust.</p>
                                 </div>
                                 <div class="flex gap-4">
-                                    <span class="material-symbols-outlined text-gold text-xl flex-shrink-0 mt-0.5">verified</span>
+                                    <span class="material-symbols-outlined text-gold-deep text-xl flex-shrink-0 mt-0.5">verified</span>
                                     <p class="text-sm lg:text-base text-gray-700">Recommended $299 Accelerator order-bump at checkout + $499–999 live Accelerator post-purchase upsell. <strong>Pure margin. Zero added CAC.</strong> The single biggest lever in this audit.</p>
                                 </div>
                             </div>
@@ -570,14 +572,14 @@
                                     <p class="text-[11px] uppercase tracking-[0.15em] text-gray-500 mt-1">Down from 4.49× (Q1 2025)</p>
                                 </div>
                                 <div class="border-l-2 border-bordeaux pl-5">
-                                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-1">Identified Opportunity</p>
+                                    <p class="text-[10px] uppercase tracking-[0.25em] text-gold-deep font-semibold mb-1">Identified Opportunity</p>
                                     <p class="text-2xl lg:text-3xl font-bold text-bordeaux">+$2.35M/yr</p>
                                     <p class="text-[11px] uppercase tracking-[0.15em] text-gray-500 mt-1">→ Restore 2025-level unit economics</p>
                                 </div>
                             </div>
                         </div>
                         <div class="lg:col-span-3 border-l-2 border-gold pl-8 lg:pl-14">
-                            <p class="text-gold text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What The Audit Found</p>
+                            <p class="text-gold-deep text-[10px] tracking-[0.3em] uppercase font-semibold mb-4">What The Audit Found</p>
                             <blockquote class="text-xl lg:text-2xl italic text-gray-900 leading-snug mb-8">
                                 "You don't have a CPL problem. You have an ad-efficiency and post-webinar problem."
                             </blockquote>
@@ -595,7 +597,7 @@
                                     <p class="text-sm lg:text-base text-gray-700">43,124 unconverted Q1 registrants + 10,768 unconverted attendees with no 7-day escalating-urgency sequence. <strong>Largest unspent inventory in the funnel.</strong></p>
                                 </div>
                                 <div class="flex gap-4">
-                                    <span class="material-symbols-outlined text-gold text-xl flex-shrink-0 mt-0.5">verified</span>
+                                    <span class="material-symbols-outlined text-gold-deep text-xl flex-shrink-0 mt-0.5">verified</span>
                                     <p class="text-sm lg:text-base text-gray-700">Always-on "TODAYONLY35" fake countdown discount running 24/7 — same price as the webinar offer. Sophisticated parents caught on; urgency stopped working.</p>
                                 </div>
                             </div>
@@ -652,7 +654,7 @@
     <section class="px-6 lg:px-16 py-20 lg:py-28 bg-white">
         <div class="max-w-5xl mx-auto">
             <div class="mb-14 lg:mb-20 fade-in">
-                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">How It Works</p>
+                <p class="text-gold-deep text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">How It Works</p>
                 <h2 class="text-3xl lg:text-5xl leading-tight">From application to report in <span class="text-bordeaux italic">7 days.</span></h2>
             </div>
 
@@ -680,7 +682,7 @@
     <section class="px-6 lg:px-16 py-20 lg:py-32 bg-cream">
         <div class="max-w-3xl mx-auto">
             <div class="mb-12 lg:mb-16 fade-in">
-                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">FAQ</p>
+                <p class="text-gold-deep text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-6">FAQ</p>
                 <h2 class="text-3xl lg:text-5xl">Common Questions</h2>
             </div>
 
@@ -752,11 +754,11 @@
     <section id="application-form" class="px-6 lg:px-16 py-20 lg:py-28 bg-white">
         <div class="max-w-2xl mx-auto">
             <div class="mb-10 lg:mb-14 fade-in">
-                <p class="text-gold text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-4">The Application</p>
+                <p class="text-gold-deep text-xs lg:text-sm tracking-[0.3em] uppercase font-semibold mb-4">The Application</p>
                 <h2 class="text-3xl lg:text-4xl leading-tight mb-4">6 questions. 4 minutes.</h2>
                 <p class="text-base lg:text-lg text-gray-600 mb-6">Everything I need to see if we're a fit. Qualified applicants book a call instantly.</p>
                 <div class="bg-cream-dark border-l-2 border-gold pl-5 py-3">
-                    <p class="text-[11px] uppercase tracking-[0.2em] text-gold font-semibold mb-1">Who it's for</p>
+                    <p class="text-[11px] uppercase tracking-[0.2em] text-gold-deep font-semibold mb-1">Who it's for</p>
                     <p class="text-sm lg:text-base text-gray-800">$1M–$150M founders with an active paid funnel and $20K+/month in ad spend.</p>
                 </div>
             </div>
@@ -765,8 +767,8 @@
 
                 <!-- STEP 1: Name + Email (fires partial webhook) -->
                 <div id="step-1" class="form-step">
-                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">Step 1 of 2</p>
-                    <h3 class="text-xl lg:text-2xl mb-6" style="font-family: 'Bodoni Moda', serif;">First, where should I send the audit details?</h3>
+                    <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">Step 1 of 2</p>
+                    <h3 class="text-xl lg:text-2xl mb-6" style="font-family: 'Fraunces', serif;">First, where should I send the audit details?</h3>
 
                     <div class="form-group">
                         <label class="form-label">First name</label>
@@ -794,8 +796,8 @@
 
                 <!-- STEP 2: Qualifying questions (fires qualified/disqualified webhook) -->
                 <div id="step-2" class="form-step" style="display:none;">
-                    <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">Step 2 of 2</p>
-                    <h3 class="text-xl lg:text-2xl mb-8" style="font-family: 'Bodoni Moda', serif;">Tell me about your business.</h3>
+                    <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">Step 2 of 2</p>
+                    <h3 class="text-xl lg:text-2xl mb-8" style="font-family: 'Fraunces', serif;">Tell me about your business.</h3>
 
                     <div class="form-group">
                         <label class="form-label">1 · Do you have an active paid funnel running?</label>
