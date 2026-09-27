@@ -147,27 +147,6 @@
                             <label class="block text-xs uppercase tracking-[0.15em] font-semibold mb-2 text-gray-700">Email</label>
                             <input type="email" id="q_email" placeholder="you@company.com" autocomplete="email">
                         </div>
-                        <details class="border border-gray-200 bg-cream-dark/40">
-                            <summary class="cursor-pointer px-4 py-3 text-xs uppercase tracking-[0.15em] font-semibold text-bordeaux select-none">Optional: add your numbers → get dollar figures</summary>
-                            <div class="px-4 pb-4 pt-1 grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block text-[10px] uppercase tracking-[0.12em] font-semibold mb-1 text-gray-600">Monthly ad spend ($)</label>
-                                    <input type="text" inputmode="numeric" id="q_adSpend" placeholder="20,000">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] uppercase tracking-[0.12em] font-semibold mb-1 text-gray-600">Leads / month</label>
-                                    <input type="text" inputmode="numeric" id="q_leads" placeholder="1,500">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] uppercase tracking-[0.12em] font-semibold mb-1 text-gray-600">Offer price ($)</label>
-                                    <input type="text" inputmode="numeric" id="q_offerPrice" placeholder="2,000">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] uppercase tracking-[0.12em] font-semibold mb-1 text-gray-600">Monthly revenue ($)</label>
-                                    <input type="text" inputmode="numeric" id="q_revenue" placeholder="120,000">
-                                </div>
-                            </div>
-                        </details>
                         <button id="start-btn" onclick="startScan()" class="btn-primary w-full bg-bordeaux text-white px-8 py-5 font-bold uppercase tracking-[0.15em] text-sm">Run My Free Audit →</button>
                         <p id="start-error" class="text-sm text-bordeaux hidden">Please enter a valid website, your name and email.</p>
                         <p class="text-xs text-gray-500 italic">*By continuing you agree to receive my marketing emails. Unsubscribe anytime.</p>
@@ -185,8 +164,10 @@
                 <div id="scan-steps" class="max-w-md mx-auto text-left space-y-5">
                     <div class="scan-step flex items-center gap-4"><span class="scan-dot"></span><span class="text-sm">Loading your page and timing the server</span></div>
                     <div class="scan-step flex items-center gap-4"><span class="scan-dot"></span><span class="text-sm">Rendering your site in a real browser — desktop and phone</span></div>
+                    <div class="scan-step flex items-center gap-4"><span class="scan-dot"></span><span class="text-sm">Comparing your desktop and mobile first fold side by side</span></div>
                     <div class="scan-step flex items-center gap-4"><span class="scan-dot"></span><span class="text-sm">Following your funnel links the way a buyer would</span></div>
                     <div class="scan-step flex items-center gap-4"><span class="scan-dot"></span><span class="text-sm">Running the 5-second stranger test on your first fold</span></div>
+                    <div class="scan-step flex items-center gap-4"><span class="scan-dot"></span><span class="text-sm">Rewriting your headline to convert</span></div>
                     <div class="scan-step flex items-center gap-4"><span class="scan-dot"></span><span class="text-sm">Weighing your proof against the size of your claims</span></div>
                     <div class="scan-step flex items-center gap-4"><span class="scan-dot"></span><span class="text-sm">Checking SPF, DKIM &amp; DMARC against the Gmail/Yahoo rules</span></div>
                     <div class="scan-step flex items-center gap-4"><span class="scan-dot"></span><span class="text-sm">Auditing tracking, capture &amp; friction</span></div>
@@ -240,13 +221,13 @@ function animateSteps() {
     steps.forEach(s => s.classList.remove('on', 'done'));
     let i = 0;
     steps[0].classList.add('on');
-    // ~16s per beat; the last beat holds until the API answers
+    // ~13s per beat across 11 steps; the last beat holds until the API answers
     stepTimer = setInterval(() => {
         if (i < steps.length - 1) {
             steps[i].classList.remove('on'); steps[i].classList.add('done');
             i++; steps[i].classList.add('on');
         }
-    }, 16000);
+    }, 13000);
 }
 function finishSteps() {
     clearInterval(stepTimer);
@@ -269,17 +250,11 @@ async function startScan() {
     animateSteps();
     try { if (typeof gtag === 'function') gtag('event', 'scan_started', { scanned_url: url }); } catch (e) {}
 
-    const numbers = {};
-    for (const k of ['adSpend', 'leads', 'offerPrice', 'revenue']) {
-        const v = Number((document.getElementById('q_' + k)?.value || '').replace(/[^0-9.]/g, ''));
-        if (v > 0) numbers[k] = v;
-    }
-
     try {
         const res = await fetch(SCAN_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url, firstName, email, numbers }),
+            body: JSON.stringify({ url, firstName, email }),
         });
         const data = await res.json();
         finishSteps();
@@ -302,7 +277,47 @@ function band(score) {
     return { label: 'Bleeding', accent: 'text-bordeaux', eyebrow: 'This is urgent' };
 }
 
+// -------- post-report dollar quantification --------
+let lastOverall = 0;
+function fmtMoney(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+function roundNice(n) {
+    if (n >= 100000) return Math.round(n / 5000) * 5000;
+    if (n >= 10000) return Math.round(n / 1000) * 1000;
+    return Math.round(n / 100) * 100;
+}
+function computeDollars() {
+    const val = id => Number((document.getElementById(id)?.value || '').replace(/[^0-9.]/g, ''));
+    const revenue = val('d_revenue'), adSpend = val('d_adSpend'), leads = val('d_leads'), offerPrice = val('d_offerPrice');
+    const err = document.getElementById('dollar-error');
+    if (!(revenue > 0)) { err.classList.remove('hidden'); return; }
+    err.classList.add('hidden');
+
+    const S = lastOverall;
+    // Conversion gap vs the top-10% benchmark, conservatively: only ~1/3 counted as recoverable
+    const gap = Math.min(0.65, Math.max(0.06, (94 - S) / 94));
+    const annualRev = revenue * 12;
+    const high = Math.min(roundNice(annualRev * gap * 0.35), roundNice(annualRev * 0.6));
+    const low = roundNice(high * 0.55);
+
+    const lines = [
+        `Your site scored ${S}/100 against the top 10% of pages, which leaves roughly ${Math.round(gap * 100)}% of this funnel's conversion power unrealized. We count only about a third of that gap as recoverable with the fixes above. On ${fmtMoney(annualRev)} a year in revenue, that is ${fmtMoney(low)} to ${fmtMoney(high)} left on the table every 12 months.`
+    ];
+    if (adSpend > 0) lines.push(`At ${fmtMoney(adSpend)} a month in ads, the same gap means about ${fmtMoney(roundNice(adSpend * 12 * gap * 0.3))} of your annual spend buys clicks the page then loses.`);
+    if (leads > 0 && offerPrice > 0) lines.push(`And each extra sale per 100 leads is worth ${fmtMoney(roundNice(leads / 100 * offerPrice * 12))} a year at your price point, so small conversion wins compound fast.`);
+
+    document.getElementById('dollar-result').innerHTML = `
+        <div class="mb-16 bg-bordeaux text-white p-8 lg:p-10 fade-in-calc">
+            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your Annual Leak, Estimated</p>
+            <h2 class="text-2xl lg:text-4xl text-white leading-snug mb-4">${fmtMoney(low)}–${fmtMoney(high)} a year left on the table at your current score.</h2>
+            <p class="text-sm text-white/75 leading-relaxed max-w-2xl">${lines.join(' ')}</p>
+            <p class="text-sm text-white/90 leading-relaxed max-w-2xl mt-4">The Revenue Recovery Audit™ costs $10K. Finding the leaks behind this number is what it's for.</p>
+        </div>`;
+    document.getElementById('dollar-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    try { if (typeof gtag === 'function') gtag('event', 'dollars_submitted', { score: S, leak_high: high }); } catch (e) {}
+}
+
 function renderResults(d) {
+    lastOverall = d.overall;
     const a = d.audit;
     const b = band(d.overall);
     const circumference = 2 * Math.PI * 54;
@@ -383,7 +398,7 @@ function renderResults(d) {
             </div>
             <h1 class="text-4xl lg:text-6xl leading-tight mb-4">Verdict: <span class="${b.accent} italic">${b.label}.</span></h1>
             <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mb-6">Scored against the top 10% of pages, not the average.</p>
-            <button onclick="window.print()" class="no-print text-xs uppercase tracking-[0.2em] font-semibold text-bordeaux border border-bordeaux px-5 py-3 hover:bg-bordeaux hover:text-white transition-colors">Save as PDF / share with your team</button>
+            <button onclick="try{gtag('event','pdf_save',{score:${d.overall}})}catch(e){};window.print()" class="no-print text-xs uppercase tracking-[0.2em] font-semibold text-bordeaux border border-bordeaux px-5 py-3 hover:bg-bordeaux hover:text-white transition-colors">Save as PDF / share with your team</button>
         </div>
 
         <div class="grid md:grid-cols-3 gap-10 mb-16 pb-12 border-b border-gray-200 items-center">
@@ -413,13 +428,6 @@ function renderResults(d) {
             <div class="space-y-3">
                 ${a.scoreReasons.map(r => `<p class="flex gap-3 text-sm lg:text-base text-gray-800"><span class="text-bordeaux font-bold flex-none">→</span><span>${esc(r)}</span></p>`).join('')}
             </div>
-        </div>` : ''}
-
-        ${d.audit.dollars && d.audit.dollars.provided ? `
-        <div class="mb-16 bg-bordeaux text-white p-8 lg:p-10">
-            <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">In Your Numbers</p>
-            <h2 class="text-2xl lg:text-4xl text-white leading-snug mb-4">${esc(d.audit.dollars.headline)}</h2>
-            <p class="text-sm text-white/75 leading-relaxed max-w-2xl">${esc(d.audit.dollars.arithmetic)}</p>
         </div>` : ''}
 
         ${d.screenshots && d.screenshots.desktop ? `
@@ -509,15 +517,52 @@ function renderResults(d) {
             <p class="text-sm lg:text-base text-white/85 leading-relaxed max-w-2xl">${esc(a.topPriority.detail)}</p>
         </div>
 
+        <div class="no-print mb-16 bg-white border border-gray-200 p-8 lg:p-10" id="dollar-block">
+            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">In Your Numbers</p>
+            <h2 class="text-2xl lg:text-3xl mb-3">Want to see what these leaks cost you in actual dollars?</h2>
+            <p class="text-gray-600 leading-relaxed mb-6 max-w-2xl">Drop in your numbers and I'll calculate it against your score. Monthly revenue is the only one I need; the rest sharpen the math.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5 max-w-3xl">
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.12em] font-semibold mb-1 text-gray-600">Monthly revenue ($)</label>
+                    <input type="text" inputmode="numeric" id="d_revenue" placeholder="120,000">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.12em] font-semibold mb-1 text-gray-600">Monthly ad spend ($)</label>
+                    <input type="text" inputmode="numeric" id="d_adSpend" placeholder="20,000">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.12em] font-semibold mb-1 text-gray-600">Leads / month</label>
+                    <input type="text" inputmode="numeric" id="d_leads" placeholder="1,500">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.12em] font-semibold mb-1 text-gray-600">Offer price ($)</label>
+                    <input type="text" inputmode="numeric" id="d_offerPrice" placeholder="2,000">
+                </div>
+            </div>
+            <button onclick="computeDollars()" class="btn-primary bg-bordeaux text-white px-8 py-4 font-bold uppercase tracking-[0.15em] text-xs">Calculate My Leak →</button>
+            <p id="dollar-error" class="text-sm text-bordeaux mt-3 hidden">Enter your monthly revenue to calculate.</p>
+        </div>
+        <div id="dollar-result"></div>
+
         <div class="border-t border-bordeaux/20 pt-12 mb-8">
             <p class="text-base lg:text-lg text-gray-700 leading-relaxed max-w-2xl mb-8">${esc(a.closingNote)}</p>
             <div class="bg-white border border-gray-200 p-8 lg:p-10">
                 <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The Next Layer</p>
                 <h2 class="text-2xl lg:text-3xl mb-4">This scan reads your page. The audit reads your business.</h2>
-                <p class="text-gray-600 leading-relaxed mb-8 max-w-2xl">The Revenue Recovery Audit™ goes where a scanner can't: your ad account, your email sequences, your checkout data, your follow-up economics — and comes back with the dollar figure attached to each leak and the order to fix them in.</p>
+                ${d.overall >= 75 ? `
+                <p class="text-gray-600 leading-relaxed mb-4 max-w-2xl">Your page held up well, and that's exactly why the next look matters: a clean surface means the remaining leaks live where a scanner can't see. The page was the front door. The audit checks the plumbing:</p>
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-2 mb-8 max-w-2xl text-sm text-gray-700">
+                    <p class="flex gap-2"><span class="text-bordeaux font-bold">→</span>Email sequence conversion &amp; abandonment follow-up</p>
+                    <p class="flex gap-2"><span class="text-bordeaux font-bold">→</span>Webinar &amp; call show-up rates</p>
+                    <p class="flex gap-2"><span class="text-bordeaux font-bold">→</span>Post-purchase retention &amp; churn patterns</p>
+                    <p class="flex gap-2"><span class="text-bordeaux font-bold">→</span>CAC by channel &amp; customer lifetime value</p>
+                    <p class="flex gap-2"><span class="text-bordeaux font-bold">→</span>Pricing architecture &amp; offer economics</p>
+                    <p class="flex gap-2"><span class="text-bordeaux font-bold">→</span>The ~97% who click but never buy</p>
+                </div>` : `
+                <p class="text-gray-600 leading-relaxed mb-8 max-w-2xl">The Revenue Recovery Audit™ goes where a scanner can't: your ad account, your email sequences, your checkout data, your follow-up economics — and comes back with the dollar figure attached to each leak and the order to fix them in.</p>`}
                 <div class="flex flex-wrap gap-4 items-center">
-                    <a href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan" class="btn-primary inline-block bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Apply for the Audit →</a>
-                    <span class="text-sm text-gray-500">Want dollar figures next time? Re-run the audit and add your numbers.</span>
+                    <a href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan" onclick="try{gtag('event','apply_click',{from:'scan_report',score:${d.overall}})}catch(e){}" class="btn-primary inline-block bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Apply for the Audit →</a>
+                    <span class="text-sm text-gray-500">Free to apply. If we're not a fit, you keep this report and the plan.</span>
                 </div>
             </div>
         </div>
