@@ -303,7 +303,7 @@ function computeDollars() {
         `Your site scored ${S}/100 against the top 10% of pages, which leaves roughly ${Math.round(gap * 100)}% of this funnel's conversion power unrealized. We count only about a third of that gap as recoverable with the fixes above. On ${fmtMoney(annualRev)} a year in revenue, that is ${fmtMoney(low)} to ${fmtMoney(high)} left on the table every 12 months.`
     ];
     if (adSpend > 0) lines.push(`At ${fmtMoney(adSpend)} a month in ads, the same gap means about ${fmtMoney(roundNice(adSpend * 12 * gap * 0.3))} of your annual spend buys clicks the page then loses.`);
-    if (leads > 0 && offerPrice > 0) lines.push(`And each extra sale per 100 leads is worth ${fmtMoney(roundNice(leads / 100 * offerPrice * 12))} a year at your price point, so small conversion wins compound fast.`);
+    if (offerPrice > 0) lines.push(`And every extra sale a month is worth ${fmtMoney(offerPrice * 12)} a year at your price point, so small conversion wins compound fast.`);
 
     document.getElementById('dollar-result').innerHTML = `
         <div class="mb-16 bg-bordeaux text-white p-8 lg:p-10 fade-in-calc">
