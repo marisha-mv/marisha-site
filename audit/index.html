@@ -88,6 +88,44 @@
         @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.7); } }
 
         .evidence { border-left: 2px solid #c9a66b; background: #faf8f4; font-style: italic; }
+
+        .serif { font-family: 'Bodoni Moda', serif; }
+
+        /* ---- scroll progress ---- */
+        #progress-track { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: rgba(107,31,61,0.08); z-index: 60; }
+        #progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #6b1f3d, #c9a66b); }
+
+        /* ---- scroll reveal ---- */
+        .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.25,1,.5,1), transform .7s cubic-bezier(.25,1,.5,1); }
+        .reveal.in { opacity: 1; transform: none; }
+
+        /* ---- grade cards ---- */
+        .grade-card { background: #fff; border: 1px solid #e5e1da; padding: 1.4rem 1.5rem; position: relative; transition: transform .35s cubic-bezier(.25,1,.5,1), box-shadow .35s; }
+        .grade-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(107,31,61,0.10); }
+        .grade-letter { font-family: 'Bodoni Moda', serif; font-size: 2.6rem; line-height: 1; font-style: italic; }
+
+        /* ---- device frames ---- */
+        .browser-frame { background: #fff; border: 1px solid #d9d4cc; box-shadow: 0 24px 60px rgba(30,20,25,0.13); }
+        .browser-bar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #f3f0eb; border-bottom: 1px solid #e2ddd4; }
+        .browser-dot { width: 10px; height: 10px; border-radius: 999px; }
+        .browser-url { flex: 1; background: #fff; border: 1px solid #e2ddd4; font-size: 11px; color: #8a8a8a; padding: 4px 12px; border-radius: 999px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .phone-frame { border: 10px solid #221c1f; border-radius: 34px; overflow: hidden; box-shadow: 0 24px 60px rgba(30,20,25,0.18); position: relative; background: #221c1f; }
+        .phone-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 38%; height: 16px; background: #221c1f; border-radius: 0 0 12px 12px; z-index: 2; }
+        .phone-frame img { border-radius: 22px; display: block; }
+
+        /* ---- stamps & chips ---- */
+        .stamp { display: inline-block; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 1.05rem; letter-spacing: .08em; padding: .35rem 1.1rem; border: 2px solid currentColor; transform: rotate(-4deg); }
+        .chip { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: .15em; font-weight: 700; padding: .3rem .7rem; }
+
+        /* ---- action plan ---- */
+        .rec-card { background: #fff; border: 1px solid #e5e1da; border-left-width: 4px; transition: transform .35s cubic-bezier(.25,1,.5,1), box-shadow .35s; }
+        .rec-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(107,31,61,0.09); }
+        .rec-num { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 3.2rem; line-height: .9; color: rgba(107,31,61,0.14); }
+        .effort-dot { width: 7px; height: 7px; border-radius: 999px; display: inline-block; background: #d8d2c8; }
+        .effort-dot.on { background: #8a6832; }
+
+        /* ---- journey flow ---- */
+        .flow-arrow { font-family: 'Bodoni Moda', serif; color: #c9a66b; font-size: 1.8rem; }
         .sev-critical { background: #6b1f3d; color: #fff; }
         .sev-major { background: #c9a66b; color: #fff; }
         .sev-minor { background: #e8e4dd; color: #6a6a6a; }
@@ -98,7 +136,8 @@
         }
 
         @media print {
-            .no-print, header, footer { display: none !important; }
+            .no-print, header, footer, #progress-track { display: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
             body { background: white !important; }
             main { max-width: 100% !important; padding: 0 !important; }
             .screen { display: none !important; }
@@ -108,6 +147,8 @@
     </style>
 </head>
 <body class="bg-cream text-gray-900">
+
+    <div id="progress-track"><div id="progress-bar"></div></div>
 
     <header class="px-6 lg:px-16 py-6 flex items-center justify-between border-b border-gray-200 bg-cream">
         <a href="../index.html" class="logo-name">MARISHA LAKHIANI</a>
@@ -267,17 +308,39 @@ async function startScan() {
     }
 }
 
-// -------- rendering --------
-const SECTION_LABELS = { speed: 'Speed & Mobile', deliverability: 'Email Deliverability', capture: 'Capture & Follow-up', tracking: 'Tracking & Visibility' };
-const STATUS_DOT = { pass: 'bg-green-600', warn: 'bg-yellow-500', fail: 'bg-bordeaux' };
-
+// -------- rendering (v2) --------
 function band(score) {
-    if (score >= 80) return { label: 'Sharp, with money on the table', accent: 'text-green-700', eyebrow: 'Ready for the fine-tuning' };
-    if (score >= 60) return { label: 'Leaking', accent: 'text-gold', eyebrow: 'Fixable, and worth fixing fast' };
-    return { label: 'Bleeding', accent: 'text-bordeaux', eyebrow: 'This is urgent' };
+    if (score >= 80) return { label: 'Sharp, with money on the table', accent: 'text-green-700', stamp: '#2f7d4f' };
+    if (score >= 60) return { label: 'Leaking', accent: 'text-gold-deep', stamp: '#8a6832' };
+    return { label: 'Bleeding', accent: 'text-bordeaux', stamp: '#6b1f3d' };
+}
+function grade(score) {
+    if (score >= 90) return 'A';
+    if (score >= 80) return 'B+';
+    if (score >= 70) return 'B';
+    if (score >= 60) return 'C+';
+    if (score >= 50) return 'C';
+    if (score >= 40) return 'D';
+    return 'F';
+}
+function gradeColor(score) {
+    if (score >= 80) return '#2f7d4f';
+    if (score >= 60) return '#8a6832';
+    return '#6b1f3d';
 }
 
-// -------- post-report dollar quantification --------
+// count-up ticker
+function countUp(el, target, { dur = 1400, fmt = (v) => Math.round(v) } = {}) {
+    const t0 = performance.now();
+    const tick = (t) => {
+        const p = Math.min(1, (t - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(target * eased);
+        if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+}
+
 let lastOverall = 0;
 function fmtMoney(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 function roundNice(n) {
@@ -291,29 +354,42 @@ function computeDollars() {
     const err = document.getElementById('dollar-error');
     if (!(revenue > 0)) { err.classList.remove('hidden'); return; }
     err.classList.add('hidden');
-
     const S = lastOverall;
-    // Conversion gap vs the top-10% benchmark, conservatively: only ~1/3 counted as recoverable
     const gap = Math.min(0.65, Math.max(0.06, (94 - S) / 94));
     const annualRev = revenue * 12;
     const high = Math.min(roundNice(annualRev * gap * 0.35), roundNice(annualRev * 0.6));
     const low = roundNice(high * 0.55);
-
     const lines = [
         `Your site scored ${S}/100 against the top 10% of pages, which leaves roughly ${Math.round(gap * 100)}% of this funnel's conversion power unrealized. I count only about a third of that gap as recoverable with the fixes above. On ${fmtMoney(annualRev)} a year in revenue, that is ${fmtMoney(low)} to ${fmtMoney(high)} left on the table every 12 months.`
     ];
     if (adSpend > 0) lines.push(`At ${fmtMoney(adSpend)} a month in ads, the same gap means about ${fmtMoney(roundNice(adSpend * 12 * gap * 0.3))} of your annual spend buys clicks the page then loses.`);
     if (offerPrice > 0) lines.push(`And every extra sale a month is worth ${fmtMoney(offerPrice * 12)} a year at your price point, so small conversion wins compound fast.`);
-
     document.getElementById('dollar-result').innerHTML = `
-        <div class="mb-16 bg-bordeaux text-white p-8 lg:p-10 fade-in-calc">
+        <div class="mb-16 bg-bordeaux text-white p-8 lg:p-10">
             <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your Annual Leak, Estimated</p>
-            <h2 class="text-2xl lg:text-4xl text-white leading-snug mb-4">${fmtMoney(low)}–${fmtMoney(high)} a year left on the table at your current score.</h2>
+            <h2 class="text-2xl lg:text-4xl text-white leading-snug mb-4"><span class="big-num" id="leak-low">$0</span>–<span class="big-num" id="leak-high">$0</span> a year left on the table at your current score.</h2>
             <p class="text-sm text-white/75 leading-relaxed max-w-2xl">${lines.join(' ')}</p>
             <p class="text-sm text-white/90 leading-relaxed max-w-2xl mt-4">The Revenue Recovery Audit™ costs $10K. Finding the leaks behind this number is what it's for.</p>
         </div>`;
+    countUp(document.getElementById('leak-low'), low, { dur: 1200, fmt: v => fmtMoney(roundNice(v)) });
+    countUp(document.getElementById('leak-high'), high, { dur: 1600, fmt: v => fmtMoney(roundNice(v)) });
     document.getElementById('dollar-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
     try { if (typeof gtag === 'function') gtag('event', 'dollars_submitted', { score: S, leak_high: high }); } catch (e) {}
+}
+
+const SECTION_LABELS = { speed: 'Speed & Mobile', deliverability: 'Email Deliverability', capture: 'Capture & Follow-up', tracking: 'Tracking & Visibility' };
+const STATUS_DOT = { pass: 'bg-green-600', warn: 'bg-yellow-500', fail: 'bg-bordeaux' };
+const STATUS_PILL = { pass: 'background:#e7f2ea;color:#2f7d4f', warn: 'background:#f7efdc;color:#8a6832', fail: 'background:#f3e4ea;color:#6b1f3d' };
+
+function sectionHead(num, eyebrow, title) {
+    return `
+    <div class="flex items-start gap-5 mb-8">
+        <span class="serif italic text-5xl lg:text-6xl leading-none text-bordeaux/15 select-none">${num}</span>
+        <div class="pt-1">
+            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-2">${eyebrow}</p>
+            <h2 class="text-2xl lg:text-3xl">${title}</h2>
+        </div>
+    </div>`;
 }
 
 function renderResults(d) {
@@ -325,48 +401,69 @@ function renderResults(d) {
     const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const host = d.scannedUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
-    const pillarRow = (name, p) => `
-        <div>
-            <div class="flex justify-between items-baseline mb-1">
-                <span class="text-[11px] uppercase tracking-[0.2em] font-semibold text-gray-600">${name}</span>
-                <span class="text-sm font-bold">${p.score}<span class="text-gray-400 font-normal">/100</span></span>
+    const PILLAR_META = [
+        ['message', 'Message', 'Is it instantly clear?'],
+        ['proof', 'Proof', 'Do they believe you?'],
+        ['offer', 'Offer', 'Is saying yes easy?'],
+        ['friction', 'Friction', 'How hard is the path?'],
+    ];
+    const gradeCards = PILLAR_META.map(([key, name, q]) => {
+        const p = a.pillars[key];
+        return `
+        <div class="grade-card reveal">
+            <div class="flex items-start justify-between mb-2">
+                <div>
+                    <p class="text-[11px] uppercase tracking-[0.2em] font-semibold text-gray-500">${name}</p>
+                    <p class="text-[11px] text-gray-400">${q}</p>
+                </div>
+                <span class="grade-letter" style="color:${gradeColor(p.score)}">${grade(p.score)}</span>
             </div>
-            <div class="bg-cream-dark h-2 w-full"><div class="pillar-bar h-2 bg-bordeaux" style="width:0%" data-w="${p.score}%"></div></div>
+            <div class="flex items-baseline gap-1 mb-2">
+                <span class="text-2xl font-bold big-num" data-count="${p.score}">0</span>
+                <span class="text-xs text-gray-400">/100</span>
+            </div>
+            <div class="bg-cream-dark h-1.5 w-full mb-3"><div class="pillar-bar h-1.5" style="width:0%;background:${gradeColor(p.score)}" data-w="${p.score}%"></div></div>
+            <p class="text-xs text-gray-600 leading-relaxed">${esc(p.verdict)}</p>
         </div>`;
+    }).join('');
 
+    const IMPACT_EDGE = { high: '#6b1f3d', medium: '#c9a66b', low: '#d8d2c8' };
     const IMPACT_CHIP = { high: 'sev-critical', medium: 'sev-major', low: 'sev-minor' };
-    const EFFORT_LABEL = { 'quick-win': '⚡ Quick win', 'half-day': 'Half a day', project: 'Project' };
-    const AREA_LABEL = { headline: 'Headline', hero: 'First fold', cta: 'Call to action', copy: 'Copy', 'social-proof': 'Social proof', offer: 'Offer', forms: 'Forms', navigation: 'Navigation', speed: 'Speed', mobile: 'Mobile', trust: 'Trust', email: 'Email', tracking: 'Tracking' };
+    const EFFORT_DOTS = { 'quick-win': 1, 'half-day': 2, project: 3 };
+    const EFFORT_LABEL = { 'quick-win': 'Quick win', 'half-day': 'Half a day', project: 'Project' };
+    const AREA_LABEL = { headline: 'Headline', hero: 'First fold', cta: 'Call to action', copy: 'Copy', 'social-proof': 'Social proof', offer: 'Offer', forms: 'Forms', navigation: 'Navigation', speed: 'Speed', mobile: 'Mobile', trust: 'Trust', email: 'Email', tracking: 'Tracking', journey: 'Journey' };
 
     const recs = a.recommendations.map((r, i) => `
-        <div class="bg-white border border-gray-200 p-6 lg:p-8">
-            <div class="flex flex-wrap items-center gap-3 mb-4">
-                <span class="text-gold-deep font-bold text-sm">${String(i + 1).padStart(2, '0')}</span>
-                <span class="${IMPACT_CHIP[r.impact]} text-[10px] uppercase tracking-[0.15em] font-bold px-2.5 py-1">${r.impact} impact</span>
-                <span class="bg-cream-dark text-gray-600 text-[10px] uppercase tracking-[0.15em] font-bold px-2.5 py-1">${AREA_LABEL[r.area] || esc(r.area)}</span>
-                <span class="text-[10px] uppercase tracking-[0.15em] text-gray-500 font-semibold">${EFFORT_LABEL[r.effort] || esc(r.effort)}</span>
-                <h3 class="text-xl lg:text-2xl w-full mt-1">${esc(r.title)}</h3>
-            </div>
-            <div class="grid gap-3">
-                <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
-                    <p class="text-[11px] tracking-[0.18em] uppercase font-semibold text-gray-500">Now</p>
-                    <p class="text-sm text-gray-600 italic">${esc(r.current)}</p>
-                </div>
-                <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
-                    <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-bordeaux">Change</p>
-                    <p class="text-sm lg:text-base text-gray-900 leading-relaxed font-medium">${esc(r.change)}</p>
-                </div>
-                <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
-                    <p class="text-[11px] tracking-[0.18em] uppercase font-semibold text-gray-500">Why</p>
-                    <p class="text-sm text-gray-700 leading-relaxed">${esc(r.why)}</p>
-                </div>
-                <div class="grid md:grid-cols-[130px_1fr] gap-1 md:gap-4 items-baseline">
-                    <p class="text-[11px] tracking-[0.18em] uppercase font-semibold text-gray-500">Expected result</p>
-                    <p class="text-sm text-gray-700 leading-relaxed">${esc(r.expectedResult || '')}</p>
+        <div class="rec-card reveal p-6 lg:p-8" style="border-left-color:${IMPACT_EDGE[r.impact]}">
+            <div class="flex gap-5">
+                <span class="rec-num flex-none select-none">${String(i + 1).padStart(2, '0')}</span>
+                <div class="flex-1 min-w-0">
+                    <div class="flex flex-wrap items-center gap-2.5 mb-3">
+                        <span class="${IMPACT_CHIP[r.impact]} chip">${r.impact} impact</span>
+                        <span class="chip bg-cream-dark text-gray-600">${AREA_LABEL[r.area] || esc(r.area)}</span>
+                        <span class="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] text-gray-500 font-semibold ml-1">
+                            ${[1,2,3].map(n => `<span class="effort-dot ${n <= EFFORT_DOTS[r.effort] ? 'on' : ''}"></span>`).join('')}
+                            ${EFFORT_LABEL[r.effort] || esc(r.effort)}
+                        </span>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl mb-4">${esc(r.title)}</h3>
+                    <div class="evidence px-4 py-3 mb-4">
+                        <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gray-500 not-italic mb-1">On your site now</p>
+                        <p class="text-sm text-gray-600">${esc(r.current)}</p>
+                    </div>
+                    <div class="bg-cream-dark/60 px-4 py-3 mb-4 border-l-2 border-bordeaux">
+                        <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-bordeaux mb-1">Change it to</p>
+                        <p class="text-sm lg:text-base text-gray-900 leading-relaxed font-medium">${esc(r.change)}</p>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-3 text-sm text-gray-700">
+                        <p><span class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gray-500 block mb-0.5">Why it leaks</span>${esc(r.why)}</p>
+                        <p><span class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gray-500 block mb-0.5">What to expect</span>${esc(r.expectedResult || '')}</p>
+                    </div>
                 </div>
             </div>
         </div>`).join('');
 
+    const infraCounts = d.infra.findings.reduce((m, f) => (m[f.status] = (m[f.status] || 0) + 1, m), {});
     const infraSections = ['speed', 'deliverability', 'capture', 'tracking'].map(sec => {
         const rows = d.infra.findings.filter(f => f.section === sec);
         if (!rows.length) return '';
@@ -386,9 +483,28 @@ function renderResults(d) {
         </div>`;
     }).join('');
 
+    const journeyFlow = a.journey && a.journey.pages.length ? `
+        <div class="flex flex-col md:flex-row items-stretch gap-2 mb-6">
+            <div class="bg-bordeaux text-white p-5 flex-1 reveal">
+                <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-gold mb-2">Start · Your homepage</p>
+                <p class="text-sm text-white/85 leading-relaxed">${esc(host)}</p>
+                <p class="text-xs text-white/60 mt-2">Where the promise gets made.</p>
+            </div>
+            ${a.journey.pages.map(pg => `
+            <div class="hidden md:flex items-center flow-arrow select-none">→</div>
+            <div class="md:hidden text-center flow-arrow select-none leading-none">↓</div>
+            <div class="bg-white border border-gray-200 p-5 flex-1 reveal">
+                <p class="text-[10px] tracking-[0.15em] uppercase text-gray-400 mb-1 break-all">${esc(pg.url.replace(/^https?:\/\//, ''))}</p>
+                <p class="text-[10px] tracking-[0.2em] uppercase font-semibold text-bordeaux mb-2">${esc(pg.role)}</p>
+                <p class="text-xs text-gray-700 leading-relaxed mb-2">${esc(pg.verdict)}</p>
+                <p class="text-xs leading-relaxed"><strong class="text-bordeaux">Key issue:</strong> ${esc(pg.keyIssue)}</p>
+            </div>`).join('')}
+        </div>` : '';
+
     const html = `
     <div class="fade-in-calc">
-        <div class="mb-14 pb-10 border-b border-bordeaux/20">
+        <!-- 01 · VERDICT -->
+        <div class="mb-14 pb-10 border-b border-bordeaux/20 reveal in">
             <div class="flex flex-wrap items-center gap-3 mb-6">
                 <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold">Your Website Audit</p>
                 <span class="text-gray-400">·</span>
@@ -401,123 +517,132 @@ function renderResults(d) {
             <button onclick="try{gtag('event','pdf_save',{score:${d.overall}})}catch(e){};window.print()" class="no-print text-xs uppercase tracking-[0.2em] font-semibold text-bordeaux border border-bordeaux px-5 py-3 hover:bg-bordeaux hover:text-white transition-colors">Save as PDF / share with your team</button>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-10 mb-16 pb-12 border-b border-gray-200 items-center">
-            <div class="flex justify-center md:justify-start">
-                <div class="relative w-44 h-44">
-                    <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120">
-                        <circle cx="60" cy="60" r="54" stroke="#e5e5e5" stroke-width="8" fill="none"></circle>
-                        <circle class="score-ring" cx="60" cy="60" r="54" stroke="#6b1f3d" stroke-width="8" fill="none" stroke-linecap="square" stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}" data-offset="${offset}"></circle>
-                    </svg>
-                    <div class="absolute inset-0 flex flex-col items-center justify-center">
-                        <p class="text-6xl font-bold">${d.overall}</p>
-                        <p class="text-[10px] uppercase tracking-[0.25em] text-gray-500 mt-1">/ 100</p>
+        <!-- 02 · SCORE + GRADE CARDS -->
+        <div class="mb-16 pb-12 border-b border-gray-200">
+            <div class="grid md:grid-cols-[176px_1fr] gap-10 items-center mb-8 reveal">
+                <div class="flex justify-center md:justify-start">
+                    <div class="relative w-44 h-44">
+                        <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="54" stroke="#e5e5e5" stroke-width="8" fill="none"></circle>
+                            <circle class="score-ring" cx="60" cy="60" r="54" stroke="#6b1f3d" stroke-width="8" fill="none" stroke-linecap="square" stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}" data-offset="${offset}"></circle>
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <p class="text-6xl font-bold big-num" data-count="${d.overall}">0</p>
+                            <p class="text-[10px] uppercase tracking-[0.25em] text-gray-500 mt-1">/ 100</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-3">Why This Score</p>
+                    <div class="space-y-2">
+                        ${a.scoreReasons.map(r => `<p class="flex gap-3 text-sm lg:text-base text-gray-800"><span class="text-bordeaux font-bold flex-none">→</span><span>${esc(r)}</span></p>`).join('')}
                     </div>
                 </div>
             </div>
-            <div class="md:col-span-2 space-y-5">
-                ${pillarRow('Message — is it instantly clear?', a.pillars.message)}
-                ${pillarRow('Proof — do they believe you?', a.pillars.proof)}
-                ${pillarRow('Offer — is saying yes easy?', a.pillars.offer)}
-                ${pillarRow('Friction — how hard is the path?', a.pillars.friction)}
-            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">${gradeCards}</div>
         </div>
 
-        ${a.scoreReasons && a.scoreReasons.length ? `
-        <div class="mb-16 bg-white border border-gray-200 p-6 lg:p-8">
-            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Why This Score</p>
-            <div class="space-y-3">
-                ${a.scoreReasons.map(r => `<p class="flex gap-3 text-sm lg:text-base text-gray-800"><span class="text-bordeaux font-bold flex-none">→</span><span>${esc(r)}</span></p>`).join('')}
-            </div>
-        </div>` : ''}
-
         ${d.screenshots && d.screenshots.desktop ? `
-        <div class="mb-16">
-            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your First Fold, As Visitors See It</p>
-            <h2 class="text-2xl lg:text-3xl mb-8">This is the moment you win or lose the click.</h2>
-            <div class="grid md:grid-cols-5 gap-6 items-start">
+        <!-- 03 · FIRST FOLD -->
+        <div class="mb-16 reveal">
+            ${sectionHead('01', 'Your First Fold, As Visitors See It', 'This is the moment you win or lose the click.')}
+            <div class="grid md:grid-cols-5 gap-8 items-start">
                 <div class="md:col-span-3">
-                    <p class="text-[11px] tracking-[0.2em] uppercase font-semibold text-gray-500 mb-2">Desktop</p>
-                    <img src="data:image/jpeg;base64,${d.screenshots.desktop}" alt="Desktop first fold" class="w-full border border-gray-300 shadow-sm mb-3">
-                    <p class="text-sm text-gray-700 leading-relaxed">${esc(a.firstFoldVisual.desktop)}</p>
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="browser-dot" style="background:#e0564f"></span>
+                            <span class="browser-dot" style="background:#e5a93d"></span>
+                            <span class="browser-dot" style="background:#5fb865"></span>
+                            <span class="browser-url">${esc(host)}</span>
+                        </div>
+                        <img src="data:image/jpeg;base64,${d.screenshots.desktop}" alt="Desktop first fold" class="w-full block">
+                    </div>
+                    <p class="text-sm text-gray-700 leading-relaxed mt-4"><span class="chip bg-cream-dark text-gray-600 mr-2">Desktop</span>${esc(a.firstFoldVisual.desktop)}</p>
                 </div>
                 <div class="md:col-span-2">
-                    <p class="text-[11px] tracking-[0.2em] uppercase font-semibold text-gray-500 mb-2">Phone — where most of your paid traffic lands</p>
-                    ${d.screenshots.mobile ? `<img src="data:image/jpeg;base64,${d.screenshots.mobile}" alt="Mobile first fold" class="w-2/3 border border-gray-300 shadow-sm mb-3">` : ''}
-                    <p class="text-sm text-gray-700 leading-relaxed">${esc(a.firstFoldVisual.mobile)}</p>
+                    ${d.screenshots.mobile ? `
+                    <div class="phone-frame w-2/3 mx-auto md:mx-0">
+                        <div class="phone-notch"></div>
+                        <img src="data:image/jpeg;base64,${d.screenshots.mobile}" alt="Mobile first fold" class="w-full">
+                    </div>` : ''}
+                    <p class="text-sm text-gray-700 leading-relaxed mt-4"><span class="chip sev-critical mr-2">Phone</span>${esc(a.firstFoldVisual.mobile)}</p>
                 </div>
             </div>
         </div>` : ''}
 
-        <div class="mb-16">
-            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The 5-Second Stranger Test</p>
-            <h2 class="text-2xl lg:text-3xl mb-6">${a.fiveSecond.passes ? 'A stranger understands what you sell.' : 'A stranger can\'t tell what you sell.'}</h2>
-            <div class="bg-white border border-gray-200 p-6 lg:p-8 mb-6">
-                <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mb-3">What a cold visitor concludes in 5 seconds</p>
-                <p class="text-base lg:text-lg text-gray-800 leading-relaxed">${esc(a.fiveSecond.strangerRead)}</p>
+        <!-- 04 · 5-SECOND TEST -->
+        <div class="mb-16 reveal">
+            ${sectionHead('02', 'The 5-Second Stranger Test', a.fiveSecond.passes ? 'A stranger understands what you sell.' : "A stranger can't tell what you sell.")}
+            <div class="bg-white border border-gray-200 p-6 lg:p-10 mb-6 relative overflow-hidden">
+                <span class="stamp no-print absolute top-6 right-6" style="color:${a.fiveSecond.passes ? '#2f7d4f' : '#6b1f3d'}">${a.fiveSecond.passes ? 'Pass' : 'Fail'}</span>
+                <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mb-4">What a cold visitor concludes in 5 seconds</p>
+                <p class="serif italic text-xl lg:text-2xl text-gray-800 leading-relaxed max-w-3xl"><span class="text-gold text-4xl align-top leading-none mr-1">"</span>${esc(a.fiveSecond.strangerRead)}</p>
                 ${a.fiveSecond.missing.length ? `
-                <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mt-6 mb-3">Missing from your first fold</p>
-                <div class="space-y-2">
-                    ${a.fiveSecond.missing.map(m => `<p class="flex gap-3 text-sm text-gray-700"><span class="text-bordeaux font-bold flex-none">→</span><span>${esc(m)}</span></p>`).join('')}
+                <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mt-8 mb-3">Missing from your first fold</p>
+                <div class="flex flex-wrap gap-2">
+                    ${a.fiveSecond.missing.map(m => `<span class="chip" style="background:#f3e4ea;color:#6b1f3d">${esc(m)}</span>`).join('')}
                 </div>` : ''}
             </div>
-            <div class="border border-gray-200">
+            <div class="border border-gray-200 relative">
                 <div class="grid md:grid-cols-2 items-stretch">
                     <div class="bg-cream-dark p-6 lg:p-8">
                         <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mb-3">Your headline now</p>
-                        <p class="font-['Bodoni_Moda'] text-xl lg:text-2xl leading-snug text-gray-700 italic">"${esc((d.page && d.page.h1) || (d.page && d.page.title) || 'No headline found on the page')}"</p>
+                        <p class="serif text-xl lg:text-2xl leading-snug text-gray-700 italic">"${esc((d.page && d.page.h1) || (d.page && d.page.title) || 'No headline found on the page')}"</p>
                     </div>
                     <div class="bg-bordeaux text-white p-6 lg:p-8">
                         <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gold mb-3">Rewritten to convert</p>
-                        <p class="font-['Bodoni_Moda'] text-xl lg:text-2xl leading-snug mb-3">"${esc(a.fiveSecond.rewrittenHeadline)}"</p>
+                        <p class="serif text-xl lg:text-2xl leading-snug mb-3">"${esc(a.fiveSecond.rewrittenHeadline)}"</p>
                         <p class="text-sm text-white/80 leading-relaxed">${esc(a.fiveSecond.rewrittenSubhead)}</p>
                     </div>
                 </div>
+                <div class="no-print hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-gold text-white items-center justify-center serif italic text-xl shadow-lg" style="border-radius:999px">→</div>
             </div>
         </div>
 
         ${a.journey && (a.journey.pages.length || a.journey.seams) ? `
+        <!-- 05 · JOURNEY -->
         <div class="mb-16">
-            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The Buyer's Journey</p>
-            <h2 class="text-2xl lg:text-3xl mb-8">${a.journey.pages.length ? 'I followed your funnel the way a buyer would.' : 'Where does a buyer go next?'}</h2>
-            ${a.journey.pages.length ? `<div class="grid md:grid-cols-${Math.min(a.journey.pages.length, 2)} gap-6 mb-6">
-                ${a.journey.pages.map(pg => `
-                <div class="bg-white border border-gray-200 p-6">
-                    <p class="text-[11px] tracking-[0.12em] uppercase text-gray-500 mb-1 break-all">${esc(pg.url.replace(/^https?:\/\//, ''))}</p>
-                    <p class="text-[11px] tracking-[0.2em] uppercase font-semibold text-bordeaux mb-3">${esc(pg.role)}</p>
-                    <p class="text-sm text-gray-700 leading-relaxed mb-3">${esc(pg.verdict)}</p>
-                    <p class="text-sm leading-relaxed"><strong class="text-bordeaux">Key issue:</strong> ${esc(pg.keyIssue)}</p>
-                </div>`).join('')}
-            </div>` : ''}
-            <div class="bg-cream-dark p-6">
+            ${sectionHead('03', "The Buyer's Journey", a.journey.pages.length ? 'I followed your funnel the way a buyer would.' : 'Where does a buyer go next?')}
+            ${journeyFlow}
+            <div class="bg-cream-dark p-6 reveal">
                 <p class="text-[11px] tracking-[0.2em] uppercase font-semibold text-gray-500 mb-2">The seams — where pages hand off to each other</p>
                 <p class="text-sm lg:text-base text-gray-800 leading-relaxed">${esc(a.journey.seams)}</p>
             </div>
         </div>` : ''}
 
+        <!-- 06 · ACTION PLAN -->
         <div class="mb-16">
-            <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">Your Conversion Action Plan</p>
-            <h2 class="text-2xl lg:text-3xl mb-3">The ${a.recommendations.length} changes I'd make, in order.</h2>
-            <p class="text-gray-600 mb-8 max-w-2xl">Hand this list to whoever builds your site. Each change says what to do, why, and what to expect.</p>
-            <div class="space-y-6">${recs}</div>
+            ${sectionHead('04', 'Your Conversion Action Plan', `The ${a.recommendations.length} changes I'd make, in order.`)}
+            <p class="text-gray-600 mb-8 max-w-2xl -mt-2">Hand this list to whoever builds your site. Each change says what to do, why it leaks, and what to expect.</p>
+            <div class="space-y-5">${recs}</div>
         </div>
 
-        <div class="mb-16">
+        <!-- 07 · UNDER THE HOOD -->
+        <div class="mb-16 reveal">
             <details class="bg-white border border-gray-200">
                 <summary class="cursor-pointer px-6 py-5 select-none">
                     <span class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold">Under the Hood</span>
-                    <span class="block text-lg lg:text-xl mt-1 font-['Bodoni_Moda']">The 13 technical checks behind your score (${d.infra.score}/100) — tap to expand</span>
+                    <span class="block text-lg lg:text-xl mt-1 serif">The ${d.infra.findings.length} technical checks behind your score (${d.infra.score}/100) — tap to expand</span>
+                    <span class="flex flex-wrap gap-2 mt-3">
+                        ${infraCounts.pass ? `<span class="chip" style="${STATUS_PILL.pass}">${infraCounts.pass} passed</span>` : ''}
+                        ${infraCounts.warn ? `<span class="chip" style="${STATUS_PILL.warn}">${infraCounts.warn} warnings</span>` : ''}
+                        ${infraCounts.fail ? `<span class="chip" style="${STATUS_PILL.fail}">${infraCounts.fail} failed</span>` : ''}
+                    </span>
                 </summary>
                 <div class="grid md:grid-cols-2 gap-6 p-6 pt-2">${infraSections}</div>
             </details>
         </div>
 
-        <div class="mb-16 bg-bordeaux text-white p-8 lg:p-10">
+        <!-- 08 · TOP PRIORITY -->
+        <div class="mb-16 bg-bordeaux text-white p-8 lg:p-10 relative overflow-hidden reveal">
+            <span class="serif italic absolute -right-4 -top-10 text-[11rem] leading-none text-white/5 select-none">№1</span>
             <p class="text-gold text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">If You Only Do One Thing</p>
             <h3 class="text-2xl lg:text-3xl mb-3 text-white">${esc(a.topPriority.title)}</h3>
             <p class="text-sm lg:text-base text-white/85 leading-relaxed max-w-2xl">${esc(a.topPriority.detail)}</p>
         </div>
 
-        <div class="no-print mb-16 bg-white border border-gray-200 p-8 lg:p-10" id="dollar-block">
+        <!-- 09 · DOLLARS -->
+        <div class="no-print mb-16 bg-white border border-gray-200 p-8 lg:p-10 reveal" id="dollar-block">
             <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">In Your Numbers</p>
             <h2 class="text-2xl lg:text-3xl mb-3">Want to see what these leaks cost you in actual dollars?</h2>
             <p class="text-gray-600 leading-relaxed mb-6 max-w-2xl">Drop in your numbers and I'll calculate it against your score. Monthly revenue is the only one I need; the rest sharpen the math.</p>
@@ -544,7 +669,8 @@ function renderResults(d) {
         </div>
         <div id="dollar-result"></div>
 
-        <div class="border-t border-bordeaux/20 pt-12 mb-8">
+        <!-- 10 · BRIDGE -->
+        <div class="border-t border-bordeaux/20 pt-12 mb-8 reveal">
             <p class="text-base lg:text-lg text-gray-700 leading-relaxed max-w-2xl mb-8">${esc(a.closingNote)}</p>
             <div class="bg-white border border-gray-200 p-8 lg:p-10">
                 <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-4">The Next Layer</p>
@@ -569,11 +695,29 @@ function renderResults(d) {
     </div>`;
 
     document.getElementById('results-content').innerHTML = html;
+
+    // reveal on scroll
+    const io = new IntersectionObserver(entries => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // animate ring, bars, counters
     requestAnimationFrame(() => setTimeout(() => {
         document.querySelectorAll('.pillar-bar').forEach(el => { el.style.width = el.dataset.w; });
         const ring = document.querySelector('.score-ring');
         if (ring) ring.style.strokeDashoffset = ring.dataset.offset;
-    }, 100));
+        document.querySelectorAll('[data-count]').forEach(el => countUp(el, Number(el.dataset.count)));
+    }, 150));
+
+    // scroll progress bar (wire once)
+    if (!window.__progressWired) {
+        window.__progressWired = true;
+        addEventListener('scroll', () => {
+            const h = document.documentElement;
+            document.getElementById('progress-bar').style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+        }, { passive: true });
+    }
 }
 </script>
 </body>
