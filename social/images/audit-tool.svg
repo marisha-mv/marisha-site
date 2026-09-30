@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="24" fill="#6B1F3D"/>
+  <circle cx="100" cy="92" r="46" fill="none" stroke="#4E152C" stroke-width="10"/>
+  <circle cx="100" cy="92" r="46" fill="none" stroke="#C9A66B" stroke-width="10"
+          stroke-linecap="round" stroke-dasharray="217 289" transform="rotate(-90 100 92)"/>
+  <text x="100" y="104" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#F8F6F3" font-weight="600">92</text>
+  <text x="100" y="168" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="17" fill="#C9A66B">site audit</text>
+</svg>
