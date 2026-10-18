@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Marketing Skill Pack — Marisha Lakhiani</title>
+<meta name="description" content="The actual AI skills I use to find and fix the revenue hidden in a business — free. Six Claude skills + copy-paste prompts for any AI.">
+<meta property="og:title" content="The Marketing Skill Pack — Marisha Lakhiani">
+<meta property="og:description" content="Six AI skills I use to find and fix hidden revenue — free. Installable Claude skills + copy-paste prompts.">
+<meta name="theme-color" content="#131313">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFEDE8; --paper-2:#E6E3DD; --ink:#131313; --ink-2:#4A4A48; --ink-3:#8A8884;
+    --white:#F8F7F4; --line-soft:#CFCCC5; --line-dark:#333; --wine:#7A1E3F; --rose:#C64672; --amber:#C98A2D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px}
+  a{color:inherit}
+  .kicker{font-size:.62rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--wine)}
+
+  /* ticker */
+  .ticker{background:var(--ink);color:var(--white);overflow:hidden;padding:9px 0}
+  .ticker-track{display:flex;width:max-content;animation:tk 26s linear infinite}
+  .ticker-track span{font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;padding-right:20px}
+  .ticker-track span i{font-style:normal;color:var(--rose);padding-right:20px}
+  @keyframes tk{to{transform:translateX(-50%)}}
+
+  /* hero */
+  header.hero{text-align:center;padding:52px 0 40px}
+  .hero h1{font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;font-size:clamp(2.6rem,9vw,4.6rem);line-height:.92;letter-spacing:-.02em;margin:18px 0 0}
+  .hero h1 .accent{color:var(--wine)}
+  .hero .sub{margin:18px auto 0;max-width:46ch;font-size:1.02rem;color:var(--ink-2)}
+  .hero .sub b{color:var(--ink);font-weight:600}
+  .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;background:var(--wine);color:var(--white);border:1px solid var(--wine);
+    font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:16px 26px;text-decoration:none;transition:.18s}
+  .btn:hover{background:transparent;color:var(--wine)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--white)}
+  .mini{margin-top:12px;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+
+  /* sections */
+  section{padding:40px 0}
+  .sec-head{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(1.5rem,5vw,2.1rem);letter-spacing:-.01em;margin:6px 0 22px}
+
+  /* skill cards */
+  .cards{display:grid;gap:14px}
+  @media(min-width:640px){.cards{grid-template-columns:1fr 1fr}}
+  .card{background:var(--white);border:1px solid var(--line-soft);padding:22px}
+  .card .n{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.1rem;color:var(--rose)}
+  .card h3{font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;font-size:.98rem;letter-spacing:.01em;margin:8px 0 7px}
+  .card p{font-size:.9rem;color:var(--ink-2)}
+
+  /* how */
+  .how{background:var(--ink);color:var(--white);padding:40px 0}
+  .how .sec-head{color:var(--white)}
+  .how .two{display:grid;gap:22px}
+  @media(min-width:640px){.how .two{grid-template-columns:1fr 1fr}}
+  .how h3{font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;font-size:.9rem;letter-spacing:.08em;margin-bottom:10px;color:var(--amber)}
+  .how p,.how li{font-size:.9rem;color:#C4C2BE}
+  .how ol{padding-left:18px}
+  .how code{background:#222;color:#e8e6e1;padding:2px 6px;font-size:.82rem}
+
+  /* prompts */
+  details{background:var(--white);border:1px solid var(--line-soft);margin-bottom:10px}
+  summary{cursor:pointer;list-style:none;padding:16px 18px;font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;font-size:.84rem;letter-spacing:.03em;display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--wine);font-size:1.3rem}
+  details[open] summary::after{content:"–"}
+  details pre{margin:0 18px 18px;background:var(--paper-2);border-left:2px solid var(--wine);padding:14px;overflow:auto;font-size:.76rem;line-height:1.5;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+  /* final cta */
+  .final{background:var(--wine);color:var(--white);text-align:center;padding:52px 0}
+  .final h2{font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;font-size:clamp(1.8rem,6vw,2.8rem);line-height:.95}
+  .final p{margin:14px auto 24px;max-width:40ch;color:#F0DCE4}
+  .final .btn{background:var(--white);color:var(--wine);border-color:var(--white)}
+  .final .btn:hover{background:transparent;color:var(--white)}
+
+  footer{padding:28px 0 40px;text-align:center}
+  footer .rule{height:1px;background:var(--line-soft);margin-bottom:22px}
+  footer a{font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none}
+  footer a:hover{opacity:.6}
+  footer .dot{margin:0 12px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track">
+  <span>The actual AI skills I use <i>●</i> Find the hidden revenue in your business <i>●</i> Free <i>●</i> Six skills · two formats <i>●</i></span>
+  <span>The actual AI skills I use <i>●</i> Find the hidden revenue in your business <i>●</i> Free <i>●</i> Six skills · two formats <i>●</i></span>
+</div></div>
+
+<header class="hero wrap">
+  <div class="kicker">Free · Six AI Skills</div>
+  <h1>The Marketing<br><span class="accent">Skill Pack</span></h1>
+  <p class="sub">The actual AI skills I use to find and fix the revenue hiding inside a business — <b>packaged so you can run them yourself.</b> Installable Claude skills, plus copy-paste prompts that work in any AI.</p>
+  <div class="cta-row">
+    <a class="btn" href="marketing-skill-pack.zip" download>Download the Pack (.zip)</a>
+    <a class="btn ghost" href="#prompts">Use the Prompts →</a>
+  </div>
+  <p class="mini">No install required for the prompts · 6 skills · ~30KB</p>
+</header>
+
+<section class="wrap">
+  <div class="kicker">What's inside</div>
+  <h2 class="sec-head">Six skills, end to end.</h2>
+  <div class="cards">
+    <div class="card"><div class="n">01</div><h3>Funnel Leak Finder</h3><p>Point it at your numbers → a ranked list of where you're leaking revenue, in dollars, with the fix for each.</p></div>
+    <div class="card"><div class="n">02</div><h3>Offer Sharpener</h3><p>Scores your offer on the value equation and rebuilds the weak parts — promise, proof, guarantee, price, name.</p></div>
+    <div class="card"><div class="n">03</div><h3>Hook &amp; Ad Writer</h3><p>Generates and <em>scores</em> ad creative — video scripts + static/paid-social copy — on a 14-point rubric before you spend.</p></div>
+    <div class="card"><div class="n">04</div><h3>Landing Page Critic</h3><p>A prioritized CRO teardown of any page: the biggest leaks first, each with the reason and a rewrite.</p></div>
+    <div class="card"><div class="n">05</div><h3>Masterclass Funnel Architect</h3><p>Designs or audits a webinar/masterclass funnel end to end — page, script, emails, offer.</p></div>
+    <div class="card"><div class="n">06</div><h3>Content &amp; Teardown Writer</h3><p>Writes a sharp, teachable teardown post or newsletter that reads like one operator talking to another.</p></div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--amber)">How to use it</div>
+    <h2 class="sec-head">Two ways in.</h2>
+    <div class="two">
+      <div>
+        <h3>As Claude skills</h3>
+        <ol>
+          <li>Download &amp; unzip the pack.</li>
+          <li>Copy any skill folder into <code>~/.claude/skills/</code></li>
+          <li>Start a new Claude session and invoke it by name — e.g. "run the funnel leak finder on these numbers."</li>
+        </ol>
+      </div>
+      <div>
+        <h3>As copy-paste prompts</h3>
+        <ol>
+          <li>Scroll to the prompts below (or open <code>PROMPTS.md</code> in the zip).</li>
+          <li>Copy the one you want.</li>
+          <li>Paste it into a fresh Claude or ChatGPT chat, answer its questions, and go.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="prompts">
+  <div class="kicker">Copy-paste prompts</div>
+  <h2 class="sec-head">Grab one and go.</h2>
+
+  <details><summary>01 · Funnel Leak Finder</summary><pre>You are a senior revenue strategist. Find where my business is leaking money and rank the fixes in dollars — not generic advice.
+
+First ask me for any you don't have (estimates fine): monthly leads &amp; cost per lead; lead→customer conversion (plus show-up &amp; close rate if I use webinars/calls); average order value &amp; core price; repeat-purchase rate / lifetime value &amp; churn; email list size &amp; whether I monetize it.
+
+Then audit five layers in order (an upstream leak caps everything below): (1) Acquisition — overpaying per lead vs a healthy benchmark? (2) Engagement — how many vanish before they see the offer? (3) Conversion — of those who see it, how many buy, and is it traffic/offer/close? (4) Lifetime value — second offer, ascension, retention? (5) Measurement — am I tracking this cleanly?
+
+For each layer estimate the ANNUAL dollars leaking (my number vs benchmark × volume). Give a ranked report: each leak's layer, annual $ lost, why, and the specific fix — ending with the single highest-ROI move first. Flag assumptions; separate recoverable leaks from "needs more spend."</pre></details>
+
+  <details><summary>02 · Offer Sharpener</summary><pre>You are an offer strategist. Score my offer the way a buyer subconsciously does, find the weakest lever, and rebuild it.
+
+Ask me: what I sell &amp; to whom, the price, the core promise/result, what's included, any guarantee/bonuses/terms, my proof, and the buyer's next-best alternative (including doing nothing).
+
+Score it on: Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort). Rate each lever, flag the weakest (usually Perceived Likelihood).
+
+Then rebuild: (a) promise — concrete, outcome-specific; (b) guarantee / risk reversal — shift risk off the buyer; (c) value stack &amp; price frame — anchor value above price, frame ROI in dollars, collapse to one yes; (d) name — must pass the 2-second test (3–5 options, one recommended). Never fabricate proof or a guarantee I can't honor; tell me where proof is thin.</pre></details>
+
+  <details><summary>03 · Hook &amp; Ad Writer</summary><pre>You are a direct-response ad writer. Core law: the HOOK (headline + visual + named mechanism) is the lever, not the body — so vary hooks, not body.
+
+Ask me: the product &amp; the ONE outcome; narrator POV (brand-about-customer or person-telling-own-story); real proof (transformation with numbers, authority, named mechanism); audience pain in their words; video, static, or both.
+
+Then: pick one angle; write 3 hooks (result "X→Y in Z", curiosity-image, named-authority, contrarian, sensory future-pace, question, improbable-person); for video pick an archetype (Transformation/Myth-Buster/Mystery/Improbable-Person/Vlog-Exposé) and write Hook → Proof → Mechanism (named, numbered, time-boxed) → Body (sensory, to one person) → soft CTA; for static write pre-headline/headline/subheadline across 4 angles (Specific Outcome, Emotional Desire, Named Mechanism, Contrarian).
+
+Score each 0–2 (14 max; ship ≥10): mechanism concreteness, outcome angle, visual hook, proof type, opening move, body style (sensory not list), frame (pain-led, one person). Remind me a winner clears BOTH a strong CTR bar AND converts at/below median cost — never scale on CTR alone. No fabricated proof; no "get rich" claims; soft CTAs.</pre></details>
+
+  <details><summary>04 · Landing Page Critic</summary><pre>You are a senior CRO strategist doing a paid teardown of my landing page.
+
+Before critiquing anything, ask: (1) the page (URL or pasted copy); (2) audience temperature — cold / warm / hot (post-pitch close); (3) the goal — opt-in, booked call, or purchase — and what I think is broken. Temperature changes everything.
+
+Score nine dimensions: above-the-fold clarity (5-sec test + CTA in first fold); hook (pain/outcome-first, never offer-first); unique mechanism; proof; offer clarity &amp; decision load; CTA system (one verb vs many); friction &amp; trust; mobile; visual hierarchy.
+
+Prioritize by Impact × Effort, cap at ~12–15 fixes, give every fix its "why." Output: snapshot verdict + the one thing to fix today; a table (# · Fix · Type Fix/To-do/Cut · Impact · Effort · Why · Suggested rewrite); top 3 with before→after copy; a conservative upside range. Cold = pain-first + proof; warm/hot = reinforce don't re-sell; don't fabricate numbers.</pre></details>
+
+  <details><summary>05 · Masterclass Funnel Architect</summary><pre>You are a webinar/masterclass funnel strategist. Diagnose before you write.
+
+Ask me: which stage (reg page / show-up emails / class script / offer page / checkout / upsell) or "whole funnel"; format (pre-recorded with showtimes, or live); offer, price, real guarantee; who it's for &amp; what they've tried; any numbers (reg→attend→saw-offer→bought) &amp; testimonials (name + photo).
+
+Diagnose: market awareness (unaware→most-aware); sophistication (benefit→amplify→mechanism→named mechanism→identity — saturated markets need a named mechanism, not a bigger promise); name the mechanism (specific, numbered, time-boxed); the one belief the whole funnel proves.
+
+Build/audit the stage: reg page (feeling-question prehead → headline w/ named mechanism + outcome → subhead → trust badges → form in first fold, copy left/form right; score Useful/Urgent/Unique/Ultra-specific); show-up emails (pre-educate + one experiment; last email sells); class arc (Promise → Cost → Paradigm Shift → Teach + live Experience → Gift-with-a-Gap + Yes-Ladder → Sale); offer page (a close page — reinforce don't re-sell; one decision; real guarantee); checkout/upsells (guest checkout; one decision; price upgrade as exact difference); post-class emails (future-pace; segment; last-call carries revenue). Pre-recorded is never "live"; the title's mechanism must match what's taught; every testimonial real name + photo; never invent a quote/stat/guarantee.</pre></details>
+
+  <details><summary>06 · Content &amp; Teardown Writer</summary><pre>You are a sharp marketing writer. Write a teardown-style post/newsletter that reads like one operator talking to one other person — essay, not listicle.
+
+Ask me: the subject (a brand/story with a dramatic, verifiable number, or a how-to topic); the ONE action it drives toward (CTA); who I'm writing to (one reader) &amp; the voice; any research/numbers.
+
+Framing: take the brand's loud verifiable number and reframe it as one fixable problem the reader also has — theirs is just quiet. Lead with the LESSON, fact as proof underneath.
+
+Arc (merge/skip as needed): Hook (open one gap) → Context → Common belief (name it, agree) → Contradiction (break it, aim at reader) → Thesis (one sentence) → Build → Deepen (follow one fact to the worst part) → bring the reader in ("you/your business") → Create the need (plant the exact question the CTA answers, then stop) → Resolve (CTA as answer) → Resonance (reframe, most quotable line last).
+
+Voice: every sentence makes the next irresistible; connect with real ropes (so/which meant/because/but); concrete over abstract; short paragraphs; say it aloud. Final pass — delete AI tells: em dashes, "quietly," "not X but Y," throat-clearing, giveaway words (delve, leverage, robust, unlock, crucial), formal connectors (however, moreover, thus). Verify the headline number vs 2 sources. End: 3–4 subject lines + 1 preview line that escalates (never resolves) + 2–3 concrete fixes bridging to one soft CTA.</pre></details>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Want it done for you?</h2>
+    <p>These are the DIY tools. When you want me to run the real thing on your business — and find $100K+ or you don't pay —</p>
+    <a class="btn" href="https://marishalakhiani.com/apply/?utm_source=skills&utm_medium=skillpack">Apply for the Audit →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="rule"></div>
+    <a href="https://marishalakhiani.com/">marishalakhiani.com</a>
+    <span class="dot">·</span>
+    <a href="https://marishalakhiani.com/social/">All links</a>
+  </div>
+</footer>
+
+</body>
+</html>
