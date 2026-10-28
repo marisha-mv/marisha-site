@@ -970,6 +970,7 @@
         const ZAPIER_QUALIFIED_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw5dfl/';
         const ZAPIER_DISQUALIFIED_URL = 'https://hooks.zapier.com/hooks/catch/20742425/4bw5m94/';
         const NOTIFY_URL = 'https://marisha-email-api.vercel.app/api/notify-application';
+        const NOTIFY_ERROR_URL = 'https://marisha-email-api.vercel.app/api/subscribe-error';
 
         // Capture UTM parameters from URL on load
         const utm = { utm_source: '', utm_medium: '', utm_campaign: '' };
@@ -978,6 +979,7 @@
             Object.keys(utm).forEach(k => { const v = params.get(k); if (v) utm[k] = v; });
         })();
 
+        // Zapier can't do CORS, so fire-and-forget is fine here (redundant channel).
         function postWebhook(url, payload) {
             if (!url) return;
             try {
@@ -988,6 +990,52 @@
                     body: JSON.stringify(payload)
                 }).catch(() => {});
             } catch (err) { /* swallow */ }
+        }
+
+        // The MONEY notification. This is the $10K ping — it must not die in the
+        // redirect race the old code had (fire-and-forget + instant navigation).
+        // We AWAIT it (CORS-readable), guarantee it survives page-unload with
+        // sendBeacon as a backup, and if nothing lands we beacon a visible failure.
+        async function notifyApplication(payload) {
+            const bodyStr = JSON.stringify(payload);
+            // sendBeacon queues at the browser/OS level and survives navigation —
+            // this is the reliability guarantee. Fire it first, unconditionally.
+            let beaconed = false;
+            try {
+                beaconed = navigator.sendBeacon(
+                    NOTIFY_URL,
+                    new Blob([bodyStr], { type: 'application/json' })
+                );
+            } catch (e) { beaconed = false; }
+
+            // Then try a readable fetch so we can confirm the server accepted it.
+            try {
+                const ctrl = new AbortController();
+                const t = setTimeout(() => ctrl.abort(), 4000);
+                const res = await fetch(NOTIFY_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: bodyStr,
+                    signal: ctrl.signal,
+                    keepalive: true
+                });
+                clearTimeout(t);
+                const out = await res.json().catch(() => ({}));
+                if (res.ok && out && out.ok) return true;  // confirmed delivered
+                throw new Error('notify_not_ok:' + res.status + ':' + JSON.stringify(out));
+            } catch (err) {
+                // The fetch couldn't confirm. If the beacon was queued, the lead is
+                // still almost certainly captured — but log it so a real outage shows.
+                try {
+                    navigator.sendBeacon(NOTIFY_ERROR_URL, new Blob([JSON.stringify({
+                        where: 'apply_notify',
+                        payload: { email: payload.email, type: payload.submission_type },
+                        error: String(err && err.message || err),
+                        beacon_queued: beaconed
+                    })], { type: 'application/json' }));
+                } catch (e) { /* nothing more we can do */ }
+                return beaconed;  // beacon is our floor of reliability
+            }
         }
 
         // Step 1 → fires partial webhook, reveals Step 2
@@ -1020,7 +1068,7 @@
         });
 
         // Step 2 → fires qualified or disqualified webhook + redirects
-        document.getElementById('audit-form').addEventListener('submit', function(e) {
+        document.getElementById('audit-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const submitBtn = step2.querySelector('button[type="submit"]');
             submitBtn.textContent = 'Submitting…';
@@ -1060,12 +1108,12 @@
             if (disqualReason) {
                 const payload = { ...basePayload, submission_type: 'disqualified', disqual_reason: disqualOmnisendTag[disqualReason] };
                 postWebhook(ZAPIER_DISQUALIFIED_URL, payload);
-                postWebhook(NOTIFY_URL, payload);
+                await notifyApplication(payload);          // await → no redirect race
                 window.location.href = 'not-yet/?reason=' + disqualReason;
             } else {
                 const payload = { ...basePayload, submission_type: 'qualified' };
                 postWebhook(ZAPIER_QUALIFIED_URL, payload);
-                postWebhook(NOTIFY_URL, payload);
+                await notifyApplication(payload);          // await → no redirect race
                 window.location.href = 'booking/';
             }
         });

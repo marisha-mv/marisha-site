@@ -232,6 +232,19 @@
             <div id="results-content"></div>
         </section>
 
+        <!-- Sticky apply bar — appears once the report is on screen so a lead
+             convinced mid-report can act without scrolling to the very bottom.
+             Dismissible; hidden on print. -->
+        <div id="apply-dock" class="no-print" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#6b1f3d;color:#fff;box-shadow:0 -6px 24px rgba(0,0,0,.18);transform:translateY(100%);transition:transform .35s ease;">
+            <div style="max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:space-between;">
+                <span style="font-size:13px;line-height:1.4;max-width:620px;">You have the plan. The <strong>Revenue Recovery Audit™</strong> finds the dollars behind it — and we only take 4 a month.</span>
+                <span style="display:flex;align-items:center;gap:14px;">
+                    <a id="apply-dock-cta" href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan_dock" class="inline-block bg-white text-bordeaux px-7 py-3 font-bold uppercase tracking-[0.15em]" style="font-size:11px;white-space:nowrap;">Apply for the Audit →</a>
+                    <button id="apply-dock-close" aria-label="Dismiss" style="background:none;border:none;color:rgba(255,255,255,.6);font-size:20px;line-height:1;cursor:pointer;padding:4px;">&times;</button>
+                </span>
+            </div>
+        </div>
+
     </main>
 
     <footer class="bg-black text-gray-500 py-8 px-6 lg:px-16 text-center text-xs">
@@ -370,6 +383,10 @@ function computeDollars() {
             <h2 class="text-2xl lg:text-4xl text-white leading-snug mb-4"><span class="big-num" id="leak-low">$0</span>–<span class="big-num" id="leak-high">$0</span> a year left on the table at your current score.</h2>
             <p class="text-sm text-white/75 leading-relaxed max-w-2xl">${lines.join(' ')}</p>
             <p class="text-sm text-white/90 leading-relaxed max-w-2xl mt-4">The Revenue Recovery Audit™ costs $10K. Finding the leaks behind this number is what it's for.</p>
+            <div class="flex flex-wrap gap-4 items-center mt-7">
+                <a href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan_dollars" onclick="try{gtag('event','apply_click',{from:'dollars_block',score:${S}})}catch(e){}" class="inline-block bg-white text-bordeaux px-9 py-4 font-bold uppercase tracking-[0.15em] text-xs hover:bg-gold hover:text-white transition-colors">Apply for the Audit →</a>
+                <span class="text-xs text-white/60">Free to apply. 4-minute form. If we're not a fit, you keep this report.</span>
+            </div>
         </div>`;
     countUp(document.getElementById('leak-low'), low, { dur: 1200, fmt: v => fmtMoney(roundNice(v)) });
     countUp(document.getElementById('leak-high'), high, { dur: 1600, fmt: v => fmtMoney(roundNice(v)) });
@@ -390,6 +407,25 @@ function sectionHead(num, eyebrow, title) {
             <h2 class="text-2xl lg:text-3xl">${title}</h2>
         </div>
     </div>`;
+}
+
+function showApplyDock(score) {
+    const dock = document.getElementById('apply-dock');
+    if (!dock) return;
+    if (sessionStorage.getItem('applyDockDismissed') === '1') return;
+    dock.style.display = 'block';
+    // let layout settle, then slide up
+    requestAnimationFrame(() => requestAnimationFrame(() => { dock.style.transform = 'translateY(0)'; }));
+    const cta = document.getElementById('apply-dock-cta');
+    if (cta && !cta.dataset.wired) {
+        cta.dataset.wired = '1';
+        cta.addEventListener('click', () => { try { if (typeof gtag === 'function') gtag('event', 'apply_click', { from: 'sticky_dock', score }); } catch (e) {} });
+    }
+    const close = document.getElementById('apply-dock-close');
+    if (close && !close.dataset.wired) {
+        close.dataset.wired = '1';
+        close.addEventListener('click', () => { dock.style.transform = 'translateY(100%)'; sessionStorage.setItem('applyDockDismissed', '1'); setTimeout(() => { dock.style.display = 'none'; }, 350); });
+    }
 }
 
 function renderResults(d) {
@@ -701,6 +737,8 @@ function renderResults(d) {
         for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    showApplyDock(d.overall);
 
     // animate ring, bars, counters
     requestAnimationFrame(() => setTimeout(() => {

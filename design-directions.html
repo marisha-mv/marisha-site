@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marisha — Art Direction Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Archivo:wght@400;600;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#111;color:#fff;-webkit-font-smoothing:antialiased}
+.legend{max-width:1100px;margin:0 auto;padding:64px 32px 40px}
+.legend h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2rem,4vw,3.4rem);line-height:1.05;margin-bottom:18px}
+.legend p{color:#aaa;font-weight:300;font-size:1.05rem;max-width:720px;line-height:1.6}
+.legend .dna{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:36px}
+.legend .dna div{border-left:1px solid #444;padding-left:16px}
+.legend .dna b{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:#c9a66b;display:block;margin-bottom:8px}
+.legend .dna p{font-size:.9rem;color:#999}
+.tag{position:absolute;top:28px;left:28px;z-index:40;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);padding:10px 16px;border:1px solid rgba(255,255,255,.18)}
+.note{max-width:1100px;margin:0 auto;padding:22px 32px 72px;color:#8a8a8a;font-size:.92rem;font-weight:300;line-height:1.65}
+.note b{color:#d4b896;font-weight:500}
+section.hero{position:relative;height:820px;overflow:hidden}
+
+/* ---------- A · EDITORIAL WINE ---------- */
+.A{background:#f8f6f3;color:#1a1512;display:flex;align-items:center}
+.A .wrap{max-width:1300px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;width:100%}
+.A .kick{font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;font-weight:600;color:#c9a66b;margin-bottom:28px}
+.A h2{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(3rem,5.4vw,6rem);line-height:.98;letter-spacing:-.02em;margin-bottom:28px}
+.A h2 em{color:#6b1f3d;font-style:italic}
+.A .sub{font-size:1.15rem;color:rgba(26,21,18,.6);font-weight:300;max-width:440px;line-height:1.6;margin-bottom:34px}
+.A .btn{display:inline-block;background:#6b1f3d;color:#fff;padding:18px 40px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.A .imgwrap img{width:100%;height:560px;object-fit:cover;box-shadow:22px 22px 0 0 rgba(201,166,107,.28)}
+
+/* ---------- B · STATEMENT (BROW-inspired) ---------- */
+.B{background:#0d0d0d;color:#fff}
+.B img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:grayscale(.15) contrast(1.05)}
+.B .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,13,.25),rgba(13,13,13,.55) 60%,rgba(13,13,13,.92))}
+.B .bigtype{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.B .echo{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(4rem,18vw,17rem);line-height:.82;letter-spacing:-.04em;color:rgba(255,255,255,.08);position:absolute;z-index:5}
+.B .word{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(3.6rem,16vw,15rem);line-height:.82;letter-spacing:-.04em;z-index:20;position:relative}
+.B .word .pop{color:#e0266f}
+.B .foot{position:absolute;bottom:52px;left:0;right:0;z-index:25;display:flex;justify-content:space-between;align-items:flex-end;padding:0 56px;gap:24px;flex-wrap:wrap}
+.B .foot .lead{font-family:'Archivo',sans-serif;font-weight:600;font-size:clamp(1.1rem,2vw,1.7rem);max-width:560px;line-height:1.15;letter-spacing:-.01em}
+.B .foot .lead span{color:#e0266f}
+.B .btn{display:inline-block;background:#fff;color:#0d0d0d;padding:18px 38px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;white-space:nowrap}
+
+/* ---------- C · WARM ATELIER (grid-inspired) ---------- */
+.C{background:#e9e2d8;color:#2a241d;display:flex;align-items:center}
+.C .wrap{max-width:1240px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;width:100%}
+.C .kick{font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;font-weight:600;color:#9c8468;margin-bottom:24px}
+.C h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.8rem,5vw,5.4rem);line-height:1.0;letter-spacing:-.01em;margin-bottom:26px;color:#2a241d}
+.C h2 em{font-style:italic;color:#6b1f3d}
+.C .sub{font-family:'Inter';font-size:1.08rem;color:rgba(42,36,29,.62);font-weight:300;max-width:420px;line-height:1.65;margin-bottom:32px}
+.C .meta{font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:#9c8468;font-weight:600;margin-bottom:30px}
+.C .btn{display:inline-block;background:#2a241d;color:#f3ece2;padding:17px 38px;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.C .portrait{position:relative;display:flex;justify-content:center}
+.C .portrait img{width:86%;height:600px;object-fit:cover;object-position:top;border:10px solid #fff;box-shadow:0 40px 80px -30px rgba(0,0,0,.4)}
+.C .portrait .float{position:absolute;bottom:40px;left:0;background:#fff;padding:16px 22px;box-shadow:0 20px 40px -18px rgba(0,0,0,.35)}
+.C .portrait .float b{font-family:'Fraunces',serif;font-weight:400;font-size:1.6rem;color:#6b1f3d;display:block}
+.C .portrait .float span{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:#9c8468}
+
+/* specimen */
+.spec{max-width:1100px;margin:0 auto;padding:56px 32px;border-top:1px solid #333}
+.spec h3{font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:#c9a66b;margin-bottom:22px}
+.spec .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px}
+.spec .fa{font-family:'Bodoni Moda',serif}
+.spec .fb{font-family:'Archivo',sans-serif;font-weight:900}
+.spec .fc{font-family:'Fraunces',serif;font-weight:300}
+.spec .big{font-size:2.4rem;line-height:1;margin-bottom:6px}
+.spec small{color:#777;font-size:.78rem;letter-spacing:.05em}
+@media(max-width:860px){.A .wrap,.C .wrap{grid-template-columns:1fr;gap:30px}.A .imgwrap,.C .portrait{display:none}}
+</style>
+</head>
+<body>
+
+<div class="legend">
+  <h1>Three directions — your references, translated to you.</h1>
+  <p>Same hero line in all three so you're comparing the <em style="font-style:italic">design language</em>, not the words. Pick one for the site and we carry the exact same system onto Instagram + LinkedIn so everything finally matches. Scroll — each is full-screen, with a type specimen underneath.</p>
+  <div class="dna">
+    <div><b>From “BROW”</b><p>Oversized display type over the image, a ghosted echo of the word beneath, one hot accent pop.</p></div>
+    <div><b>From the grid</b><p>Warm mocha/cream, cut-out portrait with a white stroke, Didone serif + small-caps sans.</p></div>
+    <div><b>Kept from you</b><p>Wine #6B1F3D &amp; brass gold — your equity. Elevated, never loud-for-the-sake-of-it.</p></div>
+  </div>
+</div>
+
+<!-- A -->
+<section class="hero A">
+  <div class="tag" style="color:#6b1f3d;border-color:rgba(107,31,61,.3);background:rgba(255,255,255,.7)">Direction A · Editorial Wine</div>
+  <div class="wrap">
+    <div>
+      <p class="kick">For Founders Doing $1M+</p>
+      <h2>There's at least<br><em>$100,000</em> hidden<br>inside your business.</h2>
+      <p class="sub">Somewhere between the work you do and the money you keep, revenue is quietly leaking. I find exactly where — guaranteed.</p>
+      <a class="btn">Apply for the Audit →</a>
+    </div>
+    <div class="imgwrap"><img src="marisha-hero.jpg" alt="Marisha"></div>
+  </div>
+</section>
+<div class="note">Direction <b>A</b> — the refined version of what you have now. Bodoni display, generous air, gold offset-frame. Safe, timeless, unmistakably luxury-consulting. Lowest risk; least distinctive.</div>
+
+<!-- B -->
+<section class="hero B">
+  <div class="tag">Direction B · Statement</div>
+  <img src="marisha-hero.jpg" alt="Marisha">
+  <div class="scrim"></div>
+  <div class="bigtype">
+    <div class="echo">RECOVERY</div>
+    <div class="word">RE<span class="pop">CO</span>VERY</div>
+  </div>
+  <div class="foot">
+    <div class="lead">There's at least <span>$100,000</span> hidden inside your business. I find exactly where.</div>
+    <a class="btn">Apply for the Audit →</a>
+  </div>
+</section>
+<div class="note">Direction <b>B</b> — the “BROW” energy, on brand. A single word (<b>RECOVERY</b> / or <b>$150M</b> / <b>LEAK</b>) blown up over your portrait with a ghost echo and a hot pop. Bold, modern, scroll-stopping — and it translates <b>perfectly</b> to Instagram reels covers. Highest distinctiveness. The pop here is raspberry; it could be your gold instead.</div>
+
+<!-- C -->
+<section class="hero C">
+  <div class="tag" style="color:#6b1f3d;border-color:rgba(107,31,61,.25);background:rgba(255,255,255,.7)">Direction C · Warm Atelier</div>
+  <div class="wrap">
+    <div>
+      <p class="kick">For Founders Doing $1M+</p>
+      <h2>There's at least <em>$100,000</em> hidden inside your business.</h2>
+      <p class="sub">Somewhere between the work you do and the money you keep, revenue is quietly leaking. I find exactly where.</p>
+      <p class="meta">Guaranteed · or you don't pay · 4 clients a month</p>
+      <a class="btn">Apply for the Audit →</a>
+    </div>
+    <div class="portrait">
+      <img src="marisha-hero.jpg" alt="Marisha">
+      <div class="float"><b>$30M → $150M</b><span>Mindvalley</span></div>
+    </div>
+  </div>
+</section>
+<div class="note">Direction <b>C</b> — the Instagram grid, as a brand. Warm mocha/cream, Fraunces serif, white-stroke cut-out portrait, floating proof card. Softest and most “personal-brand,” and the most natural fit for a cohesive feed. Shifts you off pure wine toward warm neutrals (wine becomes the accent).</div>
+
+<!-- SPECIMEN -->
+<div class="spec">
+  <h3>Typography — the three systems</h3>
+  <div class="row">
+    <div><div class="fa big" style="color:#c9a66b">Bodoni Moda</div><small>A · Didone serif display + Inter. Classic editorial.</small></div>
+    <div><div class="fb big" style="color:#e0266f">ARCHIVO 900</div><small>B · Heavy grotesk for statement type + Inter body.</small></div>
+    <div><div class="fc big" style="color:#d4b896">Fraunces <em style="font-style:italic">italic</em></div><small>C · Soft Didone serif + small-caps Inter. Warm.</small></div>
+  </div>
+</div>
+
+<div class="note" style="padding-bottom:100px">My take, as your partner: <b>B for the hero and all social covers</b> (it's the one that stops the scroll and makes IG + LinkedIn instantly recognisable as you), with <b>A's restraint for the body of the site</b> — big statement up top, clean editorial below. C is beautiful but moves you off your wine equity. Tell me which way and I'll build the real page + the matching IG/LinkedIn templates in it.</div>
+
+</body>
+</html>

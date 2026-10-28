@@ -488,25 +488,56 @@ document.querySelectorAll(".reveal-btn").forEach(btn => {
   });
 });
 
-async function submitForm(form, url, payload, onOk) {
+// Client-side fallback resource URLs, keyed by magnet. If the API hiccups or returns
+// no resource (e.g. a stale deploy), the lead STILL gets the thing they asked for —
+// a capture glitch can never strand someone the way the dead calculator email did.
+var MAGNET_RESOURCE = {
+  "funnel-audit-playbook": "https://marishalakhiani.com/checklist",
+  "marketing-skill-pack": "https://marishalakhiani.com/skills"
+};
+
+// Lightweight, best-effort failure beacon so a broken capture is VISIBLE, not silent.
+function reportFailure(ctx) {
+  try {
+    navigator.sendBeacon(API + "/api/subscribe-error",
+      new Blob([JSON.stringify(ctx)], { type: "application/json" }));
+  } catch (_) {}
+}
+
+async function submitForm(form, url, payload, onOk, opts) {
+  opts = opts || {};
   const btn = form.querySelector("button[type=submit]");
   btn.disabled = true;
   form.querySelector(".error").style.display = "none";
+  let data = {};
   try {
     const r = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
-    const data = await r.json().catch(() => ({}));
-    if (!r.ok || data.ok === false) throw new Error();
+    data = await r.json().catch(() => ({}));
+    if (!r.ok || data.ok === false) throw new Error("bad_response");
     form.style.display = "none";
     const thanks = form.closest(".item").querySelector(".thanks");
     if (onOk) onOk(thanks, data);
     thanks.style.display = "block";
-  } catch {
-    form.querySelector(".error").style.display = "block";
-    btn.disabled = false;
+  } catch (err) {
+    reportFailure({ where: "submit", url: url, payload: payload, error: String(err && err.message || err) });
+    // For a lead magnet we have a known fallback link — never dead-end the lead.
+    if (opts.fallbackResource) {
+      form.style.display = "none";
+      const thanks = form.closest(".item").querySelector(".thanks");
+      thanks.innerHTML = 'You’re in — <a href="' + opts.fallbackResource +
+        '" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">open it now →</a>';
+      thanks.style.display = "block";
+    } else {
+      form.querySelector(".error").innerHTML =
+        'Something went wrong. Email me at ' +
+        '<a href="mailto:marisha@marishalakhiani.com" style="color:inherit;text-decoration:underline">marisha@marishalakhiani.com</a> and I\'ll sort it.';
+      form.querySelector(".error").style.display = "block";
+      btn.disabled = false;
+    }
   }
 }
 
@@ -515,15 +546,17 @@ async function submitForm(form, url, payload, onOk) {
 document.querySelectorAll("form.capture[data-magnet]").forEach(form => {
   form.addEventListener("submit", e => {
     e.preventDefault();
+    const magnet = form.dataset.magnet;
     submitForm(form, API + "/api/subscribe", {
       email: form.email.value.trim(),
-      magnet: form.dataset.magnet
+      magnet: magnet
     }, (thanks, data) => {
-      if (data.resource) {
-        thanks.innerHTML = 'You’re in — <a href="' + data.resource +
+      var url = data.resource || MAGNET_RESOURCE[magnet];
+      if (url) {
+        thanks.innerHTML = 'You’re in — <a href="' + url +
           '" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">open it now →</a>';
       }
-    });
+    }, { fallbackResource: MAGNET_RESOURCE[magnet] });
   });
 });
 
