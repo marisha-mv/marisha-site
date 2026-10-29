@@ -407,7 +407,14 @@
       <div>
         <h3>Weekly Marketing Newsletter</h3>
         <p>Teardowns, strategies, and case studies from how the best businesses actually grow.</p>
-        <div class="actions"><a class="btn" href="https://marishalakhiani.substack.com/subscribe" target="_blank" rel="noopener">Subscribe on Substack</a></div>
+        <div class="actions"><button class="tlink reveal-btn" type="button">Subscribe Free</button></div>
+        <form class="capture" data-magnet="newsletter">
+          <div class="field"><input type="email" name="email" placeholder="Your email" required></div>
+          <label class="consent"><input type="checkbox" required> I agree to receive marketing emails.</label>
+          <button class="btn" type="submit">Subscribe</button>
+          <div class="error">Something went wrong — try again.</div>
+        </form>
+        <div class="thanks">You're subscribed</div>
       </div>
     </div>
   </div>
@@ -557,6 +564,37 @@ function reportFailure(ctx) {
   } catch (_) {}
 }
 
+// Best-effort real-time Substack subscribe, fired from the VISITOR'S browser.
+// Substack has no server-usable subscribe API — it blocks datacenter IPs and
+// challenges scripted POSTs, so the only context that can actually subscribe is the
+// user's own (residential) browser. We fire a no-cors POST to Substack's internal
+// /api/v1/free on capture; it's intentionally fire-and-forget (no-cors = we can't read
+// the result, and that's fine). Anyone this misses is still captured in Omnisend +
+// beehiiv and swept onto Substack by the periodic CSV import — so no lead is ever lost.
+var SUBSTACK_PUB = "https://marishalakhiani.substack.com";
+var SUBSTACK_PUB_ID = 328785; // marishalakhiani.substack.com publication id
+function subscribeSubstack(email) {
+  try {
+    fetch(SUBSTACK_PUB + "/api/v1/free", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        first_url: SUBSTACK_PUB + "/",
+        first_referrer: "",
+        current_url: SUBSTACK_PUB + "/",
+        current_referrer: "",
+        referral_code: "",
+        source: "embed",
+        referring_pub_id: null,
+        additional_referring_pub_ids: [],
+        landingPublicationId: SUBSTACK_PUB_ID
+      })
+    }).catch(function(){});
+  } catch (_) {}
+}
+
 async function submitForm(form, url, payload, onOk, opts) {
   opts = opts || {};
   const btn = form.querySelector("button[type=submit]");
@@ -600,8 +638,12 @@ document.querySelectorAll("form.capture[data-magnet]").forEach(form => {
   form.addEventListener("submit", e => {
     e.preventDefault();
     const magnet = form.dataset.magnet;
+    const email = form.email.value.trim();
+    // Fire the real-time Substack subscribe from the visitor's own browser, in parallel
+    // with the server capture (Omnisend + beehiiv). CSV import is the never-miss backstop.
+    subscribeSubstack(email);
     submitForm(form, API + "/api/subscribe", {
-      email: form.email.value.trim(),
+      email: email,
       magnet: magnet
     }, (thanks, data) => {
       track("lead_capture", { magnet: magnet });
