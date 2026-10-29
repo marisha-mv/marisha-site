@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LSN4H7Q0SC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LSN4H7Q0SC');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Marisha Lakhiani — Links</title>
 <meta name="description" content="I scaled Mindvalley from $30M to $100M. Free tools and skills to find the hidden revenue in your business.">
+<link rel="canonical" href="https://marishalakhiani.com/social/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://marishalakhiani.com/social/">
 <meta property="og:title" content="Marisha Lakhiani — Links">
 <meta property="og:description" content="Free resources, AI skills, and ways to work with me on recovering your hidden revenue.">
-<meta property="og:image" content="/social/images/avatar.webp">
+<meta property="og:image" content="https://marishalakhiani.com/social/images/avatar.webp">
+<meta property="og:image:width" content="400">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Marisha Lakhiani — Links">
+<meta name="twitter:description" content="Free resources, AI skills, and ways to work with me on recovering your hidden revenue.">
+<meta name="twitter:image" content="https://marishalakhiani.com/social/images/avatar.webp">
 <meta name="theme-color" content="#111111">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -125,6 +142,7 @@
   .band-black .btn:hover{background:transparent;color:var(--white)}
 
   .tlink{
+    position:relative;
     display:inline-block;background:none;border:none;cursor:pointer;
     font-family:'Inter',sans-serif;
     font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
@@ -132,6 +150,8 @@
     padding:2px 0 5px;border-bottom:1.5px solid var(--rose);
     transition:opacity .18s ease;
   }
+  /* Enlarge the tap target to ≥44px without moving the visible underline/baseline. */
+  .tlink::before{content:"";position:absolute;left:0;right:0;top:-15px;bottom:-15px}
   .tlink::after{content:" →"}
   .tlink:hover{opacity:.55}
   .tlink:disabled{opacity:.4;cursor:wait}
@@ -480,12 +500,45 @@
 <script>
 var API = "https://marisha-email-api.vercel.app";
 
+// ── Analytics: thin, guarded GA4 event helper (matches the site-wide idiom). ──
+// Never throws, never blocks a click. Also leaves a dataLayer trail if GA is slow to load.
+function track(name, params){
+  try { if (typeof gtag === "function") gtag("event", name, params || {}); } catch(e){}
+}
+
+// Title-cased magnet label for readable event params.
+function magnetName(el){
+  var f = el.closest(".item") && el.closest(".item").querySelector("form.capture");
+  return (f && f.dataset.magnet) || "unknown";
+}
+
 document.querySelectorAll(".reveal-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     const item = btn.closest(".item");
     item.classList.add("open");
     item.querySelector(".capture input").focus();
+    // which thing they opened — magnet key, or the enquiry form id
+    var form = item.querySelector("form.capture");
+    track("magnet_reveal", { magnet: (form && (form.dataset.magnet || form.id)) || "unknown" });
   });
+});
+
+// Outbound / CTA click tracking (hero CTAs, scan, apply, substack, My Brain, socials).
+document.querySelectorAll("a[href]").forEach(a => {
+  var href = a.getAttribute("href") || "";
+  if (href.charAt(0) === "#" || href.indexOf("mailto:") === 0) {
+    a.addEventListener("click", () => track("anchor_click", { target: href }));
+    return;
+  }
+  var ev = "cta_click", p = { url: href };
+  if (href.indexOf("/scan") > -1)                 { ev = "scan_click"; }
+  else if (href.indexOf("/apply") > -1)           { ev = "apply_click"; p.from = "social_work_with_me"; }
+  else if (href.indexOf("substack.com") > -1)     { ev = "substack_click"; }
+  else if (href.indexOf("buy.stripe.com") > -1)   { ev = "mybrain_click"; p.price = 19; }
+  else if (href.indexOf("instagram.com") > -1 || href.indexOf("tiktok.com") > -1 ||
+           href.indexOf("linkedin.com") > -1)     { ev = "social_click"; }
+  else if (href === "https://marishalakhiani.com/" || href.indexOf("/privacy") > -1) { ev = "footer_click"; }
+  a.addEventListener("click", () => track(ev, p));
 });
 
 // Client-side fallback resource URLs, keyed by magnet. If the API hiccups or returns
@@ -551,10 +604,12 @@ document.querySelectorAll("form.capture[data-magnet]").forEach(form => {
       email: form.email.value.trim(),
       magnet: magnet
     }, (thanks, data) => {
+      track("lead_capture", { magnet: magnet });
       var url = data.resource || MAGNET_RESOURCE[magnet];
       if (url) {
         thanks.innerHTML = 'You’re in — <a href="' + url +
-          '" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">open it now →</a>';
+          '" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline" ' +
+          'onclick="track(\'resource_open\',{magnet:\'' + magnet + '\'})">open it now →</a>';
       }
     }, { fallbackResource: MAGNET_RESOURCE[magnet] });
   });
@@ -570,7 +625,7 @@ document.getElementById("speaking-form").addEventListener("submit", e => {
     event: f.namedItem("event").value.trim(),
     date: f.namedItem("date").value.trim(),
     details: f.namedItem("details").value.trim()
-  });
+  }, () => track("enquiry_submit", { kind: "speaking" }));
 });
 
 document.getElementById("consulting-form").addEventListener("submit", e => {
@@ -583,7 +638,7 @@ document.getElementById("consulting-form").addEventListener("submit", e => {
     business: f.namedItem("business").value.trim(),
     revenue: f.namedItem("revenue").value.trim(),
     details: f.namedItem("details").value.trim()
-  });
+  }, () => track("enquiry_submit", { kind: "consulting" }));
 });
 </script>
 </body>
