@@ -507,6 +507,21 @@
 <script>
 var API = "https://marisha-email-api.vercel.app";
 
+// ── UTM attribution: read utm_* off THIS page's URL so we can tell the backend
+// which LinkedIn post (or any channel) drove a signup. Read once at load; omit any
+// param that's absent so the backend keeps its own defaults. Never throws.
+var UTM = (function(){
+  var out = {};
+  try {
+    var q = new URLSearchParams(window.location.search);
+    ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function(k){
+      var v = q.get(k);
+      if (v) out[k] = v.trim();
+    });
+  } catch(e){}
+  return out;
+})();
+
 // ── Analytics: thin, guarded GA4 event helper (matches the site-wide idiom). ──
 // Never throws, never blocks a click. Also leaves a dataLayer trail if GA is slow to load.
 function track(name, params){
@@ -642,10 +657,10 @@ document.querySelectorAll("form.capture[data-magnet]").forEach(form => {
     // Fire the real-time Substack subscribe from the visitor's own browser, in parallel
     // with the server capture (Omnisend + beehiiv). CSV import is the never-miss backstop.
     subscribeSubstack(email);
-    submitForm(form, API + "/api/subscribe", {
+    submitForm(form, API + "/api/subscribe", Object.assign({
       email: email,
       magnet: magnet
-    }, (thanks, data) => {
+    }, UTM), (thanks, data) => {
       track("lead_capture", { magnet: magnet });
       var url = data.resource || MAGNET_RESOURCE[magnet];
       if (url) {
