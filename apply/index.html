@@ -761,7 +761,7 @@
                 </div>
             </div>
 
-            <form id="audit-form" class="bg-cream p-8 md:p-12 border-l-2 border-bordeaux fade-in">
+            <form id="audit-form" novalidate class="bg-cream p-8 md:p-12 border-l-2 border-bordeaux fade-in">
 
                 <!-- STEP 1: Name + Email (fires partial webhook) -->
                 <div id="step-1" class="form-step">
@@ -849,8 +849,7 @@
 
                     <div class="form-group">
                         <label class="form-label">5 · Your #1 biggest funnel challenge right now</label>
-                        <textarea name="challenge" id="f_challenge" rows="4" minlength="50" required placeholder="Be specific — this is what I'll diagnose first."></textarea>
-                        <p class="text-xs text-gray-500 mt-2 tracking-wide">Minimum 50 characters.</p>
+                        <textarea name="challenge" id="f_challenge" rows="4" required placeholder="Be specific — this is what I'll diagnose first."></textarea>
                     </div>
 
                     <div class="form-group">
@@ -1071,6 +1070,12 @@
         document.getElementById('audit-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const submitBtn = step2.querySelector('button[type="submit"]');
+            // Never let Submit die silently: validate first, show the browser's own
+            // field prompts, and always reset the button if anything's missing.
+            if (!this.checkValidity()) {
+                this.reportValidity();
+                return;
+            }
             submitBtn.textContent = 'Submitting…';
             submitBtn.disabled = true;
 
@@ -1114,6 +1119,12 @@
                 const payload = { ...basePayload, submission_type: 'qualified' };
                 postWebhook(ZAPIER_QUALIFIED_URL, payload);
                 await notifyApplication(payload);          // await → no redirect race
+                // Carry the applicant's details to the booking page so Calendly prefills
+                // name/email and the call_booked instrumentation has an email to tag.
+                try {
+                    sessionStorage.setItem('rra_applicant_name', data.first_name || '');
+                    sessionStorage.setItem('rra_applicant_email', data.email || '');
+                } catch (e) {}
                 window.location.href = 'booking/';
             }
         });
