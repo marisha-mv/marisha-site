@@ -477,3 +477,30 @@ p{max-width:62ch}
 .three p{font-size:17px;color:var(--ink-2)}
 @media (max-width:900px){.three{grid-template-columns:1fr}}
 .topic a small{display:block;font-size:14px;color:var(--muted);margin-top:4px}
+
+/* press logos (real marks, from live assets/logos) */
+.press ul.logos{align-items:center;gap:22px 30px;flex-wrap:nowrap}
+.press ul.logos li{font-size:0;line-height:0}
+.press ul.logos img{height:30px;width:auto;max-width:130px;object-fit:contain;opacity:.62;filter:grayscale(1) brightness(1.6);mix-blend-mode:screen;transition:opacity .3s}
+.press ul.logos img:hover{opacity:.95}
+@media (max-width:900px){.press ul.logos{display:grid;grid-template-columns:repeat(3,1fr);justify-items:center;gap:22px 18px}.press ul.logos img{height:24px;max-width:96px}}
+.press ul.logos li.lg-sm img{height:62px;max-width:150px}
+@media (max-width:900px){.press ul.logos{flex-wrap:wrap}.press ul.logos li.lg-sm img{height:34px}}
+
+/* spoke two-col */
+.spoke li{font-size:20px;padding:10px 0}
+
+/* social: speaking proof */
+.sp-proof{margin:6px 0 34px}
+.sp-rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;margin:0 -2px;scrollbar-width:thin}
+.sp-rail figure{flex:0 0 72%;max-width:340px;scroll-snap-align:start;margin:0}
+.sp-rail img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.sp-rail figcaption{margin-top:8px;font-size:11px}
+.sp-label{margin-top:22px}
+.sp-names{font-family:var(--serif);font-size:20px;line-height:1.5;margin-top:8px}
+
+/* social: as-seen-in logos (white marks shown dark on light bg) */
+.sl-logos{margin:30px 0 4px;text-align:center}
+.sl-logos ul{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:18px 14px;align-items:center;justify-items:center;margin-top:14px;padding:0}
+.sl-logos img{height:22px;width:auto;max-width:92px;object-fit:contain;filter:invert(1) grayscale(1);mix-blend-mode:multiply;opacity:.55}
+.sl-logos li.lg-sm img{height:40px;max-width:110px}
