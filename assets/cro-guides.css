@@ -1,0 +1,8 @@
+/* Guides: conversion layer (mid-article scorecard nudge, related reading) */
+.prose .mid-cta{margin:48px 0;padding:26px 28px;border-left:2px solid var(--cognac);background:var(--paper)}
+.prose .mid-cta p{margin:0}
+.prose .mid-cta p.cap{margin-bottom:10px}
+.prose .mid-cta p+p{font-size:17px;line-height:1.6}
+.prose .mid-cta .tl{margin-top:16px;color:var(--ink)}
+.topic.related h3{font-family:var(--serif);font-weight:400}
+@media (max-width:600px){.prose .mid-cta{padding:22px 20px;margin:40px 0}}
