@@ -126,7 +126,7 @@ render();
     var score=big.textContent.trim();
     fetch('https://marisha-email-api.vercel.app/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,magnet:'newsletter',utm_source:'scorecard',utm_medium:'result',utm_campaign:'score-'+score,utm_content:q.utm_campaign||q.utm_source||''})})
     .then(function(r){return r.json().catch(function(){return{};}).then(function(d){if(!r.ok||d.ok===false)throw 0;});})
-    .then(function(){f.querySelector('.sc-cap-row').style.display='none';f.querySelector('.sc-consent').style.display='none';msg.textContent='You\'re in. Your first teardown lands this Wednesday.';try{gtag('event','lead_capture',{magnet:'scorecard_result',score:+score});}catch(e){}})
+    .then(function(){f.querySelector('.sc-cap-row').style.display='none';f.querySelector('.sc-consent').style.display='none';msg.textContent='You\'re in. Your first teardown lands with the next issue.';try{gtag('event','lead_capture',{magnet:'scorecard_result',score:+score});}catch(e){}})
     .catch(function(){btn.disabled=false;msg.innerHTML='That didn\'t go through. Email me at <a href="mailto:marisha@marishalakhiani.com">marisha@marishalakhiani.com</a> and I\'ll add you.';});
   });
 })();
