@@ -1,0 +1,44 @@
+/* CRO pass (home + apply path). Uses the tokens from home.css; adds no new fonts or colours. */
+
+/* Hero micro-commitment line under the CTAs */
+.cro-micro{margin-top:22px;font:400 14px/1.5 var(--sans);color:var(--stone);letter-spacing:.01em}
+
+/* "You've already tried the obvious fixes" */
+.cro-tried-list{list-style:none;margin:clamp(40px,5vw,64px) 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--ink)}
+.cro-tried-list li{padding:28px 32px 30px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.cro-tried-list li:nth-child(odd){padding-right:48px;border-right:1px solid var(--line)}
+.cro-tried-list li:nth-child(even){padding-left:48px}
+.cro-tried-list b{font:400 clamp(26px,2.4vw,34px)/1.15 var(--serif);color:var(--ink)}
+.cro-tried-list span{font:400 17px/1.55 var(--sans);color:var(--muted)}
+.cro-tried-foot{margin-top:clamp(36px,4vw,56px);display:flex;align-items:flex-end;justify-content:space-between;gap:32px 64px;flex-wrap:wrap}
+.cro-tried-foot .lead{max-width:640px;color:var(--ink)}
+
+/* 3-step process under the offer */
+.cro-steps{list-style:none;padding:0;margin:40px 0 0;border-top:1px solid var(--ink);counter-reset:s}
+.cro-steps li{display:grid;grid-template-columns:72px 1fr;grid-template-rows:auto auto;column-gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.cro-steps .cap{grid-row:1/3;color:var(--cognac);font-size:11px;padding-top:4px}
+.cro-steps b{font:400 22px/1.2 var(--serif);color:var(--ink)}
+.cro-steps small{font:400 14px/1.5 var(--sans);color:var(--muted)}
+
+/* CTA after client proof */
+.cro-proof-cta{margin-top:clamp(36px,4vw,56px);display:flex;align-items:center;gap:20px 32px;flex-wrap:wrap}
+.cro-proof-cta .cap{color:var(--cognac);font-size:12px}
+
+/* Apply form reassurance */
+.cro-reassure{margin-top:16px;font:400 14px/1.5 var(--sans);color:var(--muted)}
+
+/* Thank-you: inbox step */
+.cro-inbox{margin-top:22px;padding:18px 22px;border-left:2px solid var(--cognac);background:var(--paper);font:400 16px/1.6 var(--sans);color:var(--ink);max-width:620px}
+.cro-inbox a{color:var(--cognac)}
+
+@media (max-width:760px){
+  .cro-tried-list{grid-template-columns:1fr}
+  .cro-tried-list li,.cro-tried-list li:nth-child(odd),.cro-tried-list li:nth-child(even){padding:22px 0;border-right:0}
+  .cro-tried-foot .btn{width:100%;justify-content:space-between}
+  .cro-proof-cta .btn{width:100%;justify-content:space-between}
+  .cro-steps li{grid-template-columns:60px 1fr}
+}
+
+/* hero CTA group: buttons + micro line stay together */
+.cro-hero-cta .cro-micro{max-width:none;margin-top:16px;text-align:right}
+@media (max-width:900px){.cro-hero-cta .cro-micro{text-align:left}}
