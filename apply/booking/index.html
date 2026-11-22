@@ -19,6 +19,7 @@
 <link rel="preload" as="font" type="font/woff2" href="../../fonts/cormorant-latin-300-normal.woff2" crossorigin>
 <link rel="stylesheet" href="../../assets/home.css">
 <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
+<style>[hidden]{display:none!important}</style>
 
 <script type="text/javascript">
 window.omnisend = window.omnisend || [];
@@ -32,12 +33,17 @@ omnisend.push(["track", "$pageViewed"]);
 <nav aria-label="Main"><ul class="cap"><li><a href="../../apply/" aria-current=page>The Audit</a></li><li><a href="../../checklist/">Free Scorecard</a></li><li><a href="../../audit/">Free Website Audit</a></li><li><a href="../../blog/">Guides</a></li></ul></nav>
 </div></header>
 <main><section class="phead bone"><div class="wrap center">
-<p class="cap cog">You're approved</p><h1 class="d1" style="margin-top:22px">You're in. <em>Pick your time.</em></h1>
+<div id="bk-checking"><p class="cap cog">One moment</p><h1 class="d1" style="margin-top:22px">Checking your <em>link.</em></h1></div>
+<div id="bk-ok" hidden><p class="cap cog">You're approved</p><h1 class="d1" style="margin-top:22px">You're in. <em>Pick your time.</em></h1>
 <p class="lead" style="max-width:600px;margin:26px auto 0">Choose a Tuesday or Thursday that works for you. It's a focused 20–30 minute call. You'll leave with two specific fixes for your funnel, whatever happens next.</p></div>
-<div class="wrap" style="margin-top:48px"><div class="form" style="padding:10px"><div class="calendly-inline-widget" data-url="https://calendly.com/weconquermedia/30min?hide_gdpr_banner=1&amp;primary_color=9c5b33" style="min-width:300px;height:760px"></div></div>
+<div id="bk-no" hidden><p class="cap cog">Approved applicants only</p><h1 class="d1" style="margin-top:22px">This link is for <em>approved</em> applicants.</h1>
+<p class="lead" style="max-width:600px;margin:26px auto 0" id="bk-no-msg">I read every application myself, and once you're approved I'll email you a private link to book your call.</p>
+<p style="margin-top:34px"><a class="btn" href="../../apply/#apply">Apply for an audit call</a></p></div>
+</div>
+<div class="wrap" style="margin-top:48px" id="bk-cal" hidden><div class="form" style="padding:10px"><div id="bk-widget" style="min-width:300px;height:760px"></div></div>
 <div class="three" style="margin-top:64px"><div><span class="k">01</span><h3>Bring your numbers</h3><p>Cost per lead, show-up rate and close rate, if you have them. Rough is fine.</p></div><div><span class="k">02</span><h3>Have your funnel open</h3><p>Your landing page and offer page, so we can look at them together.</p></div><div><span class="k">03</span><h3>Ask anything</h3><p>I'll tell you honestly whether the audit is a fit, and how to secure a spot.</p></div></div>
 </div></section></main>
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script><footer class="foot"><div class="wrap">
+<footer class="foot"><div class="wrap">
 <div class="foot-links cap"><a class="mono" href="../../" style="text-transform:none">Marisha <i>Lakhiani</i></a><ul><li><a href="../../apply/">The Audit</a></li><li><a href="../../checklist/">Free Scorecard</a></li><li><a href="../../audit/">Free Website Audit</a></li><li><a href="../../blog/">Guides</a></li><li><a href="https://www.linkedin.com/in/marishalakhiani/" rel="me noopener">LinkedIn</a></li><li><a href="https://www.instagram.com/marishalakhiani/" rel="me noopener">Instagram</a></li></ul></div>
 <div class="foot-base"><small>© 2026 Marisha Lakhiani · Revenue Recovery Audit™</small></div>
 </div></footer>
@@ -47,5 +53,31 @@ omnisend.push(["track", "$pageViewed"]);
 function u(){var y=window.scrollY>700,hide=false;if(h){var r=h.getBoundingClientRect();hide=r.top<window.innerHeight&&r.bottom>0;}s.classList.toggle('show',y&&!hide);}
 window.addEventListener('scroll',u,{passive:true});u();})();
 
+</script>
+<script>
+// Booking gate: the calendar only appears for a valid, signed link from Marisha's
+// approval email (api/approve.js). The Calendly URL is never in this page's source.
+(function(){
+  var API='https://marisha-email-api.vercel.app/api';
+  var q=new URLSearchParams(location.search), t=q.get('t');
+  var $=function(id){return document.getElementById(id)};
+  function no(reason){ $('bk-checking').hidden=true; $('bk-no').hidden=false;
+    if(reason==='expired') $('bk-no-msg').textContent="Your booking link has expired. Reply to my email and I'll send you a fresh one.";
+    try{gtag('event','booking_gate_blocked',{reason:reason||'none'})}catch(e){} }
+  if(!t){ no('missing'); return; }
+  fetch(API+'/booking-access?t='+encodeURIComponent(t)).then(function(r){return r.json().catch(function(){return {ok:false}})}).then(function(d){
+    if(!d||!d.ok||!d.calendly){ no(d&&d.reason); return; }
+    $('bk-checking').hidden=true; $('bk-ok').hidden=false; $('bk-cal').hidden=false;
+    var url=d.calendly+'?hide_gdpr_banner=1&primary_color=9c5b33'+(d.firstName?'&name='+encodeURIComponent(d.firstName):'')+(d.email?'&email='+encodeURIComponent(d.email):'');
+    var w=$('bk-widget'); w.className='calendly-inline-widget'; w.setAttribute('data-url',url);
+    var sc=document.createElement('script'); sc.src='https://assets.calendly.com/assets/external/widget.js'; sc.async=true; document.body.appendChild(sc);
+    // Booked → tag rra_call_booked, ping Marisha, mark Booked in the sheet.
+    window.addEventListener('message',function(e){
+      if(!e.data||e.data.event!=='calendly.event_scheduled') return;
+      try{gtag('event','rra_call_booked')}catch(x){}
+      try{fetch(API+'/call-booked',{method:'POST',headers:{'Content-Type':'application/json'},keepalive:true,body:JSON.stringify({email:d.email,firstName:d.firstName})})}catch(x){}
+    });
+  }).catch(function(){ no('network'); });
+})();
 </script>
 </body></html>
