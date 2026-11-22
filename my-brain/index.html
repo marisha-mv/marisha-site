@@ -59,7 +59,13 @@
   <div class="kicker">Payment received · Thank you</div>
   <h1>Check Your<br><span class="accent">Email.</span></h1>
   <p class="sub">Thank you, you now own My Brain. Your private download link goes to the address you paid with. If it isn't in your inbox soon, email me and I'll send it straight over.</p>
+  <p id="mb-now" hidden style="margin-top:26px"><a id="mb-dl" href="#" style="display:inline-block;background:#14110F;color:#F3EDE4;padding:16px 26px;font:500 13px/1 &quot;DM Sans&quot;,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;margin-bottom:10px">Download My Brain now &rarr;</a><br><span style="font-size:14px;opacity:.75">Your private copy, ready right now. The same link is in your email.</span></p>
 </header>
+<script>
+(function(){try{var sid=new URLSearchParams(location.search).get('session_id');if(!sid||!/^cs_/.test(sid))return;
+var a=document.getElementById('mb-dl');a.href='https://marisha-email-api.vercel.app/api/my-brain-claim?session_id='+encodeURIComponent(sid);
+document.getElementById('mb-now').hidden=false;a.addEventListener('click',function(){try{gtag('event','mybrain_download',{source:'thankyou'});}catch(e){}});}catch(e){}})();
+</script>
 
 <div class="wrap">
   <div class="steps">
@@ -67,7 +73,7 @@
     <ol>
       <li>Open the email from me titled <strong>"Your My Brain is ready to download."</strong> (Check spam / Promotions if you don't see it in a minute.)</li>
       <li>Click <strong>Download My Brain</strong>. It's your own private link, so please don't share it.</li>
-      <li>To install: unzip, drop any skill folder into <code>~/.claude/skills/</code>, start a new Claude session, and invoke it by name. Or open <code>PROMPTS.md</code> and paste into any AI.</li>
+      <li>To install: unzip, drop any skill folder into <code>~/.claude/skills/</code>, start a new Claude session, and invoke it by name. Or open any skill's <code>SKILL.md</code> and paste it into any AI.</li>
     </ol>
     <div class="note"><strong>Lifetime updates:</strong> every new skill I build gets added, and the same link in your email always gives you the latest. Bookmark that email.</div>
     <div class="note"><strong>Didn't get the email?</strong> Give it a few minutes, then email me at <a href="mailto:marisha@marishalakhiani.com" style="color:var(--wine);font-weight:600">marisha@marishalakhiani.com</a> and I'll send your link straight over.</div>
