@@ -17,6 +17,7 @@
 <meta name="theme-color" content="#14110F">
 <link rel="preload" as="font" type="font/woff2" href="../fonts/cormorant-latin-300-normal.woff2" crossorigin>
 <link rel="stylesheet" href="../assets/home.css">
+<link rel="stylesheet" href="../assets/cro-magnets.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "The 10-Leak Funnel Scorecard", "description": "A free 60-second sales funnel checklist: the 10 most common funnel leaks, with a live score.", "applicationCategory": "BusinessApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "Marisha Lakhiani", "url": "https://marishalakhiani.com"}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the 10-Leak Funnel Scorecard?", "acceptedAnswer": {"@type": "Answer", "text": "A 60-second check of the 10 most common ways funnels lose money. Answer yes or no to each and see your score, from Hemorrhaging to Optimised."}}, {"@type": "Question", "name": "How accurate is the scorecard?", "acceptedAnswer": {"@type": "Answer", "text": "It points you in the right direction; it isn't a diagnosis. It shows which leaks you probably have. A full audit puts a dollar figure on each one and tells you which to fix first."}}, {"@type": "Question", "name": "What are the 10 most common funnel leaks?", "acceptedAnswer": {"@type": "Answer", "text": "Emails landing in spam, low webinar show-up, no follow-up after the webinar, an under-used email list, nothing else to buy at checkout, selling features instead of results, slow pages, showing the price too early, deadlines nobody believes, and relying on email alone."}}]}</script>
 <script type="text/javascript">
@@ -29,13 +30,14 @@ omnisend.push(["track", "$pageViewed"]);
 <body><header class="top"><div class="wrap">
 <a class="mono" href="../" aria-label="Marisha Lakhiani, home">Marisha <i>Lakhiani</i></a>
 <nav aria-label="Main"><ul class="cap"><li><a href="../apply/">The Audit</a></li><li><a href="../checklist/" aria-current=page>Free Scorecard</a></li><li><a href="../audit/">Free Website Audit</a></li><li><a href="../blog/">Guides</a></li></ul></nav>
-<a class="btn" href="../apply/#apply">Book an audit call</a></div></header>
+<a class="btn" href="../apply/#apply">Apply for an audit call</a></div></header>
 <div class="sc-bar"><div class="wrap"><b id="scNum">0 / 10</b><span class="cap" style="color:#B5AA9E">fixed</span><div class="sc-track"><i id="scFill"></i></div><a id="scLeft" href="#q0">10 to go</a></div></div>
 <main>
 <section class="phead bone" style="padding-bottom:clamp(40px,5vw,72px)"><div class="wrap">
 <p class="cap cog">The 10-Leak Scorecard · free · 60 seconds</p>
 <h1 class="d1" style="margin-top:22px;max-width:1000px">How many of these 10 leaks are in <em>your funnel?</em></h1>
-<div class="claim-grid" style="border-color:var(--line);padding-bottom:0"><p class="lead">These are the 10 leaks I find in almost every funnel audit. Answer yes or no to each one. At the end you'll see your score and roughly how much your funnel could be losing.</p><a class="btn" href="#q0">Start the scorecard</a></div>
+<div class="claim-grid" style="border-color:var(--line);padding-bottom:0"><p class="lead">These are the 10 leaks I find in almost every funnel audit. Answer yes or no to each one. At the end you'll see your score and roughly how much your funnel could be losing.</p><div class="sc-start"><a class="btn" href="#q0">Start the scorecard</a><p class="sc-micro">10 yes-or-no questions · no email needed to see your score</p></div></div>
+<p class="sc-cred cap">The same 10 leaks I check first in every Revenue Recovery Audit™</p>
 </div></section>
 
 <section class="bone" style="padding-bottom:var(--pad)"><div class="narrow" style="max-width:920px"><article class="q" data-q="0"><div class="n">01</div><div><h3>Your emails are landing in spam</h3><p>You're sending reminders, follow-ups and offers, but are they arriving? Most funnel owners have no idea. If the email settings that prove you're a real sender were never set up, your best emails go unseen.</p><p class="cost"><b>What it costs you:</b> Every email in spam is a lead you paid for who never sees your offer.</p>
@@ -53,8 +55,11 @@ omnisend.push(["track", "$pageViewed"]);
 <section class="sec dark" id="result" data-hide-sticky><div class="wrap">
 <div class="result"><div><p class="cap gold">Your score</p><p class="rscore" style="margin-top:20px"><span id="big">–</span><small> /10</small></p></div>
 <div><h2 class="d2" id="bandLabel">Answer the 10 questions above.</h2><p class="lead" id="bandDetail" style="margin-top:22px">Your result shows up here once you have answered all ten.</p>
-<ul class="yours" id="yours"></ul>
-<div class="row"><a class="btn light" id="resCta" href="../apply/?utm_source=scorecard&utm_medium=result#apply">Book an audit call</a><a class="tl" href="../audit/">Get a free website audit</a></div></div></div>
+<p class="cap gold sc-yours-h">Where your funnel is leaking</p><ul class="yours" id="yours"></ul>
+<div class="sc-next"><p class="cap gold">What an audit does with this</p><ul class="ticks"><li>Puts a dollar figure on each leak above, using your real numbers</li><li>Tells you which one to fix first, and exactly how</li><li>At least $100,000 found, or you don't pay</li></ul></div>
+<div class="row"><a class="btn light" id="resCta" href="../apply/?utm_source=scorecard&utm_medium=result#apply">Apply for an audit call</a><a class="tl" href="../audit/">Get a free website audit</a></div>
+<p class="sc-micro light">Free to apply. I read every application myself, and I take 4 audits a month.</p>
+<form class="sc-cap" id="scCap" novalidate><p class="cap gold">Not ready for an audit?</p><p class="sc-cap-t">Every week I take apart one real funnel and show what I'd fix. Get it free, and fix your leaks one at a time.</p><div class="sc-cap-row"><label class="sr" for="scCapEmail">Your email</label><input id="scCapEmail" type="email" name="email" placeholder="Your email" autocomplete="email" required><button class="btn light" type="submit">Send me the teardowns</button></div><label class="sc-consent"><input type="checkbox" required> I agree to receive marketing emails.</label><p class="sc-cap-msg" role="status" aria-live="polite"></p></form></div></div>
 <div class="bands"><div>8–10 fixed<b>Optimised</b></div><div>5–7 fixed<b>Healthy, but leaking</b></div><div>3–4 fixed<b>Critical gaps</b></div><div>0–2 fixed<b>Hemorrhaging</b></div></div>
 </div></section>
 
@@ -71,7 +76,7 @@ omnisend.push(["track", "$pageViewed"]);
 <div><p class="cap cog">Found some leaks?</p><h2 class="d2" style="margin-top:22px">Knowing where the leak is and <em>fixing it</em> are two different skills.</h2>
 <p class="lead" style="margin-top:26px;max-width:560px">The Revenue Recovery Audit™ doesn't stop at “your show-up rate is low.” It tells you exactly what to change, in what order, and what each fix is worth in dollars.</p>
 <ul class="ticks" style="max-width:520px"><li>At least $100,000 found, or you don't pay</li><li>Written report in 7 business days</li><li>Only 4 audits a month</li></ul>
-<div class="row"><a class="btn" href="../apply/?utm_source=scorecard&utm_medium=footer#apply">Book an audit call</a><a class="tl" href="../apply/">How the audit works</a></div></div>
+<div class="row"><a class="btn" href="../apply/?utm_source=scorecard&utm_medium=footer#apply">Apply for an audit call</a><a class="tl" href="../apply/">How the audit works</a></div></div>
 <div class="arch"><img src="../img/close.jpg" alt="Marisha Lakhiani" loading="lazy"></div>
 </div></section>
 
@@ -81,7 +86,7 @@ omnisend.push(["track", "$pageViewed"]);
 <div class="foot-links cap"><a class="mono" href="../" style="text-transform:none">Marisha <i>Lakhiani</i></a><ul><li><a href="../apply/">The Audit</a></li><li><a href="../checklist/">Free Scorecard</a></li><li><a href="../audit/">Free Website Audit</a></li><li><a href="../blog/">Guides</a></li><li><a href="https://www.linkedin.com/in/marishalakhiani/" rel="me noopener">LinkedIn</a></li><li><a href="https://www.instagram.com/marishalakhiani/" rel="me noopener">Instagram</a></li></ul></div>
 <div class="foot-base"><small>© 2026 Marisha Lakhiani · Revenue Recovery Audit™</small></div>
 </div></footer>
-<div class="sticky" id="stickyCta"><a class="btn light" href="../apply/#apply">Book an audit call</a></div>
+<div class="sticky" id="stickyCta"><a class="btn light" href="../apply/?utm_source=scorecard&utm_medium=sticky#apply">Apply for an audit call</a></div>
 <script>
 (function(){var s=document.getElementById('stickyCta');if(!s)return;var h=document.querySelector('[data-hide-sticky]');
 function u(){var y=window.scrollY>700,hide=false;if(h){var r=h.getBoundingClientRect();hide=r.top<window.innerHeight&&r.bottom>0;}s.classList.toggle('show',y&&!hide);}
@@ -96,12 +101,31 @@ big.textContent=n?fixed:'–';bands.forEach(function(b){b.classList.remove('on')
 if(n<10){lab.textContent=n?'Keep going. '+(10-n)+' to go.':'Answer the 10 questions above.';det.textContent='Your result shows up here once you have answered all ten.';yours.innerHTML='';return;}
 var i=fixed>=8?0:fixed>=5?1:fixed>=3?2:3;bands[i].classList.add('on');
 lab.textContent=['Optimised.','Healthy, but leaking.','Critical gaps.','Hemorrhaging.'][i];
-det.textContent=["You're in the top 5%. Small changes could still add $100K–$500K a year, and the audit shows exactly which ones.","You're doing well, but $250K–$750K is still walking out the door every year. Most of it is in the leaks below.","Your funnel has leaks costing $500K–$1.5M a year. The good news: this is where audits pay back the most.","Your funnel is likely losing $1M–$3M a year to leaks you can fix. Don't scale yet. Fix these first."][i];
+det.textContent=["You're ahead of most funnels I audit. What's left is hiding in the details, and the details are exactly what an audit finds.","You've built something that works. But every leak below takes a cut of every sale you make, and at this score that cut is usually a real share of your revenue.","Several leaks are working against you at the same time, so every fix compounds. This is the score where an audit pays back the most.","Most of the people you pay to reach are slipping out before they buy. Don't spend more on ads yet. Fix these first, then scale."][i];
 yours.innerHTML=leaks.map(function(l){return '<li>'+l+'</li>'}).join('');
 cta.setAttribute('href','../apply/?utm_source=scorecard&utm_medium=result&utm_campaign=score-'+fixed+'#apply');}
 function next(){for(var i=0;i<10;i++){if(!(i in ans))return i;}return 0;}
 qs.forEach(function(q,i){q.id='q'+i;q.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){ans[i]=+b.dataset.v;q.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});q.classList.add('done');render();
 var n=Object.keys(ans).length;var t=n<10?document.getElementById('q'+next()):document.getElementById('result');if(t&&(n===10||next()>i))setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:n<10?'center':'start'})},250);});});});
 render();
+</script>
+<script>
+(function(){
+  var res=document.getElementById('result'),big=document.getElementById('big'),f=document.getElementById('scCap');
+  if(!res||!big||!f)return;
+  function sync(){var done=/^\d+$/.test(big.textContent.trim())&&!/Keep going|Answer the/.test(document.getElementById('bandLabel').textContent);res.classList.toggle('sc-done',done);}
+  new MutationObserver(sync).observe(document.getElementById('bandLabel'),{childList:true,characterData:true,subtree:true});sync();
+  var q={};try{new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});}catch(e){}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();var msg=f.querySelector('.sc-cap-msg'),btn=f.querySelector('button'),em=f.email.value.trim(),ok=f.querySelector('input[type=checkbox]').checked;
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)||!ok){msg.textContent='Add your email and tick the box, and it\'s on its way.';return;}
+    btn.disabled=true;msg.textContent='';
+    var score=big.textContent.trim();
+    fetch('https://marisha-email-api.vercel.app/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,magnet:'newsletter',utm_source:'scorecard',utm_medium:'result',utm_campaign:'score-'+score,utm_content:q.utm_campaign||q.utm_source||''})})
+    .then(function(r){return r.json().catch(function(){return{};}).then(function(d){if(!r.ok||d.ok===false)throw 0;});})
+    .then(function(){f.querySelector('.sc-cap-row').style.display='none';f.querySelector('.sc-consent').style.display='none';msg.textContent='You\'re in. Your first teardown lands this Wednesday.';try{gtag('event','lead_capture',{magnet:'scorecard_result',score:+score});}catch(e){}})
+    .catch(function(){btn.disabled=false;msg.innerHTML='That didn\'t go through. Email me at <a href="mailto:marisha@marishalakhiani.com">marisha@marishalakhiani.com</a> and I\'ll add you.';});
+  });
+})();
 </script>
 </body></html>

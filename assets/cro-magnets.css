@@ -1,0 +1,67 @@
+/* CRO pass on the lead-magnet pages (scorecard, website audit, /social, /skills, /my-brain).
+   Additive only: page-specific overrides on top of home.css / ml-skin.css. */
+
+/* ---------- Scorecard (/checklist) ---------- */
+.sc-start{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.sc-micro{font-size:14px;color:var(--muted);line-height:1.5}
+.sc-micro.light{color:#B5AA9E;margin-top:18px}
+.sc-cred{margin-top:28px;color:var(--cognac)}
+
+.sc-yours-h,.sc-next,.sc-cap{display:none}
+#result.sc-done .sc-yours-h{display:block;margin-top:30px}
+#result.sc-done .sc-next{display:block;margin:6px 0 30px}
+#result.sc-done .sc-cap{display:block}
+#result.sc-done .yours{margin-top:14px}
+.sc-next .ticks{border-top:1px solid var(--line-d);margin:14px 0 0}
+.sc-next .ticks li{border-bottom:1px solid var(--line-d);color:#EDE6DC;font-size:16px}
+.sc-next .ticks li::before{color:var(--champagne)}
+
+.sc-cap{margin-top:44px;padding-top:30px;border-top:1px solid var(--line-d);max-width:620px}
+.sc-cap-t{color:#EDE6DC;font-size:16px;line-height:1.55;margin:12px 0 18px}
+.sc-cap-row{display:flex;gap:10px;flex-wrap:wrap}
+.sc-cap-row input{flex:1 1 220px;min-width:0;background:transparent;border:1px solid var(--line-d);color:#fff;font:400 16px/1 var(--sans);padding:16px 18px}
+.sc-cap-row input::placeholder{color:#8F857B}
+.sc-cap-row input:focus{outline:none;border-color:var(--champagne)}
+.sc-consent{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:13px;color:#B5AA9E}
+.sc-cap-msg{margin-top:12px;font-size:15px;color:var(--champagne)}
+.sc-cap-msg a{color:inherit}
+@media (max-width:600px){.sc-cap-row .btn{width:100%;justify-content:center}}
+
+/* ---------- Website audit (/audit) ---------- */
+.au-trust{display:flex;align-items:center;gap:14px;margin-top:22px;padding-top:20px;border-top:1px solid #e5ded4}
+.au-trust img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none}
+.au-trust p{font-size:13px;line-height:1.45;color:#655B52;margin:0}
+.au-trust b{color:#14110F;font-weight:500}
+.au-next{list-style:none;margin:28px 0 0;padding:0;counter-reset:au}
+.au-next li{display:flex;gap:12px;font-size:14px;color:#39322C;padding:8px 0;border-top:1px solid #e5ded4}
+.au-next li::before{counter-increment:au;content:counter(au,decimal-leading-zero);color:#9C5B33;font-weight:600;font-size:12px;padding-top:2px}
+.au-guar{margin-top:14px;font-size:14px;color:#39322C}
+.au-guar b{color:#9C5B33}
+
+/* ---------- /skills + /my-brain shared closer ---------- */
+.mg-next{max-width:720px;margin:56px auto 0;padding:0 22px}
+.mg-next .box{border-top:1px solid #CFCCC5;padding-top:34px}
+.mg-next .k{font-size:.66rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#9C5B33}
+.mg-next h2{font-family:Cormorant,Georgia,serif;font-weight:400;font-size:clamp(1.8rem,4.6vw,2.6rem);line-height:1.05;letter-spacing:-.01em;margin:12px 0 14px;text-transform:none}
+.mg-next h2 em{font-style:italic;color:#9C5B33}
+.mg-next p{color:#4A4A48;font-size:1rem;line-height:1.6;margin-bottom:22px}
+.mg-next .row2{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center}
+.mg-next .b1{display:inline-block;background:#14110F;color:#F3EDE4;text-decoration:none;font:500 13px/1 'DM Sans',system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:18px 26px}
+.mg-next .b1:hover{background:#9C5B33}
+.mg-next .b2{color:#14110F;font:500 13px/1 'DM Sans',system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor;padding:8px 0}
+.mg-next small{display:block;margin-top:14px;color:#8A8884;font-size:.86rem}
+@media (max-width:600px){.mg-next .b1{width:100%;text-align:center}}
+
+/* ---------- /social ---------- */
+.s-micro{font-size:13px;color:#B5AA9E;margin-top:12px}
+.blk:not(.dark) .s-micro{color:var(--muted)}
+.final .mg-alt{font-size:.92rem;margin:20px auto 0;max-width:44ch}
+.final .mg-alt a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+
+/* Longer "Apply for an audit call" label: keep the ml-skin header inside 390px phones. */
+@media (max-width:520px){
+  .ml-top .ml-wrap{gap:12px}
+  .ml-top .ml-btn{padding:12px 12px;font-size:10.5px;letter-spacing:.1em;min-height:44px;white-space:normal;text-align:left;line-height:1.25;max-width:160px}
+  .ml-top .ml-btn::after{display:none}
+  .ml-mono{font-size:20px}
+}

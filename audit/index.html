@@ -25,6 +25,7 @@
     {"@context":"https://schema.org","@type":"WebApplication","name":"Instant Website Audit","description":"Instant expert audit of any business website: 5-second clarity test, proof-vs-claim analysis, offer and friction review, page speed, and email deliverability (SPF/DKIM/DMARC).","applicationCategory":"BusinessApplication","operatingSystem":"All","url":"https://marishalakhiani.com/audit/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com","jobTitle":"Revenue Recovery Strategist"}}
     </script>
     <link rel="stylesheet" href="../assets/ml-skin.css">
+    <link rel="stylesheet" href="../assets/cro-magnets.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>window.omnisend=window.omnisend||[];omnisend.push(["brandID","6a1fed1d654323b61ef23180"]);omnisend.push(["track","$pageViewed"]);!function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://omnisnippet1.com/inshop/launcher-v2.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();</script>
     <script>
@@ -153,7 +154,7 @@
     <header class="ml-top"><div class="ml-wrap">
 <a class="ml-mono" href="/" aria-label="Marisha Lakhiani, home">Marisha <i>Lakhiani</i></a>
 <nav aria-label="Main"><ul><li><a href="/apply/">The Audit</a></li><li><a href="/checklist/">Free Scorecard</a></li><li><a href="/audit/" aria-current="page">Free Website Audit</a></li><li><a href="/blog/">Guides</a></li></ul></nav>
-<a class="ml-btn" href="/apply/?utm_source=scan&utm_medium=nav&utm_campaign=site_scan#apply">Book an audit call</a></div></header>
+<a class="ml-btn" href="/apply/?utm_source=scan&utm_medium=nav&utm_campaign=site_scan#apply">Apply for an audit call</a></div></header>
 
     <main class="max-w-5xl mx-auto px-6 lg:px-8 py-12 lg:py-20 min-h-[70vh]">
 
@@ -170,6 +171,7 @@
                         <p class="flex gap-3"><span class="text-bordeaux font-bold">03</span> Page speed, tracking, and whether your emails land in the inbox</p>
                     </div>
                     <p class="text-xs text-gray-500 italic mt-8">Benchmarked against $1B+ in client revenue and the top 10% of 41,000 analyzed landing pages.</p>
+                    <div class="au-trust"><img src="/img/portrait.jpg" alt="Marisha Lakhiani" width="44" height="44" loading="lazy"><p><b>Built by Marisha Lakhiani.</b> I helped grow Mindvalley past $100M a year. This is the first pass I run before every Revenue Recovery Audit™.</p></div>
                 </div>
 
                 <div class="bg-white border border-gray-200 p-8 lg:p-10">
@@ -191,6 +193,7 @@
                         <button id="start-btn" onclick="startScan()" class="btn-primary w-full bg-bordeaux text-white px-8 py-5 font-bold uppercase tracking-[0.15em] text-sm">Run My Free Audit →</button>
                         <p id="start-error" class="text-sm text-bordeaux hidden">Please enter a valid website, your name and email.</p>
                         <p class="text-xs text-gray-500 italic">*By continuing you agree to receive my marketing emails. Unsubscribe anytime.</p>
+                        <ol class="au-next"><li>You type in your web address</li><li>It opens your site on desktop and phone, like a real buyer</li><li>Your report appears right here, ranked by what to fix first</li></ol>
                     </div>
                 </div>
             </div>
@@ -239,7 +242,7 @@
             <div style="max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:space-between;">
                 <span style="font-size:13px;line-height:1.4;max-width:620px;">That's what a stranger sees on one page. The <strong>Revenue Recovery Audit™</strong> goes through your whole funnel and puts a dollar figure on every leak. I take four a month.</span>
                 <span style="display:flex;align-items:center;gap:14px;">
-                    <a id="apply-dock-cta" href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan_dock" class="inline-block bg-white text-bordeaux px-7 py-3 font-bold uppercase tracking-[0.15em]" style="font-size:11px;white-space:nowrap;">Book an audit call</a>
+                    <a id="apply-dock-cta" href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan_dock" class="inline-block bg-white text-bordeaux px-7 py-3 font-bold uppercase tracking-[0.15em]" style="font-size:11px;white-space:nowrap;">Apply for an audit call</a>
                     <button id="apply-dock-close" aria-label="Dismiss" style="background:none;border:none;color:rgba(255,255,255,.6);font-size:20px;line-height:1;cursor:pointer;padding:4px;">&times;</button>
                 </span>
             </div>
@@ -385,7 +388,7 @@ function computeDollars() {
             <p class="text-sm text-white/75 leading-relaxed max-w-2xl">${lines.join(' ')}</p>
             <p class="text-sm text-white/90 leading-relaxed max-w-2xl mt-4">The Revenue Recovery Audit™ finds the leaks behind this number and tells you which to fix first.</p>
             <div class="flex flex-wrap gap-4 items-center mt-7">
-                <a href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan_dollars" onclick="try{gtag('event','apply_click',{from:'dollars_block',score:${S}})}catch(e){}" class="inline-block bg-white text-bordeaux px-9 py-4 font-bold uppercase tracking-[0.15em] text-xs hover:bg-gold hover:text-white transition-colors">Book an audit call</a>
+                <a href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan_dollars" onclick="try{gtag('event','apply_click',{from:'dollars_block',score:${S}})}catch(e){}" class="inline-block bg-white text-bordeaux px-9 py-4 font-bold uppercase tracking-[0.15em] text-xs hover:bg-gold hover:text-white transition-colors">Apply for an audit call</a>
                 <span class="text-xs text-white/60">Free to apply. 4-minute form. If we're not a fit, you keep this report.</span>
             </div>
         </div>`;
@@ -724,9 +727,10 @@ function renderResults(d) {
                 </div>` : `
                 <p class="text-gray-600 leading-relaxed mb-8 max-w-2xl">The Revenue Recovery Audit™ goes where a scanner can't: your ad account, your email sequences, your checkout data, your follow-up numbers. It comes back with the dollar figure attached to each leak and the order to fix them in.</p>`}
                 <div class="flex flex-wrap gap-4 items-center">
-                    <a href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan" onclick="try{gtag('event','apply_click',{from:'scan_report',score:${d.overall}})}catch(e){}" class="btn-primary inline-block bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Book an audit call</a>
+                    <a href="../apply/?utm_source=scan&utm_medium=report&utm_campaign=site_scan" onclick="try{gtag('event','apply_click',{from:'scan_report',score:${d.overall}})}catch(e){}" class="btn-primary inline-block bg-bordeaux text-white px-10 py-5 font-bold uppercase tracking-[0.15em] text-sm">Apply for an audit call</a>
                     <span class="text-sm text-gray-500">Free to apply. If we're not a fit, you keep this report and the plan.</span>
                 </div>
+                <p class="au-guar"><b>At least $100,000 found, or you don't pay.</b> I read every application myself and take 4 audits a month.</p>
             </div>
         </div>
     </div>`;
