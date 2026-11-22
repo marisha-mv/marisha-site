@@ -16,7 +16,7 @@
     <link rel="canonical" href="https://marishalakhiani.com/audit/">
 
     <meta property="og:title" content="Free Instant Website Audit | Marisha Lakhiani">
-    <meta property="og:description" content="The same methodology behind the $10K Revenue Recovery Audit™ — run instantly on your website. See what a cold visitor sees, where you leak, and what to fix first.">
+    <meta property="og:description" content="The same methodology behind the Revenue Recovery Audit™ — run instantly on your website. See what a cold visitor sees, where you leak, and what to fix first.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://marishalakhiani.com/audit/">
     <meta name="twitter:card" content="summary_large_image">
@@ -24,8 +24,7 @@
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebApplication","name":"Instant Website Audit","description":"Instant expert audit of any business website: 5-second clarity test, proof-vs-claim analysis, offer and friction review, page speed, and email deliverability (SPF/DKIM/DMARC).","applicationCategory":"BusinessApplication","operatingSystem":"All","url":"https://marishalakhiani.com/audit/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Marisha Lakhiani","url":"https://marishalakhiani.com","jobTitle":"Revenue Recovery Strategist"}}
     </script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/ml-skin.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>window.omnisend=window.omnisend||[];omnisend.push(["brandID","6a1fed1d654323b61ef23180"]);omnisend.push(["track","$pageViewed"]);!function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://omnisnippet1.com/inshop/launcher-v2.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();</script>
     <script>
@@ -33,13 +32,14 @@
             theme: {
                 extend: {
                     colors: {
-                        bordeaux: '#6b1f3d',
-                        'bordeaux-dark': '#4a1529',
-                        gold: '#c9a66b',
-                        'gold-deep': '#8a6832',
-                        'gold-light': '#d4b896',
-                        cream: '#f8f6f3',
-                        'cream-dark': '#f3f0eb'
+                        bordeaux: '#14110F',
+                        black: '#100D0B',
+                        'bordeaux-dark': '#9C5B33',
+                        gold: '#DDBF98',
+                        'gold-deep': '#9C5B33',
+                        'gold-light': '#DDBF98',
+                        cream: '#F3EDE4',
+                        'cream-dark': '#FAF7F2'
                     },
                     borderRadius: { DEFAULT: '0', sm: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '9999px' }
                 }
@@ -48,15 +48,15 @@
     </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-        h1, h2, h3 { font-family: 'Bodoni Moda', serif; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
-        .logo-name { font-family: 'Bodoni Moda', serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
+        body { font-family: 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3 { font-family: 'Cormorant', Georgia, serif; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
+        .logo-name { font-family: 'Cormorant', Georgia, serif; font-weight: 400; letter-spacing: 0.2em; font-size: 1.5rem; }
 
         .screen { display: none; }
         .screen.active { display: block; }
 
         .btn-primary { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); letter-spacing: 0.05em; }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(107, 31, 61, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(156, 91, 51, 0.3); }
         .btn-primary:disabled { opacity: 0.6; transform: none; box-shadow: none; cursor: wait; }
 
         input[type="email"], input[type="text"], input[type="url"] {
@@ -69,7 +69,7 @@
             font-family: inherit;
             color: #1a1a1a;
         }
-        input:focus { outline: none; border-color: #6b1f3d; box-shadow: 0 0 0 3px rgba(107, 31, 61, 0.1); }
+        input:focus { outline: none; border-color: #9C5B33; box-shadow: 0 0 0 3px rgba(156, 91, 51, 0.1); }
 
         .fade-in-calc { animation: fadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) both; }
         @keyframes fadeIn {
@@ -83,17 +83,17 @@
         .scan-step.on { opacity: 1; }
         .scan-step.done { opacity: 0.75; }
         .scan-step.done .scan-dot { background: #2f7d4f; }
-        .scan-step.on .scan-dot { background: #6b1f3d; animation: pulse 1.1s ease-in-out infinite; }
+        .scan-step.on .scan-dot { background: #9C5B33; animation: pulse 1.1s ease-in-out infinite; }
         .scan-dot { width: 9px; height: 9px; background: #d4d4d4; flex: none; }
         @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.7); } }
 
-        .evidence { border-left: 2px solid #c9a66b; background: #faf8f4; font-style: italic; }
+        .evidence { border-left: 2px solid #DDBF98; background: #FAF7F2; font-style: italic; }
 
-        .serif { font-family: 'Bodoni Moda', serif; }
+        .serif { font-family: 'Cormorant', Georgia, serif; }
 
         /* ---- scroll progress ---- */
-        #progress-track { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: rgba(107,31,61,0.08); z-index: 60; }
-        #progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #6b1f3d, #c9a66b); }
+        #progress-track { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: rgba(156,91,51,0.08); z-index: 60; }
+        #progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #9C5B33, #DDBF98); }
 
         /* ---- scroll reveal ---- */
         .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.25,1,.5,1), transform .7s cubic-bezier(.25,1,.5,1); }
@@ -101,8 +101,8 @@
 
         /* ---- grade cards ---- */
         .grade-card { background: #fff; border: 1px solid #e5e1da; padding: 1.4rem 1.5rem; position: relative; transition: transform .35s cubic-bezier(.25,1,.5,1), box-shadow .35s; }
-        .grade-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(107,31,61,0.10); }
-        .grade-letter { font-family: 'Bodoni Moda', serif; font-size: 2.6rem; line-height: 1; font-style: italic; }
+        .grade-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(156,91,51,0.10); }
+        .grade-letter { font-family: 'Cormorant', Georgia, serif; font-size: 2.6rem; line-height: 1; font-style: italic; }
 
         /* ---- device frames ---- */
         .browser-frame { background: #fff; border: 1px solid #d9d4cc; box-shadow: 0 24px 60px rgba(30,20,25,0.13); }
@@ -114,20 +114,20 @@
         .phone-frame img { border-radius: 22px; display: block; }
 
         /* ---- stamps & chips ---- */
-        .stamp { display: inline-block; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 1.05rem; letter-spacing: .08em; padding: .35rem 1.1rem; border: 2px solid currentColor; transform: rotate(-4deg); }
+        .stamp { display: inline-block; font-family: 'Cormorant', Georgia, serif; font-style: italic; font-size: 1.05rem; letter-spacing: .08em; padding: .35rem 1.1rem; border: 2px solid currentColor; transform: rotate(-4deg); }
         .chip { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: .15em; font-weight: 700; padding: .3rem .7rem; }
 
         /* ---- action plan ---- */
         .rec-card { background: #fff; border: 1px solid #e5e1da; border-left-width: 4px; transition: transform .35s cubic-bezier(.25,1,.5,1), box-shadow .35s; }
-        .rec-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(107,31,61,0.09); }
-        .rec-num { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 3.2rem; line-height: .9; color: rgba(107,31,61,0.14); }
+        .rec-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(156,91,51,0.09); }
+        .rec-num { font-family: 'Cormorant', Georgia, serif; font-style: italic; font-size: 3.2rem; line-height: .9; color: rgba(156,91,51,0.14); }
         .effort-dot { width: 7px; height: 7px; border-radius: 999px; display: inline-block; background: #d8d2c8; }
-        .effort-dot.on { background: #8a6832; }
+        .effort-dot.on { background: #9C5B33; }
 
         /* ---- journey flow ---- */
-        .flow-arrow { font-family: 'Bodoni Moda', serif; color: #c9a66b; font-size: 1.8rem; }
-        .sev-critical { background: #6b1f3d; color: #fff; }
-        .sev-major { background: #c9a66b; color: #fff; }
+        .flow-arrow { font-family: 'Cormorant', Georgia, serif; color: #DDBF98; font-size: 1.8rem; }
+        .sev-critical { background: #9C5B33; color: #fff; }
+        .sev-major { background: #DDBF98; color: #fff; }
         .sev-minor { background: #e8e4dd; color: #6a6a6a; }
 
         @media (max-width: 768px) {
@@ -146,14 +146,14 @@
         }
     </style>
 </head>
-<body class="bg-cream text-gray-900">
+<body class="ml-tw bg-cream text-gray-900">
 
     <div id="progress-track"><div id="progress-bar"></div></div>
 
-    <header class="px-6 lg:px-16 py-6 flex items-center justify-between border-b border-gray-200 bg-cream">
-        <a href="../index.html" class="logo-name">MARISHA LAKHIANI</a>
-        <a href="../apply/" class="hidden md:inline-block text-xs uppercase tracking-[0.2em] font-semibold text-bordeaux hover:text-bordeaux-dark transition-colors">Apply for the Audit →</a>
-    </header>
+    <header class="ml-top"><div class="ml-wrap">
+<a class="ml-mono" href="/" aria-label="Marisha Lakhiani, home">Marisha <i>Lakhiani</i></a>
+<nav aria-label="Main"><ul><li><a href="/apply/">The Audit</a></li><li><a href="/checklist/">Free Scorecard</a></li><li><a href="/audit/" aria-current="page">Free Website Audit</a></li><li><a href="/blog/">Guides</a></li></ul></nav>
+<a class="ml-btn" href="/apply/?utm_source=scan&utm_medium=nav&utm_campaign=site_scan#apply">Book an audit call</a></div></header>
 
     <main class="max-w-5xl mx-auto px-6 lg:px-8 py-12 lg:py-20 min-h-[70vh]">
 
@@ -163,7 +163,7 @@
                 <div>
                     <p class="text-gold-deep text-[11px] tracking-[0.3em] uppercase font-semibold mb-6">Free · 60 seconds · Any website</p>
                     <h1 class="text-4xl lg:text-6xl leading-tight mb-6">See your website the way a <span class="text-bordeaux italic">stranger</span> does.</h1>
-                    <p class="text-lg text-gray-600 leading-relaxed mb-8">Drop your URL and get the same first pass I run inside the $10K Revenue Recovery Audit™: what a cold visitor actually understands in 5 seconds, whether your proof matches your claims, where friction is eating conversions, and the email infrastructure check almost every founder fails.</p>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-8">Drop your URL and get the same first pass I run inside the Revenue Recovery Audit™: what a cold visitor actually understands in 5 seconds, whether your proof matches your claims, where friction is eating conversions, and the email infrastructure check almost every founder fails.</p>
                     <div class="space-y-3 text-sm text-gray-700">
                         <p class="flex gap-3"><span class="text-bordeaux font-bold">01</span> The 5-second stranger test, with your headline rewritten</p>
                         <p class="flex gap-3"><span class="text-bordeaux font-bold">02</span> Your leaks, ranked and quoted from your own page</p>
@@ -235,7 +235,7 @@
         <!-- Sticky apply bar — appears once the report is on screen so a lead
              convinced mid-report can act without scrolling to the very bottom.
              Dismissible; hidden on print. -->
-        <div id="apply-dock" class="no-print" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#6b1f3d;color:#fff;box-shadow:0 -6px 24px rgba(0,0,0,.18);transform:translateY(100%);transition:transform .35s ease;">
+        <div id="apply-dock" class="no-print" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#14110F;color:#fff;box-shadow:0 0 0 rgba(0,0,0,.18);transform:translateY(100%);transition:transform .35s ease;">
             <div style="max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:space-between;">
                 <span style="font-size:13px;line-height:1.4;max-width:620px;">You have the plan. The <strong>Revenue Recovery Audit™</strong> finds the dollars behind it — and we only take 4 a month.</span>
                 <span style="display:flex;align-items:center;gap:14px;">
@@ -247,9 +247,10 @@
 
     </main>
 
-    <footer class="bg-black text-gray-500 py-8 px-6 lg:px-16 text-center text-xs">
-        <p>© <span id="footer-year">2026</span> Marisha Lakhiani. All Rights Reserved.</p>
-    </footer>
+    <footer class="ml-foot"><div class="ml-wrap">
+<div class="ml-links"><a class="ml-mono" href="/">Marisha <i>Lakhiani</i></a><ul><li><a href="/apply/">The Audit</a></li><li><a href="/checklist/">Free Scorecard</a></li><li><a href="/audit/">Free Website Audit</a></li><li><a href="/skills/">Skill Pack</a></li><li><a href="/blog/">Guides</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="https://www.linkedin.com/in/marishalakhiani/" rel="me noopener">LinkedIn</a></li><li><a href="https://www.instagram.com/marishalakhiani/" rel="me noopener">Instagram</a></li></ul></div>
+<small>© <span id="footer-year">2026</span> Marisha Lakhiani · Revenue Recovery Audit™</small>
+</div></footer>
 
 <script>
 const SCAN_URL = 'https://marisha-email-api.vercel.app/api/scan';
@@ -324,8 +325,8 @@ async function startScan() {
 // -------- rendering (v2) --------
 function band(score) {
     if (score >= 80) return { label: 'Sharp, with money on the table', accent: 'text-green-700', stamp: '#2f7d4f' };
-    if (score >= 60) return { label: 'Leaking', accent: 'text-gold-deep', stamp: '#8a6832' };
-    return { label: 'Bleeding', accent: 'text-bordeaux', stamp: '#6b1f3d' };
+    if (score >= 60) return { label: 'Leaking', accent: 'text-gold-deep', stamp: '#9C5B33' };
+    return { label: 'Bleeding', accent: 'text-bordeaux', stamp: '#9C5B33' };
 }
 function grade(score) {
     if (score >= 90) return 'A';
@@ -338,8 +339,8 @@ function grade(score) {
 }
 function gradeColor(score) {
     if (score >= 80) return '#2f7d4f';
-    if (score >= 60) return '#8a6832';
-    return '#6b1f3d';
+    if (score >= 60) return '#9C5B33';
+    return '#9C5B33';
 }
 
 // count-up ticker
@@ -396,7 +397,7 @@ function computeDollars() {
 
 const SECTION_LABELS = { speed: 'Speed & Mobile', deliverability: 'Email Deliverability', capture: 'Capture & Follow-up', tracking: 'Tracking & Visibility' };
 const STATUS_DOT = { pass: 'bg-green-600', warn: 'bg-yellow-500', fail: 'bg-bordeaux' };
-const STATUS_PILL = { pass: 'background:#e7f2ea;color:#2f7d4f', warn: 'background:#f7efdc;color:#8a6832', fail: 'background:#f3e4ea;color:#6b1f3d' };
+const STATUS_PILL = { pass: 'background:#e7f2ea;color:#2f7d4f', warn: 'background:#f7efdc;color:#9C5B33', fail: 'background:#F1E4D9;color:#9C5B33' };
 
 function sectionHead(num, eyebrow, title) {
     return `
@@ -463,7 +464,7 @@ function renderResults(d) {
         </div>`;
     }).join('');
 
-    const IMPACT_EDGE = { high: '#6b1f3d', medium: '#c9a66b', low: '#d8d2c8' };
+    const IMPACT_EDGE = { high: '#9C5B33', medium: '#DDBF98', low: '#d8d2c8' };
     const IMPACT_CHIP = { high: 'sev-critical', medium: 'sev-major', low: 'sev-minor' };
     const EFFORT_DOTS = { 'quick-win': 1, 'half-day': 2, project: 3 };
     const EFFORT_LABEL = { 'quick-win': 'Quick win', 'half-day': 'Half a day', project: 'Project' };
@@ -560,7 +561,7 @@ function renderResults(d) {
                     <div class="relative w-44 h-44">
                         <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120">
                             <circle cx="60" cy="60" r="54" stroke="#e5e5e5" stroke-width="8" fill="none"></circle>
-                            <circle class="score-ring" cx="60" cy="60" r="54" stroke="#6b1f3d" stroke-width="8" fill="none" stroke-linecap="square" stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}" data-offset="${offset}"></circle>
+                            <circle class="score-ring" cx="60" cy="60" r="54" stroke="#9C5B33" stroke-width="8" fill="none" stroke-linecap="square" stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}" data-offset="${offset}"></circle>
                         </svg>
                         <div class="absolute inset-0 flex flex-col items-center justify-center">
                             <p class="text-6xl font-bold big-num" data-count="${d.overall}">0</p>
@@ -610,13 +611,13 @@ function renderResults(d) {
         <div class="mb-16 reveal">
             ${sectionHead('02', 'The 5-Second Stranger Test', a.fiveSecond.passes ? 'A stranger understands what you sell.' : "A stranger can't tell what you sell.")}
             <div class="bg-white border border-gray-200 p-6 lg:p-10 mb-6 relative overflow-hidden">
-                <span class="stamp no-print absolute top-6 right-6" style="color:${a.fiveSecond.passes ? '#2f7d4f' : '#6b1f3d'}">${a.fiveSecond.passes ? 'Pass' : 'Fail'}</span>
+                <span class="stamp no-print absolute top-6 right-6" style="color:${a.fiveSecond.passes ? '#2f7d4f' : '#9C5B33'}">${a.fiveSecond.passes ? 'Pass' : 'Fail'}</span>
                 <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mb-4">What a cold visitor concludes in 5 seconds</p>
                 <p class="serif italic text-xl lg:text-2xl text-gray-800 leading-relaxed max-w-3xl"><span class="text-gold text-4xl align-top leading-none mr-1">"</span>${esc(a.fiveSecond.strangerRead)}</p>
                 ${a.fiveSecond.missing.length ? `
                 <p class="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500 mt-8 mb-3">Missing from your first fold</p>
                 <div class="flex flex-wrap gap-2">
-                    ${a.fiveSecond.missing.map(m => `<span class="chip" style="background:#f3e4ea;color:#6b1f3d">${esc(m)}</span>`).join('')}
+                    ${a.fiveSecond.missing.map(m => `<span class="chip" style="background:#F1E4D9;color:#9C5B33">${esc(m)}</span>`).join('')}
                 </div>` : ''}
             </div>
             <div class="border border-gray-200 relative">

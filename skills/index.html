@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LSN4H7Q0SC"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-LSN4H7Q0SC');
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Marketing Skill Pack — Marisha Lakhiani</title>
 <meta name="description" content="The actual AI skills I use to find and fix the revenue hidden in a business — free. Six Claude skills + copy-paste prompts for any AI.">
 <meta property="og:title" content="The Marketing Skill Pack — Marisha Lakhiani">
 <meta property="og:description" content="Six AI skills I use to find and fix hidden revenue — free. Installable Claude skills + copy-paste prompts.">
 <meta name="theme-color" content="#131313">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#EFEDE8; --paper-2:#E6E3DD; --ink:#131313; --ink-2:#4A4A48; --ink-3:#8A8884;
@@ -18,7 +25,7 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
   .wrap{max-width:860px;margin:0 auto;padding:0 22px}
   a{color:inherit}
   .kicker{font-size:.62rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--wine)}
@@ -32,7 +39,7 @@
 
   /* hero */
   header.hero{text-align:center;padding:52px 0 40px}
-  .hero h1{font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;font-size:clamp(2.6rem,9vw,4.6rem);line-height:.92;letter-spacing:-.02em;margin:18px 0 0}
+  .hero h1{font-family:Cormorant,Georgia,serif;font-weight:900;text-transform:uppercase;font-size:clamp(2.6rem,9vw,4.6rem);line-height:.92;letter-spacing:-.02em;margin:18px 0 0}
   .hero h1 .accent{color:var(--wine)}
   .hero .sub{margin:18px auto 0;max-width:46ch;font-size:1.02rem;color:var(--ink-2)}
   .hero .sub b{color:var(--ink);font-weight:600}
@@ -46,14 +53,14 @@
 
   /* sections */
   section{padding:40px 0}
-  .sec-head{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(1.5rem,5vw,2.1rem);letter-spacing:-.01em;margin:6px 0 22px}
+  .sec-head{font-family:Cormorant,Georgia,serif;font-weight:800;text-transform:uppercase;font-size:clamp(1.5rem,5vw,2.1rem);letter-spacing:-.01em;margin:6px 0 22px}
 
   /* skill cards */
   .cards{display:grid;gap:14px}
   @media(min-width:640px){.cards{grid-template-columns:1fr 1fr}}
   .card{background:var(--white);border:1px solid var(--line-soft);padding:22px}
-  .card .n{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.1rem;color:var(--rose)}
-  .card h3{font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;font-size:.98rem;letter-spacing:.01em;margin:8px 0 7px}
+  .card .n{font-family:Cormorant,Georgia,serif;font-weight:900;font-size:1.1rem;color:var(--rose)}
+  .card h3{font-family:Cormorant,Georgia,serif;font-weight:700;text-transform:uppercase;font-size:.98rem;letter-spacing:.01em;margin:8px 0 7px}
   .card p{font-size:.9rem;color:var(--ink-2)}
 
   /* how */
@@ -61,14 +68,14 @@
   .how .sec-head{color:var(--white)}
   .how .two{display:grid;gap:22px}
   @media(min-width:640px){.how .two{grid-template-columns:1fr 1fr}}
-  .how h3{font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;font-size:.9rem;letter-spacing:.08em;margin-bottom:10px;color:var(--amber)}
+  .how h3{font-family:Cormorant,Georgia,serif;font-weight:700;text-transform:uppercase;font-size:.9rem;letter-spacing:.08em;margin-bottom:10px;color:var(--amber)}
   .how p,.how li{font-size:.9rem;color:#C4C2BE}
   .how ol{padding-left:18px}
   .how code{background:#222;color:#e8e6e1;padding:2px 6px;font-size:.82rem}
 
   /* prompts */
   details{background:var(--white);border:1px solid var(--line-soft);margin-bottom:10px}
-  summary{cursor:pointer;list-style:none;padding:16px 18px;font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;font-size:.84rem;letter-spacing:.03em;display:flex;justify-content:space-between;align-items:center}
+  summary{cursor:pointer;list-style:none;padding:16px 18px;font-family:Cormorant,Georgia,serif;font-weight:700;text-transform:uppercase;font-size:.84rem;letter-spacing:.03em;display:flex;justify-content:space-between;align-items:center}
   summary::-webkit-details-marker{display:none}
   summary::after{content:"+";color:var(--wine);font-size:1.3rem}
   details[open] summary::after{content:"–"}
@@ -76,7 +83,7 @@
 
   /* final cta */
   .final{background:var(--wine);color:var(--white);text-align:center;padding:52px 0}
-  .final h2{font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;font-size:clamp(1.8rem,6vw,2.8rem);line-height:.95}
+  .final h2{font-family:Cormorant,Georgia,serif;font-weight:900;text-transform:uppercase;font-size:clamp(1.8rem,6vw,2.8rem);line-height:.95}
   .final p{margin:14px auto 24px;max-width:40ch;color:#F0DCE4}
   .final .btn{background:var(--white);color:var(--wine);border-color:var(--white)}
   .final .btn:hover{background:transparent;color:var(--white)}
@@ -87,8 +94,14 @@
   footer a:hover{opacity:.6}
   footer .dot{margin:0 12px;color:var(--ink-3)}
 </style>
+<link rel="stylesheet" href="/assets/ml-skin.css">
 </head>
-<body>
+<body class="ml-lb">
+<header class="ml-top"><div class="ml-wrap">
+<a class="ml-mono" href="/" aria-label="Marisha Lakhiani, home">Marisha <i>Lakhiani</i></a>
+<nav aria-label="Main"><ul><li><a href="/apply/">The Audit</a></li><li><a href="/checklist/">Free Scorecard</a></li><li><a href="/audit/">Free Website Audit</a></li><li><a href="/blog/">Guides</a></li></ul></nav>
+<a class="ml-btn" href="/apply/#apply">Book an audit call</a></div></header>
+
 
 <div class="ticker" aria-hidden="true"><div class="ticker-track">
   <span>The actual AI skills I use <i>●</i> Find the hidden revenue in your business <i>●</i> Free <i>●</i> Six skills · two formats <i>●</i></span>
@@ -207,14 +220,10 @@ Voice: every sentence makes the next irresistible; connect with real ropes (so/w
   </div>
 </section>
 
-<footer>
-  <div class="wrap">
-    <div class="rule"></div>
-    <a href="https://marishalakhiani.com/">marishalakhiani.com</a>
-    <span class="dot">·</span>
-    <a href="https://marishalakhiani.com/social/">All links</a>
-  </div>
-</footer>
+<footer class="ml-foot"><div class="ml-wrap">
+<div class="ml-links"><a class="ml-mono" href="/">Marisha <i>Lakhiani</i></a><ul><li><a href="/apply/">The Audit</a></li><li><a href="/checklist/">Free Scorecard</a></li><li><a href="/audit/">Free Website Audit</a></li><li><a href="/skills/">Skill Pack</a></li><li><a href="/blog/">Guides</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="https://www.linkedin.com/in/marishalakhiani/" rel="me noopener">LinkedIn</a></li><li><a href="https://www.instagram.com/marishalakhiani/" rel="me noopener">Instagram</a></li></ul></div>
+<small>© <span id="footer-year">2026</span> Marisha Lakhiani · Revenue Recovery Audit™</small>
+</div></footer>
 
 </body>
 </html>
