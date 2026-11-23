@@ -31,6 +31,7 @@ omnisend.push(["track", "$pageViewed"]);
 !function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://omnisnippet1.com/inshop/launcher-v2.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();
 </script>
 <link rel="stylesheet" href="/assets/mobile.css">
+<link rel="stylesheet" href="../assets/cro-scorecard.css">
 </head>
 <body><header class="top"><div class="wrap">
 <a class="mono" href="../" aria-label="Marisha Lakhiani, home">Marisha <i>Lakhiani</i></a>
@@ -60,10 +61,12 @@ omnisend.push(["track", "$pageViewed"]);
 <section class="sec dark" id="result" data-hide-sticky><div class="wrap">
 <div class="result"><div><p class="cap gold">Your score</p><div class="gauge"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="g-bg" cx="60" cy="60" r="52"/><circle class="g-fg" id="gFg" cx="60" cy="60" r="52"/></svg><p class="rscore"><span id="big">–</span><small> /10</small></p></div><div class="sc-note"><img srcset="../img/close-480.jpg 480w, ../img/close.jpg 865w" sizes="(max-width: 640px) 56px, 56px" width="865" height="1300" src="../img/close.jpg" alt="" loading="lazy"><p>If we get on a call, your leak list is where I start.</p></div></div>
 <div><h2 class="d2" id="bandLabel">Answer the 10 questions above.</h2><p class="lead" id="bandDetail" style="margin-top:22px">Your result shows up here once you have answered all ten.</p>
-<p class="cap gold sc-yours-h">Where your funnel is leaking</p><ul class="yours" id="yours"></ul>
-<div class="sc-next"><p class="cap gold">What an audit does with this</p><ul class="ticks"><li>Puts a dollar figure on each leak above, using your real numbers</li><li>Tells you which one to fix first, and exactly how</li><li>At least $100,000 found, or you don't pay</li></ul></div>
-<div class="row"><a class="btn light" id="resCta" href="../apply/?utm_source=scorecard&utm_medium=result#apply">Apply for an audit call</a><a class="tl" href="../audit/">Get a free website audit</a></div>
-<p class="sc-micro light">Free to apply. I read every application myself, and I take 4 audits a month.</p>
+<p class="sc-sum" id="scSum"></p><p class="cap gold sc-yours-h">Your leaks, in the order I'd fix them</p><ul class="yours sc-ranked" id="yours"></ul>
+<div class="sc-next"><p class="cap gold">What an audit does with this</p><ul class="ticks"><li>Puts a dollar figure on each leak above, using your real numbers</li><li>Tells you which one to fix first, and exactly how</li></ul></div>
+<p class="sc-proof"><b>+$2.35M a year</b> found in a recent audit for an online education company, on the funnel it was already running.</p>
+<div class="row"><a class="btn light" id="resCta" href="../apply/?utm_source=scorecard&utm_medium=result#apply">Apply for an audit call</a></div>
+<p class="sc-micro light"><b>At least $100,000 found, or you don't pay.</b> Free to apply. I read every application myself and take 4 audits a month.</p>
+<p class="sc-alt"><a class="tl" id="resSample" href="../apply/?utm_source=scorecard&utm_medium=result&utm_campaign=sample#sample">Or see a full sample audit first</a></p>
 <form class="sc-cap" id="scCap" novalidate><p class="cap gold">Not ready for an audit?</p><p class="sc-cap-t">Every week I take apart one real funnel and show what I'd fix. Get it free, and fix your leaks one at a time.</p><div class="sc-cap-row"><label class="sr" for="scCapEmail">Your email</label><input id="scCapEmail" type="email" name="email" placeholder="Your email" autocomplete="email" required><button class="btn light" type="submit">Send me the teardowns</button></div><label class="sc-consent"><input type="checkbox" required> I agree to receive marketing emails.</label><p class="sc-cap-msg" role="status" aria-live="polite"></p></form></div></div>
 <div class="bands"><div>8–10 fixed<b>Optimised</b></div><div>5–7 fixed<b>Healthy, but leaking</b></div><div>3–4 fixed<b>Critical gaps</b></div><div>0–2 fixed<b>Hemorrhaging</b></div></div>
 </div></section>
@@ -97,22 +100,25 @@ omnisend.push(["track", "$pageViewed"]);
 function u(){var y=window.scrollY>700,hide=false;if(h){var r=h.getBoundingClientRect();hide=r.top<window.innerHeight&&r.bottom>0;}s.classList.toggle('show',y&&!hide);}
 window.addEventListener('scroll',u,{passive:true});u();})();
 var SHORT=["Emails landing in spam", "Low webinar show-up", "No follow-up after the webinar", "An email list you barely use", "Nothing else to buy at checkout", "Selling features, not results", "Slow pages", "Showing the price too early", "Deadlines nobody believes", "Relying on email alone"];
+var COST=[],STAGE=[];document.querySelectorAll('.q').forEach(function(q,i){var c=q.querySelector('.cost');COST[i]=c?c.textContent.replace(/^\s*What it costs you:\s*/,'').trim():'';var st=q.querySelector('.q-stage');STAGE[i]=st?st.textContent.trim():'';});var ORDER=[2,1,0,7,8,4,5,3,9,6];
 var ans={},qs=document.querySelectorAll('.q'),fill=document.getElementById('scFill'),num=document.getElementById('scNum'),left=document.getElementById('scLeft');
 var big=document.getElementById('big'),lab=document.getElementById('bandLabel'),det=document.getElementById('bandDetail'),yours=document.getElementById('yours'),cta=document.getElementById('resCta'),bands=document.querySelectorAll('.bands div');
 function render(){var n=Object.keys(ans).length,fixed=0,leaks=[];for(var k in ans){if(ans[k]==1)fixed++;else leaks.push(SHORT[k]);}
 num.textContent=fixed+' / 10';fill.style.width=(n*10)+'%';
 left.textContent=n<10?(10-n)+' to go':'See your result';left.setAttribute('href',n<10?'#q'+next():'#result');
 big.textContent=n?fixed:'–';bands.forEach(function(b){b.classList.remove('on')});
-if(n<10){lab.textContent=n?'Keep going. '+(10-n)+' to go.':'Answer the 10 questions above.';det.textContent='Your result shows up here once you have answered all ten.';yours.innerHTML='';return;}
+if(n<10){lab.textContent=n?'Keep going. '+(10-n)+' to go.':'Answer the 10 questions above.';det.textContent='Your result shows up here once you have answered all ten.';yours.innerHTML='';document.getElementById('scSum').textContent='';return;}
 var i=fixed>=8?0:fixed>=5?1:fixed>=3?2:3;bands[i].classList.add('on');
 lab.textContent=['Optimised.','Healthy, but leaking.','Critical gaps.','Hemorrhaging.'][i];
 det.textContent=["You're ahead of most funnels I audit. What's left is hiding in the details, and the details are exactly what an audit finds.","You've built something that works. But every leak below takes a cut of every sale you make, and at this score that cut is usually a real share of your revenue.","Several leaks are working against you at the same time, so every fix compounds. This is the score where an audit pays back the most.","Most of the people you pay to reach are slipping out before they buy. Don't spend more on ads yet. Fix these first, then scale."][i];
-yours.innerHTML=leaks.map(function(l){return '<li>'+l+'</li>'}).join('');
+var open=ORDER.filter(function(k){return ans[k]==0;});var stages={};open.forEach(function(k){stages[STAGE[k]]=1;});var ns=Object.keys(stages).length;document.getElementById('scSum').textContent=open.length?('You have '+open.length+' open leak'+(open.length>1?'s':'')+', across '+ns+' of the 5 stages of your funnel: '+Object.keys(stages).join(', ').toLowerCase()+'. Each one takes a cut of every sale, and they stack.'):'No open leaks on this list. What is left is in the details, and that is what an audit finds.';yours.innerHTML=open.map(function(k,ix){return '<li><span class="rk">'+(ix+1)+'</span><div><b>'+SHORT[k]+'</b><span>'+COST[k]+'</span></div></li>'}).join('');var key=fixed+'|'+i;if(window.__scLast!==key){window.__scLast=key;try{gtag('event','scorecard_result_view',{score:fixed,band:['optimised','healthy','critical','hemorrhaging'][i],open_leaks:10-fixed});}catch(e){}}
 cta.setAttribute('href','../apply/?utm_source=scorecard&utm_medium=result&utm_campaign=score-'+fixed+'#apply');}
 function next(){for(var i=0;i<10;i++){if(!(i in ans))return i;}return 0;}
 qs.forEach(function(q,i){q.id='q'+i;q.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){ans[i]=+b.dataset.v;q.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});q.classList.add('done');render();
 var n=Object.keys(ans).length;var t=n<10?document.getElementById('q'+next()):document.getElementById('result');if(t&&(n===10||next()>i))setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:n<10?'center':'start'})},250);});});});
 render();
+cta.addEventListener('click',function(){try{gtag('event','scorecard_apply_click',{score:+big.textContent||0});}catch(e){}});
+var smp=document.getElementById('resSample');if(smp)smp.addEventListener('click',function(){try{gtag('event','scorecard_sample_click',{score:+big.textContent||0});}catch(e){}});
 </script>
 <script>
 (function(){

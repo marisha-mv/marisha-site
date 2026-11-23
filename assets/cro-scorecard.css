@@ -1,0 +1,39 @@
+/* Scorecard results CRO pass (Nov 2026): personal summary, ranked leaks with their cost,
+   proof + guarantee beside the one ask, compact score on phones so the verdict is in view. */
+
+/* Personal summary above the leak list */
+.sc-sum{margin-top:26px;font-size:17px;line-height:1.55;color:#EDE6DC;max-width:60ch}
+.sc-sum:empty{display:none}
+
+/* Ranked leaks: number, name, what it costs */
+.yours.sc-ranked li::before{content:none}
+.yours.sc-ranked li{gap:16px;align-items:flex-start;padding:16px 0}
+.yours.sc-ranked .rk{flex:none;width:28px;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.1;color:var(--champagne)}
+.yours.sc-ranked li div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.yours.sc-ranked b{font-weight:500;font-size:17px;color:#F3EDE4}
+.yours.sc-ranked span:not(.rk){font-size:15px;line-height:1.5;color:#B5AA9E}
+
+/* Proof right above the ask */
+.sc-proof{margin-top:30px;padding:16px 18px;border-left:2px solid var(--champagne);background:rgba(221,191,152,.06);font-size:15px;line-height:1.5;color:#D9CFC2;max-width:52ch}
+.sc-proof b{font-family:var(--serif);font-weight:400;font-size:21px;color:var(--champagne);margin-right:4px}
+#result .row{margin-top:22px}
+.sc-micro.light b{color:#EDE6DC;font-weight:500}
+.sc-alt{margin-top:14px}
+.sc-alt .tl{color:#D9CFC2}
+
+/* Phones: a compact score so "Healthy, but leaking." is on the first screen after answering */
+@media (max-width:640px){
+  .result .gauge{width:132px;margin-top:14px}
+  .result .gauge .rscore{font-size:64px}
+  .sc-note{margin-top:16px}
+  .sc-note img{width:44px;height:44px}
+  .sc-note p{font-size:17px}
+  .result > div:first-child{display:grid;grid-template-columns:auto 1fr;gap:0 18px;align-items:center}
+  .result > div:first-child > .cap{grid-column:1 / -1}
+  .result > div:first-child .sc-note{margin-top:14px}
+  #result .d2{margin-top:8px}
+  .sc-proof b{display:block;margin:0 0 2px}
+}
+
+/* Visually hidden label (was showing as "Your email" beside the input) */
+#scCap .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
